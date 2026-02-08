@@ -1,0 +1,22 @@
+# ===== LaTeX (memoria TFG) =====
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.lof
+*.log
+*.lot
+*.nlo
+*.run.xml
+*.synctex.gz
+*.toc
+*.pdf
+
+# ===== Python =====
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# ===== VS Code =====
+.vscode/
