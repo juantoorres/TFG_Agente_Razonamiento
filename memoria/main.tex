@@ -49,29 +49,29 @@
 \MakeBlueUMACover{
   degree     = {Grado en Ingeniería Informática},
   mencion    = {Mención en Computación},
-  titleES    = {Reconstrucción y Segmentación de Imágenes Biomédicas con Redes Neuronales Profundas},
-  titleEN    = {Deep Neural Networks for Biomedical Image Reconstruction and Segmentation},
-  author     = {John Doe},
-  tutor      = {Dr.~John Doe},
-  cotutor= {Dra.~Jane Doe},
+  titleES    = {Diseño e implementación de un agente de razonamiento basado en LLMs con exploración mediante Beam Search},
+  titleEN    = {Design and implementation of an LLM-based reasoning agent with Beam Search exploration},
+  author     = {Juan Torres Gómez},
+  tutor      = {Sergio Gálvez Rojas},
+  % cotutor= {Dra.~Jane Doe},
   dept       = {Departamento de Lenguajes y Ciencias de la Computación},
-  cityDate   = {Málaga, Noviembre, 2025},
+  cityDate   = {Málaga, Julio, 2026},
   logoLeft   = {template/logos/NEG-uma-logo.png},
   logoRight  = {template/logos/NEG-etsi-logo.png}
 }
 
 %────────────────────── White front cover (Cotutor) ───────────────────────
 \MakeWhiteUMACover{
-  degree     = {Graduado en Ingeniería de la Salud},
-  mencion    = {Mención en Bioinformática},
-  titleES    = {Reconstrucción y Segmentación de Imágenes Biomédicas con Redes Neuronales Profundas},
-  titleEN    = {Deep Neural Networks for Biomedical Image Reconstruction and Segmentation},
-  author     = {John Doe},
-  tutor      = {Dr.~John Doe},
-  cotutor= {Dra.~Jane Doe},
+  degree     = {Grado en Ingeniería Informática},
+  mencion    = {Mención en Computación},
+  titleES    = {Diseño e implementación de un agente de razonamiento basado en LLMs con exploración mediante Beam Search},
+  titleEN    = {Design and implementation of an LLM-based reasoning agent with Beam Search exploration},
+  author     = {Juan Torres Gómez},
+  tutor      = {Sergio Gálvez Rojas},
+  % cotutor= {Dra.~Jane Doe},
   dept       = {Departamento de Lenguajes y Ciencias de la Computación},
-  cityDate   = {Málaga, Noviembre, 2025},
-  defenseDate = {Septiembre, 2025},
+  cityDate   = {Málaga, Julio, 2026},
+  defenseDate = {Julio, 2026},
   logoLeft   = {template/logos/POS-uma-logo.png},
   logoRight  = {template/logos/POS-etsi-logo.png}
 }
@@ -81,32 +81,40 @@
 %────────────────────── Abstracts ──────────────────────────────────────
 \renewcommand{\abstractname}{Resumen}
 \begin{abstract}
-Describimos un \emph{pipeline} de \textbf{reconstrucción SR} de RM y
-\textbf{segmentación de tumores} basado en redes neuronales profundas.
-Integramos una U-Net 3D para segmentación y un modelo SR tipo EDSR para
-reconstrucción, con pérdidas compuestas que combinan L1, SSIM y TV.
-Evaluamos en volúmenes cerebrales con métricas PSNR, SSIM y Dice, y
-comparamos frente a baselines clásicos de interpolación y \emph{Random
-Forest}. El sistema reduce artefactos por \emph{undersampling} y mejora
-la precisión de contornos clínicamente relevantes.
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5em}
+
+En este trabajo se presenta el desarrollo de una prueba de concepto de un agente con capacidad de razonamiento basado en modelos de lenguaje de gran tamaño \emph{(LLMs)}.
+A diferencia de los sistemas tradicionales que generan una respuesta directa ante una consulta, el agente propuesto implementa bucles dinámicos de \emph{Chain of Thought (CoT)} que le permiten generar,
+evaluar y refinar pasos intermedios antes de producir una respuesta final.
+
+\noindent El sistema se implementa utilizando modelos de lenguaje ejecutados en local, como Llama-3, junto con la librería \emph{LangGraph} para la contrucción de flujos de razonamiento. Además, se emplea
+una estrategia de búsqueda basada en \emph{Beam Search} que permite explorar múltiples posibles líneas de razonamiento y seleccionar aquellas más prometedoras mediante un mecanismo de puntuación.
+
+\noindent El objetivo del proyecto es analizar la viabilidad de este enfoque para mejorar la capacidad de razonamiento de agentes basados en LLMs y estudiar su comportamiento en diferentes escenarios de
+resolución de problemas.
 \medskip
 
-\noindent\textbf{Palabras clave:} imagen biomédica, U-Net, super-resolución,
-segmentación, PSNR, SSIM, Dice
+\noindent\textbf{Palabras clave:} modelos de lenguaje, agentes inteligentes, \emph{Chain of Thought}, razonamiento automático, \emph{Beam Search}.
 \end{abstract}
+
 
 \renewcommand{\abstractname}{Abstract}
 \begin{abstract}
-We present a deep-learning pipeline for \textbf{MRI super-resolution} and
-\textbf{tumor segmentation}. A 3D U-Net segments lesions, while an EDSR-style
-SR module reconstructs high-resolution volumes. We optimize a composite loss
-(L1 + SSIM + TV) and report PSNR, SSIM, and Dice on brain MRI.
-Compared to classical interpolation and Random Forest baselines, the model
-reduces undersampling artifacts and sharpens clinically relevant boundaries.
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5em}
+
+This work represents the development of a proof-of-concept reasoning agent based on Large Language Models \emph{(LLMs)}.
+Unlike traditional systems that generate an immediate response to a query, the proposed agent implements dynamic \emph{Chain Of Thought (CoT)} loops that allow it to generate, evaluate, and refine
+intermediate reasoning steps before producing a final answer.
+
+\noindent The system is implemented using locally executed language models such as Llama-3, together with the \emph{LangGraph} library for building reasoning workflows. Additionally, a \emph{Beam Search}
+strategy is employed to explore multiple possible reasoning paths and select the most promising ones through a scoring mechanism.
+
+\noindent The goal of this project is to analyze the feasibility of this approach to improve the reasoning capabilities of LLM-based agents and to study their behaviour in different problem-solving scenarios.
 \medskip
 
-\noindent\textbf{Keywords:} biomedical imaging, U-Net, super-resolution,
-segmentation, PSNR, SSIM, Dice
+\noindent\textbf{Keywords:} language models, intelligent agents, \emph{Chain of Thought}, automated reasoning, \emph{Beam Search}.
 \end{abstract}
 
 %──────────────── Acknowledgments ───────────────────────────────────────
