@@ -22,6 +22,7 @@
 ]{biblatex}
 \addbibresource{references.bib}
 
+
 % Listings config
 \lstset{
   basicstyle=\ttfamily\small,
@@ -40,6 +41,7 @@
 \usepackage{template/sty_files/cotutor_cover-whiteuma}
 
 \usepackage{template/sty_files/backcover-uma}
+\usepackage{parskip}
 
 %======================================================================
 \begin{document}
@@ -82,42 +84,44 @@
 \renewcommand{\abstractname}{Resumen}
 \begin{abstract}
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{0.5em}
+\setlength{\parskip}{0.6em}
 
 En este trabajo se presenta el desarrollo de una prueba de concepto de un agente con capacidad de razonamiento basado en modelos de lenguaje de gran tamaño \emph{(LLMs)}.
 A diferencia de los sistemas tradicionales que generan una respuesta directa ante una consulta, el agente propuesto implementa bucles dinámicos de \emph{Chain of Thought (CoT)} que le permiten generar,
 evaluar y refinar pasos intermedios antes de producir una respuesta final.
 
-\noindent El sistema se implementa utilizando modelos de lenguaje ejecutados en local, como Llama-3, junto con la librería \emph{LangGraph} para la contrucción de flujos de razonamiento. Además, se emplea
+El sistema se implementa utilizando modelos de lenguaje ejecutados en local, como Llama-3, junto con la librería \emph{LangGraph} para la contrucción de flujos de razonamiento. Además, se emplea
 una estrategia de búsqueda basada en \emph{Beam Search} que permite explorar múltiples posibles líneas de razonamiento y seleccionar aquellas más prometedoras mediante un mecanismo de puntuación.
 
-\noindent El objetivo del proyecto es analizar la viabilidad de este enfoque para mejorar la capacidad de razonamiento de agentes basados en LLMs y estudiar su comportamiento en diferentes escenarios de
+El objetivo del proyecto es analizar la viabilidad de este enfoque para mejorar la capacidad de razonamiento de agentes basados en LLMs y estudiar su comportamiento en diferentes escenarios de
 resolución de problemas.
 \medskip
 
-\noindent\textbf{Palabras clave:} modelos de lenguaje, agentes inteligentes, \emph{Chain of Thought}, razonamiento automático, \emph{Beam Search}.
+\noindent \textbf{Palabras clave:} modelos de lenguaje, agentes inteligentes, \emph{Chain of Thought}, razonamiento automático, \emph{Beam Search}.
 \end{abstract}
 
 
 \renewcommand{\abstractname}{Abstract}
 \begin{abstract}
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{0.5em}
+\setlength{\parskip}{0.6em}
 
 This work represents the development of a proof-of-concept reasoning agent based on Large Language Models \emph{(LLMs)}.
 Unlike traditional systems that generate an immediate response to a query, the proposed agent implements dynamic \emph{Chain Of Thought (CoT)} loops that allow it to generate, evaluate, and refine
 intermediate reasoning steps before producing a final answer.
 
-\noindent The system is implemented using locally executed language models such as Llama-3, together with the \emph{LangGraph} library for building reasoning workflows. Additionally, a \emph{Beam Search}
+The system is implemented using locally executed language models such as Llama-3, together with the \emph{LangGraph} library for building reasoning workflows. Additionally, a \emph{Beam Search}
 strategy is employed to explore multiple possible reasoning paths and select the most promising ones through a scoring mechanism.
 
-\noindent The goal of this project is to analyze the feasibility of this approach to improve the reasoning capabilities of LLM-based agents and to study their behaviour in different problem-solving scenarios.
+The goal of this project is to analyze the feasibility of this approach to improve the reasoning capabilities of LLM-based agents and to study their behaviour in different problem-solving scenarios.
 \medskip
 
-\noindent\textbf{Keywords:} language models, intelligent agents, \emph{Chain of Thought}, automated reasoning, \emph{Beam Search}.
+\noindent \textbf{Keywords:} language models, intelligent agents, \emph{Chain of Thought}, automated reasoning, \emph{Beam Search}.
 \end{abstract}
 
 %──────────────── Acknowledgments ───────────────────────────────────────
+
+% ====================================== AGRADECIMIENTOS ====================================
 \begin{umaacknowledgments}
 Agradezco su función a los clínicos colaboradores, así como al grupo de Inteligencia Computacional y Análisis de Imagen de la Universidad de Málaga.
 \end{umaacknowledgments}
@@ -144,19 +148,43 @@ Agradezco su función a los clínicos colaboradores, así como al grupo de Intel
 \clearpage
 
 \mainmatter
-%────────────────────── Chapter 1 — Introduction ───────────────────────
-\chapter{Introduction}
-Deep neural networks improved biomedical image reconstruction and analysis.
-We target MRI super-resolution and tumor segmentation in a unified workflow
-(\cref{fig:pipeline_overview}).
+%────────────────────── Capítulo 1 — Introducción ───────────────────────
+\chapter{Introducción}
+\section{Motivación}
+%\setlength{\parindent}{0pt}
+%\setlength{\parskip}{0.5em}
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=.85\linewidth]{example-image-a}
-  \caption{Pipeline: LR MRI \(\rightarrow\) SR reconstruction \(\rightarrow\)
-  segmentation. Training uses multi-task losses and shared augmentations.}
-  \label{fig:pipeline_overview}
-\end{figure}
+
+\section{Trabajos previos}
+
+En los últimos años, el desarrollo de los \emph{Large Language Models (LLMs)} ha supuesto un avance significativo en tareas de procesamiento
+del lenguaje natural. Sin embargo, a pesar de la capacidad para generar texto coherente y resolver una amplia variedad de tareas, estos modelos
+presentan limitaciones en lo que a enfrentar problemas que requieren un razonamiento complejo se refiere, ya que tienden a generar respuestas
+directas sin una estructura intermedia explícita.
+
+Con el fin de abordar esta limitación, diversos trabajos han propuesto técnicas que fomentan el razonamiento paso a paso. Un ejemplo
+de esto es \emph{"Chain-of-Though Prompting (CoT)"}, introducido por Wei et al. (2022) [1], el cual consiste en guiar al modelo para que genere pasos
+intermedios antes de alcanzar una respuesta final. Este enfoque pone de manifiesto la importancia de estructurar el proceso de generación en lugar de
+limitarse a obtener una respuesta final directa.
+
+Por otro lado, en el ámbito de la generación de texto, los algoritmos de búsqueda han sido ampliamente utilizados para explorar múltiples
+posibles soluciones. Destaca el algoritmo de \emph{Beam Search}, el cual se apoya en una función de evaluación para mantener las secuencias más
+prometedoras en cada iteración.Trabajos como el de Wu et al. (2020) [3] demuestran que, aunque este método haya sido tradicionalmente aplicado en tareas como la traducción automática,
+su uso puede extenderse también al razonamiento en \emph{LLMs}, simplemente permitiendo explorar distintas cadenas de pensamiento
+\emph{(CoT)} y seleccionando las más relevantes (según la función de evaluación anteriormente mencionada).
+
+Estos antecedentes reflejan dos ideas fundamentales:
+\begin{itemize}
+  \item Por un lado, la necesidad de guiar el razonamiento de los modelos mediante la generación de pasos intermedios.
+  \item Por el otro, la utilidad de explorar múltiples soluciones antes de seleccionar la respuesta final.
+\end{itemize}
+
+Sin embargo, la combinación de ambos enfoques en sistemas que implementen bucles dinámicos de razonamiento y mecanismos de selección de hipótesis
+continua siendo un área en pleno desarrollo.
+
+\section{Objetivos}
+
+\section{Estructura del proyecto}
 
 %────────────────────── Chapter 2 — Fundamentals ───────────────────────
 \chapter{Fundamentals}
