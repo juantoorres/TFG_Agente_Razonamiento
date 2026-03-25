@@ -18,13 +18,15 @@
 \usepackage[
   backend=biber,
   style=numeric,
-  sorting=nyt
+  sorting=none % Antes pone sorting=nyt --> Eso hace que se ordene según Name(autor), Year(año), Title(título)
+  % Lo cambiamos para que aparezcan simplemente en el orden en que aparecen en references.bib
 ]{biblatex}
 \usepackage{subcaption}
 \setlength{\textfloatsep}{20pt} % Separación entre el fin de una imagen y el parrafo siguiente (sin esto, el hueco era demasiado grande)
 \captionsetup[subfigure]{skip=2pt}
 \addbibresource{references.bib}
-
+\usepackage{enumitem}
+\setlist{nosep} % Para evitar que entre los elementos de \itemize haya mucha distancia
 
 % Listings config
 \lstset{
@@ -44,7 +46,9 @@
 \usepackage{template/sty_files/cotutor_cover-whiteuma}
 
 \usepackage{template/sty_files/backcover-uma}
-\usepackage{parskip}
+%\usepackage{parskip}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.7em} % Separación entre párrafos
 
 %======================================================================
 \begin{document}
@@ -301,56 +305,69 @@ enfoques secuenciales tradicionales y ofreciendo una forma más estructurada y f
 %\end{algorithmic}
 %\end{algorithm}
 
-%────────────────────── Mathematical Foundations ──────────────────────────
-\section{Mathematical foundations}
+%────────────────────── Concepto de grafos aplicado a agentes ──────────────────────────
+\section{Concepto de grafo aplicado a agentes}
 
-\begin{definition}[label=def:ssim]{Structural Similarity Index}
-The \textbf{Structural Similarity Index (SSIM)} between two images $x$ and $\hat{x}$ is defined as:
-\[
-\operatorname{SSIM}(x,\hat{x}) = \frac{(2\mu_x\mu_{\hat{x}}+C_1)(2\sigma_{x\hat{x}}+C_2)}{(\mu_x^2+\mu_{\hat{x}}^2+C_1)(\sigma_x^2+\sigma_{\hat{x}}^2+C_2)}
-\]
-where $\mu_x$, $\mu_{\hat{x}}$ are the local means, $\sigma_x^2$, $\sigma_{\hat{x}}^2$ are the local variances, and $\sigma_{x\hat{x}}$ is the cross-covariance.
-\end{definition}
+Los grafos han sido y son ampliamente utilizados en diferentes ámbitos de la informática para modelar sistemas complejos, ya que permite
+representar de forma clara las conexiones y dependencias entre los diferentes componentes. Su estructura matemática consta de un conjunto de elementos,
+denominados nodos, conectados entre sí mediante relaciones llamadas aristas. \cite{cormen2009algorithms}
 
-\begin{theorem}[label=thm:convergence]{Convergence of Gradient Descent}
-Let $f: \mathbb{R}^n \to \mathbb{R}$ be a convex, $L$-smooth function. Then gradient descent with step size $\eta = 1/L$ satisfies:
-\[
-f(x_k) - f(x^*) \leq \frac{L\|x_0 - x^*\|^2}{2k}
-\]
-where $x^*$ is the global minimizer.
-\end{theorem}
+En el contexto de los agentes basados en modelos de lenguage, los grafos ofrecen una forma natural de estructurar el flujo de ejecución. Dentro de este
+contexto, los nodos representan etapas del proceso, mientras que las transiciones entre ellos definen el flujo de ejecución del sistema. En otras palabras,
+cada nodo corresponde a una operación específica, mientras que las aristas determinan cómo se transita entre ellas.
 
-\begin{proof}
-By $L$-smoothness, we have $f(y) \leq f(x) + \nabla f(x)^\top(y-x) + \frac{L}{2}\|y-x\|^2$.
-Setting $y = x - \frac{1}{L}\nabla f(x)$ and using convexity, the result follows by telescoping.
-\end{proof}
+Este enfoque permite superar ciertas limitaciones de los sistemas lineales tradicionales, en los que la ejecución sigue un único camino predefinido. Además,
+los grafos facilitan la representación de procesos iterativos, en los que el sistema puede volver a ejecutar determinadas partes del flujo hasta cumplir una
+condición concreta. Esta característica resulta especialmente relevante en el diseño de agentes con capacidad de razonamiento, donde es habitual generar, evaluar
+y refinar soluciones de manera progresiva. \cite{bondy1976graph}
 
-\begin{lemma}[label=lem:dice]{Dice Loss Gradient}
-The gradient of the Dice loss with respect to the predicted probability $p_i$ is:
-\[
-\frac{\partial \mathcal{L}_{\text{Dice}}}{\partial p_i} = -\frac{2m_i(\sum_j p_j + \sum_j m_j) - 2\sum_j p_j m_j}{(\sum_j p_j + \sum_j m_j)^2}
-\]
-\end{lemma}
+Otra ventaja a tener en cuenta con el uso de grafos es su interpretabilidad, pues su capacidad para reflejar de forma explícita la estructura
+del sistema facilita actividades como el análisis del comportamiento del agente y la identificación de posibles puntos de mejora.
 
-\begin{corollary}[label=cor:lr]{Optimal Learning Rate}
-For neural networks with batch normalization, the optimal learning rate scales as $\eta \propto \sqrt{B}$ where $B$ is the batch size.
-\end{corollary}
+En consecuencia, el uso de grafos en la construcción de agentes permite diseñar sistemas más modulares, flexibles y adaptables, facilitando la implementación
+de flujos de ejecución complejos que serían difíciles de representar mediante enfoques puramente secuenciales.
 
-\begin{proposition}[label=prop:universal]{Universal Approximation}
-A feedforward neural network with a single hidden layer containing a finite number of neurons can approximate any continuous function on compact subsets of $\mathbb{R}^n$, under mild assumptions on the activation function.
-\end{proposition}
 
-\begin{remark}
-The convergence rate in \cref{thm:convergence} is $O(1/k)$, which can be improved to $O(1/k^2)$ using accelerated methods like Nesterov momentum.
-\end{remark}
+%────────────────────── Conceptos fundamentales de LangGraph ──────────────────────────
+\section{Conceptos fundamentales de LangGraph}
 
-\begin{example}
-Consider a 3D U-Net with depth $D=4$ and initial channels $C=32$. The receptive field grows exponentially with depth, allowing the network to capture both local texture and global context.
-\end{example}
+Para comprender el funcionamiento de \emph{LangGraph}, es necesario analizar los elementos básicos que conforman su modelo de ejecución.
+En conjunto, estos elementos proporcionan una base para el diseño y construcción de agentes complejos, permitiendo combinar generación, evaluación y toma
+de decisiones dentro de un mismo sistema:
 
-\begin{note}
-All experiments were conducted on NVIDIA A100 GPUs with mixed-precision training enabled.
-\end{note}
+\subsection{Estado}
+
+Un estado representa la información que se mantiene a lo largo de la ejecución del sistema. Este estado actúa como un contenedor de datos, que permite almacenar
+información relevante a medida que el agente progresa, logrando así que cada paso ejecutado tenga acceso al contexto generado en las etapas anteriores.
+De este modo, se facilita la construcción de aquellos procesos que dependen del historial o de resultados intermedios.
+
+\subsection{Nodo}
+
+Un nodo es un punto de intersección, unidad básica de procesamiento dentro del grafo. En esencia, actúa como un punto de referencia que permite organizar datos de
+manera ordenada y eficiente. Cada nodo se encarga de ejecutar una operación concreta, como puede ser la generación de contenido, la evaluación de una respuesta o la
+transformación de datos almacenados en el estado. Esta separación en nodos permite estructurar el sistema de forma modular, asignando responsabilidades específicas
+a cada componente. Además, cuanto más rica y conectada sea la red de nodos, mayor es la capacidad del sistema para interpretar y generar conocimiento. \cite{nodes_msmk2025}
+
+\subsection{Arista}
+
+Las aristas o transiciones definen cómo se produce el paso de un nodo a otro. Estas transiciones pueden ser de dos tipos:
+\begin{itemize}
+  \item De tipo fijo, siguiendo una secuencia predeterminada.
+  \item De tipo condicional, en función de determinados criterios evaluados durante la ejecución.
+\end{itemize}
+El uso de aristas introduce lógica de decisión dentro del flujo, adaptando el comportamiento del sistema según la información disponible en cada momento. \cite{aperezl_langgraph2024}
+
+\subsection{Bucles}
+
+La presencia de bucles dentro del grafo facilita la implementación de procesos iterativos gracias a que, a diferencia de los enfoques lineales,
+\emph{LangGraph} permite que la ejecución vuelva a nodos previamente visitados. Esta característica resulta especialmente útil en sistemas que requieren
+refinamiento progresivo, como los basados en razonamiento paso a paso.
+
+\subsection{Puntos de inicio y finalización}
+
+Finalmente, es necesario considerar la existencia de puntos de inicio y finalización dentro del grafo. El nodo inicial marca el punto de salida, desde donde
+da comienzo la ejecución, mientras que las condiciones de finalización controlan cuándo se ha alcanzado un resultado satisfactorio y, por lo tanto,
+detener el proceso. Este mecanismo permite controlar el flujo de ejecución y evitar iteraciones innecesarios.
 
 %────────────────────── Reference Implementation ─────────────────────────
 \section{Reference implementation (PyTorch)}
