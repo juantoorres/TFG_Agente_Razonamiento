@@ -20,6 +20,9 @@
   style=numeric,
   sorting=nyt
 ]{biblatex}
+\usepackage{subcaption}
+\setlength{\textfloatsep}{20pt} % Separación entre el fin de una imagen y el parrafo siguiente (sin esto, el hueco era demasiado grande)
+\captionsetup[subfigure]{skip=2pt}
 \addbibresource{references.bib}
 
 
@@ -154,22 +157,29 @@ Agradezco su función a los clínicos colaboradores, así como al grupo de Intel
 %\setlength{\parindent}{0pt}
 %\setlength{\parskip}{0.5em}
 
-
-\section{Trabajos previos}
-
 En los últimos años, el desarrollo de los \emph{Large Language Models (LLMs)} ha supuesto un avance significativo en tareas de procesamiento
 del lenguaje natural. Sin embargo, a pesar de la capacidad para generar texto coherente y resolver una amplia variedad de tareas, estos modelos
 presentan limitaciones en lo que a enfrentar problemas que requieren un razonamiento complejo se refiere, ya que tienden a generar respuestas
 directas sin una estructura intermedia explícita.
 
-Con el fin de abordar esta limitación, diversos trabajos han propuesto técnicas que fomentan el razonamiento paso a paso. Un ejemplo
-de esto es \emph{"Chain-of-Though Prompting (CoT)"}, introducido por Wei et al. (2022) [1], el cual consiste en guiar al modelo para que genere pasos
-intermedios antes de alcanzar una respuesta final. Este enfoque pone de manifiesto la importancia de estructurar el proceso de generación en lugar de
-limitarse a obtener una respuesta final directa.
+La ausencia de pasos intermedios limita la capacidad de valorar el razonamiento, desencadenando en falta de transparencia y control sobre cómo se
+construye el razonamiento.
+Es por ello que surge la necesidad de desarrollar sistemas que no solo generen respuestas, sino que estructuren su proceso de razonamiento y evalúen
+sus propios pasos intermedios, con un enfoque que facilite la experimentación y análisis del comportamiento del modelo.
+
+En conclusión, este proyecto se plantea a partir de la motivación por construir algo más complejo que una simple llamada a un modelo, profundizando
+así en un área en crecimiento, desde el interés por entender no solo qué responden estos modelos, sino cómo llegan a hacerlo.
+
+\section{Trabajos previos}
+
+Con el fin de abordar la limitación que presentan los \emph{Large Language Models (LLMs)} anteriormente mencionada, diversos trabajos han propuesto
+técnicas que fomentan el razonamiento paso a paso. Un ejemplo de esto es \emph{"Chain-of-Though Prompting (CoT)"}, introducido por Wei et al. (2022) [1],
+el cual consiste en guiar al modelo para que genere pasos intermedios antes de alcanzar una respuesta final. Este enfoque pone de manifiesto la importancia
+de estructurar el proceso de generación en lugar de limitarse a obtener una respuesta final directa.
 
 Por otro lado, en el ámbito de la generación de texto, los algoritmos de búsqueda han sido ampliamente utilizados para explorar múltiples
 posibles soluciones. Destaca el algoritmo de \emph{Beam Search}, el cual se apoya en una función de evaluación para mantener las secuencias más
-prometedoras en cada iteración.Trabajos como el de Wu et al. (2020) [3] demuestran que, aunque este método haya sido tradicionalmente aplicado en tareas como la traducción automática,
+prometedoras en cada iteración. Trabajos como el de Wu et al. (2020) [3] demuestran que, aunque este método haya sido tradicionalmente aplicado en tareas como la traducción automática,
 su uso puede extenderse también al razonamiento en \emph{LLMs}, simplemente permitiendo explorar distintas cadenas de pensamiento
 \emph{(CoT)} y seleccionando las más relevantes (según la función de evaluación anteriormente mencionada).
 
@@ -183,6 +193,21 @@ Sin embargo, la combinación de ambos enfoques en sistemas que implementen bucle
 continua siendo un área en pleno desarrollo.
 
 \section{Objetivos}
+
+El objetivo principal de este trabajo es desarrollar una prueba de concepto de un agente basado en modelos de lenguaje capaz de incorporar un proceso de
+razonamiento estructurado, en lugar de generar respuestas de forma directa. De esta forma, y con el objetivo de facilitar un aálisis detallado del proceso
+seguido por el modelo, se busca explorar un enfoque que permita descomponer la resolución de un problema de índole lingüística en una serie de pasos intermedios.
+
+De forma más concreta, se pretende implementar un sistema que no dependa únicamente de un camino de razonamiento, sino que sea capaz de generar múltiples posibles
+trayectorias, permitiendo así analizar y estudiar como evoluciona el proceso de generación de cada una de ellas. Asimismo, un mecanismo evaluará la calidad de dichos
+razonamientos generados, con el fin de seleccionar aquellos que resulten más adecuados con el tipo de problema que con el que se está trabajando. Este proceso de
+evaluación se utilizará por tanto para guiar la exploración del espacio de soluciones, descartando las opciones menos prometedoras.
+
+Otro gran objetivo de este proyecto se centra en la estructuración del funcionamiento del sistema mediante un flujo de ejecución organizado, que facilite no solo la
+comprensión de este, sino también su posible extensión en trabajos futuros.
+
+Por último, se busca analizar el comportamiento del agente desarrollado a través de problemas de índole lingüística...
+
 
 \section{Estructura del proyecto}
 
@@ -218,28 +243,63 @@ Performance metrics
 \operatorname{Dice}(p,m) &= \frac{2\sum p m}{\sum p + \sum m}.
 \end{align}
 
-%────────────────────── Chapter 3 — Methods ────────────────────────────
-\chapter{Methods}
-\section{Network design}
-SR module: residual blocks with sub-pixel upsampling.
-Segmentation module: 3D U-Net with skip connections. \cite{lecun2015deep}
+%────────────────────── Chapter 3 — LangGraph ────────────────────────────
+\chapter{LangGraph}
+\section{Introducción a LangGraph}
 
-\begin{algorithm}
-\caption{Joint SR+Seg training}
-\label{alg:train}
-\begin{algorithmic}[1]
-\Procedure{Train}{$\mathcal{D}$, $\theta$, $\phi$}
-  \For{epoch $=1..E$}
-    \For{batch $(y,x,m)\sim \mathcal{D}$}
-      \State $\hat x \gets f_\theta(y)$
-      \State $z \gets g_\phi(\hat x)$; $p\gets\sigma(z)$
-      \State $\mathcal{L}\gets \mathcal{L}_{\mathrm{SR}}(\hat x,x)+\gamma\,\mathcal{L}_{\mathrm{seg}}(p,m)$
-      \State Update $(\theta,\phi)$ by Adam on $\nabla \mathcal{L}$
-    \EndFor
-  \EndFor
-\EndProcedure
-\end{algorithmic}
-\end{algorithm}
+En los sistemas basados en modelos de lenguaje, el enfoque tradicional ha consistido en realizar llamadas independientes y aisladas a un modelo, evolucionando posteriormente
+hacia sistemas más complejos capaces de gestionar flujos de ejecución estructurados. Esto cambio responde así a la necesidad de construir aplicaciones que no solo generen
+respuestas, sino que integren múltiples pasos de procesamiento, toma de decisiones y manejo de información intermedia.
+
+En este contexto surge \emph{LangGraph}, una herramienta que se presenta como alternativa a los enfoques lineales, y diseñada para facilitar la construcción de agentes
+mediante la definición de flujos de ejecución basados en grafos. \emph{LangGraph} modela procesos de forma más flexible, en los que pueden existir bifurcaciones, ciclos y
+dependencias entre distintos pasos. \cite{langgraph2024}
+
+A diferencia de un flujo secuencial, un grafo permite mayor flexibilidad, al representar de manera más natural procesos complejos, en los que el sistema puede iterar,
+tomar decisiones en función del estado actual o repetir determinadas operaciones hasta alcanzar un resultado adecuado. Este tipo de estructura es clave en sistemas que requieren
+un comportamiento dinámico, como es el caso de agentes con capacidad de razonamiento iterativo.
+
+\begin{figure}[h]
+    \centering
+
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.8\linewidth]{images/DiagramaFlujoSecuencial.png}
+        \caption{Ejemplo de enfoque tradicional mediante diagrama de flujo lineal}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/DiagramaFlujoGrafo2.png}
+        \caption{Ejemplo de enfoque moderno mediante diagrama de flujo en grafo}
+    \end{subfigure}
+
+    \caption{Comparación entre enfoques. Fuente: Elaboración propia}
+\end{figure}
+
+Además, la modularidad que ofrece \emph{LangGraph} al facilitar la separación de responsabilidades dentro del sistema, permitiendo definir distintos componentes que se encargan de
+tareas específicas no solo mejorar la claridad del diseño, sino que a su vez favorece la reutilización y extensión del sistema. Algunas de las tareas específicas ejecutadas por los
+compenentes son la generación de contenido, la evaluación de resultados o la actualización del estado interno.
+
+De este modo, \emph{LangGraph} constituye una base sólida para el desarrollo de agentes avanzados, proporcionando un marco de trabajo que permite superar las limitaciones de los
+enfoques secuenciales tradicionales y ofreciendo una forma más estructurada y flexible de diseñar agentes basados en modelos de lenguaje.
+
+%\begin{algorithm}
+%\caption{Joint SR+Seg training}
+%\label{alg:train}
+%\begin{algorithmic}[1]
+%\Procedure{Train}{$\mathcal{D}$, $\theta$, $\phi$}
+%  \For{epoch $=1..E$}
+%    \For{batch $(y,x,m)\sim \mathcal{D}$}
+%      \State $\hat x \gets f_\theta(y)$
+%      \State $z \gets g_\phi(\hat x)$; $p\gets\sigma(z)$
+%      \State $\mathcal{L}\gets \mathcal{L}_{\mathrm{SR}}(\hat x,x)+\gamma\,\mathcal{L}_{\mathrm{seg}}(p,m)$
+%      \State Update $(\theta,\phi)$ by Adam on $\nabla \mathcal{L}$
+%    \EndFor
+%  \EndFor
+%\EndProcedure
+%\end{algorithmic}
+%\end{algorithm}
 
 %────────────────────── Mathematical Foundations ──────────────────────────
 \section{Mathematical foundations}
