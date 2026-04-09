@@ -369,6 +369,127 @@ Finalmente, es necesario considerar la existencia de puntos de inicio y finaliza
 da comienzo la ejecución, mientras que las condiciones de finalización controlan cuándo se ha alcanzado un resultado satisfactorio y, por lo tanto,
 detener el proceso. Este mecanismo permite controlar el flujo de ejecución y evitar iteraciones innecesarios.
 
+
+%────────────────────── Conceptos fundamentales de LangGraph ──────────────────────────
+\section{Funcionamiento general de LangGraph}
+
+Una vez definidos los elementos fundamentales de \emph{LangGraph}, resulta necesario comprender cómo interactuan entre sí durante la ejecución de un agente. El funcionamiento de
+\emph{LangGraph} puede entenderse como la evaluación progresiva de un grafo, donde el sistema transita entre los diferentes nodos siguiendo las transiciones definidas (arsitas) y
+actualizando el estado en cada paso.
+
+La ejecución comienza a partir de una configuración inicial, que contiene la información de partida necesaria para la ejecución. A partir de este punto,
+se accede al nodo inicial del grafo, que actúa a su vez como punto de entrada del sistema. La modificación de estado producida por la operación ejecutada por el nodo inicial será
+utilizada en las etapas posteriores.
+
+Tras la ejecución de un nodo, el sistema evalúa todas las posibles transiciones disponibles en dicho instante.
+Dependiendo de la configuración del grafo, la siguiente etapa puede:
+
+\begin{itemize}
+  \item Estar determinada de forma fija.
+  \item Depender de condiciones evaluadas a partir del estado actual.
+\end{itemize}
+
+Con dicho condicionante, el mecanismo logra introducir dinamismo en el flujo de ejecución, permitiendo que el agente sea capaz de adaptarse a la información generada en tiempo
+de ejecución, y adoptar el comportamiento pertinente.
+
+A medida que el proceso avanza, el estado de va actualizando de forma incremental, acumulando a su vez información relevante que podría influir en decisiones y transiciones futuras.
+Este ciclo de ejecución de nodo, actualización de estado y transición se repite iterativamente hasta que se alcanza la condición de parada, previamente establecida. \cite{anderfernandez_langgraph2024}
+
+En aquellos casos en los que el grafo incluye bucles, el sistema puede volver a nodos previamente ejecutados, lo que permite implementar procesos iterativos.
+Este tipo de comportamiento resulta especialmente útil en escenarios en los que, antes de obtener un resultado final, es necesario refinar prograsivamente una solución o evaluar
+ditintas alternativas.
+
+La ejecución finaliza cuando se cumple una condición de parada \cite{nocedal2006numerical}, obteniéndose un resultado generado a partir del estado acumulado. De esta forma, este enfoque permite
+construir sistemas en los que la respuesta final es el resultado de múltiples pasos intermedios, en lugar de una única operación directa.
+
+
+%────────────────────── Gestión del estado en LangGraph ──────────────────────────
+\section{Gestión del estado en LangGraph}
+
+Uno de los elementos clave en el funcionamiento de sistemas basados en grafos es la gestión del estado, entendido como el conjunto de información que se mantiene y se actualiza a lo
+largo de la ejecución. En el caso de \emph{LangGraph}, el estado desempeña un papel fundamental, ya que actúa como el medio a través del cual los distintos nodos comparten información
+y coordinan su comportamiento.
+
+A diferencia de enfoques más simples, en los que cada operación se ejecuta de forma aislada, el uso de un estado compartido permite construir procesos en los que cada paso
+depende de los resultados obtenidos previamente. De este modo, el sistema es capaz de mantener un contexto acumulativo, lo que resulta especialmente útil en aplicaciones que requieren
+múltiples etapas de procesamiento.
+
+El estado puede contener distintos tipos de información, dependiendo del diseño del sistema. Entre los elementos más habituales se encuentran el historial de interacciones y los resultados
+intermedios generados durante la ejecución, así como métricas o puntuaciones asociadas a diferentes alternativas. Esta flexibilidad permite adaptar el estado a las necesidades específicas de
+cada aplicación.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/EstadoMemoria.png}
+    \caption{Esquema del estado del sistema que incluye historial, resultados y puntuaciones. Fuente: elaboración propia}
+    \label{fig:estado}
+\end{figure}
+
+Durante la ejecución del grafo, cada nodo tiene la capacidad de acceder al estado, modificarlo y añadir nueva información. Este proceso de actualización progresiva es lo que permite que el
+sistema evolucione a lo largo del tiempo, incorporando nuevos datos que influyen en las decisiones posteriores.
+
+No obstante, una gestión inadecuada del estado puede introducir problemas en el sistema. Por ejemplo, un crecimiento excesivo de la información almacenada puede afectar al rendimiento, mientras
+que la inclusión de datos irrelevantes puede dificultar la toma de decisiones. Por ello, resulta necesario diseñar cuidadosamente qué información se almacena y cómo se actualiza en cada etapa
+del proceso. \cite{weng2023llm_agents}
+
+En conclusión, la gestión del estado no solo constituye un elemento técnico dentro de \emph{LangGraph}, sino que también representa un aspecto clave en el diseño de agentes basados en modelos
+de lenguaje. Un estado bien defeinido permite mejorar la coherencia del sistema, facilitar el seguimiento del razonamiento y optimizar el proceso de toma de decisiones.
+
+
+%────────────────────── Máquina de estados finitos aplicada a LangGraph ──────────────────────────
+\section{Máquina de estados finitos aplicada a LangGraph}
+Las máquinas de estados finitos constituyen un modelo ampliamente utilizado para describir sistemas cuyo comportamiento puede dividirse en un conjunto de etapas bien definidas, entre las que se
+producen transiciones en función de determinadas condiciones. Este enfoque resulta especialmente útil para modelar procesos en los que el flujo de ejecución no es estrictamente lineal, sino
+que depende de decisiones tomadas durante la ejecución. \cite{hopcroft2001automata}
+
+En el contexto de \emph{LangGraph}, este modelo permite interpretar el flujo del agente como una secuencia de estados conectados mediante transiciones. Cada nodo del grafo representa una etapa concreta
+del proceso, mientras que las aristas determinan las posibles evoluciones del sistema en función de las condiciones evaluadas.
+
+Como se indica en reiteradas ocasiones de este proyecto, a diferencia de los enfoques secuenciales tradicionales, el uso de una máquina de estados permite definir comportamientos más complejos, como
+la posibilidad de reintentar una operación en caso de fallo, retroceder a una etapa anterior o seguir distintos caminos en función del resultado obtenido en un paso intermedio. Este tipo de control
+resulta difícil de implementar mediante estructuras lineales, pero se adapta de forma natural a un modelo basado en estados.
+
+En relación con este trabajo, este enfoque resulta especialmente relevante para estructurar el proceso de razonamiento del agente. En lugar de considerar el sistema como una única secuencia de pasos,
+es posible dividirlo en distintas fases, como la generación de una solución, su evaluación y la toma de decisiones posteriores. Las transiciones entre estas fases permiten determinar si el proceso debe
+continuar, repetirse o finalizar. \cite{harel1987statecharts}
+
+Este modelo aporta, por tanto, una forma clara de organizar el flujo de ejecución, facilitando la implementación de comportamientos dinámicos y adaptativos. Además, permite representar de manera explícita
+las posibles rutas de ejecución, lo que contribuye a una mejor comprensión del sistema y a una mayor facilidad para su análisis y depuración.
+
+
+%────────────────────── Ejemplo de patrón ReAct en LangGraph ──────────────────────────
+\section{Ejemplo de patrón ReAct en LangGraph}
+
+Una de las formas más representativas de utilizar \emph{LangGraph} en el diseño de agentes es mediante la implementación de patrones que combinan razonamiento y acción de manera iterativa. Este tipo de
+enfoque permite que el sistema no solo genere una respuesta, sino que también interactúe con su entorno y utilice información externa para mejorar sus decisiones. \cite{yao2023react}
+
+En este sentido, resulta especialmente ilustrativo considerar un esquema en el que el agente analiza una consulta inicial y decide si es necesario realizar alguna acción adicional antes de generar una
+respuesta definitivo. Este proceso puede modelarse mediante un grafo en el que cada nodo representa una fase diferencia del comportamiento del agente.
+
+En una primera etapa el sistema procesa la entrada del usuario y genera una interpretación inicial del problema. A partir de esta información, el agente puede decidir si dispone de suficiente conocimiento
+para responder directamente o si, por el contrario, necesita apoyarse en alguna herramienta externa, como una función de Python o una consulta a una API.
+
+Esta decisión se traduce en una transición condicional dentro del grafo. Si el agente determina que no es necesaria ninguna acción adicional, el flujo de ejecución finaliza y se devuelve una respuesta. En
+caso contrario, el sistema transita hacia un nodo encargado de ejecutar la acción correspondiente, obteniendo nueva información que se incorpora al estado.
+
+Una vez se realizada la acción, el flujo no concluye, sino que vuelve al nodo inicial de razonamiento. De este modo, el agente puede reconsiderar la situación a la luz de los nuevos datos obtenidos, generando
+un proceso iteerativo en el que se alternan fases de análisis y acción hasta alcanzar una solución adecuada.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/CicloRazonamientoAcción.png}
+    \caption{Esquema de interacción iterativa entre las fases de razonamiento y acción en un agente basado en grafos. Fuente: elaboración propia}
+    \label{fig:estado}
+\end{figure}
+
+Este tipo de patrón resulta especialmenente útil en problemas donde la información es insuficiente o donde es necesario realizar operaciones intermedias antes de obtener una respuesta final. Además, permite
+estructurar el comportamiento del agente de forma clara, separando las fases de razonamiento y ejecución, lo que facilita tanto su comprensión como su implementación.
+
+En el contexto de este trabajo, este enfoque sirve como ejemplo de cómo \emph{LangGraph} permite integrar distintos componentes dentro de un mismo flujo de ejecución, combinando generación, evaluación y toma
+de decisiones en un proceso iterativo.
+
+
+
 %────────────────────── Reference Implementation ─────────────────────────
 \section{Reference implementation (PyTorch)}
 \begin{lstlisting}[style=python,caption={Minimal SR+U\_Net skeleton (PyTorch)},label={lst:pytorch}]
