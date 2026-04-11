@@ -303,11 +303,94 @@ especialmente relevante en el desarrollo de sistemas capaces de abordar problema
 
 
 
+%────────────────────── Métodos de búsqueda en generación de secuencias ──────────────────────────
+\section{Métodos de búsqueda en generación de secuencias}
+
+El proceso de generación de texto en los modelos de lenguaje puede entenderse como un problema de búsqueda en el espacio de todas las posibles secuencias de palabras. En cada paso, el modelo asigna una probabilidad a los posibles
+siguientes \emph{tokens} en función del contexto previo, para que sea el método de búsqueda el que posteriormente determina cómo se selecciona la continuación de la secuencia generada.
+
+El enfoque más sencillo es la estrategia \emph{greedy}, que consiste en seleccionar en cada paso el token con mayor probabilidad. Este método es eficiente y produce resultados coherentes en muchos casos, pero presenta una limitación
+importante: al tomar decisiones de forma local, puede descartar opciones que, aunque inicialmente menos probables, podrían conducir a mejores resultados a largo plazo \cite{jurafsky2009speech}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/GreedySearch.png}
+    \caption{Ilustración del algoritmo de búsqueda voraz en la generación de texto. Fuente: elaboración propia}
+    \label{fig:estado}
+\end{figure}
+
+Para introducir mayor diversidad en la generación, se utilizan métodos de muestreo \emph{(sampling)}, en los que el siguiente \emph{token} se selecciona de manera probabilística en lugar de determinista. Entre las variantes más comunes
+se encuentran:
+
+\begin{itemize}
+  \item \emph{Top-k sampling}, que restringe la selección a los \emph{k tokens} más probables.
+  \item \emph{Top-p sampling} o \emph{nucleus sampling}, que considera el conjunto mínimo de \emph{tokens} cuya probabilidad acumulada supera un determinado umbral \cite{holtzman2020curious}.
+\end{itemize}
+
+Estas estrategias permiten generar salidas más variadas, aunque pueden introducir incoherencias si no se controlan adecuadamente.
+
+Otro enfoque consiste en mantener varias posibles secuencias en paralelo durante el proceso de generación. En lugar de construir una única solución paso a paso, se exploran múltiples alternativas de forma simultánea, evaluando su calidad
+en cada iteración. Este tipo de métodos permite equilibrar la exploración y la explotación, reduciendo así el riesgo de quedar atrapado en decisiones subóptimas tomadas en etapas tempranas.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/HipotesisEnParalelo.png}
+    \caption{Estrategia de exploración de alternativas mediante generación paralela de secuencias. Fuente: elaboración propia}
+    \label{fig:estado}
+\end{figure}
+
+En conjunto, los distintos métodos de búsqueda reflejan un compromiso entre eficiencia, diversidad y calidad de las secuencias generadas. Mientras que estrategias como \emph{greedy} priorizan la rapidez, los métodos basados en muestreo
+introducen variabilidad, y los enfoques que mantienen múltiples hipótesis permiten una exploración más amplia del espacio de soluciones. Esta última idea resulta especialmente relevante en el contexto del razonamiento, donde la posibilidad
+de considerar distintas alternativas puede mejorar significativamente la calidad de la respuesta final.
+
+
+%────────────────────── Beam Search en detalle ──────────────────────────
+\section{Beam Search en detalle}
+
+Entre los distintos métodos de búsqueda utilizados en la generación de secuencias, el algoritmo de \emph{Beam Search} ocupa un lugar destacado debido a su capacidad para equilibrar la exploración de múltiples alternativas con un coste
+computacional controlado. A diferencia de estrategias como \emph{greddy search} (búsqueda voraz), que siguen una única trayectoria, o los métodos de muestreo, que introducen aleatoriedad, \emph{Beam Search} mantiene de forma simultánea un
+conjunto limitado de hipótesis candidatas durante el proceso de generación.
+
+El funcionamiento del algoritmo se basa en la idea de conservar, en cada paso, las \emph{k} secuencias parciales más prometedoras según una función de puntuación. Este parámetro, conocido como \emph{beam width}, determina el número de
+trayectorias que se mantienen activas en cada iteración. A partir de estas secuencias, el modelo genera posibles continuaciones, que son evaluadas y ordenadas para seleccionar nuevamente las \emph{k} mejores. Este proceso se repite de forma
+iterativa hasta alcanzar una condición de finalización, como la generación de una secuencia completa o un numero máximo de pasos \cite{jurafsky2009speech}.
+
+Desde un punto de vista conceptual, \emph{Beam Search} puede interpretarse como una exploración controlada del espacio de soluciones. En lugar de comprometerse con una única trayectoria desde el inicio, el algoritmo permite reconsiderar
+decisiones a medida que se genera la secuencia, manteniedno abiertas varias alternativas en paralelo. Esto reduce la probabilidad de descartar prematuramente opciones que podrían resultar óptimos en etapas posteriores (como sucede en la
+búsqueda voraz).
+
+No obstante, la eficacia del algoritmo depende en gran medida de la función de puntuación utilizada para evaluar las secuencias candidatas. En aplicaciones tradicionales de procesamiento del lenguaje, esta puntuaciñon suele basarse en
+la probabilidad acumulada de la secuencia generada. Sin embargo, este criterio no siempre es suficiente en tareas que requieren razonamiento, donde la calidad de una solución no depende únicamente de su probabilidad, sino también de la
+coherencia y validez de los pasos intermedios.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/BeamSearchImagen2.png}
+    \caption{Selección iteratica de las \emph{k} mejores secuencias en \emph{Beam Search}. Fuente: elaboración propia}
+    \label{fig:estado}
+\end{figure}
+
+Otra limitación relevante es que \emph{Beam Search} sigue siendo un método determinista en su forma básica, lo que implica que puede generar resultados similares en ejecuciones repetidas si no se introduce algún mecanismo de variabilidad.
+Además, el valor del parámetro \emph{k} unfluye directamente en el equilibrio entre coste computacional y calidad de las soluciones: valores pequeños pueden limitar la exploración, mientras que valores grandes incrementan significativamente
+el tiempo de cálculo.
+
+A pesar de estas limitaciones, \emph{Beam Search} constituye una herramienta fundamental en la generación de secuencias, y su capacidad para mantener múltiples hipótesis lo convierte en un candidato natural para su aplicación en tareas de
+razonamiento con modelos de lenguaje. En particular, su estructura iterativa y su enfoque basado en la selección de trayectorias prometedoras resultan especialmente adecuados para integrar mecanismos adicionales de evaluación, lo que
+permite extender su uso más allá de los contextos tradicionales.
+
+
+
+
+
+
+
+
 
 
 
 
 \section{Imaging model and objectives}
+
 Assume \(y = A x + n\). The SR network \(f_\theta\) estimates
 \(\hat x = f_\theta(y)\).
 We use the composite objective
