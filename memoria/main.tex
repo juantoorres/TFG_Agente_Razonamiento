@@ -100,7 +100,7 @@ evaluar y refinar pasos intermedios antes de producir una respuesta final.
 El sistema se implementa utilizando modelos de lenguaje ejecutados en local, como Llama-3, junto con la librería \emph{LangGraph} para la contrucción de flujos de razonamiento. Además, se emplea
 una estrategia de búsqueda basada en \emph{Beam Search} que permite explorar múltiples posibles líneas de razonamiento y seleccionar aquellas más prometedoras mediante un mecanismo de puntuación.
 
-El objetivo del proyecto es analizar la viabilidad de este enfoque para mejorar la capacidad de razonamiento de agentes basados en LLMs y estudiar su comportamiento en diferentes escenarios de
+El objetivo del proyecto es analizar la viabilidad de este enfoque para mejorar la capacidad de razonamiento de agentes basados en \emph{LLMs} y estudiar su comportamiento en diferentes escenarios de
 resolución de problemas.
 \medskip
 
@@ -215,8 +215,98 @@ Por último, se busca analizar el comportamiento del agente desarrollado a trav�
 
 \section{Estructura del proyecto}
 
-%────────────────────── Chapter 2 — Fundamentals ───────────────────────
-\chapter{Fundamentals}
+%────────────────────── Chapter 2 — Estado del arte ───────────────────────
+\chapter{Estado del arte}
+
+%────────────────────── Introducción al problema del razonamiento en LLMs ──────────────────────────
+\section{Introducción al problema del razonamiento en LLMs}
+
+Los \emph{Large Language Models (LLMs)} han experimentado un crecimiento notable en los últimos años, convirtiéndose en una de las tecnologías más relevantes dentro del ámbito del procesamiento del lenguaje natural.
+Modelos basados en arquitecturas \emph{Transformer} han demostrado una gran capacidad para generar texto coherente, mantener el contexto en conversaciones prolongadas y abordar una amplia variedad de tareas lingüísticas
+con un alto grado de precisión.
+
+Estos avances se deben, en gran medida, al entrenamiento sobre grandes colúmenes de datos y a la capacidad de estos modelos para capturar patrones estadísticos complejos en el lenguaje \cite{vaswani2017attention,brown2020language}.
+
+No obstante, a pesar de su elevado rendimiento en tareas generales de generación de texto, estos modelos presentan limitaciones significativas cuando se enfrentan a problemas que requieren razonamiento estructurado. A diferencia
+de los sistemas diseñados específicamente para la inferencia lógica o el cálculo simbólico, los \emph{LLMs} no siguen un proceso explícito de razonamiento, sino que generan respuestas basándose en la probabilidad de aparición de las
+palabras en función del contexto previo. Este enfoque, aunque eficaz desde el punto de vista lingüístico, no garantiza que el modelo esté realizando un proceso de razonamiento correcto o
+verificable \cite{bommasani2021opportunities}.
+
+Esta limitación se hace especialmenente evidente en tareas que implican múltiples pasos intermedios, como la resolución de problemas matemáticos, la planificación o el análisis lógico. En este tipo de situaciones, los modelos pueden
+producir respuestas que, aunque aparentemente coherentes, contienen errores en los pasos intermedios o en la conclusión final. Este fenómeno pone de manifiesto que la fluidez lingüística no implica necesariamente una comprensión
+profunda del problema ni la aplicación de un razonamiento válido.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.85\textwidth]{images/ComparativaEnfoques2.png}
+    \caption{Ejemplo comparativo: respuesta directa errónea frente a razonamiento paso a paso. Fuente: elaboración propia}
+    \label{fig:estado}
+\end{figure}
+
+Además, los \emph{LLMs} tienden a generar una única respuesta por defecto, sin explorar alternativas ni considerar diferentes posibles soluciones. Esta característica contrasta con los enfoques clásicos de resolución de problemas,
+en los que es habitual evaluar múltiples hipótesis antes de seleccionar la más adecuada. Como resultado, el modelo puede quedar limitado a una única trayectoria de generación, sin mecanismos internos que permiten revisar,
+comparar o corregir sus propias decisiones.
+
+En este contexto, surge la necesidad de desarrollar estrategias que permitan guiar el proceso de generación de los \emph{LLMs} hacia formas de razonamiento más estructuradas y fiables. Estas estrategias buscan introducir mecanismos
+que fomenten la generación de pasos intermedios, la exploración de múltiples soluciones o la evaluación de las respuestas producidas. El estudio de estas técnicas constituye una línea de investigación activa, cuyo objetivo es
+mejorar la capacidad de los modelos para abordar tareas complejas que van más allá de la simple generación de texto.
+
+% Aquí no he mencionado anda de los problemas de índole lingüística (para los que va destinado este proyecto) ya que he querido hacer una introducción muy generica, sin meterme en nada en concreto.
+
+%────────────────────── Chain-of-Thought (CoT) ──────────────────────────
+\section{Chain-of-Thought (CoT)}
+
+El concepto \emph{Chain-of-Thought (CoT)} surge como una de las primeras estrategias eficaces para mejorar la capacidad de razonamiento de los modelos de lenguaje en tareas complejas. Frente al enfoque tradicional, en el que el modelo
+genera directamente una respuesta final, \emph{CoT} propone guiar el proceso de generación mediante la inclusión explícita de pasos intermedios que relfejen el razonamiento seguido para alcanzar dicha respuesta \cite{wei2022chain}.
+
+La idea fundamental consiste en modificar la forma en que se formula la entrada al modelo, de modo que este produzca no solo el resultado, sino también una secuencia de inferencias o transformaciones que conducen a él. Este enfoque
+puede implementarse, por ejemplo, mediante instrucciones en el \emph{prompt} que inviten al modelo a "pensar paso a paso", lo que conduce a la generación de estructuras de razonamiento más elaboradas.
+
+Diversos trabajos han demostrado que esta simple modificación en la formulación de la tarea puede producir mejoras significativas en problemas que requieren múltiples pasos de inferencia, como los ejercicios matemáticos o las tareas
+de lógica. En particular, se ha observado que los modelos son capaces de resolver correctamente problemas que anteriormente fallaban cuando se les proporciona un contexto que favorece la descomposición del problema en etapas
+intermedias \cite{wei2022chain}.
+
+Desde el punto de vista conceptual, \emph{CoT} puede interpretarse como una forma de hacer explícito un proceso que, en ausencia de este enfoque, permanece implícito dentro del modelo. Al externalizar los pasos intermedios, se facilita
+tanto la interpretación del resultado como la posibilidad de analizar en qué punto se produce un error en caso de que la solución final sea incorrecta.
+
+% Mencionamos también el tema de las limitaciones
+
+Sin embargo, a pesar de sus ventajas, este enfoque presenta también limitaciones importantes. En primer lugar, el modelo sigue generando una única trayectoria de razonamiento, lo que implica que un error en alguno de los pasos intermedios
+puede comprometer el resultado final sin posibilidad de corrección. Además, no existe un mecanismo interno que permita evaluar la calidad de los pasos generados ni comparar distintas alternativas de razonamiento.
+% esta limitación desaparecerá cuando introduzcamos Beam Search
+
+Por otro lado, la eficacia se \emph{CoT} depende en gran medida de la calidad del \emph{prompt} utilizado, así como de la capacidad del modelo para seguir instrucciones de forma consistente. En algunos casos, el modelo puede generar pasos
+intermedios que resultan aceptables desde el punto de vista lingüístico, pero que no aportan un avance real en la resolución del problema.
+
+En conjunto, \emph{Chain-of-Thought} representa un avance significativo en la forma de abordar el razonamiento con modelos de lenguaje, al introducir la idea de estructurar la generación mediante pasos intermedios. No obstante, sus
+limitaciones ponen de manifiesto la necesidad de desarrollar enfoques más avanzados que permitan explorar múltiples trayectorias y evaluar su calidad de manera sistemática.
+
+%────────────────────── Extensiones de razonamiento paso a paso ──────────────────────────
+\section{Extensiones de razonamiento paso a paso}
+
+El enfoque  \emph{Chain-of-Thought (CoT)} supone un avance significativo en la mejora del razonamiento de los modelos de lenguaje, pero, como se ha señalado, presenta limitaciones importantes, especialmente en lo relativo a la
+generación de una trayectoria de razonamiento. Esta restricción ha motivado el desarrollo de métodos que amplían este enfoque, permitiendo explorar múltiples posibles soluciones o integrar mecanismos adicionales de evalucación.
+
+Una de las propuestas más destacadas es \emph{Self-Consistency}, que consiste en generar múltiples cadenas de razonamiento independientes a partir del mismo problema y seleccionar la respuesta final mediante un criterio de agregación,
+como el voto mayoritario \cite{wang2022self}. Este enfoque permite reducir el impacto de errores en trayectorias individuales, aunque las distintas soluciones no interactúan entre sí y la evaluación se realiza únicamente sobre
+el resulado final.
+
+Otra línea de trabajo relevante es \emph{Tree of Thoughts (ToT)}, que extiende la idea de \emph{CoT} al modelar el razonamiento como una estructura en forma de árbol \cite{yao2023tot}. En este caso, el modelo genera diferentes
+alternativas en cada paso, lo que permite explorar múltiples caminos y seleccionar aquellos que resultan más prometedores. Este enfoque mejora la capacidad de exploración, pero introduce un mayor coste computacional y requiere mecanismos
+de evaluación más elaborados.
+
+Por su parte, el método \emph{ReAct} combina el razonamiento con la ejecución de acciones externas dentro de un mismo proceso iterativo \cite{yao2023react}. Esto permite al modelo interactuar  con herramientas o fuentes de información
+adicionales, lo que resulta especialmente útil en tareas donde el conocimiento no está completamente contenido en el propio modelo.
+
+En conjunto, estas propuestas reflejan una evolución hacie enfoques que superan el razonamiento lineal, incorporando exploración, evaluación y, en algunos casos, interacción con el entorno. Esta línea de investigación resulta
+especialmente relevante en el desarrollo de sistemas capaces de abordar problemas complejos de forma más robusta.
+
+
+
+
+
+
+
 \section{Imaging model and objectives}
 Assume \(y = A x + n\). The SR network \(f_\theta\) estimates
 \(\hat x = f_\theta(y)\).
@@ -249,6 +339,8 @@ Performance metrics
 
 %────────────────────── Chapter 3 — LangGraph ────────────────────────────
 \chapter{LangGraph}
+
+%────────────────────── Introducción a LangGraph ──────────────────────────
 \section{Introducción a LangGraph}
 
 En los sistemas basados en modelos de lenguaje, el enfoque tradicional ha consistido en realizar llamadas independientes y aisladas a un modelo, evolucionando posteriormente
@@ -489,101 +581,216 @@ En el contexto de este trabajo, este enfoque sirve como ejemplo de cómo \emph{L
 de decisiones en un proceso iterativo.
 
 
+%────────────────────── Ejemplos en LangGraph ──────────────────────────
+\section{Ejemplos en LangGraph}
 
-%────────────────────── Reference Implementation ─────────────────────────
-\section{Reference implementation (PyTorch)}
-\begin{lstlisting}[style=python,caption={Minimal SR+U\_Net skeleton (PyTorch)},label={lst:pytorch}]
-# Module: sr_seg.py
-# Purpose: Joint SR reconstruction and segmentation for MRI volumes
-# Notes: Typed, logged, dataclass configs, minimal structure
+\subsection{Ejemplo básico: contador iterativo}
 
-from dataclasses import dataclass
-from typing import Tuple
-import logging, torch, torch.nn as nn
-import torch.nn.functional as F
+Con el objetivo de ilustrar de forma práctica los conceptos introducidos a lo largo de este capítulo, se presenta a continuación un ejemplo sencillo de un flujo de ejecución implementado mediante \emph{LangGraph}.
+Este ejemplo tiene un carácter puramente didáctico y busca mostrar de manera clara cómo se organizan los distintos elementos del sistema, sin introducir complejidad innecesaria.
 
-logger = logging.getLogger("srseg")
-logger.setLevel(logging.INFO)
+El comportamiento modelado consiste en un proceso iterativo muy simple: partiendo de un valor inicial, el sistema incrementa dicho valor en cada paso hasta alcanzar una condición de parada. Aunque se trata de un
+caso elemental, permite observar con claridad la interacción entre estado, nodos y transiciones dentro del grafo.
 
-@dataclass
-class TrainConfig:
-    lr: float = 2e-4
-    gamma: float = 1.0
-    lambda_l1: float = 1.0
-    lambda_ssim: float = 0.2
-    lambda_tv: float = 1e-5
+En primer lugar, se define la estructura del estado compartido. En este caso, el estado contiene únicamente un contador entero que será modificado a lo largo de la ejecución:
 
-class ResidualBlock(nn.Module):
-    """Residual block with two conv3d layers."""
-    def __init__(self, c: int):
-        super().__init__()
-        self.c1 = nn.Conv3d(c, c, 3, padding=1)
-        self.c2 = nn.Conv3d(c, c, 3, padding=1)
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
-        r = F.relu(self.c1(x))
-        r = self.c2(r)
-        return F.relu(x + r)
-
-class SRNet(nn.Module):
-    """EDSR-like SR backbone for volumetric data."""
-    def __init__(self, in_ch: int = 1, base: int = 64, depth: int = 8):
-        super().__init__()
-        self.head = nn.Conv3d(in_ch, base, 3, padding=1)
-        self.body = nn.Sequential(*[ResidualBlock(base) for _ in range(depth)])
-        self.tail = nn.Conv3d(base, 1, 3, padding=1)
-    def forward(self, y: torch.Tensor) -> torch.Tensor:
-        h = self.head(y)
-        h = self.body(h)
-        return self.tail(h)
-
-class UNet3D(nn.Module):
-    """3D U-Net for segmentation."""
-    def __init__(self, in_ch: int = 1, n_classes: int = 2, base: int = 32):
-        super().__init__()
-        self.e1 = nn.Sequential(nn.Conv3d(in_ch, base, 3, padding=1), nn.ReLU(),
-                                nn.Conv3d(base, base, 3, padding=1), nn.ReLU())
-        self.e2 = nn.Sequential(nn.Conv3d(base, base*2, 3, stride=2, padding=1), nn.ReLU())
-        self.b  = nn.Sequential(nn.Conv3d(base*2, base*4, 3, padding=1), nn.ReLU())
-        self.d2 = nn.Sequential(nn.ConvTranspose3d(base*4, base*2, 2, stride=2), nn.ReLU())
-        self.out= nn.Conv3d(base*2, n_classes, 1)
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
-        x1 = self.e1(x)
-        x2 = self.e2(x1)
-        b  = self.b(x2)
-        d2 = self.d2(b)
-        z  = self.out(d2)
-        return z
-
-def dice_loss(p: torch.Tensor, m: torch.Tensor, eps: float = 1e-6) -> torch.Tensor:
-    p = p.softmax(1)[:,1]  # foreground
-    m = (m > 0.5).float()
-    num = 2*(p*m).sum()
-    den = p.sum() + m.sum() + eps
-    return 1 - num/den
-
-def tv(x: torch.Tensor) -> torch.Tensor:
-    return (x[:, :, 1:] - x[:, :, :-1]).abs().mean() + \
-           (x[:, :, :, 1:] - x[:, :, :, :-1]).abs().mean() + \
-           (x[:, :, :, :, 1:] - x[:, :, :, :, :-1]).abs().mean()
-
-def train_step(sr: SRNet, unet: UNet3D, opt: torch.optim.Optimizer,
-               y: torch.Tensor, x: torch.Tensor, m: torch.Tensor,
-               cfg: TrainConfig) -> float:
-    opt.zero_grad()
-    x_hat = sr(y)
-    l1 = (x_hat - x).abs().mean()
-    # crude SSIM proxy to keep example short
-    ssim_term = ((x_hat - x)**2).mean()
-    l_tv = tv(x_hat)
-    z = unet(x_hat.detach())
-    ce = F.cross_entropy(z, m.long())
-    dl = dice_loss(z, m)
-    loss = cfg.lambda_l1*l1 + cfg.lambda_ssim*ssim_term + cfg.lambda_tv*l_tv + cfg.gamma*(ce + dl)
-    loss.backward()
-    opt.step()
-    logger.info(f"loss={loss.item():.4f}")
-    return float(loss.item())
+\begin{lstlisting}[language=Python]
+class CounterState(TypedDict):
+    counter: int
 \end{lstlisting}
+
+A continuación, se define el nodo principal del sistema. Este nodo recibe el estado actual, realiza una operación sobre él y devuelve una versión actualizada:
+
+\begin{lstlisting}[language=Python]
+def increment_node(state: CounterState) -> dict:
+    current = state["counter"]
+    return {"counter": current + 1}
+\end{lstlisting}
+
+Este fragmento ilustra una de las ideas fundamentales de \emph{LangGraph}: Los nodos no modifican directamente el estado, sino que devuelven los cambios que deben aplicarse sobre él. De este modo, el sistema mantiene
+un control explícito sobre la evolución de la información.
+
+Para controlar el flujo de ejecución se introduce una función de decisión que determina si el proceso debe continuar o finalizar. Esta función se basa en el valor actual del contador:
+
+\begin{lstlisting}[language=Python]
+def should_continue(state: CounterState) -> str:
+    if state["counter"] < 5:
+        return "continue"
+    return "end"
+\end{lstlisting}
+
+Esta función permite modelar una transición condicional dentro del grafo, dando lugar a un comportamiento iterativo.
+
+Una vez definidos el estado y las funciones principales, se construye el grafo mediante la conexión de los distintos elementos:
+
+\begin{lstlisting}[language=Python]
+builder = StateGraph(CounterState)
+
+builder.add_node("increment", increment_node)
+
+builder.set_entry_point("increment")
+
+builder.add_conditional_edges(
+    "increment",
+    should_continue,
+    {
+        "continue": "increment",
+        "end": END,
+    },
+)
+\end{lstlisting}
+
+En este caso, el grafo está compuesto por un único nodo que se ejecuta de forma repetida mientras se cumpla la condición establecida. La transición condicional permite modelar un bucle de manera explícita, sin necesidad
+de recurrir a estructuras de control tradicionales como \texttt{while} o \texttt{for}.
+
+Finalmente, el sistema se compila y se ejecuta a partir de un estado inicial:
+
+\begin{lstlisting}[language=Python]
+graph = builder.compile()
+
+result = graph.invoke({"counter": 0})
+\end{lstlisting}
+
+Durante la ejecución, el valor del contador se incrementa prograsivamente hasta alcanzar el límite definido, momento en el cual el flujo de ejecución finaliza.
+A pesar de su simplicidad, este ejemplo permite apreciar cómo \emph{LangGraph} proporciona un marco estructurado para modelar procesos iterativos mediante grafos. En particular, se observa cómo el estado se va
+actualizando de forma controlada, cómo los nodos encapsulan unidades de procesamiento y cómo las transiciones permiten definir el comportamiento dinámico del sistema.
+
+Este tipo de enfoque resulta especialmente útil en escenarios más complejos, como los agentes basados en modelos de lenguaje, donde es necesario encadenar múltiples pasos de razonamiento y toma de decisiones dentro de un
+mismo flujo de ejecución.
+
+
+\subsection{Ejemplo con flujo condicional: transformación de un valor numérico}
+
+Tras el ejemplo anterior, basado en un contador sencillo, resulta conveniente introducir un caso algo más complejo que permita observar con mayor claridad cómo se combinan varios de los elementos descritos en este capítulo.
+En particular, interesa mostrar una situación en la que intervengan distintos nodos, transiciones condicionales y un proceso iterativo controlado mediante el estado.
+
+Con este objetivo, se plantea un ejemplo en el que el sistema parte de un número entero y aplica distintas transformaciones en función de su valor. Si el número es par, se divide entre dos; si es impar, se incrementa en una
+unidad. El proceso se repite hasta que se alcanza el valor 1. Se trata de un caso deliberadamente simple, pero suficiente para ilustrar cómo \emph{LangGraph} permite modelar flujos de ejecución con varios caminos posibles dentro
+de una misma estructura de grafo.
+
+En primer lugar, se define el estado compartido del sistema. Además del valor actual, se incorpora un historial que permite registrar las transformaciones realizadas durante la ejecución:
+
+\begin{lstlisting}[language=Python]
+class NumberState(TypedDict):
+    value: int
+    history: List[str]
+\end{lstlisting}
+
+La inclusión de un historial resulta útil porque permite observar cómo el estado no solo almacena información puntual, sino también la evolución del proceso. De este modo, cada nodo puede consultar el valor actual y, al mismo
+tiempo, dejar constancia de la operación efectuada.
+
+A continuación, se define una función de decisión encargada de determinar a qué nodo debe dirigirse el flujo en cada iteración. Esta decisión depende del valor actual del estado:
+
+\begin{lstlisting}[language=Python]
+def choose_operation(state: NumberState) -> str:
+    if state["value"] == 1:
+        return "end"
+    elif state["value"] % 2 == 0:
+        return "divide"
+    return "increment"
+\end{lstlisting}
+
+Esta función ilustra cómo las transiciones condicionales permiten introducir comportamientos dinámicos dentro del grafo. El flujo no avanza siempre hacia el mismo nodo, sino que puede tomar distintos caminos según la información
+almacenada en el estado.
+
+Una vez definida la lógica de decisión, se implementan los nodos que realizan las transformaciones sobre el valor. El primero de ellos se encarga de dividir entre dos los números pares:
+
+\begin{lstlisting}[language=Python]
+def divide_node(state: NumberState) -> dict:
+    current = state["value"]
+    new_value = current // 2
+
+    return {
+        "value": new_value,
+        "history": state["history"] + [f"{current} es par, se divide entre 2 y pasa a {new_value}"],
+    }
+\end{lstlisting}
+
+Este nodo recibe el estado, calcula el nuevo valor y devuelve únicamente las modificaciones que deben incorporarse al estado global. Junto con la actualización numérica, se añade también una entrada al historial que describe la operación
+realizada.
+
+De forma análoga, se define un segundo nodo para el caso en que el valor sea impar:
+
+\begin{lstlisting}[language=Python]
+def increment_node(state: NumberState) -> dict:
+    current = state["value"]
+    new_value = current + 1
+
+    return {
+        "value": new_value,
+        "history": state["history"] + [f"{current} es impar, se incrementa en 1 y pasa a {new_value}"],
+    }
+\end{lstlisting}
+
+La existencia de dos nodos distintos permite representar de forma explícita dos comportamientos diferentes dentro del mismo sistema. Esta separación mejora la claridad del diseño y facilita la expresión del grafo en caso de querer incorporar
+nuevas operaciones más adelante.
+
+Definidos el estado, la función de decisión y los nodos de procesamiento, puede construirse ya el grafo de ejecución:
+
+\begin{lstlisting}[language=Python]
+builder = StateGraph(NumberState)
+
+builder.add_node("divide", divide_node)
+builder.add_node("increment", increment_node)
+\end{lstlisting}
+
+A diferencia del ejemplo anterior, en este caso no existe un único nodo que se repite de manera uniforme, sino varios nodos posibles entre los que el sistema debe elegir en función del estado actual. Esta característica permite apreciar mejor el
+papel de las aristas condicionales dentro de \emph{LangGraph}.
+
+El flujo se inicia a partir de una decisión, que determina qué operación debe aplicarse en cada momento. Tras ejecutar cualquiera de los dos nodos, el sistema vuelve de nuevo al punto de decisión, formando así un ciclo:
+
+\begin{lstlisting}[language=Python]
+builder.set_conditional_entry_point(
+    choose_operation,
+    {
+        "divide": "divide",
+        "increment": "increment",
+        "end": END,
+    },
+)
+
+builder.add_conditional_edges(
+    "divide",
+    choose_operation,
+    {
+        "divide": "divide",
+        "increment": "increment",
+        "end": END,
+    },
+)
+
+builder.add_conditional_edges(
+    "increment",
+    choose_operation,
+    {
+        "divide": "divide",
+        "increment": "increment",
+        "end": END,
+    },
+)
+\end{lstlisting}
+
+Este esquema refleja con claridad la lógica general del sistema. En primer lugar, se consulta el estado para decidir qué operación corresponde aplicar. A continuación, se ejecuta el nodo apropiado y, una vez actualizado el estado, se
+vuelve a evaluar la situación. El proceso se repite hasta que la función de decisión indica que debe alcanzarse el estado final.
+
+Por último, el grafo se compila y se ejecuta a partir de un estado inicial concreto:
+
+\begin{lstlisting}[language=Python]
+graph = builder.compile()
+
+result = graph.invoke({
+    "value": 7,
+    "history": []
+})
+\end{lstlisting}
+
+Durante la ejecución, el valor irá trasformándose sucesivamente en función de su paridad, mientras que el historial registrará cada uno de los pasos realizados. De este modo, no solo se obtiene el resultado final, sino también
+una traza del proceso seguido por el sistema.
+
+Este ejemplo permite apreciar de forma más completa el funcionamiento de \emph{LangGraph}. En él aparecen de manera conjunta varios de los conceptos fundamentales introducidos previamente: un estado compartido que evoluciona, nodos
+que encapsulan operaciones específicas, transiciones condicionales que dirigen el flujo y un buvle que mantiene la ejecución activa hasta alcanzar una condición de finalización. Precisamente por ello, constituye una ilustración más
+representativa del uso de grafos que un ejemplo puramente lineal, al tiempo que se mantiene lo bastante sencillo como para servir de apoyo didáctico dentro de este capítulo.
+
 
 %────────────────────── Chapter 4 — Results ────────────────────────────
 \chapter{Results}
