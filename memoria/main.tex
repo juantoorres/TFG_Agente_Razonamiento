@@ -130,7 +130,7 @@ The goal of this project is to analyze the feasibility of this approach to impro
 
 % ====================================== AGRADECIMIENTOS ====================================
 \begin{umaacknowledgments}
-Agradezco su función a los clínicos colaboradores, así como al grupo de Inteligencia Computacional y Análisis de Imagen de la Universidad de Málaga.
+ESTA PARTE ES LO ÚLTIMO DEL TFG
 \end{umaacknowledgments}
 
 %────────────────────── TOC and lists ──────────────────────────────────
@@ -177,7 +177,7 @@ así en un área en crecimiento, desde el interés por entender no solo qué res
 \section{Trabajos previos}
 
 Con el fin de abordar la limitación que presentan los \emph{Large Language Models (LLMs)} anteriormente mencionada, diversos trabajos han propuesto
-técnicas que fomentan el razonamiento paso a paso. Un ejemplo de esto es \emph{"Chain-of-Though Prompting (CoT)"}, introducido por Wei et al. (2022) [1],
+técnicas que fomentan el razonamiento paso a paso. Un ejemplo de esto es \emph{"Chain-of-Thought Prompting (CoT)"}, introducido por Wei et al. (2022) [1],
 el cual consiste en guiar al modelo para que genere pasos intermedios antes de alcanzar una respuesta final. Este enfoque pone de manifiesto la importancia
 de estructurar el proceso de generación en lugar de limitarse a obtener una respuesta final directa.
 
@@ -379,16 +379,109 @@ razonamiento con modelos de lenguaje. En particular, su estructura iterativa y s
 permite extender su uso más allá de los contextos tradicionales.
 
 
+%────────────────────── Uso de Beam Search en razonamiento con LLMs ──────────────────────────
+\section{Uso de Beam Search en razonamiento con LLMs}
+
+Aunque el algoritmo de \emph{Beam Search} ha sido tradicionalmente utilizado en tareas como la traducción automática o la generación de texto, su estructura resulta especialmente adecuada para abordar problemas de razonamiento en modelos de
+lenguaje. En este contexto, el objetivo no es únicamente generar una secuencia probable, sino explorar distintas posibles trayectorias de razonamiento y seleccionar aquellas que conducen a soluciones más adecuadas.
+
+La combinación de \emph{Beam Search} con enfoques como \emph{Chain-of-Thought} permite reinterpretar el proceso de generación como una búsqueda sobre posibles cadenas de razonamiento. En lugar de producir una única secuencia de pasos intermedios,
+el modelo puede generar múltiples alternativas en cada etapa, dando lugar a diferentes hipótesis que desarrollan en paralelo. Este enfoque permite superar uan de las principales limitaciones del razonamiento lineal, al incorporar la posibilidad
+de reconsiderar decisiones y explorar distintos caminos hacia la solución.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/BeamSearchYCoT.png}
+    \caption{Estrategias de generación: trayectoria única frente a múltiples trayectorias. Fuente: elaboración propia}
+    \label{fig:estado}
+\end{figure}
+
+En este escenario, cada trayectoria mantenida por el algoritmo puede interpretarse como una posible solución parcial, que se va refinando a medida que avanza el proceso de generación. La aplicación de un mecanismo de selección en cada iteración
+permite priorizar aquellas trayectorias que presentan mejores propiedades, ya sea en términos de coherencia, utilidad o proximidad a la solución final \cite{yao2023tot}.
+
+No obstante, la adaptación de \emph{Beam Search} al razonamiento con \emph{LLMs} plantea desafíos adicionales respecto a su uso tradicional. En primer lugar, la función de puntuación utilizada para comparar las distintas trayectorias resulta
+crítica. Mientras que en tareas de generación de texto esta puntuación suele basarse en la probabilidad acumulada de la secuencia, en problemas de razonamiento es necesario considerar también la calidad de los pasos intermedios. Esto implica
+la necesidad de definir criterios más complejos que permitan evaluar no solo el resultado final, sino también el proceso seguido hasta alcanzarlo.
+
+Además, el uso de \emph{Beam Search} en este contexto requiere integrar mecanismos que permitan generar pasos de razonamiento coherentes y relevantes en cada iteración. Esto puede lograrse mediante el uso de técnicas de \emph{propmting}
+adecuadas, que orienten al modelo hacia la producción de pasos intermedios bien estructurados, o mediante la incorporación de componentes adicionales encargados de guiar el proceso de generación.
+
+Por último, cabe destacar que la aplicación de \emph{Beam Search} al razonamiento introduce un equilibrio delicado entre exploración y coste computacional. A medida que se incrementa el número de traycetorias consideradas, mejora la capacidad
+del sistema para encontrar soluciones de mayor calidad, pero también aumenta el número de evaluaciones necesarios. Por tanto, resulta necesario ajustar cuidadosamente los parámetros del algoritmo para lograr un compromisoadecuado entre
+eficacia y rendimiento.
+
+En conjunto, la integración de \emph{Beam Search} en el proceso de razonamiento con modelos de lenguaje representa un paso hacia enfoques más estructurados y controlados, en los que la generación de soluciones no depende de una única trayectoria,
+sino de la exploración y selección de múltiples alternativas. Esta idea constituye la base sobre la que se desarrrollan sistemas más avanzados capaces de combinar generación, evaluación y toma de decisiones dentro de un mismo marco de trabajo.
+
+
+%────────────────────── Evaluación del razonamiento en LLMs ──────────────────────────
+\section{Evaluación del razonamiento en LLMs}
+
+Uno de los aspectos más complejos en el uso de modelos para tareas de razonamiento es la evaluación de la calidad de las soluciones generadas. A diferencia de otros problemas de procesamiento del lenguaje natural, donde es posible comparar
+directamente la salida del modelo con una respuesta de referencia, en tareas de razonamiento resulta necesario considerar no solo el resultado final, sino también el proceso seguido para alcanzarlo.
+
+En enfoques tradicionales, la evaluación suele centrarse en la corrección de la respuesta final mediante métricas como la exactitud o el \emph{exact match}. Este tipo de medidas resulta adecuado en tareas cerradas, como la resolución de problemas
+matemáticos con una única solución correcta \cite{cobbe2021training}. Sin embargo, presentan limitaciones importantes en escenarios donde el razonamiento intermedio juega un papel fundamental o donde pueden existir múltiples soluciones plausibles.
+
+En este contexto, ha surgido un interés creciente por evaluar explícitamente las traycetorias de razonamiento generadas por los modelos. Este enfoque implica analizar la coherencia, consistencia y utilidad de los pasos intermedios, en lugar de
+limitarse a verificar el resultado final. La evaluación del proceso permite identificar errores que no serían detectables mediante métricas tradicionales, especialmente en casos en los que una respuesta correcta puede haberse obtenido a partir
+de un razonamiento incorrecto o incompleto.
+
+Una de las aproximaciones más recientes consiste en utilizar modelos de lenguaje como evaluadores de las soluciones generadas por otros modelos o por el propio sistema en distintas etapas del proceso. Este enfoque, conocido como
+\emph{LLM-as-a-judge}, se basa en la capacidad de los modelos para analizar y valorar la calidad de una respuesta, proporcionando tanto una puntuación como una justificación textual \cite{zheng2023judging}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/EvaluaciónSoluciones.png}
+    \caption{Evaluación de trayectorias de razonamiento mediante modelos de lenguaje. Fuente: elaboración propia}
+    \label{fig:estado}
+\end{figure}
+
+En este tipo de esquemas, la generación y la evaluación se conciben como procesos diferenciados pero complementarios, lo que permite introducir mecanismos más flexibles para comparar distintas alternativas y seleccionar aquellas que resultan más
+adecuadas en función de criterios definidos.
+
+El uso de modelos de lenguaje como evaluadores presenta varias ventajas. Por un lado, permite considerar aspectos cualitativos del razonamiento, como la claridad o la coherencia, que resultan difíciles de capturar mediante métricas automáticas
+tradicionales. Por otro, facilita la integración de la evaluación dentro del propio proceso de generación, abriendo la puerta a sistemas en los que las soluciones no solo se generan, sino que también se analizan y refinan de manera iterativa.
+
+No obstante, este enfoque trambién plantea desafíos importantes. La evalucación realizada por un modelo puede estar sujeta a sesgos, inconsistencias o falta de precisión, especialmente cuando se trata de tareas complejas o ambiguas. Además,
+el uso de modelos adicionales para evaluar las soluciones incrementa el coste computacional del sistema, lo que puede limitar su aplicabilidad en ciertos contextos.
+
+En conjunto, la evaluación del razonamiento se configura como un elemento clave en el desarrollo de sistemas basados en modelos de lenguaje. La capacidad de analizar no solo el resultado final, sino también el proceso seguido para alcanzarlo.
+resulta fundamental para avanzar hacia enfoques más robustos, en los que la generación y la evaluación se integren dentro de un mismo marco de trabajo.
 
 
 
+%────────────────────── Limitaciones del estado del arte ──────────────────────────
+\section{Limitaciones del estado del arte}
 
+A pesar de los avances recientes en el desarrollo de técnicas para mejorar el razonamiento en modelos de lenguaje, las soluciones existentes presentan limitaciones que dificultan su aplicación en escenarios más complejos o exigentes. Estas
+limitaciones no solo afectan al rendimiento de los modelos, sino también a la forma en que se estructuran los procesos de generación y toma de decisiones.
 
+En el caso de \emph{Chain-of-Thought}, aunque se ha demostrado que la generación de pasos intermedios mejora significativamente el rendimiento en tareas de razonamiento, el enfoque sigue dependiendo de una única trayectoria. Esto implica que un
+error en cualquier punto del proceso puede propagarse hasta la respuesta final sin posibilidad de corrección. Además, no se dispone de mecanismos internos que permitan evaluar la calidad de los pasos generados o reconsiderar decisiones previas
+\cite{wei2022chain}.
 
+Las extensiones basadas en la generación de múltiples trayectorias, como \emph{Self-Consistency}, introducen una mejora al considerar varias soluciones posibles. Sin embargo, estas trayectorias se generan de forma independiente y la selección final
+se basa únicamente en el resultado, sin tener en cuenta la calidad del razonamiento intermedio. Esto limita su capacidad para discriminar entre soluciones que pueden parecer correctas superficialmente pero que se basan en procesos
+inconsistentes \cite{wang2022self}.
 
+Asimismo, la exploración del espacio de soluciones suele implicar un compromiso complejo entre calidad y coste computacional. Métodos como \emph{Tree of Thoughts}, que permiten considerar múltiples alternativas tienden a requerir un mayor
+número de evaluaciones, lo que dificulta su aplicación en entornos donde lso recursos son limitados.
 
+Por último, muchos de los enfoques existentes carecen de un marco unificado que integre de manera coherente la generación de soluciones, su evaluación y el control del flujo de razonamiento. En lugar de ello, estos componentes suelen abordarse
+de forma aislada, lo que reduce la capacidad del sistema para gestionar el proceso de forma estructurada.
 
+En conjunto, estas limitaciones ponen de manifiesto la necesidad de desarrollar enfoques que permitan combinar de manera efectiva la exploración de múltiples trayectorias, la evaluación de su calidad y el control iterativo del proceso de
+razonamiento. Esta necesidad constituye el punto de partida para el enfoque propuesto en este trabajo.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/LimitacionesMetodosRazonamiento2.png}
+    \caption{Comparativa de limitaciones en estrategias de razonamiento automático. Fuente: elaboración propia}
+    \label{fig:estado}
+\end{figure}
+
+%────────────────────── Imaging model and objectives ──────────────────────────
 \section{Imaging model and objectives}
 
 Assume \(y = A x + n\). The SR network \(f_\theta\) estimates
