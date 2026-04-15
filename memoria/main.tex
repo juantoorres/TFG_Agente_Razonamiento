@@ -18,10 +18,15 @@
 \usepackage[
   backend=biber,
   style=numeric,
-  sorting=nyt
+  sorting=none % Antes pone sorting=nyt --> Eso hace que se ordene según Name(autor), Year(año), Title(título)
+  % Lo cambiamos para que aparezcan simplemente en el orden en que aparecen en references.bib
 ]{biblatex}
+\usepackage{subcaption}
+\setlength{\textfloatsep}{20pt} % Separación entre el fin de una imagen y el parrafo siguiente (sin esto, el hueco era demasiado grande)
+\captionsetup[subfigure]{skip=2pt}
 \addbibresource{references.bib}
-
+\usepackage{enumitem}
+\setlist{nosep} % Para evitar que entre los elementos de \itemize haya mucha distancia
 
 % Listings config
 \lstset{
@@ -41,7 +46,9 @@
 \usepackage{template/sty_files/cotutor_cover-whiteuma}
 
 \usepackage{template/sty_files/backcover-uma}
-\usepackage{parskip}
+%\usepackage{parskip}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.7em} % Separación entre párrafos
 
 %======================================================================
 \begin{document}
@@ -93,7 +100,7 @@ evaluar y refinar pasos intermedios antes de producir una respuesta final.
 El sistema se implementa utilizando modelos de lenguaje ejecutados en local, como Llama-3, junto con la librería \emph{LangGraph} para la contrucción de flujos de razonamiento. Además, se emplea
 una estrategia de búsqueda basada en \emph{Beam Search} que permite explorar múltiples posibles líneas de razonamiento y seleccionar aquellas más prometedoras mediante un mecanismo de puntuación.
 
-El objetivo del proyecto es analizar la viabilidad de este enfoque para mejorar la capacidad de razonamiento de agentes basados en LLMs y estudiar su comportamiento en diferentes escenarios de
+El objetivo del proyecto es analizar la viabilidad de este enfoque para mejorar la capacidad de razonamiento de agentes basados en \emph{LLMs} y estudiar su comportamiento en diferentes escenarios de
 resolución de problemas.
 \medskip
 
@@ -123,7 +130,7 @@ The goal of this project is to analyze the feasibility of this approach to impro
 
 % ====================================== AGRADECIMIENTOS ====================================
 \begin{umaacknowledgments}
-Agradezco su función a los clínicos colaboradores, así como al grupo de Inteligencia Computacional y Análisis de Imagen de la Universidad de Málaga.
+ESTA PARTE ES LO ÚLTIMO DEL TFG
 \end{umaacknowledgments}
 
 %────────────────────── TOC and lists ──────────────────────────────────
@@ -154,22 +161,29 @@ Agradezco su función a los clínicos colaboradores, así como al grupo de Intel
 %\setlength{\parindent}{0pt}
 %\setlength{\parskip}{0.5em}
 
-
-\section{Trabajos previos}
-
 En los últimos años, el desarrollo de los \emph{Large Language Models (LLMs)} ha supuesto un avance significativo en tareas de procesamiento
 del lenguaje natural. Sin embargo, a pesar de la capacidad para generar texto coherente y resolver una amplia variedad de tareas, estos modelos
 presentan limitaciones en lo que a enfrentar problemas que requieren un razonamiento complejo se refiere, ya que tienden a generar respuestas
 directas sin una estructura intermedia explícita.
 
-Con el fin de abordar esta limitación, diversos trabajos han propuesto técnicas que fomentan el razonamiento paso a paso. Un ejemplo
-de esto es \emph{"Chain-of-Though Prompting (CoT)"}, introducido por Wei et al. (2022) [1], el cual consiste en guiar al modelo para que genere pasos
-intermedios antes de alcanzar una respuesta final. Este enfoque pone de manifiesto la importancia de estructurar el proceso de generación en lugar de
-limitarse a obtener una respuesta final directa.
+La ausencia de pasos intermedios limita la capacidad de valorar el razonamiento, desencadenando en falta de transparencia y control sobre cómo se
+construye el razonamiento.
+Es por ello que surge la necesidad de desarrollar sistemas que no solo generen respuestas, sino que estructuren su proceso de razonamiento y evalúen
+sus propios pasos intermedios, con un enfoque que facilite la experimentación y análisis del comportamiento del modelo.
+
+En conclusión, este proyecto se plantea a partir de la motivación por construir algo más complejo que una simple llamada a un modelo, profundizando
+así en un área en crecimiento, desde el interés por entender no solo qué responden estos modelos, sino cómo llegan a hacerlo.
+
+\section{Trabajos previos}
+
+Con el fin de abordar la limitación que presentan los \emph{Large Language Models (LLMs)} anteriormente mencionada, diversos trabajos han propuesto
+técnicas que fomentan el razonamiento paso a paso. Un ejemplo de esto es \emph{"Chain-of-Thought Prompting (CoT)"}, introducido por Wei et al. (2022) [1],
+el cual consiste en guiar al modelo para que genere pasos intermedios antes de alcanzar una respuesta final. Este enfoque pone de manifiesto la importancia
+de estructurar el proceso de generación en lugar de limitarse a obtener una respuesta final directa.
 
 Por otro lado, en el ámbito de la generación de texto, los algoritmos de búsqueda han sido ampliamente utilizados para explorar múltiples
 posibles soluciones. Destaca el algoritmo de \emph{Beam Search}, el cual se apoya en una función de evaluación para mantener las secuencias más
-prometedoras en cada iteración.Trabajos como el de Wu et al. (2020) [3] demuestran que, aunque este método haya sido tradicionalmente aplicado en tareas como la traducción automática,
+prometedoras en cada iteración. Trabajos como el de Wu et al. (2020) [3] demuestran que, aunque este método haya sido tradicionalmente aplicado en tareas como la traducción automática,
 su uso puede extenderse también al razonamiento en \emph{LLMs}, simplemente permitiendo explorar distintas cadenas de pensamiento
 \emph{(CoT)} y seleccionando las más relevantes (según la función de evaluación anteriormente mencionada).
 
@@ -184,11 +198,292 @@ continua siendo un área en pleno desarrollo.
 
 \section{Objetivos}
 
+El objetivo principal de este trabajo es desarrollar una prueba de concepto de un agente basado en modelos de lenguaje capaz de incorporar un proceso de
+razonamiento estructurado, en lugar de generar respuestas de forma directa. De esta forma, y con el objetivo de facilitar un aálisis detallado del proceso
+seguido por el modelo, se busca explorar un enfoque que permita descomponer la resolución de un problema de índole lingüística en una serie de pasos intermedios.
+
+De forma más concreta, se pretende implementar un sistema que no dependa únicamente de un camino de razonamiento, sino que sea capaz de generar múltiples posibles
+trayectorias, permitiendo así analizar y estudiar como evoluciona el proceso de generación de cada una de ellas. Asimismo, un mecanismo evaluará la calidad de dichos
+razonamientos generados, con el fin de seleccionar aquellos que resulten más adecuados con el tipo de problema que con el que se está trabajando. Este proceso de
+evaluación se utilizará por tanto para guiar la exploración del espacio de soluciones, descartando las opciones menos prometedoras.
+
+Otro gran objetivo de este proyecto se centra en la estructuración del funcionamiento del sistema mediante un flujo de ejecución organizado, que facilite no solo la
+comprensión de este, sino también su posible extensión en trabajos futuros.
+
+Por último, se busca analizar el comportamiento del agente desarrollado a través de problemas de índole lingüística...
+
+
 \section{Estructura del proyecto}
 
-%────────────────────── Chapter 2 — Fundamentals ───────────────────────
-\chapter{Fundamentals}
+%────────────────────── Chapter 2 — Estado del arte ───────────────────────
+\chapter{Estado del arte}
+
+%────────────────────── Introducción al problema del razonamiento en LLMs ──────────────────────────
+\section{Introducción al problema del razonamiento en LLMs}
+
+Los \emph{Large Language Models (LLMs)} han experimentado un crecimiento notable en los últimos años, convirtiéndose en una de las tecnologías más relevantes dentro del ámbito del procesamiento del lenguaje natural.
+Modelos basados en arquitecturas \emph{Transformer} han demostrado una gran capacidad para generar texto coherente, mantener el contexto en conversaciones prolongadas y abordar una amplia variedad de tareas lingüísticas
+con un alto grado de precisión.
+
+Estos avances se deben, en gran medida, al entrenamiento sobre grandes colúmenes de datos y a la capacidad de estos modelos para capturar patrones estadísticos complejos en el lenguaje \cite{vaswani2017attention,brown2020language}.
+
+No obstante, a pesar de su elevado rendimiento en tareas generales de generación de texto, estos modelos presentan limitaciones significativas cuando se enfrentan a problemas que requieren razonamiento estructurado. A diferencia
+de los sistemas diseñados específicamente para la inferencia lógica o el cálculo simbólico, los \emph{LLMs} no siguen un proceso explícito de razonamiento, sino que generan respuestas basándose en la probabilidad de aparición de las
+palabras en función del contexto previo. Este enfoque, aunque eficaz desde el punto de vista lingüístico, no garantiza que el modelo esté realizando un proceso de razonamiento correcto o
+verificable \cite{bommasani2021opportunities}.
+
+Esta limitación se hace especialmenente evidente en tareas que implican múltiples pasos intermedios, como la resolución de problemas matemáticos, la planificación o el análisis lógico. En este tipo de situaciones, los modelos pueden
+producir respuestas que, aunque aparentemente coherentes, contienen errores en los pasos intermedios o en la conclusión final. Este fenómeno pone de manifiesto que la fluidez lingüística no implica necesariamente una comprensión
+profunda del problema ni la aplicación de un razonamiento válido.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.85\textwidth]{images/ComparativaEnfoques2.png}
+    \caption{Ejemplo comparativo: respuesta directa errónea frente a razonamiento paso a paso. Fuente: elaboración propia}
+    \label{fig:estado}
+\end{figure}
+
+Además, los \emph{LLMs} tienden a generar una única respuesta por defecto, sin explorar alternativas ni considerar diferentes posibles soluciones. Esta característica contrasta con los enfoques clásicos de resolución de problemas,
+en los que es habitual evaluar múltiples hipótesis antes de seleccionar la más adecuada. Como resultado, el modelo puede quedar limitado a una única trayectoria de generación, sin mecanismos internos que permiten revisar,
+comparar o corregir sus propias decisiones.
+
+En este contexto, surge la necesidad de desarrollar estrategias que permitan guiar el proceso de generación de los \emph{LLMs} hacia formas de razonamiento más estructuradas y fiables. Estas estrategias buscan introducir mecanismos
+que fomenten la generación de pasos intermedios, la exploración de múltiples soluciones o la evaluación de las respuestas producidas. El estudio de estas técnicas constituye una línea de investigación activa, cuyo objetivo es
+mejorar la capacidad de los modelos para abordar tareas complejas que van más allá de la simple generación de texto.
+
+% Aquí no he mencionado anda de los problemas de índole lingüística (para los que va destinado este proyecto) ya que he querido hacer una introducción muy generica, sin meterme en nada en concreto.
+
+%────────────────────── Chain-of-Thought (CoT) ──────────────────────────
+\section{Chain-of-Thought (CoT)}
+
+El concepto \emph{Chain-of-Thought (CoT)} surge como una de las primeras estrategias eficaces para mejorar la capacidad de razonamiento de los modelos de lenguaje en tareas complejas. Frente al enfoque tradicional, en el que el modelo
+genera directamente una respuesta final, \emph{CoT} propone guiar el proceso de generación mediante la inclusión explícita de pasos intermedios que relfejen el razonamiento seguido para alcanzar dicha respuesta \cite{wei2022chain}.
+
+La idea fundamental consiste en modificar la forma en que se formula la entrada al modelo, de modo que este produzca no solo el resultado, sino también una secuencia de inferencias o transformaciones que conducen a él. Este enfoque
+puede implementarse, por ejemplo, mediante instrucciones en el \emph{prompt} que inviten al modelo a "pensar paso a paso", lo que conduce a la generación de estructuras de razonamiento más elaboradas.
+
+Diversos trabajos han demostrado que esta simple modificación en la formulación de la tarea puede producir mejoras significativas en problemas que requieren múltiples pasos de inferencia, como los ejercicios matemáticos o las tareas
+de lógica. En particular, se ha observado que los modelos son capaces de resolver correctamente problemas que anteriormente fallaban cuando se les proporciona un contexto que favorece la descomposición del problema en etapas
+intermedias \cite{wei2022chain}.
+
+Desde el punto de vista conceptual, \emph{CoT} puede interpretarse como una forma de hacer explícito un proceso que, en ausencia de este enfoque, permanece implícito dentro del modelo. Al externalizar los pasos intermedios, se facilita
+tanto la interpretación del resultado como la posibilidad de analizar en qué punto se produce un error en caso de que la solución final sea incorrecta.
+
+% Mencionamos también el tema de las limitaciones
+
+Sin embargo, a pesar de sus ventajas, este enfoque presenta también limitaciones importantes. En primer lugar, el modelo sigue generando una única trayectoria de razonamiento, lo que implica que un error en alguno de los pasos intermedios
+puede comprometer el resultado final sin posibilidad de corrección. Además, no existe un mecanismo interno que permita evaluar la calidad de los pasos generados ni comparar distintas alternativas de razonamiento.
+% esta limitación desaparecerá cuando introduzcamos Beam Search
+
+Por otro lado, la eficacia se \emph{CoT} depende en gran medida de la calidad del \emph{prompt} utilizado, así como de la capacidad del modelo para seguir instrucciones de forma consistente. En algunos casos, el modelo puede generar pasos
+intermedios que resultan aceptables desde el punto de vista lingüístico, pero que no aportan un avance real en la resolución del problema.
+
+En conjunto, \emph{Chain-of-Thought} representa un avance significativo en la forma de abordar el razonamiento con modelos de lenguaje, al introducir la idea de estructurar la generación mediante pasos intermedios. No obstante, sus
+limitaciones ponen de manifiesto la necesidad de desarrollar enfoques más avanzados que permitan explorar múltiples trayectorias y evaluar su calidad de manera sistemática.
+
+%────────────────────── Extensiones de razonamiento paso a paso ──────────────────────────
+\section{Extensiones de razonamiento paso a paso}
+
+El enfoque  \emph{Chain-of-Thought (CoT)} supone un avance significativo en la mejora del razonamiento de los modelos de lenguaje, pero, como se ha señalado, presenta limitaciones importantes, especialmente en lo relativo a la
+generación de una trayectoria de razonamiento. Esta restricción ha motivado el desarrollo de métodos que amplían este enfoque, permitiendo explorar múltiples posibles soluciones o integrar mecanismos adicionales de evalucación.
+
+Una de las propuestas más destacadas es \emph{Self-Consistency}, que consiste en generar múltiples cadenas de razonamiento independientes a partir del mismo problema y seleccionar la respuesta final mediante un criterio de agregación,
+como el voto mayoritario \cite{wang2022self}. Este enfoque permite reducir el impacto de errores en trayectorias individuales, aunque las distintas soluciones no interactúan entre sí y la evaluación se realiza únicamente sobre
+el resulado final.
+
+Otra línea de trabajo relevante es \emph{Tree of Thoughts (ToT)}, que extiende la idea de \emph{CoT} al modelar el razonamiento como una estructura en forma de árbol \cite{yao2023tot}. En este caso, el modelo genera diferentes
+alternativas en cada paso, lo que permite explorar múltiples caminos y seleccionar aquellos que resultan más prometedores. Este enfoque mejora la capacidad de exploración, pero introduce un mayor coste computacional y requiere mecanismos
+de evaluación más elaborados.
+
+Por su parte, el método \emph{ReAct} combina el razonamiento con la ejecución de acciones externas dentro de un mismo proceso iterativo \cite{yao2023react}. Esto permite al modelo interactuar  con herramientas o fuentes de información
+adicionales, lo que resulta especialmente útil en tareas donde el conocimiento no está completamente contenido en el propio modelo.
+
+En conjunto, estas propuestas reflejan una evolución hacie enfoques que superan el razonamiento lineal, incorporando exploración, evaluación y, en algunos casos, interacción con el entorno. Esta línea de investigación resulta
+especialmente relevante en el desarrollo de sistemas capaces de abordar problemas complejos de forma más robusta.
+
+
+
+%────────────────────── Métodos de búsqueda en generación de secuencias ──────────────────────────
+\section{Métodos de búsqueda en generación de secuencias}
+
+El proceso de generación de texto en los modelos de lenguaje puede entenderse como un problema de búsqueda en el espacio de todas las posibles secuencias de palabras. En cada paso, el modelo asigna una probabilidad a los posibles
+siguientes \emph{tokens} en función del contexto previo, para que sea el método de búsqueda el que posteriormente determina cómo se selecciona la continuación de la secuencia generada.
+
+El enfoque más sencillo es la estrategia \emph{greedy}, que consiste en seleccionar en cada paso el token con mayor probabilidad. Este método es eficiente y produce resultados coherentes en muchos casos, pero presenta una limitación
+importante: al tomar decisiones de forma local, puede descartar opciones que, aunque inicialmente menos probables, podrían conducir a mejores resultados a largo plazo \cite{jurafsky2009speech}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/GreedySearch.png}
+    \caption{Ilustración del algoritmo de búsqueda voraz en la generación de texto. Fuente: elaboración propia}
+    \label{fig:estado}
+\end{figure}
+
+Para introducir mayor diversidad en la generación, se utilizan métodos de muestreo \emph{(sampling)}, en los que el siguiente \emph{token} se selecciona de manera probabilística en lugar de determinista. Entre las variantes más comunes
+se encuentran:
+
+\begin{itemize}
+  \item \emph{Top-k sampling}, que restringe la selección a los \emph{k tokens} más probables.
+  \item \emph{Top-p sampling} o \emph{nucleus sampling}, que considera el conjunto mínimo de \emph{tokens} cuya probabilidad acumulada supera un determinado umbral \cite{holtzman2020curious}.
+\end{itemize}
+
+Estas estrategias permiten generar salidas más variadas, aunque pueden introducir incoherencias si no se controlan adecuadamente.
+
+Otro enfoque consiste en mantener varias posibles secuencias en paralelo durante el proceso de generación. En lugar de construir una única solución paso a paso, se exploran múltiples alternativas de forma simultánea, evaluando su calidad
+en cada iteración. Este tipo de métodos permite equilibrar la exploración y la explotación, reduciendo así el riesgo de quedar atrapado en decisiones subóptimas tomadas en etapas tempranas.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/HipotesisEnParalelo.png}
+    \caption{Estrategia de exploración de alternativas mediante generación paralela de secuencias. Fuente: elaboración propia}
+    \label{fig:estado}
+\end{figure}
+
+En conjunto, los distintos métodos de búsqueda reflejan un compromiso entre eficiencia, diversidad y calidad de las secuencias generadas. Mientras que estrategias como \emph{greedy} priorizan la rapidez, los métodos basados en muestreo
+introducen variabilidad, y los enfoques que mantienen múltiples hipótesis permiten una exploración más amplia del espacio de soluciones. Esta última idea resulta especialmente relevante en el contexto del razonamiento, donde la posibilidad
+de considerar distintas alternativas puede mejorar significativamente la calidad de la respuesta final.
+
+
+%────────────────────── Beam Search en detalle ──────────────────────────
+\section{Beam Search en detalle}
+
+Entre los distintos métodos de búsqueda utilizados en la generación de secuencias, el algoritmo de \emph{Beam Search} ocupa un lugar destacado debido a su capacidad para equilibrar la exploración de múltiples alternativas con un coste
+computacional controlado. A diferencia de estrategias como \emph{greddy search} (búsqueda voraz), que siguen una única trayectoria, o los métodos de muestreo, que introducen aleatoriedad, \emph{Beam Search} mantiene de forma simultánea un
+conjunto limitado de hipótesis candidatas durante el proceso de generación.
+
+El funcionamiento del algoritmo se basa en la idea de conservar, en cada paso, las \emph{k} secuencias parciales más prometedoras según una función de puntuación. Este parámetro, conocido como \emph{beam width}, determina el número de
+trayectorias que se mantienen activas en cada iteración. A partir de estas secuencias, el modelo genera posibles continuaciones, que son evaluadas y ordenadas para seleccionar nuevamente las \emph{k} mejores. Este proceso se repite de forma
+iterativa hasta alcanzar una condición de finalización, como la generación de una secuencia completa o un numero máximo de pasos \cite{jurafsky2009speech}.
+
+Desde un punto de vista conceptual, \emph{Beam Search} puede interpretarse como una exploración controlada del espacio de soluciones. En lugar de comprometerse con una única trayectoria desde el inicio, el algoritmo permite reconsiderar
+decisiones a medida que se genera la secuencia, manteniedno abiertas varias alternativas en paralelo. Esto reduce la probabilidad de descartar prematuramente opciones que podrían resultar óptimos en etapas posteriores (como sucede en la
+búsqueda voraz).
+
+No obstante, la eficacia del algoritmo depende en gran medida de la función de puntuación utilizada para evaluar las secuencias candidatas. En aplicaciones tradicionales de procesamiento del lenguaje, esta puntuaciñon suele basarse en
+la probabilidad acumulada de la secuencia generada. Sin embargo, este criterio no siempre es suficiente en tareas que requieren razonamiento, donde la calidad de una solución no depende únicamente de su probabilidad, sino también de la
+coherencia y validez de los pasos intermedios.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/BeamSearchImagen2.png}
+    \caption{Selección iteratica de las \emph{k} mejores secuencias en \emph{Beam Search}. Fuente: elaboración propia}
+    \label{fig:estado}
+\end{figure}
+
+Otra limitación relevante es que \emph{Beam Search} sigue siendo un método determinista en su forma básica, lo que implica que puede generar resultados similares en ejecuciones repetidas si no se introduce algún mecanismo de variabilidad.
+Además, el valor del parámetro \emph{k} unfluye directamente en el equilibrio entre coste computacional y calidad de las soluciones: valores pequeños pueden limitar la exploración, mientras que valores grandes incrementan significativamente
+el tiempo de cálculo.
+
+A pesar de estas limitaciones, \emph{Beam Search} constituye una herramienta fundamental en la generación de secuencias, y su capacidad para mantener múltiples hipótesis lo convierte en un candidato natural para su aplicación en tareas de
+razonamiento con modelos de lenguaje. En particular, su estructura iterativa y su enfoque basado en la selección de trayectorias prometedoras resultan especialmente adecuados para integrar mecanismos adicionales de evaluación, lo que
+permite extender su uso más allá de los contextos tradicionales.
+
+
+%────────────────────── Uso de Beam Search en razonamiento con LLMs ──────────────────────────
+\section{Uso de Beam Search en razonamiento con LLMs}
+
+Aunque el algoritmo de \emph{Beam Search} ha sido tradicionalmente utilizado en tareas como la traducción automática o la generación de texto, su estructura resulta especialmente adecuada para abordar problemas de razonamiento en modelos de
+lenguaje. En este contexto, el objetivo no es únicamente generar una secuencia probable, sino explorar distintas posibles trayectorias de razonamiento y seleccionar aquellas que conducen a soluciones más adecuadas.
+
+La combinación de \emph{Beam Search} con enfoques como \emph{Chain-of-Thought} permite reinterpretar el proceso de generación como una búsqueda sobre posibles cadenas de razonamiento. En lugar de producir una única secuencia de pasos intermedios,
+el modelo puede generar múltiples alternativas en cada etapa, dando lugar a diferentes hipótesis que desarrollan en paralelo. Este enfoque permite superar uan de las principales limitaciones del razonamiento lineal, al incorporar la posibilidad
+de reconsiderar decisiones y explorar distintos caminos hacia la solución.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/BeamSearchYCoT.png}
+    \caption{Estrategias de generación: trayectoria única frente a múltiples trayectorias. Fuente: elaboración propia}
+    \label{fig:estado}
+\end{figure}
+
+En este escenario, cada trayectoria mantenida por el algoritmo puede interpretarse como una posible solución parcial, que se va refinando a medida que avanza el proceso de generación. La aplicación de un mecanismo de selección en cada iteración
+permite priorizar aquellas trayectorias que presentan mejores propiedades, ya sea en términos de coherencia, utilidad o proximidad a la solución final \cite{yao2023tot}.
+
+No obstante, la adaptación de \emph{Beam Search} al razonamiento con \emph{LLMs} plantea desafíos adicionales respecto a su uso tradicional. En primer lugar, la función de puntuación utilizada para comparar las distintas trayectorias resulta
+crítica. Mientras que en tareas de generación de texto esta puntuación suele basarse en la probabilidad acumulada de la secuencia, en problemas de razonamiento es necesario considerar también la calidad de los pasos intermedios. Esto implica
+la necesidad de definir criterios más complejos que permitan evaluar no solo el resultado final, sino también el proceso seguido hasta alcanzarlo.
+
+Además, el uso de \emph{Beam Search} en este contexto requiere integrar mecanismos que permitan generar pasos de razonamiento coherentes y relevantes en cada iteración. Esto puede lograrse mediante el uso de técnicas de \emph{propmting}
+adecuadas, que orienten al modelo hacia la producción de pasos intermedios bien estructurados, o mediante la incorporación de componentes adicionales encargados de guiar el proceso de generación.
+
+Por último, cabe destacar que la aplicación de \emph{Beam Search} al razonamiento introduce un equilibrio delicado entre exploración y coste computacional. A medida que se incrementa el número de traycetorias consideradas, mejora la capacidad
+del sistema para encontrar soluciones de mayor calidad, pero también aumenta el número de evaluaciones necesarios. Por tanto, resulta necesario ajustar cuidadosamente los parámetros del algoritmo para lograr un compromisoadecuado entre
+eficacia y rendimiento.
+
+En conjunto, la integración de \emph{Beam Search} en el proceso de razonamiento con modelos de lenguaje representa un paso hacia enfoques más estructurados y controlados, en los que la generación de soluciones no depende de una única trayectoria,
+sino de la exploración y selección de múltiples alternativas. Esta idea constituye la base sobre la que se desarrrollan sistemas más avanzados capaces de combinar generación, evaluación y toma de decisiones dentro de un mismo marco de trabajo.
+
+
+%────────────────────── Evaluación del razonamiento en LLMs ──────────────────────────
+\section{Evaluación del razonamiento en LLMs}
+
+Uno de los aspectos más complejos en el uso de modelos para tareas de razonamiento es la evaluación de la calidad de las soluciones generadas. A diferencia de otros problemas de procesamiento del lenguaje natural, donde es posible comparar
+directamente la salida del modelo con una respuesta de referencia, en tareas de razonamiento resulta necesario considerar no solo el resultado final, sino también el proceso seguido para alcanzarlo.
+
+En enfoques tradicionales, la evaluación suele centrarse en la corrección de la respuesta final mediante métricas como la exactitud o el \emph{exact match}. Este tipo de medidas resulta adecuado en tareas cerradas, como la resolución de problemas
+matemáticos con una única solución correcta \cite{cobbe2021training}. Sin embargo, presentan limitaciones importantes en escenarios donde el razonamiento intermedio juega un papel fundamental o donde pueden existir múltiples soluciones plausibles.
+
+En este contexto, ha surgido un interés creciente por evaluar explícitamente las traycetorias de razonamiento generadas por los modelos. Este enfoque implica analizar la coherencia, consistencia y utilidad de los pasos intermedios, en lugar de
+limitarse a verificar el resultado final. La evaluación del proceso permite identificar errores que no serían detectables mediante métricas tradicionales, especialmente en casos en los que una respuesta correcta puede haberse obtenido a partir
+de un razonamiento incorrecto o incompleto.
+
+Una de las aproximaciones más recientes consiste en utilizar modelos de lenguaje como evaluadores de las soluciones generadas por otros modelos o por el propio sistema en distintas etapas del proceso. Este enfoque, conocido como
+\emph{LLM-as-a-judge}, se basa en la capacidad de los modelos para analizar y valorar la calidad de una respuesta, proporcionando tanto una puntuación como una justificación textual \cite{zheng2023judging}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/EvaluaciónSoluciones.png}
+    \caption{Evaluación de trayectorias de razonamiento mediante modelos de lenguaje. Fuente: elaboración propia}
+    \label{fig:estado}
+\end{figure}
+
+En este tipo de esquemas, la generación y la evaluación se conciben como procesos diferenciados pero complementarios, lo que permite introducir mecanismos más flexibles para comparar distintas alternativas y seleccionar aquellas que resultan más
+adecuadas en función de criterios definidos.
+
+El uso de modelos de lenguaje como evaluadores presenta varias ventajas. Por un lado, permite considerar aspectos cualitativos del razonamiento, como la claridad o la coherencia, que resultan difíciles de capturar mediante métricas automáticas
+tradicionales. Por otro, facilita la integración de la evaluación dentro del propio proceso de generación, abriendo la puerta a sistemas en los que las soluciones no solo se generan, sino que también se analizan y refinan de manera iterativa.
+
+No obstante, este enfoque trambién plantea desafíos importantes. La evalucación realizada por un modelo puede estar sujeta a sesgos, inconsistencias o falta de precisión, especialmente cuando se trata de tareas complejas o ambiguas. Además,
+el uso de modelos adicionales para evaluar las soluciones incrementa el coste computacional del sistema, lo que puede limitar su aplicabilidad en ciertos contextos.
+
+En conjunto, la evaluación del razonamiento se configura como un elemento clave en el desarrollo de sistemas basados en modelos de lenguaje. La capacidad de analizar no solo el resultado final, sino también el proceso seguido para alcanzarlo.
+resulta fundamental para avanzar hacia enfoques más robustos, en los que la generación y la evaluación se integren dentro de un mismo marco de trabajo.
+
+
+
+%────────────────────── Limitaciones del estado del arte ──────────────────────────
+\section{Limitaciones del estado del arte}
+
+A pesar de los avances recientes en el desarrollo de técnicas para mejorar el razonamiento en modelos de lenguaje, las soluciones existentes presentan limitaciones que dificultan su aplicación en escenarios más complejos o exigentes. Estas
+limitaciones no solo afectan al rendimiento de los modelos, sino también a la forma en que se estructuran los procesos de generación y toma de decisiones.
+
+En el caso de \emph{Chain-of-Thought}, aunque se ha demostrado que la generación de pasos intermedios mejora significativamente el rendimiento en tareas de razonamiento, el enfoque sigue dependiendo de una única trayectoria. Esto implica que un
+error en cualquier punto del proceso puede propagarse hasta la respuesta final sin posibilidad de corrección. Además, no se dispone de mecanismos internos que permitan evaluar la calidad de los pasos generados o reconsiderar decisiones previas
+\cite{wei2022chain}.
+
+Las extensiones basadas en la generación de múltiples trayectorias, como \emph{Self-Consistency}, introducen una mejora al considerar varias soluciones posibles. Sin embargo, estas trayectorias se generan de forma independiente y la selección final
+se basa únicamente en el resultado, sin tener en cuenta la calidad del razonamiento intermedio. Esto limita su capacidad para discriminar entre soluciones que pueden parecer correctas superficialmente pero que se basan en procesos
+inconsistentes \cite{wang2022self}.
+
+Asimismo, la exploración del espacio de soluciones suele implicar un compromiso complejo entre calidad y coste computacional. Métodos como \emph{Tree of Thoughts}, que permiten considerar múltiples alternativas tienden a requerir un mayor
+número de evaluaciones, lo que dificulta su aplicación en entornos donde lso recursos son limitados.
+
+Por último, muchos de los enfoques existentes carecen de un marco unificado que integre de manera coherente la generación de soluciones, su evaluación y el control del flujo de razonamiento. En lugar de ello, estos componentes suelen abordarse
+de forma aislada, lo que reduce la capacidad del sistema para gestionar el proceso de forma estructurada.
+
+En conjunto, estas limitaciones ponen de manifiesto la necesidad de desarrollar enfoques que permitan combinar de manera efectiva la exploración de múltiples trayectorias, la evaluación de su calidad y el control iterativo del proceso de
+razonamiento. Esta necesidad constituye el punto de partida para el enfoque propuesto en este trabajo.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{images/LimitacionesMetodosRazonamiento2.png}
+    \caption{Comparativa de limitaciones en estrategias de razonamiento automático. Fuente: elaboración propia}
+    \label{fig:estado}
+\end{figure}
+
+%────────────────────── Imaging model and objectives ──────────────────────────
 \section{Imaging model and objectives}
+
 Assume \(y = A x + n\). The SR network \(f_\theta\) estimates
 \(\hat x = f_\theta(y)\).
 We use the composite objective
@@ -218,174 +513,460 @@ Performance metrics
 \operatorname{Dice}(p,m) &= \frac{2\sum p m}{\sum p + \sum m}.
 \end{align}
 
-%────────────────────── Chapter 3 — Methods ────────────────────────────
-\chapter{Methods}
-\section{Network design}
-SR module: residual blocks with sub-pixel upsampling.
-Segmentation module: 3D U-Net with skip connections. \cite{lecun2015deep}
+%────────────────────── Chapter 3 — LangGraph ────────────────────────────
+\chapter{LangGraph}
 
-\begin{algorithm}
-\caption{Joint SR+Seg training}
-\label{alg:train}
-\begin{algorithmic}[1]
-\Procedure{Train}{$\mathcal{D}$, $\theta$, $\phi$}
-  \For{epoch $=1..E$}
-    \For{batch $(y,x,m)\sim \mathcal{D}$}
-      \State $\hat x \gets f_\theta(y)$
-      \State $z \gets g_\phi(\hat x)$; $p\gets\sigma(z)$
-      \State $\mathcal{L}\gets \mathcal{L}_{\mathrm{SR}}(\hat x,x)+\gamma\,\mathcal{L}_{\mathrm{seg}}(p,m)$
-      \State Update $(\theta,\phi)$ by Adam on $\nabla \mathcal{L}$
-    \EndFor
-  \EndFor
-\EndProcedure
-\end{algorithmic}
-\end{algorithm}
+%────────────────────── Introducción a LangGraph ──────────────────────────
+\section{Introducción a LangGraph}
 
-%────────────────────── Mathematical Foundations ──────────────────────────
-\section{Mathematical foundations}
+En los sistemas basados en modelos de lenguaje, el enfoque tradicional ha consistido en realizar llamadas independientes y aisladas a un modelo, evolucionando posteriormente
+hacia sistemas más complejos capaces de gestionar flujos de ejecución estructurados. Esto cambio responde así a la necesidad de construir aplicaciones que no solo generen
+respuestas, sino que integren múltiples pasos de procesamiento, toma de decisiones y manejo de información intermedia.
 
-\begin{definition}[label=def:ssim]{Structural Similarity Index}
-The \textbf{Structural Similarity Index (SSIM)} between two images $x$ and $\hat{x}$ is defined as:
-\[
-\operatorname{SSIM}(x,\hat{x}) = \frac{(2\mu_x\mu_{\hat{x}}+C_1)(2\sigma_{x\hat{x}}+C_2)}{(\mu_x^2+\mu_{\hat{x}}^2+C_1)(\sigma_x^2+\sigma_{\hat{x}}^2+C_2)}
-\]
-where $\mu_x$, $\mu_{\hat{x}}$ are the local means, $\sigma_x^2$, $\sigma_{\hat{x}}^2$ are the local variances, and $\sigma_{x\hat{x}}$ is the cross-covariance.
-\end{definition}
+En este contexto surge \emph{LangGraph}, una herramienta que se presenta como alternativa a los enfoques lineales, y diseñada para facilitar la construcción de agentes
+mediante la definición de flujos de ejecución basados en grafos. \emph{LangGraph} modela procesos de forma más flexible, en los que pueden existir bifurcaciones, ciclos y
+dependencias entre distintos pasos. \cite{langgraph2024}
 
-\begin{theorem}[label=thm:convergence]{Convergence of Gradient Descent}
-Let $f: \mathbb{R}^n \to \mathbb{R}$ be a convex, $L$-smooth function. Then gradient descent with step size $\eta = 1/L$ satisfies:
-\[
-f(x_k) - f(x^*) \leq \frac{L\|x_0 - x^*\|^2}{2k}
-\]
-where $x^*$ is the global minimizer.
-\end{theorem}
+A diferencia de un flujo secuencial, un grafo permite mayor flexibilidad, al representar de manera más natural procesos complejos, en los que el sistema puede iterar,
+tomar decisiones en función del estado actual o repetir determinadas operaciones hasta alcanzar un resultado adecuado. Este tipo de estructura es clave en sistemas que requieren
+un comportamiento dinámico, como es el caso de agentes con capacidad de razonamiento iterativo.
 
-\begin{proof}
-By $L$-smoothness, we have $f(y) \leq f(x) + \nabla f(x)^\top(y-x) + \frac{L}{2}\|y-x\|^2$.
-Setting $y = x - \frac{1}{L}\nabla f(x)$ and using convexity, the result follows by telescoping.
-\end{proof}
+\begin{figure}[h]
+    \centering
 
-\begin{lemma}[label=lem:dice]{Dice Loss Gradient}
-The gradient of the Dice loss with respect to the predicted probability $p_i$ is:
-\[
-\frac{\partial \mathcal{L}_{\text{Dice}}}{\partial p_i} = -\frac{2m_i(\sum_j p_j + \sum_j m_j) - 2\sum_j p_j m_j}{(\sum_j p_j + \sum_j m_j)^2}
-\]
-\end{lemma}
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.8\linewidth]{images/DiagramaFlujoSecuencial.png}
+        \caption{Ejemplo de enfoque tradicional mediante diagrama de flujo lineal}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/DiagramaFlujoGrafo2.png}
+        \caption{Ejemplo de enfoque moderno mediante diagrama de flujo en grafo}
+    \end{subfigure}
 
-\begin{corollary}[label=cor:lr]{Optimal Learning Rate}
-For neural networks with batch normalization, the optimal learning rate scales as $\eta \propto \sqrt{B}$ where $B$ is the batch size.
-\end{corollary}
+    \caption{Comparación entre enfoques. Fuente: Elaboración propia}
+\end{figure}
 
-\begin{proposition}[label=prop:universal]{Universal Approximation}
-A feedforward neural network with a single hidden layer containing a finite number of neurons can approximate any continuous function on compact subsets of $\mathbb{R}^n$, under mild assumptions on the activation function.
-\end{proposition}
+Además, la modularidad que ofrece \emph{LangGraph} al facilitar la separación de responsabilidades dentro del sistema, permitiendo definir distintos componentes que se encargan de
+tareas específicas no solo mejorar la claridad del diseño, sino que a su vez favorece la reutilización y extensión del sistema. Algunas de las tareas específicas ejecutadas por los
+compenentes son la generación de contenido, la evaluación de resultados o la actualización del estado interno.
 
-\begin{remark}
-The convergence rate in \cref{thm:convergence} is $O(1/k)$, which can be improved to $O(1/k^2)$ using accelerated methods like Nesterov momentum.
-\end{remark}
+De este modo, \emph{LangGraph} constituye una base sólida para el desarrollo de agentes avanzados, proporcionando un marco de trabajo que permite superar las limitaciones de los
+enfoques secuenciales tradicionales y ofreciendo una forma más estructurada y flexible de diseñar agentes basados en modelos de lenguaje.
 
-\begin{example}
-Consider a 3D U-Net with depth $D=4$ and initial channels $C=32$. The receptive field grows exponentially with depth, allowing the network to capture both local texture and global context.
-\end{example}
+%\begin{algorithm}
+%\caption{Joint SR+Seg training}
+%\label{alg:train}
+%\begin{algorithmic}[1]
+%\Procedure{Train}{$\mathcal{D}$, $\theta$, $\phi$}
+%  \For{epoch $=1..E$}
+%    \For{batch $(y,x,m)\sim \mathcal{D}$}
+%      \State $\hat x \gets f_\theta(y)$
+%      \State $z \gets g_\phi(\hat x)$; $p\gets\sigma(z)$
+%      \State $\mathcal{L}\gets \mathcal{L}_{\mathrm{SR}}(\hat x,x)+\gamma\,\mathcal{L}_{\mathrm{seg}}(p,m)$
+%      \State Update $(\theta,\phi)$ by Adam on $\nabla \mathcal{L}$
+%    \EndFor
+%  \EndFor
+%\EndProcedure
+%\end{algorithmic}
+%\end{algorithm}
 
-\begin{note}
-All experiments were conducted on NVIDIA A100 GPUs with mixed-precision training enabled.
-\end{note}
+%────────────────────── Concepto de grafos aplicado a agentes ──────────────────────────
+\section{Concepto de grafo aplicado a agentes}
 
-%────────────────────── Reference Implementation ─────────────────────────
-\section{Reference implementation (PyTorch)}
-\begin{lstlisting}[style=python,caption={Minimal SR+U\_Net skeleton (PyTorch)},label={lst:pytorch}]
-# Module: sr_seg.py
-# Purpose: Joint SR reconstruction and segmentation for MRI volumes
-# Notes: Typed, logged, dataclass configs, minimal structure
+Los grafos han sido y son ampliamente utilizados en diferentes ámbitos de la informática para modelar sistemas complejos, ya que permite
+representar de forma clara las conexiones y dependencias entre los diferentes componentes. Su estructura matemática consta de un conjunto de elementos,
+denominados nodos, conectados entre sí mediante relaciones llamadas aristas. \cite{cormen2009algorithms}
 
-from dataclasses import dataclass
-from typing import Tuple
-import logging, torch, torch.nn as nn
-import torch.nn.functional as F
+En el contexto de los agentes basados en modelos de lenguage, los grafos ofrecen una forma natural de estructurar el flujo de ejecución. Dentro de este
+contexto, los nodos representan etapas del proceso, mientras que las transiciones entre ellos definen el flujo de ejecución del sistema. En otras palabras,
+cada nodo corresponde a una operación específica, mientras que las aristas determinan cómo se transita entre ellas.
 
-logger = logging.getLogger("srseg")
-logger.setLevel(logging.INFO)
+Este enfoque permite superar ciertas limitaciones de los sistemas lineales tradicionales, en los que la ejecución sigue un único camino predefinido. Además,
+los grafos facilitan la representación de procesos iterativos, en los que el sistema puede volver a ejecutar determinadas partes del flujo hasta cumplir una
+condición concreta. Esta característica resulta especialmente relevante en el diseño de agentes con capacidad de razonamiento, donde es habitual generar, evaluar
+y refinar soluciones de manera progresiva. \cite{bondy1976graph}
 
-@dataclass
-class TrainConfig:
-    lr: float = 2e-4
-    gamma: float = 1.0
-    lambda_l1: float = 1.0
-    lambda_ssim: float = 0.2
-    lambda_tv: float = 1e-5
+Otra ventaja a tener en cuenta con el uso de grafos es su interpretabilidad, pues su capacidad para reflejar de forma explícita la estructura
+del sistema facilita actividades como el análisis del comportamiento del agente y la identificación de posibles puntos de mejora.
 
-class ResidualBlock(nn.Module):
-    """Residual block with two conv3d layers."""
-    def __init__(self, c: int):
-        super().__init__()
-        self.c1 = nn.Conv3d(c, c, 3, padding=1)
-        self.c2 = nn.Conv3d(c, c, 3, padding=1)
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
-        r = F.relu(self.c1(x))
-        r = self.c2(r)
-        return F.relu(x + r)
+En consecuencia, el uso de grafos en la construcción de agentes permite diseñar sistemas más modulares, flexibles y adaptables, facilitando la implementación
+de flujos de ejecución complejos que serían difíciles de representar mediante enfoques puramente secuenciales.
 
-class SRNet(nn.Module):
-    """EDSR-like SR backbone for volumetric data."""
-    def __init__(self, in_ch: int = 1, base: int = 64, depth: int = 8):
-        super().__init__()
-        self.head = nn.Conv3d(in_ch, base, 3, padding=1)
-        self.body = nn.Sequential(*[ResidualBlock(base) for _ in range(depth)])
-        self.tail = nn.Conv3d(base, 1, 3, padding=1)
-    def forward(self, y: torch.Tensor) -> torch.Tensor:
-        h = self.head(y)
-        h = self.body(h)
-        return self.tail(h)
 
-class UNet3D(nn.Module):
-    """3D U-Net for segmentation."""
-    def __init__(self, in_ch: int = 1, n_classes: int = 2, base: int = 32):
-        super().__init__()
-        self.e1 = nn.Sequential(nn.Conv3d(in_ch, base, 3, padding=1), nn.ReLU(),
-                                nn.Conv3d(base, base, 3, padding=1), nn.ReLU())
-        self.e2 = nn.Sequential(nn.Conv3d(base, base*2, 3, stride=2, padding=1), nn.ReLU())
-        self.b  = nn.Sequential(nn.Conv3d(base*2, base*4, 3, padding=1), nn.ReLU())
-        self.d2 = nn.Sequential(nn.ConvTranspose3d(base*4, base*2, 2, stride=2), nn.ReLU())
-        self.out= nn.Conv3d(base*2, n_classes, 1)
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
-        x1 = self.e1(x)
-        x2 = self.e2(x1)
-        b  = self.b(x2)
-        d2 = self.d2(b)
-        z  = self.out(d2)
-        return z
+%────────────────────── Conceptos fundamentales de LangGraph ──────────────────────────
+\section{Conceptos fundamentales de LangGraph}
 
-def dice_loss(p: torch.Tensor, m: torch.Tensor, eps: float = 1e-6) -> torch.Tensor:
-    p = p.softmax(1)[:,1]  # foreground
-    m = (m > 0.5).float()
-    num = 2*(p*m).sum()
-    den = p.sum() + m.sum() + eps
-    return 1 - num/den
+Para comprender el funcionamiento de \emph{LangGraph}, es necesario analizar los elementos básicos que conforman su modelo de ejecución.
+En conjunto, estos elementos proporcionan una base para el diseño y construcción de agentes complejos, permitiendo combinar generación, evaluación y toma
+de decisiones dentro de un mismo sistema:
 
-def tv(x: torch.Tensor) -> torch.Tensor:
-    return (x[:, :, 1:] - x[:, :, :-1]).abs().mean() + \
-           (x[:, :, :, 1:] - x[:, :, :, :-1]).abs().mean() + \
-           (x[:, :, :, :, 1:] - x[:, :, :, :, :-1]).abs().mean()
+\subsection{Estado}
 
-def train_step(sr: SRNet, unet: UNet3D, opt: torch.optim.Optimizer,
-               y: torch.Tensor, x: torch.Tensor, m: torch.Tensor,
-               cfg: TrainConfig) -> float:
-    opt.zero_grad()
-    x_hat = sr(y)
-    l1 = (x_hat - x).abs().mean()
-    # crude SSIM proxy to keep example short
-    ssim_term = ((x_hat - x)**2).mean()
-    l_tv = tv(x_hat)
-    z = unet(x_hat.detach())
-    ce = F.cross_entropy(z, m.long())
-    dl = dice_loss(z, m)
-    loss = cfg.lambda_l1*l1 + cfg.lambda_ssim*ssim_term + cfg.lambda_tv*l_tv + cfg.gamma*(ce + dl)
-    loss.backward()
-    opt.step()
-    logger.info(f"loss={loss.item():.4f}")
-    return float(loss.item())
+Un estado representa la información que se mantiene a lo largo de la ejecución del sistema. Este estado actúa como un contenedor de datos, que permite almacenar
+información relevante a medida que el agente progresa, logrando así que cada paso ejecutado tenga acceso al contexto generado en las etapas anteriores.
+De este modo, se facilita la construcción de aquellos procesos que dependen del historial o de resultados intermedios.
+
+\subsection{Nodo}
+
+Un nodo es un punto de intersección, unidad básica de procesamiento dentro del grafo. En esencia, actúa como un punto de referencia que permite organizar datos de
+manera ordenada y eficiente. Cada nodo se encarga de ejecutar una operación concreta, como puede ser la generación de contenido, la evaluación de una respuesta o la
+transformación de datos almacenados en el estado. Esta separación en nodos permite estructurar el sistema de forma modular, asignando responsabilidades específicas
+a cada componente. Además, cuanto más rica y conectada sea la red de nodos, mayor es la capacidad del sistema para interpretar y generar conocimiento. \cite{nodes_msmk2025}
+
+\subsection{Arista}
+
+Las aristas o transiciones definen cómo se produce el paso de un nodo a otro. Estas transiciones pueden ser de dos tipos:
+\begin{itemize}
+  \item De tipo fijo, siguiendo una secuencia predeterminada.
+  \item De tipo condicional, en función de determinados criterios evaluados durante la ejecución.
+\end{itemize}
+El uso de aristas introduce lógica de decisión dentro del flujo, adaptando el comportamiento del sistema según la información disponible en cada momento. \cite{aperezl_langgraph2024}
+
+\subsection{Bucles}
+
+La presencia de bucles dentro del grafo facilita la implementación de procesos iterativos gracias a que, a diferencia de los enfoques lineales,
+\emph{LangGraph} permite que la ejecución vuelva a nodos previamente visitados. Esta característica resulta especialmente útil en sistemas que requieren
+refinamiento progresivo, como los basados en razonamiento paso a paso.
+
+\subsection{Puntos de inicio y finalización}
+
+Finalmente, es necesario considerar la existencia de puntos de inicio y finalización dentro del grafo. El nodo inicial marca el punto de salida, desde donde
+da comienzo la ejecución, mientras que las condiciones de finalización controlan cuándo se ha alcanzado un resultado satisfactorio y, por lo tanto,
+detener el proceso. Este mecanismo permite controlar el flujo de ejecución y evitar iteraciones innecesarios.
+
+
+%────────────────────── Conceptos fundamentales de LangGraph ──────────────────────────
+\section{Funcionamiento general de LangGraph}
+
+Una vez definidos los elementos fundamentales de \emph{LangGraph}, resulta necesario comprender cómo interactuan entre sí durante la ejecución de un agente. El funcionamiento de
+\emph{LangGraph} puede entenderse como la evaluación progresiva de un grafo, donde el sistema transita entre los diferentes nodos siguiendo las transiciones definidas (arsitas) y
+actualizando el estado en cada paso.
+
+La ejecución comienza a partir de una configuración inicial, que contiene la información de partida necesaria para la ejecución. A partir de este punto,
+se accede al nodo inicial del grafo, que actúa a su vez como punto de entrada del sistema. La modificación de estado producida por la operación ejecutada por el nodo inicial será
+utilizada en las etapas posteriores.
+
+Tras la ejecución de un nodo, el sistema evalúa todas las posibles transiciones disponibles en dicho instante.
+Dependiendo de la configuración del grafo, la siguiente etapa puede:
+
+\begin{itemize}
+  \item Estar determinada de forma fija.
+  \item Depender de condiciones evaluadas a partir del estado actual.
+\end{itemize}
+
+Con dicho condicionante, el mecanismo logra introducir dinamismo en el flujo de ejecución, permitiendo que el agente sea capaz de adaptarse a la información generada en tiempo
+de ejecución, y adoptar el comportamiento pertinente.
+
+A medida que el proceso avanza, el estado de va actualizando de forma incremental, acumulando a su vez información relevante que podría influir en decisiones y transiciones futuras.
+Este ciclo de ejecución de nodo, actualización de estado y transición se repite iterativamente hasta que se alcanza la condición de parada, previamente establecida. \cite{anderfernandez_langgraph2024}
+
+En aquellos casos en los que el grafo incluye bucles, el sistema puede volver a nodos previamente ejecutados, lo que permite implementar procesos iterativos.
+Este tipo de comportamiento resulta especialmente útil en escenarios en los que, antes de obtener un resultado final, es necesario refinar progresivamente una solución o evaluar
+ditintas alternativas.
+
+La ejecución finaliza cuando se cumple una condición de parada \cite{nocedal2006numerical}, obteniéndose un resultado generado a partir del estado acumulado. De esta forma, este enfoque permite
+construir sistemas en los que la respuesta final es el resultado de múltiples pasos intermedios, en lugar de una única operación directa.
+
+
+%────────────────────── Gestión del estado en LangGraph ──────────────────────────
+\section{Gestión del estado en LangGraph}
+
+Uno de los elementos clave en el funcionamiento de sistemas basados en grafos es la gestión del estado, entendido como el conjunto de información que se mantiene y se actualiza a lo
+largo de la ejecución. En el caso de \emph{LangGraph}, el estado desempeña un papel fundamental, ya que actúa como el medio a través del cual los distintos nodos comparten información
+y coordinan su comportamiento.
+
+A diferencia de enfoques más simples, en los que cada operación se ejecuta de forma aislada, el uso de un estado compartido permite construir procesos en los que cada paso
+depende de los resultados obtenidos previamente. De este modo, el sistema es capaz de mantener un contexto acumulativo, lo que resulta especialmente útil en aplicaciones que requieren
+múltiples etapas de procesamiento.
+
+El estado puede contener distintos tipos de información, dependiendo del diseño del sistema. Entre los elementos más habituales se encuentran el historial de interacciones y los resultados
+intermedios generados durante la ejecución, así como métricas o puntuaciones asociadas a diferentes alternativas. Esta flexibilidad permite adaptar el estado a las necesidades específicas de
+cada aplicación.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/EstadoMemoria.png}
+    \caption{Esquema del estado del sistema que incluye historial, resultados y puntuaciones. Fuente: elaboración propia}
+    \label{fig:estado}
+\end{figure}
+
+Durante la ejecución del grafo, cada nodo tiene la capacidad de acceder al estado, modificarlo y añadir nueva información. Este proceso de actualización progresiva es lo que permite que el
+sistema evolucione a lo largo del tiempo, incorporando nuevos datos que influyen en las decisiones posteriores.
+
+No obstante, una gestión inadecuada del estado puede introducir problemas en el sistema. Por ejemplo, un crecimiento excesivo de la información almacenada puede afectar al rendimiento, mientras
+que la inclusión de datos irrelevantes puede dificultar la toma de decisiones. Por ello, resulta necesario diseñar cuidadosamente qué información se almacena y cómo se actualiza en cada etapa
+del proceso. \cite{weng2023llm_agents}
+
+En conclusión, la gestión del estado no solo constituye un elemento técnico dentro de \emph{LangGraph}, sino que también representa un aspecto clave en el diseño de agentes basados en modelos
+de lenguaje. Un estado bien defeinido permite mejorar la coherencia del sistema, facilitar el seguimiento del razonamiento y optimizar el proceso de toma de decisiones.
+
+
+%────────────────────── Máquina de estados finitos aplicada a LangGraph ──────────────────────────
+\section{Máquina de estados finitos aplicada a LangGraph}
+Las máquinas de estados finitos constituyen un modelo ampliamente utilizado para describir sistemas cuyo comportamiento puede dividirse en un conjunto de etapas bien definidas, entre las que se
+producen transiciones en función de determinadas condiciones. Este enfoque resulta especialmente útil para modelar procesos en los que el flujo de ejecución no es estrictamente lineal, sino
+que depende de decisiones tomadas durante la ejecución. \cite{hopcroft2001automata}
+
+En el contexto de \emph{LangGraph}, este modelo permite interpretar el flujo del agente como una secuencia de estados conectados mediante transiciones. Cada nodo del grafo representa una etapa concreta
+del proceso, mientras que las aristas determinan las posibles evoluciones del sistema en función de las condiciones evaluadas.
+
+Como se indica en reiteradas ocasiones de este proyecto, a diferencia de los enfoques secuenciales tradicionales, el uso de una máquina de estados permite definir comportamientos más complejos, como
+la posibilidad de reintentar una operación en caso de fallo, retroceder a una etapa anterior o seguir distintos caminos en función del resultado obtenido en un paso intermedio. Este tipo de control
+resulta difícil de implementar mediante estructuras lineales, pero se adapta de forma natural a un modelo basado en estados.
+
+En relación con este trabajo, este enfoque resulta especialmente relevante para estructurar el proceso de razonamiento del agente. En lugar de considerar el sistema como una única secuencia de pasos,
+es posible dividirlo en distintas fases, como la generación de una solución, su evaluación y la toma de decisiones posteriores. Las transiciones entre estas fases permiten determinar si el proceso debe
+continuar, repetirse o finalizar. \cite{harel1987statecharts}
+
+Este modelo aporta, por tanto, una forma clara de organizar el flujo de ejecución, facilitando la implementación de comportamientos dinámicos y adaptativos. Además, permite representar de manera explícita
+las posibles rutas de ejecución, lo que contribuye a una mejor comprensión del sistema y a una mayor facilidad para su análisis y depuración.
+
+
+%────────────────────── Ejemplo de patrón ReAct en LangGraph ──────────────────────────
+\section{Ejemplo de patrón ReAct en LangGraph}
+
+Una de las formas más representativas de utilizar \emph{LangGraph} en el diseño de agentes es mediante la implementación de patrones que combinan razonamiento y acción de manera iterativa. Este tipo de
+enfoque permite que el sistema no solo genere una respuesta, sino que también interactúe con su entorno y utilice información externa para mejorar sus decisiones. \cite{yao2023react}
+
+En este sentido, resulta especialmente ilustrativo considerar un esquema en el que el agente analiza una consulta inicial y decide si es necesario realizar alguna acción adicional antes de generar una
+respuesta definitiva. Este proceso puede modelarse mediante un grafo en el que cada nodo representa una fase diferencia del comportamiento del agente.
+
+En una primera etapa el sistema procesa la entrada del usuario y genera una interpretación inicial del problema. A partir de esta información, el agente puede decidir si dispone de suficiente conocimiento
+para responder directamente o si, por el contrario, necesita apoyarse en alguna herramienta externa, como una función de Python o una consulta a una API.
+
+Esta decisión se traduce en una transición condicional dentro del grafo. Si el agente determina que no es necesaria ninguna acción adicional, el flujo de ejecución finaliza y se devuelve una respuesta. En
+caso contrario, el sistema transita hacia un nodo encargado de ejecutar la acción correspondiente, obteniendo nueva información que se incorpora al estado.
+
+Una vez se realizada la acción, el flujo no concluye, sino que vuelve al nodo inicial de razonamiento. De este modo, el agente puede reconsiderar la situación a la luz de los nuevos datos obtenidos, generando
+un proceso iteerativo en el que se alternan fases de análisis y acción hasta alcanzar una solución adecuada.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/CicloRazonamientoAcción.png}
+    \caption{Esquema de interacción iterativa entre las fases de razonamiento y acción en un agente basado en grafos. Fuente: elaboración propia}
+    \label{fig:estado}
+\end{figure}
+
+Este tipo de patrón resulta especialmenente útil en problemas donde la información es insuficiente o donde es necesario realizar operaciones intermedias antes de obtener una respuesta final. Además, permite
+estructurar el comportamiento del agente de forma clara, separando las fases de razonamiento y ejecución, lo que facilita tanto su comprensión como su implementación.
+
+En el contexto de este trabajo, este enfoque sirve como ejemplo de cómo \emph{LangGraph} permite integrar distintos componentes dentro de un mismo flujo de ejecución, combinando generación, evaluación y toma
+de decisiones en un proceso iterativo.
+
+
+%────────────────────── Ejemplos en LangGraph ──────────────────────────
+\section{Ejemplos en LangGraph}
+
+\subsection{Ejemplo básico: contador iterativo}
+
+Con el objetivo de ilustrar de forma práctica los conceptos introducidos a lo largo de este capítulo, se presenta a continuación un ejemplo sencillo de un flujo de ejecución implementado mediante \emph{LangGraph}.
+Este ejemplo tiene un carácter puramente didáctico y busca mostrar de manera clara cómo se organizan los distintos elementos del sistema, sin introducir complejidad innecesaria.
+
+El comportamiento modelado consiste en un proceso iterativo muy simple: partiendo de un valor inicial, el sistema incrementa dicho valor en cada paso hasta alcanzar una condición de parada. Aunque se trata de un
+caso elemental, permite observar con claridad la interacción entre estado, nodos y transiciones dentro del grafo.
+
+En primer lugar, se define la estructura del estado compartido. En este caso, el estado contiene únicamente un contador entero que será modificado a lo largo de la ejecución:
+
+\begin{lstlisting}[language=Python]
+class CounterState(TypedDict):
+    counter: int
 \end{lstlisting}
+
+A continuación, se define el nodo principal del sistema. Este nodo recibe el estado actual, realiza una operación sobre él y devuelve una versión actualizada:
+
+\begin{lstlisting}[language=Python]
+def increment_node(state: CounterState) -> dict:
+    current = state["counter"]
+    return {"counter": current + 1}
+\end{lstlisting}
+
+Este fragmento ilustra una de las ideas fundamentales de \emph{LangGraph}: Los nodos no modifican directamente el estado, sino que devuelven los cambios que deben aplicarse sobre él. De este modo, el sistema mantiene
+un control explícito sobre la evolución de la información.
+
+Para controlar el flujo de ejecución se introduce una función de decisión que determina si el proceso debe continuar o finalizar. Esta función se basa en el valor actual del contador:
+
+\begin{lstlisting}[language=Python]
+def should_continue(state: CounterState) -> str:
+    if state["counter"] < 5:
+        return "continue"
+    return "end"
+\end{lstlisting}
+
+Esta función permite modelar una transición condicional dentro del grafo, dando lugar a un comportamiento iterativo.
+
+Una vez definidos el estado y las funciones principales, se construye el grafo mediante la conexión de los distintos elementos:
+
+\begin{lstlisting}[language=Python]
+builder = StateGraph(CounterState)
+
+builder.add_node("increment", increment_node)
+
+builder.set_entry_point("increment")
+
+builder.add_conditional_edges(
+    "increment",
+    should_continue,
+    {
+        "continue": "increment",
+        "end": END,
+    },
+)
+\end{lstlisting}
+
+En este caso, el grafo está compuesto por un único nodo que se ejecuta de forma repetida mientras se cumpla la condición establecida. La transición condicional permite modelar un bucle de manera explícita, sin necesidad
+de recurrir a estructuras de control tradicionales como \texttt{while} o \texttt{for}.
+
+Finalmente, el sistema se compila y se ejecuta a partir de un estado inicial:
+
+\begin{lstlisting}[language=Python]
+graph = builder.compile()
+
+result = graph.invoke({"counter": 0})
+\end{lstlisting}
+
+Durante la ejecución, el valor del contador se incrementa progresivamente hasta alcanzar el límite definido, momento en el cual el flujo de ejecución finaliza.
+A pesar de su simplicidad, este ejemplo permite apreciar cómo \emph{LangGraph} proporciona un marco estructurado para modelar procesos iterativos mediante grafos. En particular, se observa cómo el estado se va
+actualizando de forma controlada, cómo los nodos encapsulan unidades de procesamiento y cómo las transiciones permiten definir el comportamiento dinámico del sistema.
+
+Este tipo de enfoque resulta especialmente útil en escenarios más complejos, como los agentes basados en modelos de lenguaje, donde es necesario encadenar múltiples pasos de razonamiento y toma de decisiones dentro de un
+mismo flujo de ejecución.
+
+
+\subsection{Ejemplo con flujo condicional: transformación de un valor numérico}
+
+Tras el ejemplo anterior, basado en un contador sencillo, resulta conveniente introducir un caso algo más complejo que permita observar con mayor claridad cómo se combinan varios de los elementos descritos en este capítulo.
+En particular, interesa mostrar una situación en la que intervengan distintos nodos, transiciones condicionales y un proceso iterativo controlado mediante el estado.
+
+Con este objetivo, se plantea un ejemplo en el que el sistema parte de un número entero y aplica distintas transformaciones en función de su valor. Si el número es par, se divide entre dos; si es impar, se incrementa en una
+unidad. El proceso se repite hasta que se alcanza el valor 1. Se trata de un caso deliberadamente simple, pero suficiente para ilustrar cómo \emph{LangGraph} permite modelar flujos de ejecución con varios caminos posibles dentro
+de una misma estructura de grafo.
+
+En primer lugar, se define el estado compartido del sistema. Además del valor actual, se incorpora un historial que permite registrar las transformaciones realizadas durante la ejecución:
+
+\begin{lstlisting}[language=Python]
+class NumberState(TypedDict):
+    value: int
+    history: List[str]
+\end{lstlisting}
+
+La inclusión de un historial resulta útil porque permite observar cómo el estado no solo almacena información puntual, sino también la evolución del proceso. De este modo, cada nodo puede consultar el valor actual y, al mismo
+tiempo, dejar constancia de la operación efectuada.
+
+A continuación, se define una función de decisión encargada de determinar a qué nodo debe dirigirse el flujo en cada iteración. Esta decisión depende del valor actual del estado:
+
+\begin{lstlisting}[language=Python]
+def choose_operation(state: NumberState) -> str:
+    if state["value"] == 1:
+        return "end"
+    elif state["value"] % 2 == 0:
+        return "divide"
+    return "increment"
+\end{lstlisting}
+
+Esta función ilustra cómo las transiciones condicionales permiten introducir comportamientos dinámicos dentro del grafo. El flujo no avanza siempre hacia el mismo nodo, sino que puede tomar distintos caminos según la información
+almacenada en el estado.
+
+Una vez definida la lógica de decisión, se implementan los nodos que realizan las transformaciones sobre el valor. El primero de ellos se encarga de dividir entre dos los números pares:
+
+\begin{lstlisting}[language=Python]
+def divide_node(state: NumberState) -> dict:
+    current = state["value"]
+    new_value = current // 2
+
+    return {
+        "value": new_value,
+        "history": state["history"] + [f"{current} es par, se divide entre 2 y pasa a {new_value}"],
+    }
+\end{lstlisting}
+
+Este nodo recibe el estado, calcula el nuevo valor y devuelve únicamente las modificaciones que deben incorporarse al estado global. Junto con la actualización numérica, se añade también una entrada al historial que describe la operación
+realizada.
+
+De forma análoga, se define un segundo nodo para el caso en que el valor sea impar:
+
+\begin{lstlisting}[language=Python]
+def increment_node(state: NumberState) -> dict:
+    current = state["value"]
+    new_value = current + 1
+
+    return {
+        "value": new_value,
+        "history": state["history"] + [f"{current} es impar, se incrementa en 1 y pasa a {new_value}"],
+    }
+\end{lstlisting}
+
+La existencia de dos nodos distintos permite representar de forma explícita dos comportamientos diferentes dentro del mismo sistema. Esta separación mejora la claridad del diseño y facilita la expresión del grafo en caso de querer incorporar
+nuevas operaciones más adelante.
+
+Definidos el estado, la función de decisión y los nodos de procesamiento, puede construirse ya el grafo de ejecución:
+
+\begin{lstlisting}[language=Python]
+builder = StateGraph(NumberState)
+
+builder.add_node("divide", divide_node)
+builder.add_node("increment", increment_node)
+\end{lstlisting}
+
+A diferencia del ejemplo anterior, en este caso no existe un único nodo que se repite de manera uniforme, sino varios nodos posibles entre los que el sistema debe elegir en función del estado actual. Esta característica permite apreciar mejor el
+papel de las aristas condicionales dentro de \emph{LangGraph}.
+
+El flujo se inicia a partir de una decisión, que determina qué operación debe aplicarse en cada momento. Tras ejecutar cualquiera de los dos nodos, el sistema vuelve de nuevo al punto de decisión, formando así un ciclo:
+
+\begin{lstlisting}[language=Python]
+builder.set_conditional_entry_point(
+    choose_operation,
+    {
+        "divide": "divide",
+        "increment": "increment",
+        "end": END,
+    },
+)
+
+builder.add_conditional_edges(
+    "divide",
+    choose_operation,
+    {
+        "divide": "divide",
+        "increment": "increment",
+        "end": END,
+    },
+)
+
+builder.add_conditional_edges(
+    "increment",
+    choose_operation,
+    {
+        "divide": "divide",
+        "increment": "increment",
+        "end": END,
+    },
+)
+\end{lstlisting}
+
+Este esquema refleja con claridad la lógica general del sistema. En primer lugar, se consulta el estado para decidir qué operación corresponde aplicar. A continuación, se ejecuta el nodo apropiado y, una vez actualizado el estado, se
+vuelve a evaluar la situación. El proceso se repite hasta que la función de decisión indica que debe alcanzarse el estado final.
+
+Por último, el grafo se compila y se ejecuta a partir de un estado inicial concreto:
+
+\begin{lstlisting}[language=Python]
+graph = builder.compile()
+
+result = graph.invoke({
+    "value": 7,
+    "history": []
+})
+\end{lstlisting}
+
+Durante la ejecución, el valor irá trasformándose sucesivamente en función de su paridad, mientras que el historial registrará cada uno de los pasos realizados. De este modo, no solo se obtiene el resultado final, sino también
+una traza del proceso seguido por el sistema.
+
+Este ejemplo permite apreciar de forma más completa el funcionamiento de \emph{LangGraph}. En él aparecen de manera conjunta varios de los conceptos fundamentales introducidos previamente: un estado compartido que evoluciona, nodos
+que encapsulan operaciones específicas, transiciones condicionales que dirigen el flujo y un buvle que mantiene la ejecución activa hasta alcanzar una condición de finalización. Precisamente por ello, constituye una ilustración más
+representativa del uso de grafos que un ejemplo puramente lineal, al tiempo que se mantiene lo bastante sencillo como para servir de apoyo didáctico dentro de este capítulo.
+
 
 %────────────────────── Chapter 4 — Results ────────────────────────────
 \chapter{Results}

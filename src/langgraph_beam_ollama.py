@@ -11,6 +11,10 @@ BASE_URL = "http://localhost:11434"
 GENERATION_MODEL = "llama3"
 SCORING_MODEL = "llama3"
 
+# Añadimos hiperparámetros global
+ALPHA = 1.0
+EPSILON = 1e-6
+
 
 # =========================
 # 1. Estado del grafo
@@ -32,6 +36,7 @@ def chat_ollama(model: str, messages: List[Dict[str, str]], temperature: float =
         "model": model,
         "messages": messages,
         "stream": False,
+        "format": "json", # CAMBIO para forzar al modelo que el formato de salida sea JSON
         "options": {
             "temperature": temperature,
             "num_predict": num_predict,
@@ -177,18 +182,33 @@ def score_candidate_with_ollama(
         "2. Utilidad: la trayectoria debe ayudar realmente a resolver el problema.\n"
         "3. Progreso: el último paso debe suponer un avance real, no una repetición.\n"
         "4. No redundancia: penaliza pasos repetitivos, reformulaciones innecesarias o pasos triviales.\n"
-        "5. Precisión: premia pasos concretos y penaliza pasos vagos o genéricos.\n\n"
+        "5. Precisión: premia pasos concretos y penaliza pasos vagos o genéricos.\n"
+        "6. Corrección: penaliza cualquier paso que exprese incorrectamente una operación.\n\n"
 
-        "Interpretación de la puntuación:\n"
-        "- 0.0 a 0.2: trayectoria muy mala, irrelevante o claramente redundante.\n"
-        "- 0.3 a 0.5: trayectoria débil, con utilidad limitada.\n"
-        "- 0.6 a 0.8: trayectoria razonable y útil.\n"
-        "- 0.9 a 1.0: trayectoria muy buena, clara, útil y con avance real.\n\n"
+        "IMPORTANTE SOBRE LA PUNTUACIÓN:\n"
+        "- Debes asignar una puntuación continua entre 0 y 1.\n"
+        "- NO uses únicamente valores redondeados como 0.7, 0.8 o 0.9 salvo que sea estrictamente necesario.\n"
+        "- Usa decimales para reflejar diferencias pequeñas (por ejemplo: 0.73, 0.78, 0.81).\n"
+        "- Dos trayectorias solo deben tener exactamente la misma puntuación si son prácticamente equivalentes en calidad.\n"
+        "- Debes ser capaz de discriminar entre candidatos similares.\n\n"
+
+        "Interpretación orientativa (no rígida):\n"
+        "- 0.0 a 0.2: trayectoria muy mala o incorrecta.\n"
+        "- 0.3 a 0.5: trayectoria débil o poco útil.\n"
+        "- 0.6 a 0.8: trayectoria razonable.\n"
+        "- 0.8 a 1.0: trayectoria muy buena.\n\n"
 
         "Sé estricto con la puntuación.\n"
         "No des notas altas a trayectorias redundantes, vagas o que no aportan avance real.\n"
-        "Si el último paso repite esencialmente una idea ya presente, debes penalizarlo.\n"
-        "Si la trayectoria parece correcta pero innecesariamente verbosa o circular, no debe superar 0.6 o 0.7.\n\n"
+        "Penaliza especialmente:\n"
+        "- pasos que no avanzan la resolución,\n"
+        "- pasos redundantes,\n"
+        "- pasos incorrectos conceptualmente.\n\n"
+
+        "Presta especial atención al ÚLTIMO paso:\n"
+        "- debe aportar información nueva,\n"
+        "- debe acercar claramente a la solución,\n"
+        "- no debe ser una reformulación.\n\n"
 
         "Devuelve un objeto JSON con esta forma exacta:\n"
         "{\n"
@@ -273,6 +293,8 @@ def expand_node(state: BeamSearchState) -> dict:
             candidate = {
                 "path": current_path + [generated["next_step"]],
                 "score": beam["score"],
+                "step_score": 0.0,
+                "score_history": beam.get("score_history", []).copy(),
                 "generation_reasoning": generated["reasoning"],
                 "step_justification": None,
             }
@@ -294,9 +316,15 @@ def score_node(state: BeamSearchState) -> dict:
             candidate_path=candidate["path"],
         )
 
+        step_score = score_result["score"]
+        updated_history = candidate.get("score_history", []) + [step_score]
+        total_score = aggregate_scores(updated_history, alpha=ALPHA)
+
         scored_candidate = {
             "path": candidate["path"],
-            "score": candidate["score"] + score_result["score"], # Ahora mismo trayectorias largas pueden ganar por acumulación, aunque sus últimos pasos no sean especialmente buenos
+            "score": total_score,
+            "step_score": step_score,
+            "score_history": updated_history,
             "generation_reasoning": candidate["generation_reasoning"],
             "step_justification": score_result["justification"],
         }
@@ -318,12 +346,17 @@ def prune_node(state: BeamSearchState) -> dict:
 
     for i, beam in enumerate(top_k):
         print(f"\nBeam {i}:")
-        print(f"Score acumulado: {beam['score']:.3f}")
+        print(f"Score global: {beam['score']:.3f}")
+        print(f"Score último paso: {beam['step_score']:.3f}")
+        print(f"Historial scores: {[round(s, 3) for s in beam['score_history']]}")
+
         print("Path:")
         for step_text in beam["path"]:
             print("  ", step_text)
+
         print("Razón de generación del último paso:")
         print("  ", beam["generation_reasoning"])
+
         print("Justificación de scoring del último paso:")
         print("  ", beam["step_justification"])
 
@@ -332,6 +365,24 @@ def prune_node(state: BeamSearchState) -> dict:
         "step": state["step"] + 1,
     }
 
+# ====================================================================================
+# 6. Función auxiliar de agregación (para integrar la fórmula que me ha pasado Sergio)
+# ====================================================================================
+
+def aggregate_scores(score_history: List[float], alpha: float = ALPHA) -> float:
+    """
+    Agrega scores de calidad en [0,1] usando media geométrica normalizada.
+    """
+    if not score_history:
+        return 0.0
+
+    product = 1.0
+    for s in score_history:
+        safe_s = max(s, EPSILON)
+        product *= safe_s
+
+    T = len(score_history)
+    return product ** (1.0 / (T ** alpha))
 
 # =========================
 # 6. Decisión de continuación
@@ -374,6 +425,8 @@ def main():
             {
                 "path": ["Inicio"],
                 "score": 0.0,
+                "step_score": 0.0,
+                "score_history": [],
                 "generation_reasoning": "Estado inicial",
                 "step_justification": "Sin evaluar todavía",
             }
@@ -389,12 +442,17 @@ def main():
     print("\n=== RESULTADO FINAL ===")
     for i, beam in enumerate(result["beams"]):
         print(f"\nBeam final {i}:")
-        print(f"Score final: {beam['score']:.3f}")
+        print(f"Score global final: {beam['score']:.3f}")
+        print(f"Score último paso: {beam['step_score']:.3f}")
+        print(f"Historial scores: {[round(s, 3) for s in beam['score_history']]}")
+
         print("Path final:")
         for step_text in beam["path"]:
             print("  ", step_text)
+
         print("Última razón de generación:")
         print("  ", beam["generation_reasoning"])
+
         print("Última justificación de scoring:")
         print("  ", beam["step_justification"])
 
