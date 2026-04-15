@@ -664,7 +664,7 @@ A medida que el proceso avanza, el estado de va actualizando de forma incrementa
 Este ciclo de ejecución de nodo, actualización de estado y transición se repite iterativamente hasta que se alcanza la condición de parada, previamente establecida. \cite{anderfernandez_langgraph2024}
 
 En aquellos casos en los que el grafo incluye bucles, el sistema puede volver a nodos previamente ejecutados, lo que permite implementar procesos iterativos.
-Este tipo de comportamiento resulta especialmente útil en escenarios en los que, antes de obtener un resultado final, es necesario refinar prograsivamente una solución o evaluar
+Este tipo de comportamiento resulta especialmente útil en escenarios en los que, antes de obtener un resultado final, es necesario refinar progresivamente una solución o evaluar
 ditintas alternativas.
 
 La ejecución finaliza cuando se cumple una condición de parada \cite{nocedal2006numerical}, obteniéndose un resultado generado a partir del estado acumulado. De esta forma, este enfoque permite
@@ -732,7 +732,7 @@ Una de las formas más representativas de utilizar \emph{LangGraph} en el diseñ
 enfoque permite que el sistema no solo genere una respuesta, sino que también interactúe con su entorno y utilice información externa para mejorar sus decisiones. \cite{yao2023react}
 
 En este sentido, resulta especialmente ilustrativo considerar un esquema en el que el agente analiza una consulta inicial y decide si es necesario realizar alguna acción adicional antes de generar una
-respuesta definitivo. Este proceso puede modelarse mediante un grafo en el que cada nodo representa una fase diferencia del comportamiento del agente.
+respuesta definitiva. Este proceso puede modelarse mediante un grafo en el que cada nodo representa una fase diferencia del comportamiento del agente.
 
 En una primera etapa el sistema procesa la entrada del usuario y genera una interpretación inicial del problema. A partir de esta información, el agente puede decidir si dispone de suficiente conocimiento
 para responder directamente o si, por el contrario, necesita apoyarse en alguna herramienta externa, como una función de Python o una consulta a una API.
@@ -827,7 +827,7 @@ graph = builder.compile()
 result = graph.invoke({"counter": 0})
 \end{lstlisting}
 
-Durante la ejecución, el valor del contador se incrementa prograsivamente hasta alcanzar el límite definido, momento en el cual el flujo de ejecución finaliza.
+Durante la ejecución, el valor del contador se incrementa progresivamente hasta alcanzar el límite definido, momento en el cual el flujo de ejecución finaliza.
 A pesar de su simplicidad, este ejemplo permite apreciar cómo \emph{LangGraph} proporciona un marco estructurado para modelar procesos iterativos mediante grafos. En particular, se observa cómo el estado se va
 actualizando de forma controlada, cómo los nodos encapsulan unidades de procesamiento y cómo las transiciones permiten definir el comportamiento dinámico del sistema.
 
