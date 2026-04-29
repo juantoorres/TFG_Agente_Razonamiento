@@ -1,14 +1,21 @@
 from __future__ import annotations
 
 import json
+import re
 import requests
+import sys
 
 from typing import TypedDict, List, Dict, Any
 from langgraph.graph import StateGraph, END
 
+from sonnet_metrics import evaluate_sonnet
+
 
 BASE_URL = "http://localhost:11434"
-GENERATION_MODEL = "llama3"
+
+# Antes teníamos llama3 
+GENERATION_MODEL = "mistral:7b-instruct"
+# Se mantiene para una futura fase de LLM-as-a-judge.
 SCORING_MODEL = "llama3"
 
 # Añadimos hiperparámetros global
@@ -21,11 +28,27 @@ EPSILON = 1e-6
 # =========================
 class BeamSearchState(TypedDict):
     question: str
-    beams: List[Dict[str, Any]]
-    candidates: List[Dict[str, Any]]
+    beams: list[dict[str, Any]]
+    candidates: list[dict[str, Any]]
     step: int
     max_steps: int
     k: int
+
+
+# Cada beam/candidato representa una version candidata de soneto.
+# Campos esperados en cada beam/candidato:
+# - sonnet: list[str]
+#   Lista de versos del soneto candidato.
+# - score: float
+#   Puntuacion global formal del soneto.
+# - score_history: list[float]
+#   Historial de puntuaciones por iteracion.
+# - feedback: str
+#   Feedback textual de evaluacion formal.
+# - metrics: dict[str, Any]
+#   Metricas detalladas de evaluacion.
+# - generation_reasoning: str
+#   Breve explicacion de como se genero esa version.
 
 
 # =========================
@@ -43,7 +66,7 @@ def chat_ollama(model: str, messages: List[Dict[str, str]], temperature: float =
         },
     }
 
-    response = requests.post(f"{BASE_URL}/api/chat", json=payload, timeout=90)
+    response = requests.post(f"{BASE_URL}/api/chat", json=payload, timeout=240)
     response.raise_for_status()
 
     data = response.json()
@@ -53,6 +76,367 @@ def chat_ollama(model: str, messages: List[Dict[str, str]], temperature: float =
 # =========================
 # 3. Generación con Ollama
 # =========================
+def clean_generated_verse(verse: str) -> str:
+    """
+    Limpia problemas superficiales de formato en un verso generado.
+
+    Elimina espacios exteriores, numeracion inicial comun, comillas exteriores y
+    espacios duplicados. No elimina tildes ni modifica el contenido poetico.
+    """
+    cleaned_verse = str(verse).strip()
+    cleaned_verse = re.sub(r"^\s*\d+\s*(?:[.)]|-)\s*", "", cleaned_verse)
+
+    quote_pairs = {
+        '"': '"',
+        "'": "'",
+        "“": "”",
+        "‘": "’",
+        "«": "»",
+    }
+    if len(cleaned_verse) >= 2:
+        first_character = cleaned_verse[0]
+        last_character = cleaned_verse[-1]
+        if quote_pairs.get(first_character) == last_character:
+            cleaned_verse = cleaned_verse[1:-1].strip()
+
+    return " ".join(cleaned_verse.split())
+
+
+def clean_generated_sonnet(verses: list[str]) -> list[str]:
+    """
+    Limpia una lista de versos generados y elimina versos vacios.
+    """
+    cleaned_verses = []
+    for verse in verses:
+        cleaned_verse = clean_generated_verse(verse)
+        if cleaned_verse:
+            cleaned_verses.append(cleaned_verse)
+    return cleaned_verses
+
+
+def _parse_sonnet_payload(payload: Dict[str, Any]) -> list[str]:
+    """
+    Extrae y limpia la lista de versos de un objeto JSON ya parseado.
+    """
+    verses = payload.get("verses")
+    if not isinstance(verses, list):
+        raise ValueError("El campo 'verses' no existe o no es una lista.")
+
+    return clean_generated_sonnet([str(verse) for verse in verses])
+
+
+def parse_sonnet_response(raw_response: str) -> list[str]:
+    """
+    Parsea una respuesta JSON con la forma {"verses": [...]}.
+
+    No exige que haya exactamente 14 versos; esa validacion se hara despues con
+    las metricas formales del soneto.
+    """
+    parsed = json.loads(raw_response)
+    if not isinstance(parsed, dict):
+        raise ValueError("La respuesta del modelo no es un objeto JSON.")
+    return _parse_sonnet_payload(parsed)
+
+
+def parse_sonnet_candidates_response(
+    raw_response: str,
+    num_candidates: int,
+) -> list[dict[str, Any]]:
+    """
+    Parsea una respuesta JSON global con candidatos de soneto.
+
+    Espera un objeto con la clave "candidates". Cada candidato debe incluir
+    "verses" y puede incluir "generation_reasoning".
+    """
+    parsed = json.loads(raw_response)
+    if not isinstance(parsed, dict):
+        raise ValueError("La respuesta del modelo no es un objeto JSON.")
+
+    candidates = parsed.get("candidates")
+    if not isinstance(candidates, list):
+        raise ValueError("El campo 'candidates' no existe o no es una lista.")
+
+    parsed_candidates: list[dict[str, Any]] = []
+    for item in candidates[:num_candidates]:
+        if not isinstance(item, dict):
+            continue
+
+        sonnet = _parse_sonnet_payload(item)
+        if not sonnet:
+            continue
+
+        generation_reasoning = str(
+            item.get("generation_reasoning", "Sin explicacion.")
+        ).strip()
+
+        parsed_candidates.append(
+            {
+                "sonnet": sonnet,
+                "generation_reasoning": (
+                    generation_reasoning if generation_reasoning else "Sin explicacion."
+                ),
+            }
+        )
+
+    if not parsed_candidates:
+        raise ValueError("No se ha podido extraer ningun candidato valido.")
+
+    return parsed_candidates
+
+
+def format_numbered_verses(verses: list[str]) -> str:
+    """
+    Devuelve una lista de versos numerados para incluirla en prompts.
+    """
+    if not verses:
+        return "[sin versos]"
+    return "\n".join(
+        f"{verse_number}. {verse}"
+        for verse_number, verse in enumerate(verses, start=1)
+    )
+
+
+def summarize_feedback_for_prompt(feedback: str, max_chars: int = 2500) -> str:
+    """
+    Recorta el feedback formal para evitar prompts demasiado largos.
+    """
+    clean_feedback = str(feedback).strip()
+    if len(clean_feedback) <= max_chars:
+        return clean_feedback
+    return f"{clean_feedback[:max_chars].rstrip()}\n[feedback recortado]"
+
+
+def _build_sonnet_generation_messages(
+    question: str,
+    previous_sonnet: list[str],
+    feedback: str,
+    num_candidates: int,
+    strict: bool = False,
+) -> List[Dict[str, str]]:
+    """
+    Construye los mensajes para pedir candidatos de soneto a Ollama.
+    """
+    strict_rules = ""
+    if strict:
+        strict_rules = (
+            "\nModo estricto de reintento:\n"
+            "- Devuelve solamente JSON valido.\n"
+            "- No cortes el JSON. Devuelve todos los corchetes y llaves de cierre.\n"
+            "- No incluyas markdown, comentarios, titulo ni texto fuera del JSON.\n"
+            "- Cada candidato debe ser un soneto completo, no una lista parcial de correcciones.\n"
+            "- Asegurate de que cada candidato tenga las claves exactas "
+            '"verses" y "generation_reasoning".\n'
+        )
+
+    rhyme_pattern_explanation = (
+        "PATRON EXPLICITO ABBA ABBA CDC CDC:\n"
+        "- Verso 1 termina con rima A.\n"
+        "- Verso 2 termina con rima B.\n"
+        "- Verso 3 termina con rima B.\n"
+        "- Verso 4 termina con rima A.\n"
+        "- Verso 5 termina con rima A.\n"
+        "- Verso 6 termina con rima B.\n"
+        "- Verso 7 termina con rima B.\n"
+        "- Verso 8 termina con rima A.\n"
+        "- Verso 9 termina con rima C.\n"
+        "- Verso 10 termina con rima D.\n"
+        "- Verso 11 termina con rima C.\n"
+        "- Verso 12 termina con rima C.\n"
+        "- Verso 13 termina con rima D.\n"
+        "- Verso 14 termina con rima C.\n\n"
+        "Equivalencias de rima:\n"
+        "- Versos 1 y 4 deben rimar entre si.\n"
+        "- Versos 2 y 3 deben rimar entre si.\n"
+        "- Versos 5 y 8 deben rimar como 1 y 4.\n"
+        "- Versos 6 y 7 deben rimar como 2 y 3.\n"
+        "- Versos 9, 11, 12 y 14 deben compartir rima C.\n"
+        "- Versos 10 y 13 deben compartir rima D.\n"
+    )
+
+    construction_strategy = (
+        "ESTRATEGIA DE CONSTRUCCION:\n"
+        "Antes de escribir, decide internamente:\n"
+        "- dos rimas consonantes A y B para los cuartetos,\n"
+        "- dos rimas consonantes C y D para los tercetos,\n"
+        "- y reutilizalas estrictamente segun el patron ABBA ABBA CDC CDC.\n"
+        "No expliques esta decision; solo usala para construir los versos.\n"
+    )
+
+    verse_length_rules = (
+        "LONGITUD DE VERSO:\n"
+        "- Escribe versos breves.\n"
+        "- Evita versos claramente largos.\n"
+        "- Evita frases explicativas o narrativas extensas.\n"
+        "- Prefiere sintagmas poeticos compactos.\n"
+        "- Cada verso debe tender a 11 silabas metricas.\n"
+    )
+
+    json_format_rules = (
+        "FORMATO JSON OBLIGATORIO:\n"
+        "Devuelve exactamente un objeto JSON con esta forma:\n"
+        "{\n"
+        '  "candidates": [\n'
+        "    {\n"
+        '      "verses": ["...", "..."],\n'
+        '      "generation_reasoning": "..."\n'
+        "    }\n"
+        "  ]\n"
+        "}\n"
+        "No incluyas texto antes ni despues del JSON.\n"
+    )
+
+    system_prompt = (
+        "Eres un poeta y asistente de generacion controlada de sonetos en un "
+        "sistema de Beam Search.\n"
+        "Debes proponer versiones candidatas de un soneto clasico en espanol.\n"
+        "No anadas explicaciones fuera del JSON.\n"
+        "Debes devolver JSON valido.\n\n"
+        "RESTRICCIONES FORMALES PRIORITARIAS:\n"
+        "- Exactamente 14 versos.\n"
+        "- Cada verso debe intentar tener 11 silabas metricas.\n"
+        "- Rima consonante ABBA ABBA CDC CDC.\n"
+        "- Sin titulo.\n"
+        "- Sin explicaciones.\n"
+        "- Sin numeracion dentro de los versos.\n"
+        "- Cada verso debe ser una cadena independiente.\n"
+        "- Debe priorizar estructura, metrica y rima antes que belleza estetica.\n"
+        "- generation_reasoning debe ser breve.\n"
+        "- Debe devolver una version completa del soneto, no solo versos corregidos.\n\n"
+        f"{construction_strategy}\n"
+        f"{rhyme_pattern_explanation}\n"
+        f"{verse_length_rules}\n"
+        f"{strict_rules}\n"
+        f"{json_format_rules}"
+    )
+
+    if previous_sonnet:
+        summarized_feedback = summarize_feedback_for_prompt(feedback)
+        user_prompt = (
+            f"Tarea original:\n{question}\n\n"
+            "Soneto candidato anterior, verso a verso:\n"
+            f"{format_numbered_verses(previous_sonnet)}\n\n"
+            "Feedback formal completo recibido:\n"
+            f"{summarized_feedback}\n\n"
+            f"Genera exactamente {num_candidates} versiones corregidas o "
+            "mejoradas del soneto anterior.\n\n"
+            "Instrucciones de correccion:\n"
+            "- Devuelve una nueva version completa del soneto, no solo los versos corregidos.\n"
+            "- Mantén exactamente 14 versos siempre que sea posible.\n"
+            "- Intenta que cada verso tenga 11 silabas metricas.\n"
+            "- Respeta la rima consonante ABBA ABBA CDC CDC.\n"
+            "- Corrige especificamente los errores indicados en el feedback formal.\n"
+            "- Conserva los aspectos que ya esten correctos y no los empeores.\n"
+            "- Evita repetir literalmente el soneto anterior si el feedback contiene errores.\n"
+            "- Prioriza primero estructura, metrica y rima antes que belleza estetica.\n"
+            "- No anadas titulo ni texto fuera del JSON.\n\n"
+            "CORRECCION CON FEEDBACK:\n"
+            "- Prioriza los errores mencionados en el feedback.\n"
+            "- Si el feedback dice que un verso tiene demasiadas silabas, acortalo.\n"
+            "- Si el feedback dice que un verso tiene pocas silabas, alargalo ligeramente.\n"
+            "- Si falla la rima, cambia la palabra final del verso afectado.\n"
+            "- Si sobran o faltan versos, devuelve exactamente 14.\n"
+            "- No empeores versos o rimas que ya estaban correctos.\n\n"
+            f"{construction_strategy}\n"
+            f"{rhyme_pattern_explanation}\n"
+            f"{verse_length_rules}\n"
+            f"{json_format_rules}"
+            "Responde solo con JSON valido."
+        )
+    else:
+        user_prompt = (
+            f"Tarea original:\n{question}\n\n"
+            f"Genera exactamente {num_candidates} primeras versiones candidatas "
+            "del soneto desde cero.\n"
+            "Cada candidato debe ser un soneto completo, sin titulo, con 14 versos "
+            "siempre que sea posible, endecasilabos y con rima consonante "
+            "ABBA ABBA CDC CDC.\n\n"
+            f"{construction_strategy}\n"
+            f"{rhyme_pattern_explanation}\n"
+            f"{verse_length_rules}\n"
+            f"{json_format_rules}"
+            "Responde solo con JSON valido."
+        )
+
+    return [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": user_prompt},
+    ]
+
+
+def generate_sonnet_candidates_with_ollama(
+    question: str,
+    previous_sonnet: list[str],
+    feedback: str,
+    num_candidates: int = 3,
+) -> list[dict[str, Any]]:
+    """
+    Genera versiones candidatas de soneto usando Ollama.
+
+    Hace un primer intento creativo y un reintento mas estricto si falla el
+    parseo. Si ambos intentos fallan, devuelve candidatos fallback vacios para
+    mantener ejecutable el grafo.
+    """
+    attempts = [
+        {
+            "temperature": 0.7,
+            "num_predict": 1200,
+            "strict": False,
+        },
+        {
+            "temperature": 0.1,
+            "num_predict": 1200,
+            "strict": True,
+        },
+    ]
+    errors = []
+
+    for attempt_number, attempt in enumerate(attempts, start=1):
+        raw_response = ""
+        messages = _build_sonnet_generation_messages(
+            question=question,
+            previous_sonnet=previous_sonnet,
+            feedback=feedback,
+            num_candidates=num_candidates,
+            strict=attempt["strict"],
+        )
+
+        try:
+            raw_response = chat_ollama(
+                model=GENERATION_MODEL,
+                messages=messages,
+                temperature=attempt["temperature"],
+                num_predict=attempt["num_predict"],
+            )
+            candidates = parse_sonnet_candidates_response(raw_response, num_candidates)
+            generation_reasoning = (
+                "Versión corregida usando feedback formal."
+                if previous_sonnet
+                else "Generación inicial desde cero."
+            )
+            for candidate in candidates:
+                candidate["generation_reasoning"] = generation_reasoning
+            return candidates
+        except Exception as e:
+            error_message = f"Intento {attempt_number}: {e}"
+            errors.append(error_message)
+            print(f"[WARN] Fallo generando sonetos con Ollama. {error_message}")
+            if raw_response:
+                print("[WARN] Respuesta recibida del generador:")
+                print(raw_response)
+
+    fallback_reason = (
+        "Fallback: no se pudieron generar candidatos de soneto con Ollama. "
+        f"Errores: {' | '.join(errors)}"
+    )
+    return [
+        {
+            "sonnet": [],
+            "generation_reasoning": fallback_reason,
+        }
+        for _ in range(num_candidates)
+    ]
+
+
 def generate_candidates_with_ollama(
     question: str,
     path: List[str],
@@ -60,6 +444,9 @@ def generate_candidates_with_ollama(
 ) -> List[Dict[str, str]]:
     """
     Pide al modelo varias posibles continuaciones en formato JSON.
+
+    TODO: adaptar esta utilidad para generar versiones candidatas de soneto en
+    lugar de continuaciones de una trayectoria de razonamiento.
     """
     current_reasoning = "\n".join(f"- {step}" for step in path)
 
@@ -167,6 +554,9 @@ def score_candidate_with_ollama(
     Devuelve:
       - score: float entre 0 y 1
       - justification: texto breve
+
+    TODO: adaptar esta utilidad para evaluar sonetos candidatos o sustituirla
+    por evaluacion formal objetiva.
     """
     current_reasoning = "\n".join(f"- {step}" for step in candidate_path)
 
@@ -280,27 +670,55 @@ def expand_node(state: BeamSearchState) -> dict:
 
     print(f"\n=== EXPAND STEP {state['step']} ===")
 
-    for beam in state["beams"]:
-        current_path = beam["path"]
+    for beam_index, beam in enumerate(state["beams"]):
+        previous_sonnet = beam.get("sonnet", [])
+        if not isinstance(previous_sonnet, list):
+            previous_sonnet = []
+        current_feedback = beam.get(
+            "feedback",
+            "Todavia no se ha generado ningun soneto.",
+        )
+        uses_feedback = bool(previous_sonnet and current_feedback)
 
-        generated_steps = generate_candidates_with_ollama(
+        print(f"\nBeam origen {beam_index}:")
+        print(
+            "  Modo: "
+            + (
+                "correccion de soneto previo"
+                if previous_sonnet
+                else "generacion inicial desde cero"
+            )
+        )
+        print(f"  Score actual: {float(beam.get('score', 0.0)):.3f}")
+        print(f"  Usa feedback para corregir: {uses_feedback}")
+
+        generated_sonnets = generate_sonnet_candidates_with_ollama(
             question=state["question"],
-            path=current_path,
-            num_candidates=3,
+            previous_sonnet=previous_sonnet,
+            feedback=current_feedback,
+            num_candidates=2,
         )
 
-        for generated in generated_steps:
+        for generated in generated_sonnets:
             candidate = {
-                "path": current_path + [generated["next_step"]],
-                "score": beam["score"],
-                "step_score": 0.0,
+                "sonnet": generated["sonnet"],
+                "score": beam.get("score", 0.0),
                 "score_history": beam.get("score_history", []).copy(),
-                "generation_reasoning": generated["reasoning"],
-                "step_justification": None,
+                "feedback": beam.get(
+                    "feedback",
+                    "Todavia no se ha generado ningun soneto.",
+                ),
+                "metrics": beam.get("metrics", {}).copy(),
+                "generation_reasoning": generated["generation_reasoning"],
             }
             all_candidates.append(candidate)
 
     print(f"Candidatos generados: {len(all_candidates)}")
+    for i, candidate in enumerate(all_candidates):
+        print(
+            f"  Candidato {i}: "
+            f"{len(candidate.get('sonnet', []))} versos generados"
+        )
 
     return {"candidates": all_candidates}
 
@@ -310,23 +728,36 @@ def score_node(state: BeamSearchState) -> dict:
 
     print(f"=== SCORE STEP {state['step']} ===")
 
-    for candidate in state["candidates"]:
-        score_result = score_candidate_with_ollama(
-            question=state["question"],
-            candidate_path=candidate["path"],
-        )
+    for i, candidate in enumerate(state["candidates"]):
+        # El scoring actual es objetivo y se basa en metricas formales:
+        # extension, computo silabico y rima. En una fase futura se podra
+        # combinar con una evaluacion subjetiva mediante LLM-as-a-judge.
+        sonnet = candidate.get("sonnet", [])
+        if not isinstance(sonnet, list):
+            sonnet = []
+        evaluation = evaluate_sonnet(sonnet)
 
-        step_score = score_result["score"]
+        step_score = float(evaluation.get("score", 0.0))
         updated_history = candidate.get("score_history", []) + [step_score]
         total_score = aggregate_scores(updated_history, alpha=ALPHA)
 
+        score_20 = evaluation.get("score_20", round(step_score * 20, 2))
+        errors = evaluation.get("errors", [])
+        error_count = len(errors) if isinstance(errors, list) else 0
+
+        print(f"\nCandidato {i}:")
+        print(f"Numero de versos: {len(sonnet)}")
+        print(f"Score formal: {step_score:.3f} ({score_20}/20)")
+        print(f"Errores detectados: {error_count}")
+
         scored_candidate = {
-            "path": candidate["path"],
+            "sonnet": sonnet.copy() if isinstance(sonnet, list) else [],
             "score": total_score,
             "step_score": step_score,
             "score_history": updated_history,
-            "generation_reasoning": candidate["generation_reasoning"],
-            "step_justification": score_result["justification"],
+            "feedback": str(evaluation.get("feedback", "")),
+            "metrics": evaluation,
+            "generation_reasoning": candidate.get("generation_reasoning", ""),
         }
         scored_candidates.append(scored_candidate)
 
@@ -347,18 +778,24 @@ def prune_node(state: BeamSearchState) -> dict:
     for i, beam in enumerate(top_k):
         print(f"\nBeam {i}:")
         print(f"Score global: {beam['score']:.3f}")
-        print(f"Score último paso: {beam['step_score']:.3f}")
-        print(f"Historial scores: {[round(s, 3) for s in beam['score_history']]}")
+        print(f"Score último paso: {beam.get('step_score', 0.0):.3f}")
+        print(f"Historial scores: {[round(s, 3) for s in beam.get('score_history', [])]}")
+        print(f"Número de versos: {len(beam.get('sonnet', []))}")
 
-        print("Path:")
-        for step_text in beam["path"]:
-            print("  ", step_text)
+        print("Primeros versos del soneto:")
+        if beam.get("sonnet"):
+            for verse_number, verse in enumerate(beam["sonnet"][:3], start=1):
+                print(f"  {verse_number}. {verse}")
+        else:
+            print("  [Sin soneto generado todavía]")
 
         print("Razón de generación del último paso:")
-        print("  ", beam["generation_reasoning"])
+        print("  ", beam.get("generation_reasoning", "Sin razon de generacion."))
 
-        print("Justificación de scoring del último paso:")
-        print("  ", beam["step_justification"])
+        feedback = beam.get("feedback", "Sin feedback formal todavía.")
+        feedback_summary = str(feedback).splitlines()[0] if feedback else ""
+        print("Feedback resumido:")
+        print("  ", feedback_summary)
 
     return {
         "beams": top_k,
@@ -420,15 +857,19 @@ def main():
     graph = builder.compile()
 
     initial_state: BeamSearchState = {
-        "question": "En una clase hay 12 alumnos. Llegan 3 más y luego se van 4. ¿Cuántos quedan? Razona paso a paso.",
+        "question": (
+            "Escribe un soneto clásico en español sobre el paso del tiempo y "
+            "la memoria. Debe tener exactamente 14 versos endecasílabos y "
+            "rima consonante ABBA ABBA CDC CDC."
+        ),
         "beams": [
             {
-                "path": ["Inicio"],
+                "sonnet": [],
                 "score": 0.0,
-                "step_score": 0.0,
                 "score_history": [],
-                "generation_reasoning": "Estado inicial",
-                "step_justification": "Sin evaluar todavía",
+                "feedback": "Todavía no se ha generado ningún soneto.",
+                "metrics": {},
+                "generation_reasoning": "Estado inicial sin soneto.",
             }
         ],
         "candidates": [],
@@ -443,19 +884,39 @@ def main():
     for i, beam in enumerate(result["beams"]):
         print(f"\nBeam final {i}:")
         print(f"Score global final: {beam['score']:.3f}")
-        print(f"Score último paso: {beam['step_score']:.3f}")
         print(f"Historial scores: {[round(s, 3) for s in beam['score_history']]}")
 
-        print("Path final:")
-        for step_text in beam["path"]:
-            print("  ", step_text)
+        print("Feedback final:")
+        print("  ", beam.get("feedback", "Sin feedback formal todavía."))
+
+        print("Soneto final:")
+        if beam.get("sonnet"):
+            for verse_number, verse in enumerate(beam["sonnet"], start=1):
+                print(f"  {verse_number}. {verse}")
+        else:
+            print("  [Sin soneto generado todavía]")
 
         print("Última razón de generación:")
         print("  ", beam["generation_reasoning"])
 
-        print("Última justificación de scoring:")
-        print("  ", beam["step_justification"])
+
+def run_cleaning_smoke_tests() -> None:
+    """
+    Ejecuta pruebas rapidas de limpieza superficial de versos generados.
+    """
+    examples = [
+        "1. En sombra vuelve la memoria",
+        "02) El tiempo late todavía",
+        "\"La tarde guarda su secreto\"",
+    ]
+
+    print("=== PRUEBAS DE LIMPIEZA DE VERSOS ===")
+    for example in examples:
+        print(f"{example!r} -> {clean_generated_verse(example)!r}")
 
 
 if __name__ == "__main__":
-    main()
+    if "--test-cleaning" in sys.argv:
+        run_cleaning_smoke_tests()
+    else:
+        main()
