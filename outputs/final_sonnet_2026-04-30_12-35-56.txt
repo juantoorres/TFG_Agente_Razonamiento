@@ -1,0 +1,51 @@
+SONETO FINAL
+
+Score global: 0.362
+Historial de scores: [0.343, 0.371, 0.371]
+Resumen de metricas: versos=14/14 | endecasilabos=4/14 | rima=2/14 | score=7.43/20
+
+Feedback final:
+Puntuacion formal total: 7.43/20.
+Revisa los siguientes aspectos formales antes de generar una nueva version:
+Numero de versos:
+- El numero de versos es correcto.
+Silabas metricas:
+- Verso 1: tiene 9 silabas, pero deberia tener 11.
+- Verso 2: tiene 7 silabas, pero deberia tener 11.
+- Verso 3: tiene 9 silabas, pero deberia tener 11.
+- Verso 5: tiene 12 silabas, pero deberia tener 11.
+- Verso 6: tiene 9 silabas, pero deberia tener 11.
+- Verso 7: tiene 14 silabas, pero deberia tener 11.
+- Verso 8: tiene 10 silabas, pero deberia tener 11.
+- Verso 12: tiene 9 silabas, pero deberia tener 11.
+- Verso 13: tiene 9 silabas, pero deberia tener 11.
+- Verso 14: tiene 9 silabas, pero deberia tener 11.
+Rima consonante:
+- Verso 3: rima C, pero se esperaba B.
+- Verso 4: rima D, pero se esperaba A.
+- Verso 5: rima E, pero se esperaba A.
+- Verso 6: rima F, pero se esperaba B.
+- Verso 7: rima G, pero se esperaba B.
+- Verso 8: rima H, pero se esperaba A.
+- Verso 9: rima I, pero se esperaba C.
+- Verso 10: rima J, pero se esperaba D.
+- Verso 11: rima K, pero se esperaba C.
+- Verso 12: rima L, pero se esperaba C.
+- Verso 13: rima M, pero se esperaba D.
+- Verso 14: rima N, pero se esperaba C.
+
+Soneto completo:
+1. El tiempo como un río en tormenta
+2. que arrastra sin piedad mi alma
+3. me lleva a recuerdos perdidos
+4. y me deja solitario y frío
+5. Recuerdos que fueron míos son el pasado
+6. pero aquí no existen en el presente
+7. Yo tengo que seguir adelante, sin olvidar
+8. lo que ya fue mío y me acompañó
+9. El tiempo es inexorable y duradero
+10. y yo soy un ser débil y mortal
+11. Solamente puedo cambiar mi destino
+12. si puedo alcanzar lo deseado
+13. El tiempo hace que todo pasa
+14. y me deja en la oscuridad

@@ -32,6 +32,7 @@ class BeamSearchState(TypedDict):
     question: str
     beams: list[dict[str, Any]]
     candidates: list[dict[str, Any]]
+    trace: list[dict[str, Any]]
     step: int
     max_steps: int
     k: int
@@ -709,6 +710,33 @@ def summarize_metrics(metrics: dict[str, Any]) -> str:
     )
 
 
+def build_trace_entry(item: dict[str, Any]) -> dict[str, Any]:
+    """
+    Construye una entrada compacta de traza para un candidato o beam.
+    """
+    metrics = item.get("metrics", {})
+    if not isinstance(metrics, dict):
+        metrics = {}
+
+    sonnet = item.get("sonnet", [])
+    if not isinstance(sonnet, list):
+        sonnet = []
+
+    score_history = item.get("score_history", [])
+    if not isinstance(score_history, list):
+        score_history = []
+
+    return {
+        "sonnet": sonnet,
+        "score": item.get("score", 0.0),
+        "step_score": item.get("step_score", 0.0),
+        "score_history": score_history,
+        "metrics_summary": summarize_metrics(metrics),
+        "feedback": item.get("feedback", ""),
+        "generation_reasoning": item.get("generation_reasoning", ""),
+    }
+
+
 def expand_node(state: BeamSearchState) -> dict:
     all_candidates: List[Dict[str, Any]] = []
 
@@ -764,7 +792,21 @@ def expand_node(state: BeamSearchState) -> dict:
             f"{len(candidate.get('sonnet', []))} versos generados"
         )
 
-    return {"candidates": all_candidates}
+    trace = state.get("trace", []).copy()
+    trace.append(
+        {
+            "step": state["step"],
+            "phase": "expand",
+            "generated_candidates": [
+                build_trace_entry(candidate) for candidate in all_candidates
+            ],
+        }
+    )
+
+    return {
+        "candidates": all_candidates,
+        "trace": trace,
+    }
 
 
 def score_node(state: BeamSearchState) -> dict:
@@ -806,7 +848,21 @@ def score_node(state: BeamSearchState) -> dict:
         }
         scored_candidates.append(scored_candidate)
 
-    return {"candidates": scored_candidates}
+    trace = state.get("trace", []).copy()
+    trace.append(
+        {
+            "step": state["step"],
+            "phase": "score",
+            "candidates": [
+                build_trace_entry(candidate) for candidate in scored_candidates
+            ],
+        }
+    )
+
+    return {
+        "candidates": scored_candidates,
+        "trace": trace,
+    }
 
 
 def prune_node(state: BeamSearchState) -> dict:
@@ -842,9 +898,19 @@ def prune_node(state: BeamSearchState) -> dict:
         print("Feedback resumido:")
         print("  ", feedback_summary)
 
+    trace = state.get("trace", []).copy()
+    trace.append(
+        {
+            "step": state["step"],
+            "phase": "prune",
+            "selected_beams": [build_trace_entry(beam) for beam in top_k],
+        }
+    )
+
     return {
         "beams": top_k,
         "step": state["step"] + 1,
+        "trace": trace,
     }
 
 # ====================================================================================
@@ -877,10 +943,11 @@ def should_continue(state: BeamSearchState) -> str:
 
 def save_final_result(
     best_beam: dict[str, Any],
+    trace: list[dict[str, Any]],
     output_dir: str = "outputs",
 ) -> None:
     """
-    Guarda el mejor soneto final y sus metricas completas en archivos.
+    Guarda el mejor soneto final, sus metricas y la traza completa en archivos.
 
     Crea la carpeta de salida si no existe y usa un timestamp para evitar
     sobrescribir resultados de ejecuciones anteriores.
@@ -891,6 +958,7 @@ def save_final_result(
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     sonnet_path = output_path / f"final_sonnet_{timestamp}.txt"
     metrics_path = output_path / f"final_metrics_{timestamp}.json"
+    trace_path = output_path / f"final_trace_{timestamp}.json"
 
     sonnet = best_beam.get("sonnet", [])
     if not isinstance(sonnet, list):
@@ -940,9 +1008,13 @@ def save_final_result(
     with metrics_path.open("w", encoding="utf-8") as file:
         json.dump(json_payload, file, ensure_ascii=False, indent=2)
 
+    with trace_path.open("w", encoding="utf-8") as file:
+        json.dump(trace, file, ensure_ascii=False, indent=2)
+
     print("\nArchivos generados:")
     print(f"  Soneto final: {sonnet_path}")
     print(f"  Metricas: {metrics_path}")
+    print(f"  Traza: {trace_path}")
 
 
 # =========================
@@ -988,6 +1060,7 @@ def main():
             }
         ],
         "candidates": [],
+        "trace": [],
         "step": 0,
         "max_steps": 3,
         "k": 2,
@@ -1015,8 +1088,8 @@ def main():
         print("  ", beam["generation_reasoning"])
 
     if result["beams"]:
-        # Guardamos el mejor resultado final en archivos de texto y JSON para su análisis posterior.
-        save_final_result(result["beams"][0])
+        # Guardamos el mejor resultado final y la traza para su analisis posterior.
+        save_final_result(result["beams"][0], result.get("trace", []))
 
 
 def run_cleaning_smoke_tests() -> None:

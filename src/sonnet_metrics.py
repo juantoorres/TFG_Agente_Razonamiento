@@ -4,7 +4,7 @@
     NOTA:
 
     En esta primera version, la sinalefa no trata casos avanzados
-    como sinalefa triple, hiatos poeticos, sineresis o dieresis.
+    como sinalefa triple, hiatos poeticos, sineresis o diéresis.
 """
 
 try:
@@ -59,7 +59,7 @@ else:
 
 
 def normalize_text(text: str) -> str:
-    """Normaliza un texto conservando tildes, dieresis, ene y puntuacion.
+    """Normaliza un texto conservando tildes, diéresis, ene y puntuacion.
 
     Convierte el texto a minusculas, elimina espacios iniciales y finales,
     y reemplaza cualquier secuencia de espacios internos por un unico espacio.
@@ -120,7 +120,7 @@ def evaluate_verse_count(sonnet: str | list[str]) -> dict[str, object]:
 def remove_punctuation(text: str) -> str:
     """Elimina signos de puntuacion comunes sin alterar letras ni espacios.
 
-    Conserva letras con tilde, dieresis, ene y los espacios entre palabras.
+    Conserva letras con tilde, diéresis, ene y los espacios entre palabras.
     Solo retira los signos definidos en ``COMMON_PUNCTUATION``.
     """
     return text.translate(PUNCTUATION_TRANSLATION)
@@ -383,7 +383,7 @@ def get_sinalefa_pairs(words: list[str]) -> list[tuple[str, str]]:
 
     Hay sinalefa cuando una palabra termina en sonido vocalico y la siguiente
     empieza por sonido vocalico. Esta primera version no trata casos avanzados
-    como sinalefa triple, hiatos poeticos, sineresis o dieresis.
+    como sinalefa triple, hiatos poeticos, sineresis o diéresis.
     """
     if len(words) < 2:
         return []
@@ -439,7 +439,7 @@ def analyze_verse_syllables(verse: str) -> dict[str, object]:
 
 
 def strip_accents(text: str) -> str:
-    """Elimina tildes y dieresis de vocales conservando la ene.
+    """Elimina tildes y diéresis de vocales conservando la ene.
 
     Devuelve siempre el texto en minusculas. La ``ñ`` se conserva porque no se
     aplica normalizacion Unicode global, solo una traduccion explicita de
