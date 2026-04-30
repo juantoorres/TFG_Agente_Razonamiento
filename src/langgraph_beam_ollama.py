@@ -23,6 +23,7 @@ SCORING_MODEL = "llama3"
 # Añadimos hiperparámetros global
 ALPHA = 1.0
 EPSILON = 1e-6
+TARGET_SCORE = 0.95
 
 
 # =========================
@@ -83,8 +84,8 @@ def clean_generated_verse(verse: str) -> str:
     """
     Limpia problemas superficiales de formato en un verso generado.
 
-    Elimina espacios exteriores, numeracion inicial comun, comillas exteriores y
-    espacios duplicados. No elimina tildes ni modifica el contenido poetico.
+    Elimina espacios exteriores, numeracion inicial común, comillas exteriores y
+    espacios duplicados. No elimina tildes ni modifica el contenido poético.
     """
     cleaned_verse = str(verse).strip()
     cleaned_verse = re.sub(r"^\s*\d+\s*(?:[.)]|-)\s*", "", cleaned_verse)
@@ -132,8 +133,8 @@ def parse_sonnet_response(raw_response: str) -> list[str]:
     """
     Parsea una respuesta JSON con la forma {"verses": [...]}.
 
-    No exige que haya exactamente 14 versos; esa validacion se hara despues con
-    las metricas formales del soneto.
+    No exige que haya exactamente 14 versos; esa validación se hará después con
+    las métricas formales del soneto.
     """
     parsed = json.loads(raw_response)
     if not isinstance(parsed, dict):
@@ -169,20 +170,20 @@ def parse_sonnet_candidates_response(
             continue
 
         generation_reasoning = str(
-            item.get("generation_reasoning", "Sin explicacion.")
+            item.get("generation_reasoning", "Sin explicación.")
         ).strip()
 
         parsed_candidates.append(
             {
                 "sonnet": sonnet,
                 "generation_reasoning": (
-                    generation_reasoning if generation_reasoning else "Sin explicacion."
+                    generation_reasoning if generation_reasoning else "Sin explicación."
                 ),
             }
         )
 
     if not parsed_candidates:
-        raise ValueError("No se ha podido extraer ningun candidato valido.")
+        raise ValueError("No se ha podido extraer ningún candidato válido.")
 
     return parsed_candidates
 
@@ -223,11 +224,11 @@ def _build_sonnet_generation_messages(
     if strict:
         strict_rules = (
             "\nModo estricto de reintento:\n"
-            "- Devuelve solamente JSON valido.\n"
+            "- Devuelve sólamente JSON valido.\n"
             "- No cortes el JSON. Devuelve todos los corchetes y llaves de cierre.\n"
             "- No incluyas markdown, comentarios, titulo ni texto fuera del JSON.\n"
             "- Cada candidato debe ser un soneto completo, no una lista parcial de correcciones.\n"
-            "- Asegurate de que cada candidato tenga las claves exactas "
+            "- Asegúrate de que cada candidato tenga las claves exactas "
             '"verses" y "generation_reasoning".\n'
         )
 
@@ -261,8 +262,8 @@ def _build_sonnet_generation_messages(
         "Antes de escribir, decide internamente:\n"
         "- dos rimas consonantes A y B para los cuartetos,\n"
         "- dos rimas consonantes C y D para los tercetos,\n"
-        "- y reutilizalas estrictamente segun el patron ABBA ABBA CDC CDC.\n"
-        "No expliques esta decision; solo usala para construir los versos.\n"
+        "- y reutilizalas estrictamente segun el patrón ABBA ABBA CDC CDC.\n"
+        "No expliques esta decisión; solo úsala para construir los versos.\n"
     )
 
     verse_length_rules = (
@@ -270,8 +271,8 @@ def _build_sonnet_generation_messages(
         "- Escribe versos breves.\n"
         "- Evita versos claramente largos.\n"
         "- Evita frases explicativas o narrativas extensas.\n"
-        "- Prefiere sintagmas poeticos compactos.\n"
-        "- Cada verso debe tender a 11 silabas metricas.\n"
+        "- Prefiere sintagmas poéticos compactos.\n"
+        "- Cada verso debe tender a 11 silabas métricas.\n"
     )
 
     json_format_rules = (
@@ -285,26 +286,26 @@ def _build_sonnet_generation_messages(
         "    }\n"
         "  ]\n"
         "}\n"
-        "No incluyas texto antes ni despues del JSON.\n"
+        "No incluyas texto antes ni después del JSON.\n"
     )
 
     system_prompt = (
-        "Eres un poeta y asistente de generacion controlada de sonetos en un "
+        "Eres un poeta y asistente de generación controlada de sonetos en un "
         "sistema de Beam Search.\n"
-        "Debes proponer versiones candidatas de un soneto clasico en espanol.\n"
-        "No anadas explicaciones fuera del JSON.\n"
+        "Debes proponer versiones candidatas de un soneto clásico en espanol.\n"
+        "No añadas explicaciones fuera del JSON.\n"
         "Debes devolver JSON valido.\n\n"
         "RESTRICCIONES FORMALES PRIORITARIAS:\n"
         "- Exactamente 14 versos.\n"
-        "- Cada verso debe intentar tener 11 silabas metricas.\n"
+        "- Cada verso debe intentar tener 11 sílabas métricas.\n"
         "- Rima consonante ABBA ABBA CDC CDC.\n"
-        "- Sin titulo.\n"
+        "- Sin título.\n"
         "- Sin explicaciones.\n"
-        "- Sin numeracion dentro de los versos.\n"
+        "- Sin numeración dentro de los versos.\n"
         "- Cada verso debe ser una cadena independiente.\n"
-        "- Debe priorizar estructura, metrica y rima antes que belleza estetica.\n"
+        "- Debe priorizar estructura, métrica y rima antes que belleza estética.\n"
         "- generation_reasoning debe ser breve.\n"
-        "- Debe devolver una version completa del soneto, no solo versos corregidos.\n\n"
+        "- Debe devolver una versión completa del soneto, no solo versos corregidos.\n\n"
         f"{construction_strategy}\n"
         f"{rhyme_pattern_explanation}\n"
         f"{verse_length_rules}\n"
@@ -322,20 +323,20 @@ def _build_sonnet_generation_messages(
             f"{summarized_feedback}\n\n"
             f"Genera exactamente {num_candidates} versiones corregidas o "
             "mejoradas del soneto anterior.\n\n"
-            "Instrucciones de correccion:\n"
-            "- Devuelve una nueva version completa del soneto, no solo los versos corregidos.\n"
+            "Instrucciones de corrección:\n"
+            "- Devuelve una nueva versión completa del soneto, no solo los versos corregidos.\n"
             "- Mantén exactamente 14 versos siempre que sea posible.\n"
-            "- Intenta que cada verso tenga 11 silabas metricas.\n"
+            "- Intenta que cada verso tenga 11 sílabas métricas.\n"
             "- Respeta la rima consonante ABBA ABBA CDC CDC.\n"
-            "- Corrige especificamente los errores indicados en el feedback formal.\n"
+            "- Corrige específicamente los errores indicados en el feedback formal.\n"
             "- Conserva los aspectos que ya esten correctos y no los empeores.\n"
             "- Evita repetir literalmente el soneto anterior si el feedback contiene errores.\n"
-            "- Prioriza primero estructura, metrica y rima antes que belleza estetica.\n"
-            "- No anadas titulo ni texto fuera del JSON.\n\n"
+            "- Prioriza primero estructura, métrica y rima antes que belleza estética.\n"
+            "- No anadas título ni texto fuera del JSON.\n\n"
             "CORRECCION CON FEEDBACK:\n"
             "- Prioriza los errores mencionados en el feedback.\n"
-            "- Si el feedback dice que un verso tiene demasiadas silabas, acortalo.\n"
-            "- Si el feedback dice que un verso tiene pocas silabas, alargalo ligeramente.\n"
+            "- Si el feedback dice que un verso tiene demasiadas sílabas, acórtalo.\n"
+            "- Si el feedback dice que un verso tiene pocas sílabas, alárgalo ligeramente.\n"
             "- Si falla la rima, cambia la palabra final del verso afectado.\n"
             "- Si sobran o faltan versos, devuelve exactamente 14.\n"
             "- No empeores versos o rimas que ya estaban correctos.\n\n"
@@ -350,8 +351,8 @@ def _build_sonnet_generation_messages(
             f"Tarea original:\n{question}\n\n"
             f"Genera exactamente {num_candidates} primeras versiones candidatas "
             "del soneto desde cero.\n"
-            "Cada candidato debe ser un soneto completo, sin titulo, con 14 versos "
-            "siempre que sea posible, endecasilabos y con rima consonante "
+            "Cada candidato debe ser un soneto completo, sin título, con 14 versos "
+            "siempre que sea posible, endecasílabos y con rima consonante "
             "ABBA ABBA CDC CDC.\n\n"
             f"{construction_strategy}\n"
             f"{rhyme_pattern_explanation}\n"
@@ -376,7 +377,7 @@ def generate_sonnet_candidates_with_ollama(
     Genera versiones candidatas de soneto usando Ollama.
 
     Hace un primer intento creativo y un reintento mas estricto si falla el
-    parseo. Si ambos intentos fallan, devuelve candidatos fallback vacios para
+    parseo. Si ambos intentos fallan, devuelve candidatos fallback vacíos para
     mantener ejecutable el grafo.
     """
     attempts = [
@@ -670,7 +671,7 @@ def score_candidate_with_ollama(
 # =========================
 def _get_nested_metric(metrics: dict[str, Any], section: str, key: str) -> Any:
     """
-    Obtiene una metrica anidada de forma segura.
+    Obtiene una métrica anidada de forma segura.
     """
     section_value = metrics.get(section, {})
     if not isinstance(section_value, dict):
@@ -680,10 +681,10 @@ def _get_nested_metric(metrics: dict[str, Any], section: str, key: str) -> Any:
 
 def summarize_metrics(metrics: dict[str, Any]) -> str:
     """
-    Resume las metricas formales de evaluate_sonnet en una sola linea.
+    Resume las métricas formales de evaluate_sonnet en una sola línea.
 
     El resumen es robusto ante claves ausentes para poder usarse en logs durante
-    la ejecucion de Beam Search.
+    la ejecución de Beam Search.
     """
     if not isinstance(metrics, dict):
         metrics = {}
@@ -704,7 +705,7 @@ def summarize_metrics(metrics: dict[str, Any]) -> str:
 
     return (
         f"versos={actual_verses_text}/{expected_verses_text} | "
-        f"endecasilabos={correct_syllables_text}/14 | "
+        f"endecasílabos={correct_syllables_text}/14 | "
         f"rima={correct_rhymes_text}/14 | "
         f"score={score_20_text}/20"
     )
@@ -748,7 +749,7 @@ def expand_node(state: BeamSearchState) -> dict:
             previous_sonnet = []
         current_feedback = beam.get(
             "feedback",
-            "Todavia no se ha generado ningun soneto.",
+            "Todavía no se ha generado ningún soneto.",
         )
         uses_feedback = bool(previous_sonnet and current_feedback)
 
@@ -756,9 +757,9 @@ def expand_node(state: BeamSearchState) -> dict:
         print(
             "  Modo: "
             + (
-                "correccion de soneto previo"
+                "corrección de soneto previo"
                 if previous_sonnet
-                else "generacion inicial desde cero"
+                else "generación inicial desde cero"
             )
         )
         print(f"  Score actual: {float(beam.get('score', 0.0)):.3f}")
@@ -778,7 +779,7 @@ def expand_node(state: BeamSearchState) -> dict:
                 "score_history": beam.get("score_history", []).copy(),
                 "feedback": beam.get(
                     "feedback",
-                    "Todavia no se ha generado ningun soneto.",
+                    "Todavía no se ha generado ningún soneto.",
                 ),
                 "metrics": beam.get("metrics", {}).copy(),
                 "generation_reasoning": generated["generation_reasoning"],
@@ -832,10 +833,10 @@ def score_node(state: BeamSearchState) -> dict:
         error_count = len(errors) if isinstance(errors, list) else 0
 
         print(f"\nCandidato {i}:")
-        print(f"Numero de versos: {len(sonnet)}")
+        print(f"Número de versos: {len(sonnet)}")
         print(f"Score formal: {step_score:.3f} ({score_20}/20)")
         print(f"Errores detectados: {error_count}")
-        print(f"Resumen metricas: {summarize_metrics(evaluation)}")
+        print(f"Resumen métricas: {summarize_metrics(evaluation)}")
 
         scored_candidate = {
             "sonnet": sonnet.copy() if isinstance(sonnet, list) else [],
@@ -881,7 +882,7 @@ def prune_node(state: BeamSearchState) -> dict:
         print(f"Score global: {beam['score']:.3f}")
         print(f"Score último paso: {beam.get('step_score', 0.0):.3f}")
         print(f"Historial scores: {[round(s, 3) for s in beam.get('score_history', [])]}")
-        print(f"Resumen metricas: {summarize_metrics(beam.get('metrics', {}))}")
+        print(f"Resumen métricas: {summarize_metrics(beam.get('metrics', {}))}")
 
         print("Primeros versos del soneto:")
         if beam.get("sonnet"):
@@ -891,7 +892,7 @@ def prune_node(state: BeamSearchState) -> dict:
             print("  [Sin soneto generado todavía]")
 
         print("Razón de generación del último paso:")
-        print("  ", beam.get("generation_reasoning", "Sin razon de generacion."))
+        print("  ", beam.get("generation_reasoning", "Sin razón de generación."))
 
         feedback = beam.get("feedback", "Sin feedback formal todavía.")
         feedback_summary = str(feedback).splitlines()[0] if feedback else ""
@@ -937,7 +938,42 @@ def aggregate_scores(score_history: List[float], alpha: float = ALPHA) -> float:
 # =========================
 def should_continue(state: BeamSearchState) -> str:
     if state["step"] >= state["max_steps"]:
+        beams = state.get("beams", [])
+        best_beam = max(beams, key=lambda beam: beam.get("score", 0.0)) if beams else {}
+        best_score = float(best_beam.get("score", 0.0))
+        trace = state.get("trace", [])
+        trace.append(
+            {
+                "step": state["step"],
+                "phase": "stop",
+                "reason": "max_steps",
+                "best_score": best_score,
+            }
+        )
+        state["trace"] = trace
+        print("Fin: alcanzado max_steps.")
         return "end"
+
+    beams = state.get("beams", [])
+    if not beams:
+        return "continue"
+
+    best_beam = max(beams, key=lambda beam: beam.get("score", 0.0))
+    best_score = float(best_beam.get("score", 0.0))
+    if best_score >= TARGET_SCORE:
+        trace = state.get("trace", [])
+        trace.append(
+            {
+                "step": state["step"],
+                "phase": "stop",
+                "reason": "target_score",
+                "best_score": best_score,
+            }
+        )
+        state["trace"] = trace
+        print(f"Fin: alcanzado TARGET_SCORE con score {best_score:.3f}.")
+        return "end"
+
     return "continue"
 
 
@@ -947,7 +983,7 @@ def save_final_result(
     output_dir: str = "outputs",
 ) -> None:
     """
-    Guarda el mejor soneto final, sus metricas y la traza completa en archivos.
+    Guarda el mejor soneto final, sus métricas y la traza completa en archivos.
 
     Crea la carpeta de salida si no existe y usa un timestamp para evitar
     sobrescribir resultados de ejecuciones anteriores.
@@ -977,10 +1013,10 @@ def save_final_result(
         "",
         f"Score global: {float(best_beam.get('score', 0.0)):.3f}",
         f"Historial de scores: {[round(float(score), 3) for score in score_history]}",
-        f"Resumen de metricas: {summarize_metrics(metrics)}",
+        f"Resumen de métricas: {summarize_metrics(metrics)}",
         "",
         "Feedback final:",
-        str(best_beam.get("feedback", "Sin feedback formal todavia.")),
+        str(best_beam.get("feedback", "Sin feedback formal todavía.")),
         "",
         "Soneto completo:",
     ]
@@ -991,7 +1027,7 @@ def save_final_result(
             for verse_number, verse in enumerate(sonnet, start=1)
         )
     else:
-        text_lines.append("[Sin soneto generado todavia]")
+        text_lines.append("[Sin soneto generado todavía]")
 
     sonnet_path.write_text("\n".join(text_lines), encoding="utf-8")
 
@@ -1013,7 +1049,7 @@ def save_final_result(
 
     print("\nArchivos generados:")
     print(f"  Soneto final: {sonnet_path}")
-    print(f"  Metricas: {metrics_path}")
+    print(f"  Métricas: {metrics_path}")
     print(f"  Traza: {trace_path}")
 
 
@@ -1094,7 +1130,7 @@ def main():
 
 def run_cleaning_smoke_tests() -> None:
     """
-    Ejecuta pruebas rapidas de limpieza superficial de versos generados.
+    Ejecuta pruebas rápidas de limpieza superficial de versos generados.
     """
     examples = [
         "1. En sombra vuelve la memoria",

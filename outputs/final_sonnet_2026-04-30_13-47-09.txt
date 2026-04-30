@@ -1,0 +1,52 @@
+SONETO FINAL
+
+Score global: 0.342
+Historial de scores: [0.314, 0.371, 0.343]
+Resumen de métricas: versos=14/14 | endecasílabos=3/14 | rima=2/14 | score=6.86/20
+
+Feedback final:
+Puntuacion formal total: 6.86/20.
+Revisa los siguientes aspectos formales antes de generar una nueva version:
+Numero de versos:
+- El numero de versos es correcto.
+Silabas metricas:
+- Verso 2: tiene 12 silabas, pero deberia tener 11.
+- Verso 3: tiene 9 silabas, pero deberia tener 11.
+- Verso 4: tiene 10 silabas, pero deberia tener 11.
+- Verso 5: tiene 12 silabas, pero deberia tener 11.
+- Verso 7: tiene 10 silabas, pero deberia tener 11.
+- Verso 8: tiene 13 silabas, pero deberia tener 11.
+- Verso 9: tiene 12 silabas, pero deberia tener 11.
+- Verso 10: tiene 12 silabas, pero deberia tener 11.
+- Verso 12: tiene 13 silabas, pero deberia tener 11.
+- Verso 13: tiene 14 silabas, pero deberia tener 11.
+- Verso 14: tiene 10 silabas, pero deberia tener 11.
+Rima consonante:
+- Verso 3: rima C, pero se esperaba B.
+- Verso 4: rima D, pero se esperaba A.
+- Verso 5: rima E, pero se esperaba A.
+- Verso 6: rima F, pero se esperaba B.
+- Verso 7: rima G, pero se esperaba B.
+- Verso 8: rima H, pero se esperaba A.
+- Verso 9: rima I, pero se esperaba C.
+- Verso 10: rima J, pero se esperaba D.
+- Verso 11: rima K, pero se esperaba C.
+- Verso 12: rima L, pero se esperaba C.
+- Verso 13: rima M, pero se esperaba D.
+- Verso 14: rima H, pero se esperaba C.
+
+Soneto completo:
+1. El tiempo como un hilo se deshace
+2. y los recuerdos en el viento se pierden
+3. la mente intenta reconstruir
+4. lo que nunca más será como antes
+5. como una escultura de arena que se derrite
+6. al golpe del mar, sin volver a ser
+7. pero la memoria guarda un rastro
+8. que el tiempo no puede borrar completamente
+9. la tristeza de aquellos momentos perdidos
+10. se acumula como un peso que no se quita
+11. y se desborda cuando el corazón se abre
+12. lloran las gotas que nunca encontrarán su fin
+13. la memoria es una cosa hermosa y dolorosa
+14. que siempre se mantiene en la mente

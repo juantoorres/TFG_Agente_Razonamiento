@@ -1,0 +1,685 @@
+[
+  {
+    "step": 0,
+    "phase": "expand",
+    "generated_candidates": [
+      {
+        "sonnet": [
+          "El tiempo, como un río tranquilo",
+          "se vierte en memoria sin cesar",
+          "en memoria sin cesar",
+          "que es un lago triste y largo",
+          "un lago triste y largo",
+          "donde no se sabe cuál fue el primero",
+          "donde no se sabe cuál fue el segundo",
+          "que tiempos pasaron aquello",
+          "en un tiempo, yo me acordaba",
+          "a veces como un soneto clásico",
+          "que a veces como una historia llena",
+          "de recuerdos, de amor y de tristeza",
+          "de recuerdos, de amor y de tristeza",
+          "un libro que nunca se cierra"
+        ],
+        "score": 0.0,
+        "step_score": 0.0,
+        "score_history": [],
+        "metrics_summary": "versos=?/? | endecasílabos=?/14 | rima=?/14 | score=?/20",
+        "feedback": "Todavía no se ha generado ningún soneto.",
+        "generation_reasoning": "Generación inicial desde cero."
+      },
+      {
+        "sonnet": [
+          "El tiempo, como un río lento",
+          "se escurre en memoria sin cesar",
+          "en memoria sin cesar",
+          "que es un lago triste y vasto",
+          "un lago triste y vasto",
+          "donde no se sabe cuál fue el primero",
+          "donde no se sabe cuál fue el segundo",
+          "que tiempos pasaron aquello",
+          "en un tiempo, yo me acordaba",
+          "a veces como una canción antigua",
+          "que a veces como un relato de amor",
+          "de recuerdos, de deseo y de tristeza",
+          "de recuerdos, de deseo y de tristeza",
+          "un libro que nunca se cierra"
+        ],
+        "score": 0.0,
+        "step_score": 0.0,
+        "score_history": [],
+        "metrics_summary": "versos=?/? | endecasílabos=?/14 | rima=?/14 | score=?/20",
+        "feedback": "Todavía no se ha generado ningún soneto.",
+        "generation_reasoning": "Generación inicial desde cero."
+      }
+    ]
+  },
+  {
+    "step": 0,
+    "phase": "score",
+    "candidates": [
+      {
+        "sonnet": [
+          "El tiempo, como un río tranquilo",
+          "se vierte en memoria sin cesar",
+          "en memoria sin cesar",
+          "que es un lago triste y largo",
+          "un lago triste y largo",
+          "donde no se sabe cuál fue el primero",
+          "donde no se sabe cuál fue el segundo",
+          "que tiempos pasaron aquello",
+          "en un tiempo, yo me acordaba",
+          "a veces como un soneto clásico",
+          "que a veces como una historia llena",
+          "de recuerdos, de amor y de tristeza",
+          "de recuerdos, de amor y de tristeza",
+          "un libro que nunca se cierra"
+        ],
+        "score": 0.3429,
+        "step_score": 0.3429,
+        "score_history": [
+          0.3429
+        ],
+        "metrics_summary": "versos=14/14 | endecasílabos=2/14 | rima=3/14 | score=6.86/20",
+        "feedback": "Puntuacion formal total: 6.86/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 9 silabas, pero deberia tener 11.\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\n- Verso 3: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 9 silabas, pero deberia tener 11.\n- Verso 5: tiene 8 silabas, pero deberia tener 11.\n- Verso 8: tiene 8 silabas, pero deberia tener 11.\n- Verso 9: tiene 8 silabas, pero deberia tener 11.\n- Verso 10: tiene 10 silabas, pero deberia tener 11.\n- Verso 11: tiene 9 silabas, pero deberia tener 11.\n- Verso 12: tiene 10 silabas, pero deberia tener 11.\n- Verso 13: tiene 10 silabas, pero deberia tener 11.\n- Verso 14: tiene 9 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 4: rima C, pero se esperaba A.\n- Verso 5: rima C, pero se esperaba A.\n- Verso 6: rima D, pero se esperaba B.\n- Verso 7: rima E, pero se esperaba B.\n- Verso 8: rima F, pero se esperaba A.\n- Verso 9: rima G, pero se esperaba C.\n- Verso 10: rima H, pero se esperaba D.\n- Verso 11: rima I, pero se esperaba C.\n- Verso 12: rima J, pero se esperaba C.\n- Verso 13: rima J, pero se esperaba D.\n- Verso 14: rima K, pero se esperaba C.",
+        "generation_reasoning": "Generación inicial desde cero."
+      },
+      {
+        "sonnet": [
+          "El tiempo, como un río lento",
+          "se escurre en memoria sin cesar",
+          "en memoria sin cesar",
+          "que es un lago triste y vasto",
+          "un lago triste y vasto",
+          "donde no se sabe cuál fue el primero",
+          "donde no se sabe cuál fue el segundo",
+          "que tiempos pasaron aquello",
+          "en un tiempo, yo me acordaba",
+          "a veces como una canción antigua",
+          "que a veces como un relato de amor",
+          "de recuerdos, de deseo y de tristeza",
+          "de recuerdos, de deseo y de tristeza",
+          "un libro que nunca se cierra"
+        ],
+        "score": 0.3429,
+        "step_score": 0.3429,
+        "score_history": [
+          0.3429
+        ],
+        "metrics_summary": "versos=14/14 | endecasílabos=2/14 | rima=3/14 | score=6.86/20",
+        "feedback": "Puntuacion formal total: 6.86/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 8 silabas, pero deberia tener 11.\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\n- Verso 3: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 9 silabas, pero deberia tener 11.\n- Verso 5: tiene 8 silabas, pero deberia tener 11.\n- Verso 8: tiene 8 silabas, pero deberia tener 11.\n- Verso 9: tiene 8 silabas, pero deberia tener 11.\n- Verso 10: tiene 10 silabas, pero deberia tener 11.\n- Verso 11: tiene 10 silabas, pero deberia tener 11.\n- Verso 12: tiene 12 silabas, pero deberia tener 11.\n- Verso 13: tiene 12 silabas, pero deberia tener 11.\n- Verso 14: tiene 9 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 4: rima C, pero se esperaba A.\n- Verso 5: rima C, pero se esperaba A.\n- Verso 6: rima D, pero se esperaba B.\n- Verso 7: rima E, pero se esperaba B.\n- Verso 8: rima F, pero se esperaba A.\n- Verso 9: rima G, pero se esperaba C.\n- Verso 10: rima H, pero se esperaba D.\n- Verso 11: rima I, pero se esperaba C.\n- Verso 12: rima J, pero se esperaba C.\n- Verso 13: rima J, pero se esperaba D.\n- Verso 14: rima K, pero se esperaba C.",
+        "generation_reasoning": "Generación inicial desde cero."
+      }
+    ]
+  },
+  {
+    "step": 0,
+    "phase": "prune",
+    "selected_beams": [
+      {
+        "sonnet": [
+          "El tiempo, como un río tranquilo",
+          "se vierte en memoria sin cesar",
+          "en memoria sin cesar",
+          "que es un lago triste y largo",
+          "un lago triste y largo",
+          "donde no se sabe cuál fue el primero",
+          "donde no se sabe cuál fue el segundo",
+          "que tiempos pasaron aquello",
+          "en un tiempo, yo me acordaba",
+          "a veces como un soneto clásico",
+          "que a veces como una historia llena",
+          "de recuerdos, de amor y de tristeza",
+          "de recuerdos, de amor y de tristeza",
+          "un libro que nunca se cierra"
+        ],
+        "score": 0.3429,
+        "step_score": 0.3429,
+        "score_history": [
+          0.3429
+        ],
+        "metrics_summary": "versos=14/14 | endecasílabos=2/14 | rima=3/14 | score=6.86/20",
+        "feedback": "Puntuacion formal total: 6.86/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 9 silabas, pero deberia tener 11.\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\n- Verso 3: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 9 silabas, pero deberia tener 11.\n- Verso 5: tiene 8 silabas, pero deberia tener 11.\n- Verso 8: tiene 8 silabas, pero deberia tener 11.\n- Verso 9: tiene 8 silabas, pero deberia tener 11.\n- Verso 10: tiene 10 silabas, pero deberia tener 11.\n- Verso 11: tiene 9 silabas, pero deberia tener 11.\n- Verso 12: tiene 10 silabas, pero deberia tener 11.\n- Verso 13: tiene 10 silabas, pero deberia tener 11.\n- Verso 14: tiene 9 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 4: rima C, pero se esperaba A.\n- Verso 5: rima C, pero se esperaba A.\n- Verso 6: rima D, pero se esperaba B.\n- Verso 7: rima E, pero se esperaba B.\n- Verso 8: rima F, pero se esperaba A.\n- Verso 9: rima G, pero se esperaba C.\n- Verso 10: rima H, pero se esperaba D.\n- Verso 11: rima I, pero se esperaba C.\n- Verso 12: rima J, pero se esperaba C.\n- Verso 13: rima J, pero se esperaba D.\n- Verso 14: rima K, pero se esperaba C.",
+        "generation_reasoning": "Generación inicial desde cero."
+      },
+      {
+        "sonnet": [
+          "El tiempo, como un río lento",
+          "se escurre en memoria sin cesar",
+          "en memoria sin cesar",
+          "que es un lago triste y vasto",
+          "un lago triste y vasto",
+          "donde no se sabe cuál fue el primero",
+          "donde no se sabe cuál fue el segundo",
+          "que tiempos pasaron aquello",
+          "en un tiempo, yo me acordaba",
+          "a veces como una canción antigua",
+          "que a veces como un relato de amor",
+          "de recuerdos, de deseo y de tristeza",
+          "de recuerdos, de deseo y de tristeza",
+          "un libro que nunca se cierra"
+        ],
+        "score": 0.3429,
+        "step_score": 0.3429,
+        "score_history": [
+          0.3429
+        ],
+        "metrics_summary": "versos=14/14 | endecasílabos=2/14 | rima=3/14 | score=6.86/20",
+        "feedback": "Puntuacion formal total: 6.86/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 8 silabas, pero deberia tener 11.\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\n- Verso 3: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 9 silabas, pero deberia tener 11.\n- Verso 5: tiene 8 silabas, pero deberia tener 11.\n- Verso 8: tiene 8 silabas, pero deberia tener 11.\n- Verso 9: tiene 8 silabas, pero deberia tener 11.\n- Verso 10: tiene 10 silabas, pero deberia tener 11.\n- Verso 11: tiene 10 silabas, pero deberia tener 11.\n- Verso 12: tiene 12 silabas, pero deberia tener 11.\n- Verso 13: tiene 12 silabas, pero deberia tener 11.\n- Verso 14: tiene 9 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 4: rima C, pero se esperaba A.\n- Verso 5: rima C, pero se esperaba A.\n- Verso 6: rima D, pero se esperaba B.\n- Verso 7: rima E, pero se esperaba B.\n- Verso 8: rima F, pero se esperaba A.\n- Verso 9: rima G, pero se esperaba C.\n- Verso 10: rima H, pero se esperaba D.\n- Verso 11: rima I, pero se esperaba C.\n- Verso 12: rima J, pero se esperaba C.\n- Verso 13: rima J, pero se esperaba D.\n- Verso 14: rima K, pero se esperaba C.",
+        "generation_reasoning": "Generación inicial desde cero."
+      }
+    ]
+  },
+  {
+    "step": 1,
+    "phase": "expand",
+    "generated_candidates": [
+      {
+        "sonnet": [
+          "El tiempo, como un río silencioso",
+          "se vierte en memoria sin cesar",
+          "en memoria sin cesar",
+          "que es un lago triste y largo",
+          "un lago triste y profundo",
+          "donde ningún rastro se pierde",
+          "ningún rastro, ni tampoco el segundo",
+          "que tiempos pasaron aquello",
+          "en un tiempo, yo me acordaba",
+          "a veces como una historia llena",
+          "de recuerdos, de amor y de tristeza",
+          "de recuerdos, de amor y de tristeza",
+          "un libro que nunca se cierra",
+          "y en cuyo final, el tiempo sigue"
+        ],
+        "score": 0.3429,
+        "step_score": 0.0,
+        "score_history": [
+          0.3429
+        ],
+        "metrics_summary": "versos=14/14 | endecasílabos=2/14 | rima=3/14 | score=6.86/20",
+        "feedback": "Puntuacion formal total: 6.86/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 9 silabas, pero deberia tener 11.\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\n- Verso 3: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 9 silabas, pero deberia tener 11.\n- Verso 5: tiene 8 silabas, pero deberia tener 11.\n- Verso 8: tiene 8 silabas, pero deberia tener 11.\n- Verso 9: tiene 8 silabas, pero deberia tener 11.\n- Verso 10: tiene 10 silabas, pero deberia tener 11.\n- Verso 11: tiene 9 silabas, pero deberia tener 11.\n- Verso 12: tiene 10 silabas, pero deberia tener 11.\n- Verso 13: tiene 10 silabas, pero deberia tener 11.\n- Verso 14: tiene 9 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 4: rima C, pero se esperaba A.\n- Verso 5: rima C, pero se esperaba A.\n- Verso 6: rima D, pero se esperaba B.\n- Verso 7: rima E, pero se esperaba B.\n- Verso 8: rima F, pero se esperaba A.\n- Verso 9: rima G, pero se esperaba C.\n- Verso 10: rima H, pero se esperaba D.\n- Verso 11: rima I, pero se esperaba C.\n- Verso 12: rima J, pero se esperaba C.\n- Verso 13: rima J, pero se esperaba D.\n- Verso 14: rima K, pero se esperaba C.",
+        "generation_reasoning": "Versión corregida usando feedback formal."
+      },
+      {
+        "sonnet": [
+          "El tiempo como un río tranquilo",
+          "se vierte sin cesar en memoria",
+          "en memoria, se hunde y se abre",
+          "como un lago triste y largo",
+          "un lago triste y profundo",
+          "donde ningún rastro es encontrado",
+          "ninguno, ni tampoco el que vino antes",
+          "que tiempos pasaron aquello",
+          "en un tiempo yo me acordaba",
+          "a veces como una historia llena",
+          "de recuerdos y de amor y tristeza",
+          "de recuerdos, de amor y de tristeza",
+          "un libro que nunca se cierra",
+          "y en cuyo final el tiempo sigue"
+        ],
+        "score": 0.3429,
+        "step_score": 0.0,
+        "score_history": [
+          0.3429
+        ],
+        "metrics_summary": "versos=14/14 | endecasílabos=2/14 | rima=3/14 | score=6.86/20",
+        "feedback": "Puntuacion formal total: 6.86/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 9 silabas, pero deberia tener 11.\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\n- Verso 3: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 9 silabas, pero deberia tener 11.\n- Verso 5: tiene 8 silabas, pero deberia tener 11.\n- Verso 8: tiene 8 silabas, pero deberia tener 11.\n- Verso 9: tiene 8 silabas, pero deberia tener 11.\n- Verso 10: tiene 10 silabas, pero deberia tener 11.\n- Verso 11: tiene 9 silabas, pero deberia tener 11.\n- Verso 12: tiene 10 silabas, pero deberia tener 11.\n- Verso 13: tiene 10 silabas, pero deberia tener 11.\n- Verso 14: tiene 9 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 4: rima C, pero se esperaba A.\n- Verso 5: rima C, pero se esperaba A.\n- Verso 6: rima D, pero se esperaba B.\n- Verso 7: rima E, pero se esperaba B.\n- Verso 8: rima F, pero se esperaba A.\n- Verso 9: rima G, pero se esperaba C.\n- Verso 10: rima H, pero se esperaba D.\n- Verso 11: rima I, pero se esperaba C.\n- Verso 12: rima J, pero se esperaba C.\n- Verso 13: rima J, pero se esperaba D.\n- Verso 14: rima K, pero se esperaba C.",
+        "generation_reasoning": "Versión corregida usando feedback formal."
+      },
+      {
+        "sonnet": [
+          "El tiempo, como un río triste y lento",
+          "se escurre sin cesar por memoria",
+          "por memoria, un lago vasto y triste",
+          "donde no se sabe qué fue el primero",
+          "y qué segundo en otro tiempo",
+          "a veces me acordaba como una canción",
+          "que a veces como un relato de amor",
+          "de recuerdos, deseo y tristeza",
+          "en un tiempo, yo me acordaba",
+          "como un libro que nunca se cierra"
+        ],
+        "score": 0.3429,
+        "step_score": 0.0,
+        "score_history": [
+          0.3429
+        ],
+        "metrics_summary": "versos=14/14 | endecasílabos=2/14 | rima=3/14 | score=6.86/20",
+        "feedback": "Puntuacion formal total: 6.86/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 8 silabas, pero deberia tener 11.\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\n- Verso 3: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 9 silabas, pero deberia tener 11.\n- Verso 5: tiene 8 silabas, pero deberia tener 11.\n- Verso 8: tiene 8 silabas, pero deberia tener 11.\n- Verso 9: tiene 8 silabas, pero deberia tener 11.\n- Verso 10: tiene 10 silabas, pero deberia tener 11.\n- Verso 11: tiene 10 silabas, pero deberia tener 11.\n- Verso 12: tiene 12 silabas, pero deberia tener 11.\n- Verso 13: tiene 12 silabas, pero deberia tener 11.\n- Verso 14: tiene 9 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 4: rima C, pero se esperaba A.\n- Verso 5: rima C, pero se esperaba A.\n- Verso 6: rima D, pero se esperaba B.\n- Verso 7: rima E, pero se esperaba B.\n- Verso 8: rima F, pero se esperaba A.\n- Verso 9: rima G, pero se esperaba C.\n- Verso 10: rima H, pero se esperaba D.\n- Verso 11: rima I, pero se esperaba C.\n- Verso 12: rima J, pero se esperaba C.\n- Verso 13: rima J, pero se esperaba D.\n- Verso 14: rima K, pero se esperaba C.",
+        "generation_reasoning": "Versión corregida usando feedback formal."
+      },
+      {
+        "sonnet": [
+          "El tiempo, como un lento río",
+          "se escurre en memoria sin cesar",
+          "en memoria, un lago triste y vasto",
+          "donde no se sabe cuál fue el primero",
+          "y cuál segundo en otro tiempo",
+          "a veces me acordaba como una canción",
+          "que a veces como un relato de amor",
+          "de recuerdos, deseo y tristeza",
+          "en un tiempo yo me acordaba",
+          "como un libro que nunca se cierra"
+        ],
+        "score": 0.3429,
+        "step_score": 0.0,
+        "score_history": [
+          0.3429
+        ],
+        "metrics_summary": "versos=14/14 | endecasílabos=2/14 | rima=3/14 | score=6.86/20",
+        "feedback": "Puntuacion formal total: 6.86/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 8 silabas, pero deberia tener 11.\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\n- Verso 3: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 9 silabas, pero deberia tener 11.\n- Verso 5: tiene 8 silabas, pero deberia tener 11.\n- Verso 8: tiene 8 silabas, pero deberia tener 11.\n- Verso 9: tiene 8 silabas, pero deberia tener 11.\n- Verso 10: tiene 10 silabas, pero deberia tener 11.\n- Verso 11: tiene 10 silabas, pero deberia tener 11.\n- Verso 12: tiene 12 silabas, pero deberia tener 11.\n- Verso 13: tiene 12 silabas, pero deberia tener 11.\n- Verso 14: tiene 9 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 4: rima C, pero se esperaba A.\n- Verso 5: rima C, pero se esperaba A.\n- Verso 6: rima D, pero se esperaba B.\n- Verso 7: rima E, pero se esperaba B.\n- Verso 8: rima F, pero se esperaba A.\n- Verso 9: rima G, pero se esperaba C.\n- Verso 10: rima H, pero se esperaba D.\n- Verso 11: rima I, pero se esperaba C.\n- Verso 12: rima J, pero se esperaba C.\n- Verso 13: rima J, pero se esperaba D.\n- Verso 14: rima K, pero se esperaba C.",
+        "generation_reasoning": "Versión corregida usando feedback formal."
+      }
+    ]
+  },
+  {
+    "step": 1,
+    "phase": "score",
+    "candidates": [
+      {
+        "sonnet": [
+          "El tiempo, como un río silencioso",
+          "se vierte en memoria sin cesar",
+          "en memoria sin cesar",
+          "que es un lago triste y largo",
+          "un lago triste y profundo",
+          "donde ningún rastro se pierde",
+          "ningún rastro, ni tampoco el segundo",
+          "que tiempos pasaron aquello",
+          "en un tiempo, yo me acordaba",
+          "a veces como una historia llena",
+          "de recuerdos, de amor y de tristeza",
+          "de recuerdos, de amor y de tristeza",
+          "un libro que nunca se cierra",
+          "y en cuyo final, el tiempo sigue"
+        ],
+        "score": 0.3429,
+        "step_score": 0.3429,
+        "score_history": [
+          0.3429,
+          0.3429
+        ],
+        "metrics_summary": "versos=14/14 | endecasílabos=2/14 | rima=3/14 | score=6.86/20",
+        "feedback": "Puntuacion formal total: 6.86/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 10 silabas, pero deberia tener 11.\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\n- Verso 3: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 9 silabas, pero deberia tener 11.\n- Verso 5: tiene 9 silabas, pero deberia tener 11.\n- Verso 6: tiene 9 silabas, pero deberia tener 11.\n- Verso 8: tiene 8 silabas, pero deberia tener 11.\n- Verso 9: tiene 8 silabas, pero deberia tener 11.\n- Verso 10: tiene 9 silabas, pero deberia tener 11.\n- Verso 11: tiene 10 silabas, pero deberia tener 11.\n- Verso 12: tiene 10 silabas, pero deberia tener 11.\n- Verso 13: tiene 9 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 4: rima C, pero se esperaba A.\n- Verso 5: rima D, pero se esperaba A.\n- Verso 6: rima E, pero se esperaba B.\n- Verso 7: rima D, pero se esperaba B.\n- Verso 8: rima F, pero se esperaba A.\n- Verso 9: rima G, pero se esperaba C.\n- Verso 10: rima H, pero se esperaba D.\n- Verso 11: rima I, pero se esperaba C.\n- Verso 12: rima I, pero se esperaba C.\n- Verso 13: rima J, pero se esperaba D.\n- Verso 14: rima K, pero se esperaba C.",
+        "generation_reasoning": "Versión corregida usando feedback formal."
+      },
+      {
+        "sonnet": [
+          "El tiempo como un río tranquilo",
+          "se vierte sin cesar en memoria",
+          "en memoria, se hunde y se abre",
+          "como un lago triste y largo",
+          "un lago triste y profundo",
+          "donde ningún rastro es encontrado",
+          "ninguno, ni tampoco el que vino antes",
+          "que tiempos pasaron aquello",
+          "en un tiempo yo me acordaba",
+          "a veces como una historia llena",
+          "de recuerdos y de amor y tristeza",
+          "de recuerdos, de amor y de tristeza",
+          "un libro que nunca se cierra",
+          "y en cuyo final el tiempo sigue"
+        ],
+        "score": 0.312996054288229,
+        "step_score": 0.2857,
+        "score_history": [
+          0.3429,
+          0.2857
+        ],
+        "metrics_summary": "versos=14/14 | endecasílabos=1/14 | rima=2/14 | score=5.71/20",
+        "feedback": "Puntuacion formal total: 5.71/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 9 silabas, pero deberia tener 11.\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\n- Verso 3: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 9 silabas, pero deberia tener 11.\n- Verso 5: tiene 9 silabas, pero deberia tener 11.\n- Verso 6: tiene 9 silabas, pero deberia tener 11.\n- Verso 7: tiene 9 silabas, pero deberia tener 11.\n- Verso 8: tiene 8 silabas, pero deberia tener 11.\n- Verso 9: tiene 8 silabas, pero deberia tener 11.\n- Verso 10: tiene 9 silabas, pero deberia tener 11.\n- Verso 11: tiene 10 silabas, pero deberia tener 11.\n- Verso 12: tiene 10 silabas, pero deberia tener 11.\n- Verso 13: tiene 9 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.\n- Verso 5: rima E, pero se esperaba A.\n- Verso 6: rima F, pero se esperaba B.\n- Verso 7: rima G, pero se esperaba B.\n- Verso 8: rima H, pero se esperaba A.\n- Verso 9: rima I, pero se esperaba C.\n- Verso 10: rima J, pero se esperaba D.\n- Verso 11: rima K, pero se esperaba C.\n- Verso 12: rima K, pero se esperaba C.\n- Verso 13: rima L, pero se esperaba D.\n- Verso 14: rima M, pero se esperaba C.",
+        "generation_reasoning": "Versión corregida usando feedback formal."
+      },
+      {
+        "sonnet": [
+          "El tiempo, como un río triste y lento",
+          "se escurre sin cesar por memoria",
+          "por memoria, un lago vasto y triste",
+          "donde no se sabe qué fue el primero",
+          "y qué segundo en otro tiempo",
+          "a veces me acordaba como una canción",
+          "que a veces como un relato de amor",
+          "de recuerdos, deseo y tristeza",
+          "en un tiempo, yo me acordaba",
+          "como un libro que nunca se cierra"
+        ],
+        "score": 0.2424315573517606,
+        "step_score": 0.1714,
+        "score_history": [
+          0.3429,
+          0.1714
+        ],
+        "metrics_summary": "versos=10/14 | endecasílabos=4/14 | rima=2/14 | score=3.43/20",
+        "feedback": "Puntuacion formal total: 3.43/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El soneto tiene 10 versos; faltan 4.\nSilabas metricas:\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\n- Verso 5: tiene 8 silabas, pero deberia tener 11.\n- Verso 7: tiene 10 silabas, pero deberia tener 11.\n- Verso 8: tiene 10 silabas, pero deberia tener 11.\n- Verso 9: tiene 8 silabas, pero deberia tener 11.\n- Verso 10: tiene 10 silabas, pero deberia tener 11.\n- Verso 11: falta verso; deberia tener 11 silabas.\n- Verso 12: falta verso; deberia tener 11 silabas.\n- Verso 13: falta verso; deberia tener 11 silabas.\n- Verso 14: falta verso; deberia tener 11 silabas.\nRima consonante:\n- Se recibieron 10 versos; se esperaban 14.\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.\n- Verso 5: rima E, pero se esperaba A.\n- Verso 6: rima F, pero se esperaba B.\n- Verso 7: rima G, pero se esperaba B.\n- Verso 8: rima H, pero se esperaba A.\n- Verso 9: rima I, pero se esperaba C.\n- Verso 10: rima J, pero se esperaba D.\n- Verso 11: no se pudo extraer rima.\n- Verso 12: no se pudo extraer rima.\n- Verso 13: no se pudo extraer rima.\n- Verso 14: no se pudo extraer rima.",
+        "generation_reasoning": "Versión corregida usando feedback formal."
+      },
+      {
+        "sonnet": [
+          "El tiempo, como un lento río",
+          "se escurre en memoria sin cesar",
+          "en memoria, un lago triste y vasto",
+          "donde no se sabe cuál fue el primero",
+          "y cuál segundo en otro tiempo",
+          "a veces me acordaba como una canción",
+          "que a veces como un relato de amor",
+          "de recuerdos, deseo y tristeza",
+          "en un tiempo yo me acordaba",
+          "como un libro que nunca se cierra"
+        ],
+        "score": 0.22136036230544978,
+        "step_score": 0.1429,
+        "score_history": [
+          0.3429,
+          0.1429
+        ],
+        "metrics_summary": "versos=10/14 | endecasílabos=3/14 | rima=2/14 | score=2.86/20",
+        "feedback": "Puntuacion formal total: 2.86/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El soneto tiene 10 versos; faltan 4.\nSilabas metricas:\n- Verso 1: tiene 9 silabas, pero deberia tener 11.\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\n- Verso 5: tiene 8 silabas, pero deberia tener 11.\n- Verso 7: tiene 10 silabas, pero deberia tener 11.\n- Verso 8: tiene 10 silabas, pero deberia tener 11.\n- Verso 9: tiene 8 silabas, pero deberia tener 11.\n- Verso 10: tiene 10 silabas, pero deberia tener 11.\n- Verso 11: falta verso; deberia tener 11 silabas.\n- Verso 12: falta verso; deberia tener 11 silabas.\n- Verso 13: falta verso; deberia tener 11 silabas.\n- Verso 14: falta verso; deberia tener 11 silabas.\nRima consonante:\n- Se recibieron 10 versos; se esperaban 14.\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.\n- Verso 5: rima E, pero se esperaba A.\n- Verso 6: rima F, pero se esperaba B.\n- Verso 7: rima G, pero se esperaba B.\n- Verso 8: rima H, pero se esperaba A.\n- Verso 9: rima I, pero se esperaba C.\n- Verso 10: rima J, pero se esperaba D.\n- Verso 11: no se pudo extraer rima.\n- Verso 12: no se pudo extraer rima.\n- Verso 13: no se pudo extraer rima.\n- Verso 14: no se pudo extraer rima.",
+        "generation_reasoning": "Versión corregida usando feedback formal."
+      }
+    ]
+  },
+  {
+    "step": 1,
+    "phase": "prune",
+    "selected_beams": [
+      {
+        "sonnet": [
+          "El tiempo, como un río silencioso",
+          "se vierte en memoria sin cesar",
+          "en memoria sin cesar",
+          "que es un lago triste y largo",
+          "un lago triste y profundo",
+          "donde ningún rastro se pierde",
+          "ningún rastro, ni tampoco el segundo",
+          "que tiempos pasaron aquello",
+          "en un tiempo, yo me acordaba",
+          "a veces como una historia llena",
+          "de recuerdos, de amor y de tristeza",
+          "de recuerdos, de amor y de tristeza",
+          "un libro que nunca se cierra",
+          "y en cuyo final, el tiempo sigue"
+        ],
+        "score": 0.3429,
+        "step_score": 0.3429,
+        "score_history": [
+          0.3429,
+          0.3429
+        ],
+        "metrics_summary": "versos=14/14 | endecasílabos=2/14 | rima=3/14 | score=6.86/20",
+        "feedback": "Puntuacion formal total: 6.86/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 10 silabas, pero deberia tener 11.\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\n- Verso 3: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 9 silabas, pero deberia tener 11.\n- Verso 5: tiene 9 silabas, pero deberia tener 11.\n- Verso 6: tiene 9 silabas, pero deberia tener 11.\n- Verso 8: tiene 8 silabas, pero deberia tener 11.\n- Verso 9: tiene 8 silabas, pero deberia tener 11.\n- Verso 10: tiene 9 silabas, pero deberia tener 11.\n- Verso 11: tiene 10 silabas, pero deberia tener 11.\n- Verso 12: tiene 10 silabas, pero deberia tener 11.\n- Verso 13: tiene 9 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 4: rima C, pero se esperaba A.\n- Verso 5: rima D, pero se esperaba A.\n- Verso 6: rima E, pero se esperaba B.\n- Verso 7: rima D, pero se esperaba B.\n- Verso 8: rima F, pero se esperaba A.\n- Verso 9: rima G, pero se esperaba C.\n- Verso 10: rima H, pero se esperaba D.\n- Verso 11: rima I, pero se esperaba C.\n- Verso 12: rima I, pero se esperaba C.\n- Verso 13: rima J, pero se esperaba D.\n- Verso 14: rima K, pero se esperaba C.",
+        "generation_reasoning": "Versión corregida usando feedback formal."
+      },
+      {
+        "sonnet": [
+          "El tiempo como un río tranquilo",
+          "se vierte sin cesar en memoria",
+          "en memoria, se hunde y se abre",
+          "como un lago triste y largo",
+          "un lago triste y profundo",
+          "donde ningún rastro es encontrado",
+          "ninguno, ni tampoco el que vino antes",
+          "que tiempos pasaron aquello",
+          "en un tiempo yo me acordaba",
+          "a veces como una historia llena",
+          "de recuerdos y de amor y tristeza",
+          "de recuerdos, de amor y de tristeza",
+          "un libro que nunca se cierra",
+          "y en cuyo final el tiempo sigue"
+        ],
+        "score": 0.312996054288229,
+        "step_score": 0.2857,
+        "score_history": [
+          0.3429,
+          0.2857
+        ],
+        "metrics_summary": "versos=14/14 | endecasílabos=1/14 | rima=2/14 | score=5.71/20",
+        "feedback": "Puntuacion formal total: 5.71/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 9 silabas, pero deberia tener 11.\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\n- Verso 3: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 9 silabas, pero deberia tener 11.\n- Verso 5: tiene 9 silabas, pero deberia tener 11.\n- Verso 6: tiene 9 silabas, pero deberia tener 11.\n- Verso 7: tiene 9 silabas, pero deberia tener 11.\n- Verso 8: tiene 8 silabas, pero deberia tener 11.\n- Verso 9: tiene 8 silabas, pero deberia tener 11.\n- Verso 10: tiene 9 silabas, pero deberia tener 11.\n- Verso 11: tiene 10 silabas, pero deberia tener 11.\n- Verso 12: tiene 10 silabas, pero deberia tener 11.\n- Verso 13: tiene 9 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.\n- Verso 5: rima E, pero se esperaba A.\n- Verso 6: rima F, pero se esperaba B.\n- Verso 7: rima G, pero se esperaba B.\n- Verso 8: rima H, pero se esperaba A.\n- Verso 9: rima I, pero se esperaba C.\n- Verso 10: rima J, pero se esperaba D.\n- Verso 11: rima K, pero se esperaba C.\n- Verso 12: rima K, pero se esperaba C.\n- Verso 13: rima L, pero se esperaba D.\n- Verso 14: rima M, pero se esperaba C.",
+        "generation_reasoning": "Versión corregida usando feedback formal."
+      }
+    ]
+  },
+  {
+    "step": 2,
+    "phase": "expand",
+    "generated_candidates": [
+      {
+        "sonnet": [
+          "El tiempo, como un río silencioso",
+          "se vierte en memoria sin cesar",
+          "en memoria triste y profunda",
+          "donde ningún rastro se pierde",
+          "ninguno, ni tampoco el segundo",
+          "que tiempos pasaron aquello",
+          "en un tiempo, yo me acordaba",
+          "a veces como una historia llena",
+          "de recuerdos, de amor y de tristeza",
+          "de recuerdos, de amor y de tristeza",
+          "un libro que nunca se cierra",
+          "y en cuyo final, el tiempo sigue",
+          "y el tiempo, como un río silencioso",
+          "se vierte en memoria sin cesar"
+        ],
+        "score": 0.3429,
+        "step_score": 0.0,
+        "score_history": [
+          0.3429,
+          0.3429
+        ],
+        "metrics_summary": "versos=14/14 | endecasílabos=2/14 | rima=3/14 | score=6.86/20",
+        "feedback": "Puntuacion formal total: 6.86/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 10 silabas, pero deberia tener 11.\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\n- Verso 3: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 9 silabas, pero deberia tener 11.\n- Verso 5: tiene 9 silabas, pero deberia tener 11.\n- Verso 6: tiene 9 silabas, pero deberia tener 11.\n- Verso 8: tiene 8 silabas, pero deberia tener 11.\n- Verso 9: tiene 8 silabas, pero deberia tener 11.\n- Verso 10: tiene 9 silabas, pero deberia tener 11.\n- Verso 11: tiene 10 silabas, pero deberia tener 11.\n- Verso 12: tiene 10 silabas, pero deberia tener 11.\n- Verso 13: tiene 9 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 4: rima C, pero se esperaba A.\n- Verso 5: rima D, pero se esperaba A.\n- Verso 6: rima E, pero se esperaba B.\n- Verso 7: rima D, pero se esperaba B.\n- Verso 8: rima F, pero se esperaba A.\n- Verso 9: rima G, pero se esperaba C.\n- Verso 10: rima H, pero se esperaba D.\n- Verso 11: rima I, pero se esperaba C.\n- Verso 12: rima I, pero se esperaba C.\n- Verso 13: rima J, pero se esperaba D.\n- Verso 14: rima K, pero se esperaba C.",
+        "generation_reasoning": "Versión corregida usando feedback formal."
+      },
+      {
+        "sonnet": [
+          "El tiempo como un arroyo tranquilo",
+          "se vierte sin cesar en memoria",
+          "en memoria, se abre y se cierra",
+          "como una tumba triste y larga",
+          "un lago triste y profundo",
+          "allí desaparecen los rastros",
+          "ninguno, ni tampoco el que vino antes",
+          "que tiempos pasaron allí",
+          "en un momento yo acordaba",
+          "a veces como una historia enmascarada",
+          "de recuerdos y de amor y tristeza",
+          "de recuerdos, de amor y de tristeza",
+          "un libro que nunca se cierra",
+          "y en cuyo final el tiempo sigue"
+        ],
+        "score": 0.312996054288229,
+        "step_score": 0.0,
+        "score_history": [
+          0.3429,
+          0.2857
+        ],
+        "metrics_summary": "versos=14/14 | endecasílabos=1/14 | rima=2/14 | score=5.71/20",
+        "feedback": "Puntuacion formal total: 5.71/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 9 silabas, pero deberia tener 11.\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\n- Verso 3: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 9 silabas, pero deberia tener 11.\n- Verso 5: tiene 9 silabas, pero deberia tener 11.\n- Verso 6: tiene 9 silabas, pero deberia tener 11.\n- Verso 7: tiene 9 silabas, pero deberia tener 11.\n- Verso 8: tiene 8 silabas, pero deberia tener 11.\n- Verso 9: tiene 8 silabas, pero deberia tener 11.\n- Verso 10: tiene 9 silabas, pero deberia tener 11.\n- Verso 11: tiene 10 silabas, pero deberia tener 11.\n- Verso 12: tiene 10 silabas, pero deberia tener 11.\n- Verso 13: tiene 9 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.\n- Verso 5: rima E, pero se esperaba A.\n- Verso 6: rima F, pero se esperaba B.\n- Verso 7: rima G, pero se esperaba B.\n- Verso 8: rima H, pero se esperaba A.\n- Verso 9: rima I, pero se esperaba C.\n- Verso 10: rima J, pero se esperaba D.\n- Verso 11: rima K, pero se esperaba C.\n- Verso 12: rima K, pero se esperaba C.\n- Verso 13: rima L, pero se esperaba D.\n- Verso 14: rima M, pero se esperaba C.",
+        "generation_reasoning": "Versión corregida usando feedback formal."
+      },
+      {
+        "sonnet": [
+          "El tiempo como un arroyo tranquilo",
+          "se vierte sin cesar en memoria",
+          "en memoria, se abre y se cierra",
+          "como una tumba triste y larga",
+          "un lago triste y profundo",
+          "allí desaparecen los rastros",
+          "ninguno, ni tampoco el que vino antes",
+          "que tiempos pasaron allí",
+          "en un momento yo acordaba",
+          "a veces como una historia oculta",
+          "de recuerdos y de amor y tristeza",
+          "de recuerdos, de amor y de tristeza",
+          "un libro que nunca se cierra",
+          "y en cuyo final el tiempo sigue"
+        ],
+        "score": 0.312996054288229,
+        "step_score": 0.0,
+        "score_history": [
+          0.3429,
+          0.2857
+        ],
+        "metrics_summary": "versos=14/14 | endecasílabos=1/14 | rima=2/14 | score=5.71/20",
+        "feedback": "Puntuacion formal total: 5.71/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 9 silabas, pero deberia tener 11.\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\n- Verso 3: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 9 silabas, pero deberia tener 11.\n- Verso 5: tiene 9 silabas, pero deberia tener 11.\n- Verso 6: tiene 9 silabas, pero deberia tener 11.\n- Verso 7: tiene 9 silabas, pero deberia tener 11.\n- Verso 8: tiene 8 silabas, pero deberia tener 11.\n- Verso 9: tiene 8 silabas, pero deberia tener 11.\n- Verso 10: tiene 9 silabas, pero deberia tener 11.\n- Verso 11: tiene 10 silabas, pero deberia tener 11.\n- Verso 12: tiene 10 silabas, pero deberia tener 11.\n- Verso 13: tiene 9 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.\n- Verso 5: rima E, pero se esperaba A.\n- Verso 6: rima F, pero se esperaba B.\n- Verso 7: rima G, pero se esperaba B.\n- Verso 8: rima H, pero se esperaba A.\n- Verso 9: rima I, pero se esperaba C.\n- Verso 10: rima J, pero se esperaba D.\n- Verso 11: rima K, pero se esperaba C.\n- Verso 12: rima K, pero se esperaba C.\n- Verso 13: rima L, pero se esperaba D.\n- Verso 14: rima M, pero se esperaba C.",
+        "generation_reasoning": "Versión corregida usando feedback formal."
+      }
+    ]
+  },
+  {
+    "step": 2,
+    "phase": "score",
+    "candidates": [
+      {
+        "sonnet": [
+          "El tiempo, como un río silencioso",
+          "se vierte en memoria sin cesar",
+          "en memoria triste y profunda",
+          "donde ningún rastro se pierde",
+          "ninguno, ni tampoco el segundo",
+          "que tiempos pasaron aquello",
+          "en un tiempo, yo me acordaba",
+          "a veces como una historia llena",
+          "de recuerdos, de amor y de tristeza",
+          "de recuerdos, de amor y de tristeza",
+          "un libro que nunca se cierra",
+          "y en cuyo final, el tiempo sigue",
+          "y el tiempo, como un río silencioso",
+          "se vierte en memoria sin cesar"
+        ],
+        "score": 0.333088611188406,
+        "step_score": 0.3143,
+        "score_history": [
+          0.3429,
+          0.3429,
+          0.3143
+        ],
+        "metrics_summary": "versos=14/14 | endecasílabos=2/14 | rima=2/14 | score=6.29/20",
+        "feedback": "Puntuacion formal total: 6.29/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 10 silabas, pero deberia tener 11.\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\n- Verso 3: tiene 10 silabas, pero deberia tener 11.\n- Verso 4: tiene 9 silabas, pero deberia tener 11.\n- Verso 5: tiene 9 silabas, pero deberia tener 11.\n- Verso 6: tiene 8 silabas, pero deberia tener 11.\n- Verso 7: tiene 8 silabas, pero deberia tener 11.\n- Verso 8: tiene 9 silabas, pero deberia tener 11.\n- Verso 9: tiene 10 silabas, pero deberia tener 11.\n- Verso 10: tiene 10 silabas, pero deberia tener 11.\n- Verso 11: tiene 9 silabas, pero deberia tener 11.\n- Verso 14: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.\n- Verso 5: rima E, pero se esperaba A.\n- Verso 6: rima F, pero se esperaba B.\n- Verso 7: rima G, pero se esperaba B.\n- Verso 8: rima H, pero se esperaba A.\n- Verso 9: rima I, pero se esperaba C.\n- Verso 10: rima I, pero se esperaba D.\n- Verso 11: rima J, pero se esperaba C.\n- Verso 12: rima K, pero se esperaba C.\n- Verso 13: rima A, pero se esperaba D.\n- Verso 14: rima B, pero se esperaba C.",
+        "generation_reasoning": "Versión corregida usando feedback formal."
+      },
+      {
+        "sonnet": [
+          "El tiempo como un arroyo tranquilo",
+          "se vierte sin cesar en memoria",
+          "en memoria, se abre y se cierra",
+          "como una tumba triste y larga",
+          "un lago triste y profundo",
+          "allí desaparecen los rastros",
+          "ninguno, ni tampoco el que vino antes",
+          "que tiempos pasaron allí",
+          "en un momento yo acordaba",
+          "a veces como una historia enmascarada",
+          "de recuerdos y de amor y tristeza",
+          "de recuerdos, de amor y de tristeza",
+          "un libro que nunca se cierra",
+          "y en cuyo final el tiempo sigue"
+        ],
+        "score": 0.3134301006680147,
+        "step_score": 0.3143,
+        "score_history": [
+          0.3429,
+          0.2857,
+          0.3143
+        ],
+        "metrics_summary": "versos=14/14 | endecasílabos=2/14 | rima=2/14 | score=6.29/20",
+        "feedback": "Puntuacion formal total: 6.29/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 10 silabas, pero deberia tener 11.\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\n- Verso 3: tiene 9 silabas, pero deberia tener 11.\n- Verso 4: tiene 9 silabas, pero deberia tener 11.\n- Verso 5: tiene 9 silabas, pero deberia tener 11.\n- Verso 6: tiene 8 silabas, pero deberia tener 11.\n- Verso 7: tiene 9 silabas, pero deberia tener 11.\n- Verso 8: tiene 8 silabas, pero deberia tener 11.\n- Verso 9: tiene 8 silabas, pero deberia tener 11.\n- Verso 11: tiene 10 silabas, pero deberia tener 11.\n- Verso 12: tiene 10 silabas, pero deberia tener 11.\n- Verso 13: tiene 9 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.\n- Verso 5: rima E, pero se esperaba A.\n- Verso 6: rima F, pero se esperaba B.\n- Verso 7: rima G, pero se esperaba B.\n- Verso 8: rima H, pero se esperaba A.\n- Verso 9: rima I, pero se esperaba C.\n- Verso 10: rima J, pero se esperaba D.\n- Verso 11: rima K, pero se esperaba C.\n- Verso 12: rima K, pero se esperaba C.\n- Verso 13: rima C, pero se esperaba D.\n- Verso 14: rima L, pero se esperaba C.",
+        "generation_reasoning": "Versión corregida usando feedback formal."
+      },
+      {
+        "sonnet": [
+          "El tiempo como un arroyo tranquilo",
+          "se vierte sin cesar en memoria",
+          "en memoria, se abre y se cierra",
+          "como una tumba triste y larga",
+          "un lago triste y profundo",
+          "allí desaparecen los rastros",
+          "ninguno, ni tampoco el que vino antes",
+          "que tiempos pasaron allí",
+          "en un momento yo acordaba",
+          "a veces como una historia oculta",
+          "de recuerdos y de amor y tristeza",
+          "de recuerdos, de amor y de tristeza",
+          "un libro que nunca se cierra",
+          "y en cuyo final el tiempo sigue"
+        ],
+        "score": 0.30361926315853355,
+        "step_score": 0.2857,
+        "score_history": [
+          0.3429,
+          0.2857,
+          0.2857
+        ],
+        "metrics_summary": "versos=14/14 | endecasílabos=1/14 | rima=2/14 | score=5.71/20",
+        "feedback": "Puntuacion formal total: 5.71/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 10 silabas, pero deberia tener 11.\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\n- Verso 3: tiene 9 silabas, pero deberia tener 11.\n- Verso 4: tiene 9 silabas, pero deberia tener 11.\n- Verso 5: tiene 9 silabas, pero deberia tener 11.\n- Verso 6: tiene 8 silabas, pero deberia tener 11.\n- Verso 7: tiene 9 silabas, pero deberia tener 11.\n- Verso 8: tiene 8 silabas, pero deberia tener 11.\n- Verso 9: tiene 8 silabas, pero deberia tener 11.\n- Verso 10: tiene 8 silabas, pero deberia tener 11.\n- Verso 11: tiene 10 silabas, pero deberia tener 11.\n- Verso 12: tiene 10 silabas, pero deberia tener 11.\n- Verso 13: tiene 9 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.\n- Verso 5: rima E, pero se esperaba A.\n- Verso 6: rima F, pero se esperaba B.\n- Verso 7: rima G, pero se esperaba B.\n- Verso 8: rima H, pero se esperaba A.\n- Verso 9: rima I, pero se esperaba C.\n- Verso 10: rima J, pero se esperaba D.\n- Verso 11: rima K, pero se esperaba C.\n- Verso 12: rima K, pero se esperaba C.\n- Verso 13: rima C, pero se esperaba D.\n- Verso 14: rima L, pero se esperaba C.",
+        "generation_reasoning": "Versión corregida usando feedback formal."
+      }
+    ]
+  },
+  {
+    "step": 2,
+    "phase": "prune",
+    "selected_beams": [
+      {
+        "sonnet": [
+          "El tiempo, como un río silencioso",
+          "se vierte en memoria sin cesar",
+          "en memoria triste y profunda",
+          "donde ningún rastro se pierde",
+          "ninguno, ni tampoco el segundo",
+          "que tiempos pasaron aquello",
+          "en un tiempo, yo me acordaba",
+          "a veces como una historia llena",
+          "de recuerdos, de amor y de tristeza",
+          "de recuerdos, de amor y de tristeza",
+          "un libro que nunca se cierra",
+          "y en cuyo final, el tiempo sigue",
+          "y el tiempo, como un río silencioso",
+          "se vierte en memoria sin cesar"
+        ],
+        "score": 0.333088611188406,
+        "step_score": 0.3143,
+        "score_history": [
+          0.3429,
+          0.3429,
+          0.3143
+        ],
+        "metrics_summary": "versos=14/14 | endecasílabos=2/14 | rima=2/14 | score=6.29/20",
+        "feedback": "Puntuacion formal total: 6.29/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 10 silabas, pero deberia tener 11.\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\n- Verso 3: tiene 10 silabas, pero deberia tener 11.\n- Verso 4: tiene 9 silabas, pero deberia tener 11.\n- Verso 5: tiene 9 silabas, pero deberia tener 11.\n- Verso 6: tiene 8 silabas, pero deberia tener 11.\n- Verso 7: tiene 8 silabas, pero deberia tener 11.\n- Verso 8: tiene 9 silabas, pero deberia tener 11.\n- Verso 9: tiene 10 silabas, pero deberia tener 11.\n- Verso 10: tiene 10 silabas, pero deberia tener 11.\n- Verso 11: tiene 9 silabas, pero deberia tener 11.\n- Verso 14: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.\n- Verso 5: rima E, pero se esperaba A.\n- Verso 6: rima F, pero se esperaba B.\n- Verso 7: rima G, pero se esperaba B.\n- Verso 8: rima H, pero se esperaba A.\n- Verso 9: rima I, pero se esperaba C.\n- Verso 10: rima I, pero se esperaba D.\n- Verso 11: rima J, pero se esperaba C.\n- Verso 12: rima K, pero se esperaba C.\n- Verso 13: rima A, pero se esperaba D.\n- Verso 14: rima B, pero se esperaba C.",
+        "generation_reasoning": "Versión corregida usando feedback formal."
+      },
+      {
+        "sonnet": [
+          "El tiempo como un arroyo tranquilo",
+          "se vierte sin cesar en memoria",
+          "en memoria, se abre y se cierra",
+          "como una tumba triste y larga",
+          "un lago triste y profundo",
+          "allí desaparecen los rastros",
+          "ninguno, ni tampoco el que vino antes",
+          "que tiempos pasaron allí",
+          "en un momento yo acordaba",
+          "a veces como una historia enmascarada",
+          "de recuerdos y de amor y tristeza",
+          "de recuerdos, de amor y de tristeza",
+          "un libro que nunca se cierra",
+          "y en cuyo final el tiempo sigue"
+        ],
+        "score": 0.3134301006680147,
+        "step_score": 0.3143,
+        "score_history": [
+          0.3429,
+          0.2857,
+          0.3143
+        ],
+        "metrics_summary": "versos=14/14 | endecasílabos=2/14 | rima=2/14 | score=6.29/20",
+        "feedback": "Puntuacion formal total: 6.29/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 10 silabas, pero deberia tener 11.\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\n- Verso 3: tiene 9 silabas, pero deberia tener 11.\n- Verso 4: tiene 9 silabas, pero deberia tener 11.\n- Verso 5: tiene 9 silabas, pero deberia tener 11.\n- Verso 6: tiene 8 silabas, pero deberia tener 11.\n- Verso 7: tiene 9 silabas, pero deberia tener 11.\n- Verso 8: tiene 8 silabas, pero deberia tener 11.\n- Verso 9: tiene 8 silabas, pero deberia tener 11.\n- Verso 11: tiene 10 silabas, pero deberia tener 11.\n- Verso 12: tiene 10 silabas, pero deberia tener 11.\n- Verso 13: tiene 9 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.\n- Verso 5: rima E, pero se esperaba A.\n- Verso 6: rima F, pero se esperaba B.\n- Verso 7: rima G, pero se esperaba B.\n- Verso 8: rima H, pero se esperaba A.\n- Verso 9: rima I, pero se esperaba C.\n- Verso 10: rima J, pero se esperaba D.\n- Verso 11: rima K, pero se esperaba C.\n- Verso 12: rima K, pero se esperaba C.\n- Verso 13: rima C, pero se esperaba D.\n- Verso 14: rima L, pero se esperaba C.",
+        "generation_reasoning": "Versión corregida usando feedback formal."
+      }
+    ]
+  },
+  {
+    "step": 3,
+    "phase": "stop",
+    "reason": "max_steps",
+    "best_score": 0.333088611188406
+  }
+]

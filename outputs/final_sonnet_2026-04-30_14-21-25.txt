@@ -1,0 +1,53 @@
+SONETO FINAL
+
+Score global: 0.333
+Historial de scores: [0.343, 0.343, 0.314]
+Resumen de métricas: versos=14/14 | endecasílabos=2/14 | rima=2/14 | score=6.29/20
+
+Feedback final:
+Puntuacion formal total: 6.29/20.
+Revisa los siguientes aspectos formales antes de generar una nueva version:
+Numero de versos:
+- El numero de versos es correcto.
+Silabas metricas:
+- Verso 1: tiene 10 silabas, pero deberia tener 11.
+- Verso 2: tiene 10 silabas, pero deberia tener 11.
+- Verso 3: tiene 10 silabas, pero deberia tener 11.
+- Verso 4: tiene 9 silabas, pero deberia tener 11.
+- Verso 5: tiene 9 silabas, pero deberia tener 11.
+- Verso 6: tiene 8 silabas, pero deberia tener 11.
+- Verso 7: tiene 8 silabas, pero deberia tener 11.
+- Verso 8: tiene 9 silabas, pero deberia tener 11.
+- Verso 9: tiene 10 silabas, pero deberia tener 11.
+- Verso 10: tiene 10 silabas, pero deberia tener 11.
+- Verso 11: tiene 9 silabas, pero deberia tener 11.
+- Verso 14: tiene 10 silabas, pero deberia tener 11.
+Rima consonante:
+- Verso 3: rima C, pero se esperaba B.
+- Verso 4: rima D, pero se esperaba A.
+- Verso 5: rima E, pero se esperaba A.
+- Verso 6: rima F, pero se esperaba B.
+- Verso 7: rima G, pero se esperaba B.
+- Verso 8: rima H, pero se esperaba A.
+- Verso 9: rima I, pero se esperaba C.
+- Verso 10: rima I, pero se esperaba D.
+- Verso 11: rima J, pero se esperaba C.
+- Verso 12: rima K, pero se esperaba C.
+- Verso 13: rima A, pero se esperaba D.
+- Verso 14: rima B, pero se esperaba C.
+
+Soneto completo:
+1. El tiempo, como un río silencioso
+2. se vierte en memoria sin cesar
+3. en memoria triste y profunda
+4. donde ningún rastro se pierde
+5. ninguno, ni tampoco el segundo
+6. que tiempos pasaron aquello
+7. en un tiempo, yo me acordaba
+8. a veces como una historia llena
+9. de recuerdos, de amor y de tristeza
+10. de recuerdos, de amor y de tristeza
+11. un libro que nunca se cierra
+12. y en cuyo final, el tiempo sigue
+13. y el tiempo, como un río silencioso
+14. se vierte en memoria sin cesar
