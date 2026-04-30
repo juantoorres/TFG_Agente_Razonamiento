@@ -1,0 +1,51 @@
+SONETO FINAL
+
+Score global: 0.310
+Historial de scores: [0.2, 0.4, 0.371]
+Resumen de metricas: versos=14/14 | endecasilabos=4/14 | rima=2/14 | score=7.43/20
+
+Feedback final:
+Puntuacion formal total: 7.43/20.
+Revisa los siguientes aspectos formales antes de generar una nueva version:
+Numero de versos:
+- El numero de versos es correcto.
+Silabas metricas:
+- Verso 1: tiene 6 silabas, pero deberia tener 11.
+- Verso 2: tiene 10 silabas, pero deberia tener 11.
+- Verso 3: tiene 10 silabas, pero deberia tener 11.
+- Verso 4: tiene 10 silabas, pero deberia tener 11.
+- Verso 5: tiene 12 silabas, pero deberia tener 11.
+- Verso 9: tiene 12 silabas, pero deberia tener 11.
+- Verso 10: tiene 12 silabas, pero deberia tener 11.
+- Verso 11: tiene 13 silabas, pero deberia tener 11.
+- Verso 13: tiene 12 silabas, pero deberia tener 11.
+- Verso 14: tiene 9 silabas, pero deberia tener 11.
+Rima consonante:
+- Verso 3: rima C, pero se esperaba B.
+- Verso 4: rima D, pero se esperaba A.
+- Verso 5: rima E, pero se esperaba A.
+- Verso 6: rima F, pero se esperaba B.
+- Verso 7: rima G, pero se esperaba B.
+- Verso 8: rima H, pero se esperaba A.
+- Verso 9: rima I, pero se esperaba C.
+- Verso 10: rima J, pero se esperaba D.
+- Verso 11: rima K, pero se esperaba C.
+- Verso 12: rima L, pero se esperaba C.
+- Verso 13: rima M, pero se esperaba D.
+- Verso 14: rima N, pero se esperaba C.
+
+Soneto completo:
+1. El tiempo, un río de arena,
+2. sigue su curso sin ningún ruido.
+3. Sus oleadas llenan mi corazón
+4. y me llevan a través de sus rios.
+5. De dónde vienen y a dónde van es un
+6. enigma que no se desvela jamás.
+7. Todos somos sus testigos y víctimas
+8. que no podemos detener su marcha.
+9. Pero en el alma, la memoria persiste
+10. como una luz que resplandece en las tinieblas.
+11. Un recuerdo de lo que fuimos y seremos
+12. en las páginas del tiempo se escribe.
+13. El pasado y el presente se mezclan
+14. permaneciendo siempre juntos.

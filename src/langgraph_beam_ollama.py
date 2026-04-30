@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+from datetime import datetime
 import json
+from pathlib import Path
 import re
 import requests
 import sys
@@ -665,6 +667,48 @@ def score_candidate_with_ollama(
 # =========================
 # 5. Nodos del grafo
 # =========================
+def _get_nested_metric(metrics: dict[str, Any], section: str, key: str) -> Any:
+    """
+    Obtiene una metrica anidada de forma segura.
+    """
+    section_value = metrics.get(section, {})
+    if not isinstance(section_value, dict):
+        return None
+    return section_value.get(key)
+
+
+def summarize_metrics(metrics: dict[str, Any]) -> str:
+    """
+    Resume las metricas formales de evaluate_sonnet en una sola linea.
+
+    El resumen es robusto ante claves ausentes para poder usarse en logs durante
+    la ejecucion de Beam Search.
+    """
+    if not isinstance(metrics, dict):
+        metrics = {}
+
+    actual_verses = _get_nested_metric(metrics, "verse_count", "actual_verses")
+    expected_verses = _get_nested_metric(metrics, "verse_count", "expected_verses")
+    correct_syllables = _get_nested_metric(metrics, "syllables", "correct_verses")
+    correct_rhymes = _get_nested_metric(metrics, "rhyme", "correct_positions")
+    score_20 = metrics.get("score_20")
+
+    actual_verses_text = actual_verses if actual_verses is not None else "?"
+    expected_verses_text = expected_verses if expected_verses is not None else "?"
+    correct_syllables_text = (
+        correct_syllables if correct_syllables is not None else "?"
+    )
+    correct_rhymes_text = correct_rhymes if correct_rhymes is not None else "?"
+    score_20_text = score_20 if score_20 is not None else "?"
+
+    return (
+        f"versos={actual_verses_text}/{expected_verses_text} | "
+        f"endecasilabos={correct_syllables_text}/14 | "
+        f"rima={correct_rhymes_text}/14 | "
+        f"score={score_20_text}/20"
+    )
+
+
 def expand_node(state: BeamSearchState) -> dict:
     all_candidates: List[Dict[str, Any]] = []
 
@@ -749,6 +793,7 @@ def score_node(state: BeamSearchState) -> dict:
         print(f"Numero de versos: {len(sonnet)}")
         print(f"Score formal: {step_score:.3f} ({score_20}/20)")
         print(f"Errores detectados: {error_count}")
+        print(f"Resumen metricas: {summarize_metrics(evaluation)}")
 
         scored_candidate = {
             "sonnet": sonnet.copy() if isinstance(sonnet, list) else [],
@@ -780,11 +825,11 @@ def prune_node(state: BeamSearchState) -> dict:
         print(f"Score global: {beam['score']:.3f}")
         print(f"Score último paso: {beam.get('step_score', 0.0):.3f}")
         print(f"Historial scores: {[round(s, 3) for s in beam.get('score_history', [])]}")
-        print(f"Número de versos: {len(beam.get('sonnet', []))}")
+        print(f"Resumen metricas: {summarize_metrics(beam.get('metrics', {}))}")
 
         print("Primeros versos del soneto:")
         if beam.get("sonnet"):
-            for verse_number, verse in enumerate(beam["sonnet"][:3], start=1):
+            for verse_number, verse in enumerate(beam["sonnet"][:2], start=1):
                 print(f"  {verse_number}. {verse}")
         else:
             print("  [Sin soneto generado todavía]")
@@ -828,6 +873,76 @@ def should_continue(state: BeamSearchState) -> str:
     if state["step"] >= state["max_steps"]:
         return "end"
     return "continue"
+
+
+def save_final_result(
+    best_beam: dict[str, Any],
+    output_dir: str = "outputs",
+) -> None:
+    """
+    Guarda el mejor soneto final y sus metricas completas en archivos.
+
+    Crea la carpeta de salida si no existe y usa un timestamp para evitar
+    sobrescribir resultados de ejecuciones anteriores.
+    """
+    output_path = Path(output_dir)
+    output_path.mkdir(parents=True, exist_ok=True)
+
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    sonnet_path = output_path / f"final_sonnet_{timestamp}.txt"
+    metrics_path = output_path / f"final_metrics_{timestamp}.json"
+
+    sonnet = best_beam.get("sonnet", [])
+    if not isinstance(sonnet, list):
+        sonnet = []
+
+    metrics = best_beam.get("metrics", {})
+    if not isinstance(metrics, dict):
+        metrics = {}
+
+    score_history = best_beam.get("score_history", [])
+    if not isinstance(score_history, list):
+        score_history = []
+
+    text_lines = [
+        "SONETO FINAL",
+        "",
+        f"Score global: {float(best_beam.get('score', 0.0)):.3f}",
+        f"Historial de scores: {[round(float(score), 3) for score in score_history]}",
+        f"Resumen de metricas: {summarize_metrics(metrics)}",
+        "",
+        "Feedback final:",
+        str(best_beam.get("feedback", "Sin feedback formal todavia.")),
+        "",
+        "Soneto completo:",
+    ]
+
+    if sonnet:
+        text_lines.extend(
+            f"{verse_number}. {verse}"
+            for verse_number, verse in enumerate(sonnet, start=1)
+        )
+    else:
+        text_lines.append("[Sin soneto generado todavia]")
+
+    sonnet_path.write_text("\n".join(text_lines), encoding="utf-8")
+
+    json_payload = {
+        "sonnet": sonnet,
+        "score": best_beam.get("score", 0.0),
+        "step_score": best_beam.get("step_score", 0.0),
+        "score_history": score_history,
+        "feedback": best_beam.get("feedback", ""),
+        "metrics": metrics,
+        "generation_reasoning": best_beam.get("generation_reasoning", ""),
+    }
+
+    with metrics_path.open("w", encoding="utf-8") as file:
+        json.dump(json_payload, file, ensure_ascii=False, indent=2)
+
+    print("\nArchivos generados:")
+    print(f"  Soneto final: {sonnet_path}")
+    print(f"  Metricas: {metrics_path}")
 
 
 # =========================
@@ -898,6 +1013,10 @@ def main():
 
         print("Última razón de generación:")
         print("  ", beam["generation_reasoning"])
+
+    if result["beams"]:
+        # Guardamos el mejor resultado final en archivos de texto y JSON para su análisis posterior.
+        save_final_result(result["beams"][0])
 
 
 def run_cleaning_smoke_tests() -> None:
