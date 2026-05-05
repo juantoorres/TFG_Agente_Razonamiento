@@ -1,0 +1,96 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0
+  },
+  "stanza": [
+    "El tiempo, un río que siempre fluye, Deja en mi corazón recuerdos amargos.",
+    "Y el viento lleva las hojas de mi juventud, A donde van los sueños sin alas y alas.",
+    "El tiempo, un río que pasa sin cesar, Llevando a la nada lo que fue nuestro amor.",
+    "En mi corazón, el tiempo es un rastro De recuerdos perdidos y sueños sin alas."
+  ],
+  "score": 0.45788569702133275,
+  "step_score": 0.4,
+  "score_history": [
+    0.6,
+    0.4,
+    0.4
+  ],
+  "feedback": "Puntuacion formal total: 8.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 20 silabas, pero deberia tener 11.\n- Verso 2: tiene 25 silabas, pero deberia tener 11.\n- Verso 3: tiene 22 silabas, pero deberia tener 11.\n- Verso 4: tiene 23 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima B, pero se esperaba A.",
+  "metrics": {
+    "score": 0.4,
+    "score_20": 8.0,
+    "verses": [
+      "El tiempo, un río que siempre fluye, Deja en mi corazón recuerdos amargos.",
+      "Y el viento lleva las hojas de mi juventud, A donde van los sueños sin alas y alas.",
+      "El tiempo, un río que pasa sin cesar, Llevando a la nada lo que fue nuestro amor.",
+      "En mi corazón, el tiempo es un rastro De recuerdos perdidos y sueños sin alas."
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        20,
+        25,
+        22,
+        23
+      ],
+      "correct_verses": 0,
+      "total_expected_verses": 4,
+      "score": 0.0,
+      "errors": [
+        "Verso 1: tiene 20 silabas, pero deberia tener 11.",
+        "Verso 2: tiene 25 silabas, pero deberia tener 11.",
+        "Verso 3: tiene 22 silabas, pero deberia tener 11.",
+        "Verso 4: tiene 23 silabas, pero deberia tener 11."
+      ]
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "amargos",
+        "alas",
+        "amor",
+        "alas"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "C",
+        "B"
+      ],
+      "correct_positions": 2,
+      "total_positions": 4,
+      "score": 0.5,
+      "errors": [
+        "Verso 3: rima C, pero se esperaba B.",
+        "Verso 4: rima B, pero se esperaba A."
+      ]
+    },
+    "errors": [
+      "Verso 1: tiene 20 silabas, pero deberia tener 11.",
+      "Verso 2: tiene 25 silabas, pero deberia tener 11.",
+      "Verso 3: tiene 22 silabas, pero deberia tener 11.",
+      "Verso 4: tiene 23 silabas, pero deberia tener 11.",
+      "Verso 3: rima C, pero se esperaba B.",
+      "Verso 4: rima B, pero se esperaba A."
+    ],
+    "feedback": "Puntuacion formal total: 8.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 20 silabas, pero deberia tener 11.\n- Verso 2: tiene 25 silabas, pero deberia tener 11.\n- Verso 3: tiene 22 silabas, pero deberia tener 11.\n- Verso 4: tiene 23 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima B, pero se esperaba A."
+  },
+  "generation_reasoning": "Cada verso tiene aproximadamente 11 silabas. La rima ABBA se mantiene en cada verso."
+}

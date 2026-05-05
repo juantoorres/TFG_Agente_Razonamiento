@@ -21,6 +21,7 @@ ACCENTED_VOWELS = "áéíóú"
 VOWELS = "aeiouáéíóúü"
 STRONG_VOWELS = "aeoáéó"
 EXPECTED_SONNET_VERSES = 14
+EXPECTED_STANZA_VERSES = 4
 TARGET_SYLLABLES_PER_VERSE = 11
 VERSE_COUNT_WEIGHT = 0.2
 SYLLABLE_WEIGHT = 0.4
@@ -40,6 +41,12 @@ EXPECTED_SONNET_RHYME_PATTERN = [
     "C",
     "D",
     "C",
+]
+EXPECTED_STANZA_RHYME_PATTERN = [
+    "A",
+    "B",
+    "B",
+    "A",
 ]
 ACCENT_TRANSLATION = str.maketrans(
     {
@@ -794,6 +801,228 @@ def evaluate_sonnet(sonnet: str | list[str]) -> dict[str, object]:
         "feedback": "",
     }
     evaluation["feedback"] = build_sonnet_feedback(evaluation)
+    return evaluation
+
+
+def evaluate_stanza_verse_count(stanza: str | list[str]) -> dict[str, object]:
+    """Evalua si una estrofa tiene exactamente 4 versos.
+
+    Esta funcion es equivalente a ``evaluate_verse_count``, pero adaptada al
+    experimento reducido de estrofas ABBA. Devuelve una puntuacion binaria:
+    ``1.0`` si hay exactamente 4 versos y ``0.0`` en caso contrario.
+    """
+    verses = normalize_verses_input(stanza)
+    actual_verses = len(verses)
+    is_valid = actual_verses == EXPECTED_STANZA_VERSES
+    errors = []
+
+    if actual_verses < EXPECTED_STANZA_VERSES:
+        missing_verses = EXPECTED_STANZA_VERSES - actual_verses
+        errors.append(
+            f"La estrofa tiene {actual_verses} versos; faltan {missing_verses}."
+        )
+    elif actual_verses > EXPECTED_STANZA_VERSES:
+        extra_verses = actual_verses - EXPECTED_STANZA_VERSES
+        errors.append(
+            f"La estrofa tiene {actual_verses} versos; sobran {extra_verses}."
+        )
+
+    return {
+        "expected_verses": EXPECTED_STANZA_VERSES,
+        "actual_verses": actual_verses,
+        "score": 1.0 if is_valid else 0.0,
+        "is_valid": is_valid,
+        "errors": errors,
+    }
+
+
+def describe_stanza_syllable_errors(
+    verses: list[str],
+    counts: list[int],
+) -> list[str]:
+    """Describe los errores de computo silabico en una estrofa de 4 versos."""
+    errors = []
+
+    for index in range(min(len(verses), EXPECTED_STANZA_VERSES)):
+        count = counts[index]
+        if count != TARGET_SYLLABLES_PER_VERSE:
+            errors.append(
+                f"Verso {index + 1}: tiene {count} silabas, "
+                f"pero deberia tener {TARGET_SYLLABLES_PER_VERSE}."
+            )
+
+    if len(verses) < EXPECTED_STANZA_VERSES:
+        for index in range(len(verses), EXPECTED_STANZA_VERSES):
+            errors.append(
+                f"Verso {index + 1}: falta verso; deberia tener "
+                f"{TARGET_SYLLABLES_PER_VERSE} silabas."
+            )
+
+    if len(verses) > EXPECTED_STANZA_VERSES:
+        extra_verses = len(verses) - EXPECTED_STANZA_VERSES
+        errors.append(
+            f"Sobran {extra_verses} versos; se recibieron {len(verses)} "
+            f"y se esperaban {EXPECTED_STANZA_VERSES}."
+        )
+
+    return errors
+
+
+def evaluate_stanza_syllable_count(verses: list[str]) -> dict[str, object]:
+    """Evalua cuantos versos de una estrofa son endecasilabos.
+
+    Solo se evaluan los primeros 4 versos. Si faltan versos, esas posiciones
+    cuentan como incorrectas para que la puntuacion siga estando normalizada.
+    """
+    verses_to_evaluate = verses[:EXPECTED_STANZA_VERSES]
+    verse_syllable_counts = [
+        count_verse_syllables(verse) for verse in verses_to_evaluate
+    ]
+    correct_verses = sum(
+        1
+        for count in verse_syllable_counts
+        if count == TARGET_SYLLABLES_PER_VERSE
+    )
+
+    return {
+        "target_syllables": TARGET_SYLLABLES_PER_VERSE,
+        "verse_syllable_counts": verse_syllable_counts,
+        "correct_verses": correct_verses,
+        "total_expected_verses": EXPECTED_STANZA_VERSES,
+        "score": correct_verses / EXPECTED_STANZA_VERSES,
+        "errors": describe_stanza_syllable_errors(verses, verse_syllable_counts),
+    }
+
+
+def evaluate_stanza_rhyme_scheme(verses: list[str]) -> dict[str, object]:
+    """Evalua el esquema de rima consonante ABBA en una estrofa.
+
+    La comparacion usa las funciones ya existentes de extraccion de rimas:
+    primero se obtiene la rima real de cada verso y despues se transforma en
+    letras de esquema. Las posiciones ausentes cuentan como incorrectas.
+    """
+    errors = []
+
+    if len(verses) != EXPECTED_STANZA_VERSES:
+        errors.append(
+            f"Se recibieron {len(verses)} versos; se esperaban "
+            f"{EXPECTED_STANZA_VERSES}."
+        )
+
+    verses_to_compare = verses[:EXPECTED_STANZA_VERSES]
+    actual_rhymes = extract_rhymes(verses_to_compare)
+    actual_scheme = build_rhyme_scheme(actual_rhymes)
+
+    correct_positions = 0
+    for index, expected_rhyme in enumerate(EXPECTED_STANZA_RHYME_PATTERN):
+        if index < len(actual_scheme) and actual_scheme[index] == expected_rhyme:
+            correct_positions += 1
+
+    errors.extend(
+        describe_rhyme_errors(actual_scheme, EXPECTED_STANZA_RHYME_PATTERN)
+    )
+
+    return {
+        "expected_pattern": EXPECTED_STANZA_RHYME_PATTERN,
+        "actual_rhymes": actual_rhymes,
+        "actual_scheme": actual_scheme,
+        "correct_positions": correct_positions,
+        "total_positions": EXPECTED_STANZA_VERSES,
+        "score": correct_positions / EXPECTED_STANZA_VERSES,
+        "errors": errors,
+    }
+
+
+def build_stanza_feedback(evaluation: dict[str, object]) -> str:
+    """Construye feedback textual para mejorar una estrofa ABBA.
+
+    El feedback se pasa al LLM en la siguiente iteracion del Beam Search. Por
+    eso se centra solo en restricciones formales: numero de versos, silabas y
+    rima. No evalua belleza poetica ni coherencia subjetiva.
+    """
+    score_20 = evaluation["score_20"]
+    verse_count = evaluation["verse_count"]
+    syllables = evaluation["syllables"]
+    rhyme = evaluation["rhyme"]
+
+    feedback_lines = [
+        f"Puntuacion formal total: {score_20}/20.",
+    ]
+
+    all_errors = evaluation["errors"]
+    if not all_errors:
+        feedback_lines.append(
+            "La estrofa cumple las restricciones formales evaluadas: "
+            "4 versos, computo silabico objetivo y esquema de rima ABBA."
+        )
+        return "\n".join(feedback_lines)
+
+    feedback_lines.append(
+        "Revisa los siguientes aspectos formales antes de generar una nueva "
+        "version:"
+    )
+
+    feedback_lines.append("Numero de versos:")
+    verse_count_errors = verse_count["errors"]
+    if verse_count_errors:
+        feedback_lines.extend(f"- {error}" for error in verse_count_errors)
+    else:
+        feedback_lines.append("- El numero de versos es correcto.")
+
+    feedback_lines.append("Silabas metricas:")
+    syllable_errors = syllables["errors"]
+    if syllable_errors:
+        feedback_lines.extend(f"- {error}" for error in syllable_errors)
+    else:
+        feedback_lines.append("- Todos los versos evaluados tienen 11 silabas.")
+
+    feedback_lines.append("Rima consonante:")
+    rhyme_errors = rhyme["errors"]
+    if rhyme_errors:
+        feedback_lines.extend(f"- {error}" for error in rhyme_errors)
+    else:
+        feedback_lines.append("- El esquema de rima coincide con ABBA.")
+
+    return "\n".join(feedback_lines)
+
+
+def evaluate_stanza_abba(stanza: str | list[str]) -> dict[str, object]:
+    """Evalua objetivamente una estrofa de 4 versos con rima ABBA.
+
+    Esta funcion reutiliza las metricas existentes del modulo, pero no llama a
+    ``evaluate_sonnet`` porque el objetivo formal es distinto. La puntuacion
+    mantiene los mismos pesos del soneto: 0.2 para numero de versos, 0.4 para
+    silabas y 0.4 para rima.
+    """
+    verses = normalize_verses_input(stanza)
+    verse_count_evaluation = evaluate_stanza_verse_count(verses)
+    syllable_evaluation = evaluate_stanza_syllable_count(verses)
+    rhyme_evaluation = evaluate_stanza_rhyme_scheme(verses)
+
+    raw_score = (
+        float(verse_count_evaluation["score"]) * VERSE_COUNT_WEIGHT
+        + float(syllable_evaluation["score"]) * SYLLABLE_WEIGHT
+        + float(rhyme_evaluation["score"]) * RHYME_WEIGHT
+    )
+    score = round(_clamp_score(raw_score), 4)
+
+    errors = (
+        list(verse_count_evaluation["errors"])
+        + list(syllable_evaluation["errors"])
+        + list(rhyme_evaluation["errors"])
+    )
+
+    evaluation: dict[str, object] = {
+        "score": score,
+        "score_20": round(score * 20, 2),
+        "verses": verses,
+        "verse_count": verse_count_evaluation,
+        "syllables": syllable_evaluation,
+        "rhyme": rhyme_evaluation,
+        "errors": errors,
+        "feedback": "",
+    }
+    evaluation["feedback"] = build_stanza_feedback(evaluation)
     return evaluation
 
 
