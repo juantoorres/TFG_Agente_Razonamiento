@@ -1,0 +1,2250 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200
+  },
+  "trace": [
+    {
+      "step": 0,
+      "phase": "expand",
+      "generated_candidates": [
+        {
+          "stanza": [
+            "El tiempo pasa como un río en la noche,",
+            "Deja trazas que ya no se encuentran.",
+            "Y aún oyendo sus ruido suave y lejano,",
+            "Sentimos el peso de una nostalgia."
+          ],
+          "score": 0.0,
+          "step_score": 0.0,
+          "score_history": [],
+          "metrics_summary": "versos=?/? | endecasilabos=?/? | rima=?/? | score=?/20",
+          "meter_repair_summary": "reparacion_metrica=desactivada",
+          "meter_repair_report": {},
+          "feedback": "Todavia no se ha generado ninguna estrofa.",
+          "generation_reasoning": "Versos escritos con rima ABBA. El verso 1 termina en 'a' que se repite en el verso 4. Los versos 2 y 3 tienen la rima 'b'. Los versos son endecasílabos."
+        },
+        {
+          "stanza": [
+            "En la noche, el tiempo como un río,",
+            "Deja trazas que ya no se encuentran.",
+            "Y oyendo sus ruido suave y lejano,",
+            "Sentimos el peso de una nostalgia."
+          ],
+          "score": 0.0,
+          "step_score": 0.0,
+          "score_history": [],
+          "metrics_summary": "versos=?/? | endecasilabos=?/? | rima=?/? | score=?/20",
+          "meter_repair_summary": "reparacion_metrica=desactivada",
+          "meter_repair_report": {},
+          "feedback": "Todavia no se ha generado ninguna estrofa.",
+          "generation_reasoning": "Versos escritos con rima ABBA. El verso 1 termina en 'i' que se repite en el verso 4. Los versos 2 y 3 tienen la rima 'o'. Los versos son endecasílabos."
+        }
+      ]
+    },
+    {
+      "step": 0,
+      "phase": "score",
+      "candidates": [
+        {
+          "stanza": [
+            "El tiempo pasa como un río en la noche,",
+            "Deja trazas que ya no se encuentran.",
+            "Aún oyendo su ruido suave y lejano",
+            "Sentimos el peso de una nostalgia."
+          ],
+          "score": 0.6,
+          "step_score": 0.6,
+          "score_history": [
+            0.6
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparacion_metrica=activa | intentos=3 | mejoras=1 | cambio=True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo pasa como un río en la noche,",
+              "Deja trazas que ya no se encuentran.",
+              "Y aún oyendo sus ruido suave y lejano,",
+              "Sentimos el peso de una nostalgia."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa como un río en la noche,",
+              "Deja trazas que ya no se encuentran.",
+              "Aún oyendo su ruido suave y lejano",
+              "Sentimos el peso de una nostalgia."
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo pasa como un río en la noche,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Deja trazas que ya no se encuentran.",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Dejan huellas que ya no se encuentran",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Dejan rastros que ya no se localizan",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Dejan huellas que ya no se siguen encontrando",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Dejan rastros que ya no se pueden encontrar",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Dejan huellas que ya no se encuentran más",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y aún oyendo sus ruido suave y lejano,",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Aún oyendo su ruido suave y lejano",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Y aun escuchando sus ruidos suaves y lejanos",
+                    "syllables": 15,
+                    "distance": 4
+                  },
+                  {
+                    "verse": "Aún oyendo su ruido suave y lejano",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Oyendo el ruido suave y lejano de ellos",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Escuchando sus ruidos suaves y lejanos",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Aun escuchando su ruido suave, lejano",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Sentimos el peso de una nostalgia.",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Sentimos el peso de una nostalgia que se acerca",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Sentimos el peso de una nostalgia que sigue",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Sentimos el peso de una nostalgia que avanza",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Sentimos el peso de una nostalgia que persiste",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Sentimos el peso de una nostalgia que se acumula",
+                    "syllables": 14,
+                    "distance": 3
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\n- Verso 4: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Versos escritos con rima ABBA. El verso 1 termina en 'a' que se repite en el verso 4. Los versos 2 y 3 tienen la rima 'b'. Los versos son endecasílabos."
+        },
+        {
+          "stanza": [
+            "En la noche, el tiempo como un río,",
+            "Dejan huellas que ya no se detectan",
+            "Y oyendo sus ruido suave y lejano,",
+            "Sentimos el peso de una nostalgia enérgica"
+          ],
+          "score": 0.7,
+          "step_score": 0.7,
+          "score_history": [
+            0.7
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparacion_metrica=activa | intentos=3 | mejoras=2 | cambio=True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "En la noche, el tiempo como un río,",
+              "Deja trazas que ya no se encuentran.",
+              "Y oyendo sus ruido suave y lejano,",
+              "Sentimos el peso de una nostalgia."
+            ],
+            "repaired_stanza": [
+              "En la noche, el tiempo como un río,",
+              "Dejan huellas que ya no se detectan",
+              "Y oyendo sus ruido suave y lejano,",
+              "Sentimos el peso de una nostalgia enérgica"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "En la noche, el tiempo como un río,",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "En la oscura, el tiempo como un río",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En la noche profunda, el tiempo como un río",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "La noche en que fluye el tiempo como un río",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En la noche profunda y sombra, el tiempo como un río",
+                    "syllables": 16,
+                    "distance": 5
+                  },
+                  {
+                    "verse": "En la noche oscura y profunda, el tiempo como un río",
+                    "syllables": 16,
+                    "distance": 5
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Deja trazas que ya no se encuentran.",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Dejan huellas que ya no se detectan",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Dejan huellas que ya no se encuentran",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Dejan rastros que ya no se localizan",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Dejan huellas que ya no se pueden encontrar",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Dejan rastros que ya no se hallan",
+                    "syllables": 9,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Dejan huellas que ya no se detectan",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y oyendo sus ruido suave y lejano,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Sentimos el peso de una nostalgia.",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Sentimos el peso de una nostalgia enérgica",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Sentimos el peso de una nostalgia más",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Sentimos el peso de una nostalgia profunda",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Sentimos el peso de una nostalgia enérgica",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Sentimos el peso de una nostalgia llena",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Sentimos el peso de una nostalgia intensa",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Versos escritos con rima ABBA. El verso 1 termina en 'i' que se repite en el verso 4. Los versos 2 y 3 tienen la rima 'o'. Los versos son endecasílabos."
+        }
+      ]
+    },
+    {
+      "step": 0,
+      "phase": "prune",
+      "selected_beams": [
+        {
+          "stanza": [
+            "En la noche, el tiempo como un río,",
+            "Dejan huellas que ya no se detectan",
+            "Y oyendo sus ruido suave y lejano,",
+            "Sentimos el peso de una nostalgia enérgica"
+          ],
+          "score": 0.7,
+          "step_score": 0.7,
+          "score_history": [
+            0.7
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparacion_metrica=activa | intentos=3 | mejoras=2 | cambio=True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "En la noche, el tiempo como un río,",
+              "Deja trazas que ya no se encuentran.",
+              "Y oyendo sus ruido suave y lejano,",
+              "Sentimos el peso de una nostalgia."
+            ],
+            "repaired_stanza": [
+              "En la noche, el tiempo como un río,",
+              "Dejan huellas que ya no se detectan",
+              "Y oyendo sus ruido suave y lejano,",
+              "Sentimos el peso de una nostalgia enérgica"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "En la noche, el tiempo como un río,",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "En la oscura, el tiempo como un río",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En la noche profunda, el tiempo como un río",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "La noche en que fluye el tiempo como un río",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En la noche profunda y sombra, el tiempo como un río",
+                    "syllables": 16,
+                    "distance": 5
+                  },
+                  {
+                    "verse": "En la noche oscura y profunda, el tiempo como un río",
+                    "syllables": 16,
+                    "distance": 5
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Deja trazas que ya no se encuentran.",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Dejan huellas que ya no se detectan",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Dejan huellas que ya no se encuentran",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Dejan rastros que ya no se localizan",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Dejan huellas que ya no se pueden encontrar",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Dejan rastros que ya no se hallan",
+                    "syllables": 9,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Dejan huellas que ya no se detectan",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y oyendo sus ruido suave y lejano,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Sentimos el peso de una nostalgia.",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Sentimos el peso de una nostalgia enérgica",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Sentimos el peso de una nostalgia más",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Sentimos el peso de una nostalgia profunda",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Sentimos el peso de una nostalgia enérgica",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Sentimos el peso de una nostalgia llena",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Sentimos el peso de una nostalgia intensa",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Versos escritos con rima ABBA. El verso 1 termina en 'i' que se repite en el verso 4. Los versos 2 y 3 tienen la rima 'o'. Los versos son endecasílabos."
+        },
+        {
+          "stanza": [
+            "El tiempo pasa como un río en la noche,",
+            "Deja trazas que ya no se encuentran.",
+            "Aún oyendo su ruido suave y lejano",
+            "Sentimos el peso de una nostalgia."
+          ],
+          "score": 0.6,
+          "step_score": 0.6,
+          "score_history": [
+            0.6
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparacion_metrica=activa | intentos=3 | mejoras=1 | cambio=True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo pasa como un río en la noche,",
+              "Deja trazas que ya no se encuentran.",
+              "Y aún oyendo sus ruido suave y lejano,",
+              "Sentimos el peso de una nostalgia."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa como un río en la noche,",
+              "Deja trazas que ya no se encuentran.",
+              "Aún oyendo su ruido suave y lejano",
+              "Sentimos el peso de una nostalgia."
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo pasa como un río en la noche,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Deja trazas que ya no se encuentran.",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Dejan huellas que ya no se encuentran",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Dejan rastros que ya no se localizan",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Dejan huellas que ya no se siguen encontrando",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Dejan rastros que ya no se pueden encontrar",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Dejan huellas que ya no se encuentran más",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y aún oyendo sus ruido suave y lejano,",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Aún oyendo su ruido suave y lejano",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Y aun escuchando sus ruidos suaves y lejanos",
+                    "syllables": 15,
+                    "distance": 4
+                  },
+                  {
+                    "verse": "Aún oyendo su ruido suave y lejano",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Oyendo el ruido suave y lejano de ellos",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Escuchando sus ruidos suaves y lejanos",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Aun escuchando su ruido suave, lejano",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Sentimos el peso de una nostalgia.",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Sentimos el peso de una nostalgia que se acerca",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Sentimos el peso de una nostalgia que sigue",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Sentimos el peso de una nostalgia que avanza",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Sentimos el peso de una nostalgia que persiste",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Sentimos el peso de una nostalgia que se acumula",
+                    "syllables": 14,
+                    "distance": 3
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\n- Verso 4: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Versos escritos con rima ABBA. El verso 1 termina en 'a' que se repite en el verso 4. Los versos 2 y 3 tienen la rima 'b'. Los versos son endecasílabos."
+        }
+      ]
+    },
+    {
+      "step": 1,
+      "phase": "expand",
+      "generated_candidates": [
+        {
+          "stanza": [
+            "En la noche, el tiempo como un río",
+            "Dejan huellas que ya no se detectan",
+            "Y oyendo sus ruidos suaves y lejanos",
+            "Sentimos el peso de una nostalgia enérgica"
+          ],
+          "score": 0.7,
+          "step_score": 0.7,
+          "score_history": [
+            0.7
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparacion_metrica=desactivada",
+          "meter_repair_report": {},
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: Ajuste de la longitud de algunos versos para que tengan 11 silabas, y se corrigió la rima del verso 3."
+        },
+        {
+          "stanza": [
+            "En la noche, el tiempo como un arroyo",
+            "Dejan huellas que ya no se recuerdan",
+            "Y oyendo sus ruidos suaves y lejanos",
+            "Sentimos el peso de una nostalgia enérgica"
+          ],
+          "score": 0.7,
+          "step_score": 0.7,
+          "score_history": [
+            0.7
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparacion_metrica=desactivada",
+          "meter_repair_report": {},
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: Ajuste del verso 1 para que tenga la cantidad correcta de silabas, y se corrigió el verso 2 para mantener la rima."
+        },
+        {
+          "stanza": [
+            "El tiempo pasa como un río en la noche,",
+            "Deja trazas que ya no se encuentran.",
+            "Aún oyendo su ruido suave y lejano,",
+            "Nos sentimos pesados por nostalgia."
+          ],
+          "score": 0.6,
+          "step_score": 0.6,
+          "score_history": [
+            0.6
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparacion_metrica=desactivada",
+          "meter_repair_report": {},
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\n- Verso 4: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: El verso 2 ahora tiene la cantidad correcta de silabas, y el verso 4 ahora rima con el verso 1 según la regla ABBA."
+        },
+        {
+          "stanza": [
+            "El tiempo pasa como un río en la noche,",
+            "Deja trazas que ya no se encuentran.",
+            "Aún oyendo su ruido suave y lejano,",
+            "Nos sentimos pesados por nostalgia."
+          ],
+          "score": 0.6,
+          "step_score": 0.6,
+          "score_history": [
+            0.6
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparacion_metrica=desactivada",
+          "meter_repair_report": {},
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\n- Verso 4: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: El verso 4 ahora tiene la cantidad correcta de silabas, y el verso 3 ahora rima con el verso 2 según la regla ABBA."
+        }
+      ]
+    },
+    {
+      "step": 1,
+      "phase": "score",
+      "candidates": [
+        {
+          "stanza": [
+            "En la noche, el tiempo como un río",
+            "Dejan huellas que ya no se detectan",
+            "Y oyendo sus ruidos suaves y lejanos",
+            "Sentimos el peso de una nostalgia enérgica"
+          ],
+          "score": 0.648074069840786,
+          "step_score": 0.6,
+          "score_history": [
+            0.7,
+            0.6
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparacion_metrica=activa | intentos=2 | mejoras=0 | cambio=False",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": false,
+            "original_stanza": [
+              "En la noche, el tiempo como un río",
+              "Dejan huellas que ya no se detectan",
+              "Y oyendo sus ruidos suaves y lejanos",
+              "Sentimos el peso de una nostalgia enérgica"
+            ],
+            "repaired_stanza": [
+              "En la noche, el tiempo como un río",
+              "Dejan huellas que ya no se detectan",
+              "Y oyendo sus ruidos suaves y lejanos",
+              "Sentimos el peso de una nostalgia enérgica"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "En la noche, el tiempo como un río",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "En la noche, el tiempo como un largo río",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En la noche, el tiempo fluye como un río",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En la noche, el tiempo en su curso como un río",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "En la noche, el tiempo transcurre como un río",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "En la noche, el tiempo se desliza como un río",
+                    "syllables": 14,
+                    "distance": 3
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Dejan huellas que ya no se detectan",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y oyendo sus ruidos suaves y lejanos",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Y escuchando sus ruidos suaves y lejanos",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Oyendo sus ruidos suaves y lejano",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Escuchando sus ruidos suaves, lejanos",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Sus ruidos suaves oyendo, lejanos",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Oyendo sus ruidos suaves, lejos",
+                    "syllables": 9,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Sentimos el peso de una nostalgia enérgica",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 10 silabas, pero deberia tener 11.\n- Verso 3: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: Ajuste de la longitud de algunos versos para que tengan 11 silabas, y se corrigió la rima del verso 3."
+        },
+        {
+          "stanza": [
+            "En la noche, el tiempo a través de un arroyo",
+            "Dejan huellas que ya no se recuerdan",
+            "Y oyendo sus suaves ruidos lejanos",
+            "Sentimos el peso de una nostalgia enérgica"
+          ],
+          "score": 0.7483314773547882,
+          "step_score": 0.8,
+          "score_history": [
+            0.7,
+            0.8
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparacion_metrica=activa | intentos=2 | mejoras=2 | cambio=True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "En la noche, el tiempo como un arroyo",
+              "Dejan huellas que ya no se recuerdan",
+              "Y oyendo sus ruidos suaves y lejanos",
+              "Sentimos el peso de una nostalgia enérgica"
+            ],
+            "repaired_stanza": [
+              "En la noche, el tiempo a través de un arroyo",
+              "Dejan huellas que ya no se recuerdan",
+              "Y oyendo sus suaves ruidos lejanos",
+              "Sentimos el peso de una nostalgia enérgica"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "En la noche, el tiempo como un arroyo",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "En la noche, el tiempo a través de un arroyo",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "En la noche, el tiempo como un arroyo largo",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En la noche, el tiempo en un arroyo fluyente",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En la noche, el tiempo a través de un arroyo",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "En la noche, el tiempo por un arroyo desbordado",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "En la noche, el tiempo como un arroyo silencioso",
+                    "syllables": 14,
+                    "distance": 3
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Dejan huellas que ya no se recuerdan",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y oyendo sus ruidos suaves y lejanos",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Y oyendo sus suaves ruidos lejanos",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Y oyendo sus suaves ruidos lejanos",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Oyendo los suaves y lejanos ruidos",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Sus suaves ruidos lejanos oyendo",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Oyendo sus ruidos lejanos suaves",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Suaves ruidos lejanos, oyendo",
+                    "syllables": 9,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Sentimos el peso de una nostalgia enérgica",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: Ajuste del verso 1 para que tenga la cantidad correcta de silabas, y se corrigió el verso 2 para mantener la rima."
+        },
+        {
+          "stanza": [
+            "El tiempo pasa como un río en la noche,",
+            "Dejan rastros que ya se han olvidado",
+            "Aún oyendo su ruido suave y lejano,",
+            "Nos sentimos pesados por nostalgia."
+          ],
+          "score": 0.6928203230275509,
+          "step_score": 0.8,
+          "score_history": [
+            0.6,
+            0.8
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparacion_metrica=activa | intentos=1 | mejoras=1 | cambio=True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo pasa como un río en la noche,",
+              "Deja trazas que ya no se encuentran.",
+              "Aún oyendo su ruido suave y lejano,",
+              "Nos sentimos pesados por nostalgia."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa como un río en la noche,",
+              "Dejan rastros que ya se han olvidado",
+              "Aún oyendo su ruido suave y lejano,",
+              "Nos sentimos pesados por nostalgia."
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo pasa como un río en la noche,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Deja trazas que ya no se encuentran.",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Dejan rastros que ya se han olvidado",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Dejan huellas que ya no se hallan",
+                    "syllables": 9,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Dejan rastros que ya no se encuentran",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Dejan huellas que ya se han perdido",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Dejan rastros que ya se han olvidado",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Dejan huellas que ya se han desvanecido",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Aún oyendo su ruido suave y lejano,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Nos sentimos pesados por nostalgia.",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: El verso 2 ahora tiene la cantidad correcta de silabas, y el verso 4 ahora rima con el verso 1 según la regla ABBA."
+        },
+        {
+          "stanza": [
+            "El tiempo pasa como un río en la noche,",
+            "Dejan huellas que ya no se identifican",
+            "Aún oyendo su ruido suave y lejano,",
+            "Nos sentimos pesados por nostalgia."
+          ],
+          "score": 0.6928203230275509,
+          "step_score": 0.8,
+          "score_history": [
+            0.6,
+            0.8
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparacion_metrica=activa | intentos=1 | mejoras=1 | cambio=True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo pasa como un río en la noche,",
+              "Deja trazas que ya no se encuentran.",
+              "Aún oyendo su ruido suave y lejano,",
+              "Nos sentimos pesados por nostalgia."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa como un río en la noche,",
+              "Dejan huellas que ya no se identifican",
+              "Aún oyendo su ruido suave y lejano,",
+              "Nos sentimos pesados por nostalgia."
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo pasa como un río en la noche,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Deja trazas que ya no se encuentran.",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Dejan huellas que ya no se identifican",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Dejan huellas que ya no se encuentran",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Dejan rastros que ya no se localizan",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Dejan huellas que ya no se identifican",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Dejan rastros que ya no se rastrean",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Dejan huellas que ya no se siguen",
+                    "syllables": 10,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Aún oyendo su ruido suave y lejano,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Nos sentimos pesados por nostalgia.",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: El verso 4 ahora tiene la cantidad correcta de silabas, y el verso 3 ahora rima con el verso 2 según la regla ABBA."
+        }
+      ]
+    },
+    {
+      "step": 1,
+      "phase": "prune",
+      "selected_beams": [
+        {
+          "stanza": [
+            "En la noche, el tiempo a través de un arroyo",
+            "Dejan huellas que ya no se recuerdan",
+            "Y oyendo sus suaves ruidos lejanos",
+            "Sentimos el peso de una nostalgia enérgica"
+          ],
+          "score": 0.7483314773547882,
+          "step_score": 0.8,
+          "score_history": [
+            0.7,
+            0.8
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparacion_metrica=activa | intentos=2 | mejoras=2 | cambio=True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "En la noche, el tiempo como un arroyo",
+              "Dejan huellas que ya no se recuerdan",
+              "Y oyendo sus ruidos suaves y lejanos",
+              "Sentimos el peso de una nostalgia enérgica"
+            ],
+            "repaired_stanza": [
+              "En la noche, el tiempo a través de un arroyo",
+              "Dejan huellas que ya no se recuerdan",
+              "Y oyendo sus suaves ruidos lejanos",
+              "Sentimos el peso de una nostalgia enérgica"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "En la noche, el tiempo como un arroyo",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "En la noche, el tiempo a través de un arroyo",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "En la noche, el tiempo como un arroyo largo",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En la noche, el tiempo en un arroyo fluyente",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En la noche, el tiempo a través de un arroyo",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "En la noche, el tiempo por un arroyo desbordado",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "En la noche, el tiempo como un arroyo silencioso",
+                    "syllables": 14,
+                    "distance": 3
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Dejan huellas que ya no se recuerdan",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y oyendo sus ruidos suaves y lejanos",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Y oyendo sus suaves ruidos lejanos",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Y oyendo sus suaves ruidos lejanos",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Oyendo los suaves y lejanos ruidos",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Sus suaves ruidos lejanos oyendo",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Oyendo sus ruidos lejanos suaves",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Suaves ruidos lejanos, oyendo",
+                    "syllables": 9,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Sentimos el peso de una nostalgia enérgica",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: Ajuste del verso 1 para que tenga la cantidad correcta de silabas, y se corrigió el verso 2 para mantener la rima."
+        },
+        {
+          "stanza": [
+            "El tiempo pasa como un río en la noche,",
+            "Dejan rastros que ya se han olvidado",
+            "Aún oyendo su ruido suave y lejano,",
+            "Nos sentimos pesados por nostalgia."
+          ],
+          "score": 0.6928203230275509,
+          "step_score": 0.8,
+          "score_history": [
+            0.6,
+            0.8
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparacion_metrica=activa | intentos=1 | mejoras=1 | cambio=True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo pasa como un río en la noche,",
+              "Deja trazas que ya no se encuentran.",
+              "Aún oyendo su ruido suave y lejano,",
+              "Nos sentimos pesados por nostalgia."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa como un río en la noche,",
+              "Dejan rastros que ya se han olvidado",
+              "Aún oyendo su ruido suave y lejano,",
+              "Nos sentimos pesados por nostalgia."
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo pasa como un río en la noche,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Deja trazas que ya no se encuentran.",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Dejan rastros que ya se han olvidado",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Dejan huellas que ya no se hallan",
+                    "syllables": 9,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Dejan rastros que ya no se encuentran",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Dejan huellas que ya se han perdido",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Dejan rastros que ya se han olvidado",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Dejan huellas que ya se han desvanecido",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Aún oyendo su ruido suave y lejano,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Nos sentimos pesados por nostalgia.",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: El verso 2 ahora tiene la cantidad correcta de silabas, y el verso 4 ahora rima con el verso 1 según la regla ABBA."
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "phase": "expand",
+      "generated_candidates": [
+        {
+          "stanza": [
+            "En la noche, el tiempo a través de un arroyo",
+            "Dejan huellas que ya no se recuerdan",
+            "Y oyendo sus suaves ruidos lejanos",
+            "Sintiendo el peso de una nostalgia enérgica"
+          ],
+          "score": 0.7483314773547882,
+          "step_score": 0.8,
+          "score_history": [
+            0.7,
+            0.8
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparacion_metrica=desactivada",
+          "meter_repair_report": {},
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: La rima A es utilizada en los versos 1 y 4, mientras que la rima B se utiliza en los versos 2 y 3."
+        },
+        {
+          "stanza": [
+            "En la noche, el tiempo a través de un arroyo",
+            "Dejan huellas que ya no se recuerdan",
+            "Y oyendo sus suaves ruidos lejanos",
+            "Sentimos el peso de una nostalgia enérgica"
+          ],
+          "score": 0.7483314773547882,
+          "step_score": 0.8,
+          "score_history": [
+            0.7,
+            0.8
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparacion_metrica=desactivada",
+          "meter_repair_report": {},
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: La estrofa original tenía la correcta rima consonante ABBA."
+        },
+        {
+          "stanza": [
+            "El tiempo pasa como un río en la noche,",
+            "Dejan rastros que ya se han olvidado.",
+            "Aún oyendo su ruido suave y lejano,",
+            "Nos sentimos pesados por nostalgia."
+          ],
+          "score": 0.6928203230275509,
+          "step_score": 0.8,
+          "score_history": [
+            0.6,
+            0.8
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparacion_metrica=desactivada",
+          "meter_repair_report": {},
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Verso 3 cambiado para respetar la rima consonante B"
+        },
+        {
+          "stanza": [
+            "El tiempo pasa como un río en la noche,",
+            "Dejan rastros que ya se han olvidado.",
+            "Aún oyendo su ruido suave y lejano,",
+            "Nos sentimos pesados por el recuerdo."
+          ],
+          "score": 0.6928203230275509,
+          "step_score": 0.8,
+          "score_history": [
+            0.6,
+            0.8
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparacion_metrica=desactivada",
+          "meter_repair_report": {},
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Verso 4 cambiado para respetar la rima consonante A"
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "phase": "score",
+      "candidates": [
+        {
+          "stanza": [
+            "En la noche, el tiempo a través de un arroyo",
+            "Dejan huellas que ya no se recuerdan",
+            "Y oyendo sus suaves ruidos lejanos",
+            "Sintiendo el peso de una nostalgia enérgica"
+          ],
+          "score": 0.7318611420045943,
+          "step_score": 0.7,
+          "score_history": [
+            0.7,
+            0.8,
+            0.7
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparacion_metrica=activa | intentos=1 | mejoras=0 | cambio=False",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": false,
+            "original_stanza": [
+              "En la noche, el tiempo a través de un arroyo",
+              "Dejan huellas que ya no se recuerdan",
+              "Y oyendo sus suaves ruidos lejanos",
+              "Sintiendo el peso de una nostalgia enérgica"
+            ],
+            "repaired_stanza": [
+              "En la noche, el tiempo a través de un arroyo",
+              "Dejan huellas que ya no se recuerdan",
+              "Y oyendo sus suaves ruidos lejanos",
+              "Sintiendo el peso de una nostalgia enérgica"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "En la noche, el tiempo a través de un arroyo",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Dejan huellas que ya no se recuerdan",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y oyendo sus suaves ruidos lejanos",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Sintiendo el peso de una nostalgia enérgica",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Sintiendo el peso de una nostalgia más enérgica",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Sintiento el peso de una nostalgia enérgicamente",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Sinto el peso de una nostalgia enérgica y fuerte",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Sintiendo el peso de una nostalgia enérgica profunda",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Sintiento el peso de una nostalgia enérgica intensa",
+                    "syllables": 13,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 4: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: La rima A es utilizada en los versos 1 y 4, mientras que la rima B se utiliza en los versos 2 y 3."
+        },
+        {
+          "stanza": [
+            "En la noche, el tiempo a través de un arroyo",
+            "Dejan huellas que ya no se recuerdan",
+            "Y oyendo sus suaves ruidos lejanos",
+            "Sentimos el peso de una nostalgia enérgica"
+          ],
+          "score": 0.7651724731089556,
+          "step_score": 0.8,
+          "score_history": [
+            0.7,
+            0.8,
+            0.8
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparacion_metrica=activa | intentos=0 | mejoras=0 | cambio=False",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": false,
+            "original_stanza": [
+              "En la noche, el tiempo a través de un arroyo",
+              "Dejan huellas que ya no se recuerdan",
+              "Y oyendo sus suaves ruidos lejanos",
+              "Sentimos el peso de una nostalgia enérgica"
+            ],
+            "repaired_stanza": [
+              "En la noche, el tiempo a través de un arroyo",
+              "Dejan huellas que ya no se recuerdan",
+              "Y oyendo sus suaves ruidos lejanos",
+              "Sentimos el peso de una nostalgia enérgica"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "En la noche, el tiempo a través de un arroyo",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Dejan huellas que ya no se recuerdan",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y oyendo sus suaves ruidos lejanos",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Sentimos el peso de una nostalgia enérgica",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: La estrofa original tenía la correcta rima consonante ABBA."
+        },
+        {
+          "stanza": [
+            "El tiempo pasa como un río en la noche,",
+            "Dejan rastros que ya se han olvidado.",
+            "Aún oyendo su ruido suave y lejano,",
+            "Nos sentimos pesados por nostalgia."
+          ],
+          "score": 0.7268482371328558,
+          "step_score": 0.8,
+          "score_history": [
+            0.6,
+            0.8,
+            0.8
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparacion_metrica=activa | intentos=0 | mejoras=0 | cambio=False",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": false,
+            "original_stanza": [
+              "El tiempo pasa como un río en la noche,",
+              "Dejan rastros que ya se han olvidado.",
+              "Aún oyendo su ruido suave y lejano,",
+              "Nos sentimos pesados por nostalgia."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa como un río en la noche,",
+              "Dejan rastros que ya se han olvidado.",
+              "Aún oyendo su ruido suave y lejano,",
+              "Nos sentimos pesados por nostalgia."
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo pasa como un río en la noche,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Dejan rastros que ya se han olvidado.",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Aún oyendo su ruido suave y lejano,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Nos sentimos pesados por nostalgia.",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Verso 3 cambiado para respetar la rima consonante B"
+        },
+        {
+          "stanza": [
+            "El tiempo pasa como un río en la noche,",
+            "Dejan rastros que ya se han olvidado.",
+            "Aún oyendo su ruido suave y lejano,",
+            "Nos sienten pesados por el recuerdo"
+          ],
+          "score": 0.7268482371328558,
+          "step_score": 0.8,
+          "score_history": [
+            0.6,
+            0.8,
+            0.8
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparacion_metrica=activa | intentos=1 | mejoras=1 | cambio=True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo pasa como un río en la noche,",
+              "Dejan rastros que ya se han olvidado.",
+              "Aún oyendo su ruido suave y lejano,",
+              "Nos sentimos pesados por el recuerdo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa como un río en la noche,",
+              "Dejan rastros que ya se han olvidado.",
+              "Aún oyendo su ruido suave y lejano,",
+              "Nos sienten pesados por el recuerdo"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo pasa como un río en la noche,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Dejan rastros que ya se han olvidado.",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Aún oyendo su ruido suave y lejano,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Nos sentimos pesados por el recuerdo.",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Nos sienten pesados por el recuerdo",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Nos sienten pesados por el recuerdo",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Sentimos pesado el recuerdo",
+                    "syllables": 9,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Pesamos el recuerdo",
+                    "syllables": 8,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "El recuerdo nos siente pesado",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Recuerdo que nos pesado",
+                    "syllables": 8,
+                    "distance": 3
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Verso 4 cambiado para respetar la rima consonante A"
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "phase": "prune",
+      "selected_beams": [
+        {
+          "stanza": [
+            "En la noche, el tiempo a través de un arroyo",
+            "Dejan huellas que ya no se recuerdan",
+            "Y oyendo sus suaves ruidos lejanos",
+            "Sentimos el peso de una nostalgia enérgica"
+          ],
+          "score": 0.7651724731089556,
+          "step_score": 0.8,
+          "score_history": [
+            0.7,
+            0.8,
+            0.8
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparacion_metrica=activa | intentos=0 | mejoras=0 | cambio=False",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": false,
+            "original_stanza": [
+              "En la noche, el tiempo a través de un arroyo",
+              "Dejan huellas que ya no se recuerdan",
+              "Y oyendo sus suaves ruidos lejanos",
+              "Sentimos el peso de una nostalgia enérgica"
+            ],
+            "repaired_stanza": [
+              "En la noche, el tiempo a través de un arroyo",
+              "Dejan huellas que ya no se recuerdan",
+              "Y oyendo sus suaves ruidos lejanos",
+              "Sentimos el peso de una nostalgia enérgica"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "En la noche, el tiempo a través de un arroyo",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Dejan huellas que ya no se recuerdan",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y oyendo sus suaves ruidos lejanos",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Sentimos el peso de una nostalgia enérgica",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: La estrofa original tenía la correcta rima consonante ABBA."
+        },
+        {
+          "stanza": [
+            "En la noche, el tiempo a través de un arroyo",
+            "Dejan huellas que ya no se recuerdan",
+            "Y oyendo sus suaves ruidos lejanos",
+            "Sintiendo el peso de una nostalgia enérgica"
+          ],
+          "score": 0.7318611420045943,
+          "step_score": 0.7,
+          "score_history": [
+            0.7,
+            0.8,
+            0.7
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparacion_metrica=activa | intentos=1 | mejoras=0 | cambio=False",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": false,
+            "original_stanza": [
+              "En la noche, el tiempo a través de un arroyo",
+              "Dejan huellas que ya no se recuerdan",
+              "Y oyendo sus suaves ruidos lejanos",
+              "Sintiendo el peso de una nostalgia enérgica"
+            ],
+            "repaired_stanza": [
+              "En la noche, el tiempo a través de un arroyo",
+              "Dejan huellas que ya no se recuerdan",
+              "Y oyendo sus suaves ruidos lejanos",
+              "Sintiendo el peso de una nostalgia enérgica"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "En la noche, el tiempo a través de un arroyo",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Dejan huellas que ya no se recuerdan",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y oyendo sus suaves ruidos lejanos",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Sintiendo el peso de una nostalgia enérgica",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Sintiendo el peso de una nostalgia más enérgica",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Sintiento el peso de una nostalgia enérgicamente",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Sinto el peso de una nostalgia enérgica y fuerte",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Sintiendo el peso de una nostalgia enérgica profunda",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Sintiento el peso de una nostalgia enérgica intensa",
+                    "syllables": 13,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 4: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: La rima A es utilizada en los versos 1 y 4, mientras que la rima B se utiliza en los versos 2 y 3."
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "phase": "stop",
+      "reason": "max_steps",
+      "best_score": 0.7651724731089556
+    }
+  ]
+}
