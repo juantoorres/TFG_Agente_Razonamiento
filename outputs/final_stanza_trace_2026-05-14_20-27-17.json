@@ -1,0 +1,4424 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200
+  },
+  "trace": [
+    {
+      "step": 0,
+      "phase": "expand",
+      "generated_candidates": [
+        {
+          "stanza": [
+            "El tiempo, un río que pasa sin cesar,",
+            "Deja trazas de recuerdos en el corazón.",
+            "Y las sombras de los años se van",
+            "Como hojas en otoño, sin regresar."
+          ],
+          "score": 0.0,
+          "step_score": 0.0,
+          "score_history": [],
+          "metrics_summary": "versos=?/? | endecasilabos=?/? | rima=?/? | score=?/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Todavia no se ha generado ninguna estrofa.",
+          "generation_reasoning": "Versos que describen la nostalgia del paso del tiempo a través de imágenes metafóricas y rítmicas."
+        },
+        {
+          "stanza": [
+            "El tiempo, un corredor sin fin",
+            "Que lleva al olvido lo que fue.",
+            "Y las huellas de los días se van",
+            "Como nubes en el cielo, sin regresar."
+          ],
+          "score": 0.0,
+          "step_score": 0.0,
+          "score_history": [],
+          "metrics_summary": "versos=?/? | endecasilabos=?/? | rima=?/? | score=?/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Todavia no se ha generado ninguna estrofa.",
+          "generation_reasoning": "Versos que describen la nostalgia del paso del tiempo a través de imágenes metafóricas y rítmicas."
+        }
+      ]
+    },
+    {
+      "step": 0,
+      "phase": "score",
+      "candidates": [
+        {
+          "stanza": [
+            "El tiempo, un río que pasa sin cesar,",
+            "Dejan rastros de recuerdos en el seno",
+            "Las sombras de los años se desvanecen",
+            "Como hojas en otoño, sin regresar."
+          ],
+          "score": 0.9,
+          "step_score": 0.9,
+          "score_history": [
+            0.9
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=3/4 | score=18.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 2 | mejoras = 2 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo, un río que pasa sin cesar,",
+              "Deja trazas de recuerdos en el corazón.",
+              "Y las sombras de los años se van",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "repaired_stanza": [
+              "El tiempo, un río que pasa sin cesar,",
+              "Dejan rastros de recuerdos en el seno",
+              "Las sombras de los años se desvanecen",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo, un río que pasa sin cesar,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Deja trazas de recuerdos en el corazón.",
+                "original_syllables": 14,
+                "original_distance": 3,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Dejan rastros de recuerdos en el seno",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Deja rastros de recuerdos en mi corazón",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Dejan huellas de recuerdos en el corazón",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Dejan trazas de recuerdos en el pecho",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Dejan remotos recuerdos en mi corazón",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Dejan rastros de recuerdos en el seno",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y las sombras de los años se van",
+                "original_syllables": 9,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Las sombras de los años se desvanecen",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Y sus sombras, de los años, se van",
+                    "syllables": 9,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Se van las sombras de años y días",
+                    "syllables": 9,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Las sombras de los años se desvanecen",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Sus sombras, de los años, se dispersan",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Se van las sombras de años a flotar",
+                    "syllables": 10,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Como hojas en otoño, sin regresar.",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = no necesaria",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": false,
+            "changed": false,
+            "reason": "La rima exterior AXYA ya es correcta.",
+            "original_stanza": [
+              "El tiempo, un río que pasa sin cesar,",
+              "Dejan rastros de recuerdos en el seno",
+              "Las sombras de los años se desvanecen",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "repaired_stanza": [
+              "El tiempo, un río que pasa sin cesar,",
+              "Dejan rastros de recuerdos en el seno",
+              "Las sombras de los años se desvanecen",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "target_rhyme": "ar",
+            "current_rhyme": "ar",
+            "verse_1": {
+              "text": "El tiempo, un río que pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "candidate_final_words": [],
+            "original_verse_4": "Como hojas en otoño, sin regresar.",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ar' | v4 = 'ar'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": true,
+            "verse_1": {
+              "text": "El tiempo, un río que pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "verse_4": {
+              "text": "Como hojas en otoño, sin regresar.",
+              "last_word": "regresar",
+              "rhyme": "ar"
+            },
+            "target_rhyme": "ar",
+            "current_rhyme": "ar",
+            "errors": [],
+            "feedback": "La rima exterior AXYA es correcta: el verso 4 conserva la rima consonante del verso 1 ('ar')."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'o' | v3 = 'ecen'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Dejan rastros de recuerdos en el seno",
+              "last_word": "seno",
+              "rhyme": "o"
+            },
+            "verse_3": {
+              "text": "Las sombras de los años se desvanecen",
+              "last_word": "desvanecen",
+              "rhyme": "ecen"
+            },
+            "target_rhyme": "o",
+            "current_rhyme": "ecen",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'o', pero se obtuvo 'ecen'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('o') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.",
+          "generation_reasoning": "Versos que describen la nostalgia del paso del tiempo a través de imágenes metafóricas y rítmicas."
+        },
+        {
+          "stanza": [
+            "El tiempo, un corredor sin fin y sin parar",
+            "Que lleva al olvido lo que fue, así duró",
+            "Y las huellas de los días se van lejos",
+            "Sin regresar como nubes el cielo"
+          ],
+          "score": 0.6,
+          "step_score": 0.6,
+          "score_history": [
+            0.6
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 4 | mejoras = 4 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo, un corredor sin fin",
+              "Que lleva al olvido lo que fue.",
+              "Y las huellas de los días se van",
+              "Como nubes en el cielo, sin regresar."
+            ],
+            "repaired_stanza": [
+              "El tiempo, un corredor sin fin y sin parar",
+              "Que lleva al olvido lo que fue, así duró",
+              "Y las huellas de los días se van lejos",
+              "Sin regresar como nubes el cielo"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo, un corredor sin fin",
+                "original_syllables": 8,
+                "original_distance": 3,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "El tiempo, un corredor sin fin y sin parar",
+                "selected_syllables": 13,
+                "selected_distance": 2,
+                "variants": [
+                  {
+                    "verse": "El tiempo, un corredor sin fin y sin parar",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "El tiempo, un corredor que nunca se detiene",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "El tiempo, un corredor en constante movimiento",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "El tiempo, un corredor infinito y incesante",
+                    "syllables": 15,
+                    "distance": 4
+                  },
+                  {
+                    "verse": "El tiempo, un corredor sin límites ni pausa",
+                    "syllables": 13,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Que lleva al olvido lo que fue.",
+                "original_syllables": 9,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Que lleva al olvido lo que fue, así duró",
+                "selected_syllables": 12,
+                "selected_distance": 1,
+                "variants": [
+                  {
+                    "verse": "Que lleva al olvido lo que fue y pasó",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Que lleva al olvido lo que fué y duró",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Que lleva al olvido lo que fue y se perdió",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Que lleva al olvido lo que fue, así duró",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Que lleva al olvido lo que fue: ¡y pasó!",
+                    "syllables": 13,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y las huellas de los días se van",
+                "original_syllables": 9,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Y las huellas de los días se van lejos",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Y las huellas de los días se van lejos",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Y las huellas de los días se alejan",
+                    "syllables": 9,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Y las huellas de los días se desvanecen",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Y las huellas de los días se difuminan",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Y las huellas de los días se desaparecen",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Como nubes en el cielo, sin regresar.",
+                "original_syllables": 13,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Sin regresar como nubes el cielo",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Como nubes en el cielo, sin regresar",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "En el cielo como nubes, sin regresar",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Nubes en cielo sin regresar",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Sin regresar como nubes el cielo",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Cielo sin regresar como nubes",
+                    "syllables": 10,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "El tiempo, un corredor sin fin y sin parar",
+              "Que lleva al olvido lo que fue, así duró",
+              "Y las huellas de los días se van lejos",
+              "Sin regresar como nubes el cielo"
+            ],
+            "repaired_stanza": [
+              "El tiempo, un corredor sin fin y sin parar",
+              "Que lleva al olvido lo que fue, así duró",
+              "Y las huellas de los días se van lejos",
+              "Sin regresar como nubes el cielo"
+            ],
+            "target_rhyme": "ar",
+            "current_rhyme": "elo",
+            "verse_1": {
+              "text": "El tiempo, un corredor sin fin y sin parar",
+              "last_word": "parar",
+              "rhyme": "ar"
+            },
+            "candidate_final_words": [
+              "parar"
+            ],
+            "original_verse_4": "Sin regresar como nubes el cielo",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Sin volver como nubes el cielo",
+                "syllables": 10,
+                "final_word": "cielo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'elo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Sin regresar como niebla el cielo",
+                "syllables": 10,
+                "final_word": "cielo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'elo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Sin regresar como luz el cielo",
+                "syllables": 10,
+                "final_word": "cielo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'elo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Sin volver como lluvia el cielo",
+                "syllables": 9,
+                "final_word": "cielo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'elo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Sin regresar como sombra el cielo",
+                "syllables": 10,
+                "final_word": "cielo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'elo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'elo'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo, un corredor sin fin y sin parar",
+              "last_word": "parar",
+              "rhyme": "ar"
+            },
+            "verse_4": {
+              "text": "Sin regresar como nubes el cielo",
+              "last_word": "cielo",
+              "rhyme": "elo"
+            },
+            "target_rhyme": "ar",
+            "current_rhyme": "elo",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ar', pero se obtuvo 'elo'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ar') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'o' | v3 = 'ejos'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Que lleva al olvido lo que fue, así duró",
+              "last_word": "duró",
+              "rhyme": "o"
+            },
+            "verse_3": {
+              "text": "Y las huellas de los días se van lejos",
+              "last_word": "lejos",
+              "rhyme": "ejos"
+            },
+            "target_rhyme": "o",
+            "current_rhyme": "ejos",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'o', pero se obtuvo 'ejos'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('o') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 13 silabas, pero deberia tener 11.\n- Verso 2: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Versos que describen la nostalgia del paso del tiempo a través de imágenes metafóricas y rítmicas."
+        }
+      ]
+    },
+    {
+      "step": 0,
+      "phase": "prune",
+      "selected_beams": [
+        {
+          "stanza": [
+            "El tiempo, un río que pasa sin cesar,",
+            "Dejan rastros de recuerdos en el seno",
+            "Las sombras de los años se desvanecen",
+            "Como hojas en otoño, sin regresar."
+          ],
+          "score": 0.9,
+          "step_score": 0.9,
+          "score_history": [
+            0.9
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=3/4 | score=18.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 2 | mejoras = 2 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo, un río que pasa sin cesar,",
+              "Deja trazas de recuerdos en el corazón.",
+              "Y las sombras de los años se van",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "repaired_stanza": [
+              "El tiempo, un río que pasa sin cesar,",
+              "Dejan rastros de recuerdos en el seno",
+              "Las sombras de los años se desvanecen",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo, un río que pasa sin cesar,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Deja trazas de recuerdos en el corazón.",
+                "original_syllables": 14,
+                "original_distance": 3,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Dejan rastros de recuerdos en el seno",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Deja rastros de recuerdos en mi corazón",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Dejan huellas de recuerdos en el corazón",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Dejan trazas de recuerdos en el pecho",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Dejan remotos recuerdos en mi corazón",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Dejan rastros de recuerdos en el seno",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y las sombras de los años se van",
+                "original_syllables": 9,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Las sombras de los años se desvanecen",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Y sus sombras, de los años, se van",
+                    "syllables": 9,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Se van las sombras de años y días",
+                    "syllables": 9,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Las sombras de los años se desvanecen",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Sus sombras, de los años, se dispersan",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Se van las sombras de años a flotar",
+                    "syllables": 10,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Como hojas en otoño, sin regresar.",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = no necesaria",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": false,
+            "changed": false,
+            "reason": "La rima exterior AXYA ya es correcta.",
+            "original_stanza": [
+              "El tiempo, un río que pasa sin cesar,",
+              "Dejan rastros de recuerdos en el seno",
+              "Las sombras de los años se desvanecen",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "repaired_stanza": [
+              "El tiempo, un río que pasa sin cesar,",
+              "Dejan rastros de recuerdos en el seno",
+              "Las sombras de los años se desvanecen",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "target_rhyme": "ar",
+            "current_rhyme": "ar",
+            "verse_1": {
+              "text": "El tiempo, un río que pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "candidate_final_words": [],
+            "original_verse_4": "Como hojas en otoño, sin regresar.",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ar' | v4 = 'ar'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": true,
+            "verse_1": {
+              "text": "El tiempo, un río que pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "verse_4": {
+              "text": "Como hojas en otoño, sin regresar.",
+              "last_word": "regresar",
+              "rhyme": "ar"
+            },
+            "target_rhyme": "ar",
+            "current_rhyme": "ar",
+            "errors": [],
+            "feedback": "La rima exterior AXYA es correcta: el verso 4 conserva la rima consonante del verso 1 ('ar')."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'o' | v3 = 'ecen'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Dejan rastros de recuerdos en el seno",
+              "last_word": "seno",
+              "rhyme": "o"
+            },
+            "verse_3": {
+              "text": "Las sombras de los años se desvanecen",
+              "last_word": "desvanecen",
+              "rhyme": "ecen"
+            },
+            "target_rhyme": "o",
+            "current_rhyme": "ecen",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'o', pero se obtuvo 'ecen'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('o') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.",
+          "generation_reasoning": "Versos que describen la nostalgia del paso del tiempo a través de imágenes metafóricas y rítmicas."
+        },
+        {
+          "stanza": [
+            "El tiempo, un corredor sin fin y sin parar",
+            "Que lleva al olvido lo que fue, así duró",
+            "Y las huellas de los días se van lejos",
+            "Sin regresar como nubes el cielo"
+          ],
+          "score": 0.6,
+          "step_score": 0.6,
+          "score_history": [
+            0.6
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 4 | mejoras = 4 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo, un corredor sin fin",
+              "Que lleva al olvido lo que fue.",
+              "Y las huellas de los días se van",
+              "Como nubes en el cielo, sin regresar."
+            ],
+            "repaired_stanza": [
+              "El tiempo, un corredor sin fin y sin parar",
+              "Que lleva al olvido lo que fue, así duró",
+              "Y las huellas de los días se van lejos",
+              "Sin regresar como nubes el cielo"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo, un corredor sin fin",
+                "original_syllables": 8,
+                "original_distance": 3,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "El tiempo, un corredor sin fin y sin parar",
+                "selected_syllables": 13,
+                "selected_distance": 2,
+                "variants": [
+                  {
+                    "verse": "El tiempo, un corredor sin fin y sin parar",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "El tiempo, un corredor que nunca se detiene",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "El tiempo, un corredor en constante movimiento",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "El tiempo, un corredor infinito y incesante",
+                    "syllables": 15,
+                    "distance": 4
+                  },
+                  {
+                    "verse": "El tiempo, un corredor sin límites ni pausa",
+                    "syllables": 13,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Que lleva al olvido lo que fue.",
+                "original_syllables": 9,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Que lleva al olvido lo que fue, así duró",
+                "selected_syllables": 12,
+                "selected_distance": 1,
+                "variants": [
+                  {
+                    "verse": "Que lleva al olvido lo que fue y pasó",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Que lleva al olvido lo que fué y duró",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Que lleva al olvido lo que fue y se perdió",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Que lleva al olvido lo que fue, así duró",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Que lleva al olvido lo que fue: ¡y pasó!",
+                    "syllables": 13,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y las huellas de los días se van",
+                "original_syllables": 9,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Y las huellas de los días se van lejos",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Y las huellas de los días se van lejos",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Y las huellas de los días se alejan",
+                    "syllables": 9,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Y las huellas de los días se desvanecen",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Y las huellas de los días se difuminan",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Y las huellas de los días se desaparecen",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Como nubes en el cielo, sin regresar.",
+                "original_syllables": 13,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Sin regresar como nubes el cielo",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Como nubes en el cielo, sin regresar",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "En el cielo como nubes, sin regresar",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Nubes en cielo sin regresar",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Sin regresar como nubes el cielo",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Cielo sin regresar como nubes",
+                    "syllables": 10,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "El tiempo, un corredor sin fin y sin parar",
+              "Que lleva al olvido lo que fue, así duró",
+              "Y las huellas de los días se van lejos",
+              "Sin regresar como nubes el cielo"
+            ],
+            "repaired_stanza": [
+              "El tiempo, un corredor sin fin y sin parar",
+              "Que lleva al olvido lo que fue, así duró",
+              "Y las huellas de los días se van lejos",
+              "Sin regresar como nubes el cielo"
+            ],
+            "target_rhyme": "ar",
+            "current_rhyme": "elo",
+            "verse_1": {
+              "text": "El tiempo, un corredor sin fin y sin parar",
+              "last_word": "parar",
+              "rhyme": "ar"
+            },
+            "candidate_final_words": [
+              "parar"
+            ],
+            "original_verse_4": "Sin regresar como nubes el cielo",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Sin volver como nubes el cielo",
+                "syllables": 10,
+                "final_word": "cielo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'elo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Sin regresar como niebla el cielo",
+                "syllables": 10,
+                "final_word": "cielo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'elo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Sin regresar como luz el cielo",
+                "syllables": 10,
+                "final_word": "cielo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'elo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Sin volver como lluvia el cielo",
+                "syllables": 9,
+                "final_word": "cielo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'elo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Sin regresar como sombra el cielo",
+                "syllables": 10,
+                "final_word": "cielo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'elo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'elo'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo, un corredor sin fin y sin parar",
+              "last_word": "parar",
+              "rhyme": "ar"
+            },
+            "verse_4": {
+              "text": "Sin regresar como nubes el cielo",
+              "last_word": "cielo",
+              "rhyme": "elo"
+            },
+            "target_rhyme": "ar",
+            "current_rhyme": "elo",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ar', pero se obtuvo 'elo'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ar') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'o' | v3 = 'ejos'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Que lleva al olvido lo que fue, así duró",
+              "last_word": "duró",
+              "rhyme": "o"
+            },
+            "verse_3": {
+              "text": "Y las huellas de los días se van lejos",
+              "last_word": "lejos",
+              "rhyme": "ejos"
+            },
+            "target_rhyme": "o",
+            "current_rhyme": "ejos",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'o', pero se obtuvo 'ejos'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('o') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 13 silabas, pero deberia tener 11.\n- Verso 2: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Versos que describen la nostalgia del paso del tiempo a través de imágenes metafóricas y rítmicas."
+        }
+      ]
+    },
+    {
+      "step": 1,
+      "phase": "expand",
+      "generated_candidates": [
+        {
+          "stanza": [
+            "El tiempo, un río que sin cesar fluye,",
+            "Dejan huellas de recuerdos en el alma.",
+            "Las sombras de los años se desvanecen",
+            "Como hojas en otoño, sin regresar."
+          ],
+          "score": 0.9,
+          "step_score": 0.9,
+          "score_history": [
+            0.9
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=3/4 | score=18.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.",
+          "generation_reasoning": "Corregido la rima del verso 3 y ajustado la longitud de algunos versos para cumplir con las restricciones formales"
+        },
+        {
+          "stanza": [
+            "El tiempo, un río que sin cesar corre,",
+            "Dejan huellas de recuerdos en el corazón.",
+            "Las sombras de los años se desvanecen",
+            "Como hojas en otoño, sin regresar."
+          ],
+          "score": 0.9,
+          "step_score": 0.9,
+          "score_history": [
+            0.9
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=3/4 | score=18.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.",
+          "generation_reasoning": "Corregido la rima del verso 3 y ajustado la longitud de algunos versos para cumplir con las restricciones formales"
+        },
+        {
+          "stanza": [
+            "El tiempo, un corredor sin fin y sin parar",
+            "Que lleva a olvido lo que fue, así duró",
+            "Y las huellas de los días se van lejos",
+            "Sin regresar como nubes el cielo"
+          ],
+          "score": 0.6,
+          "step_score": 0.6,
+          "score_history": [
+            0.6
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 13 silabas, pero deberia tener 11.\n- Verso 2: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: El verso 1 tiene la rima A y el verso 4, el verso 2 tiene la rima B y el verso 3 se corrige para tener la rima B."
+        },
+        {
+          "stanza": [
+            "El tiempo, un corredor sin fin y sin parar",
+            "Que lleva a olvido lo que fue, así duró",
+            "Y las huellas de los días se van lejos",
+            "Sin regresar como nubes el cielo"
+          ],
+          "score": 0.6,
+          "step_score": 0.6,
+          "score_history": [
+            0.6
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 13 silabas, pero deberia tener 11.\n- Verso 2: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: El verso 1 tiene la rima A y el verso 4, el verso 2 tiene la rima B y el verso 3 se corrige para tener la rima B."
+        }
+      ]
+    },
+    {
+      "step": 1,
+      "phase": "score",
+      "candidates": [
+        {
+          "stanza": [
+            "El tiempo, un río que sin cesar fluye,",
+            "Dejan rastros de recuerdos en alma",
+            "Las sombras de los años se desvanecen",
+            "Como hojas en otoño, sin regresar."
+          ],
+          "score": 0.7937253933193772,
+          "step_score": 0.7,
+          "score_history": [
+            0.9,
+            0.7
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 2 | mejoras = 1 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo, un río que sin cesar fluye,",
+              "Dejan huellas de recuerdos en el alma.",
+              "Las sombras de los años se desvanecen",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "repaired_stanza": [
+              "El tiempo, un río que sin cesar fluye,",
+              "Dejan rastros de recuerdos en alma",
+              "Las sombras de los años se desvanecen",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo, un río que sin cesar fluye,",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "El tiempo, un río que sin cesar fluye y corriente",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "El tiempo, un río que sin cesar fluye y se desborda",
+                    "syllables": 15,
+                    "distance": 4
+                  },
+                  {
+                    "verse": "El tiempo, un río que sin cesar fluye y se vuelve torrencial",
+                    "syllables": 18,
+                    "distance": 7
+                  },
+                  {
+                    "verse": "El tiempo, un río que sin cesar fluye y se torna impetuoso",
+                    "syllables": 17,
+                    "distance": 6
+                  },
+                  {
+                    "verse": "El tiempo, un río que sin cesar fluye y se convierte en torrente",
+                    "syllables": 18,
+                    "distance": 7
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Dejan huellas de recuerdos en el alma.",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Dejan rastros de recuerdos en alma",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Dejan rastros de recuerdos en alma",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "En el alma dejan huellas de recuerdo",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Rastros de recuerdos en alma dejan",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Dejan huellas de recuerdo en alma",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En alma, rastros de recuerdos dejan",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Las sombras de los años se desvanecen",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Como hojas en otoño, sin regresar.",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "El tiempo, un río que sin cesar fluye,",
+              "Dejan rastros de recuerdos en alma",
+              "Las sombras de los años se desvanecen",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "repaired_stanza": [
+              "El tiempo, un río que sin cesar fluye,",
+              "Dejan rastros de recuerdos en alma",
+              "Las sombras de los años se desvanecen",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "target_rhyme": "uye",
+            "current_rhyme": "ar",
+            "verse_1": {
+              "text": "El tiempo, un río que sin cesar fluye,",
+              "last_word": "fluye",
+              "rhyme": "uye"
+            },
+            "candidate_final_words": [
+              "fluye"
+            ],
+            "original_verse_4": "Como hojas en otoño, sin regresar.",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Como hojas en otoño, se van fluyendo",
+                "syllables": 11,
+                "final_word": "fluyendo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'uye' | v4 = 'endo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Como hojas en otoño, se van desfluyendo",
+                "syllables": 12,
+                "final_word": "desfluyendo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'uye' | v4 = 'endo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Como hojas en otoño, se van fluyendo arriba",
+                "syllables": 12,
+                "final_word": "arriba",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'uye' | v4 = 'arriba'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Como hojas en otoño, se van desfluyendo arriba",
+                "syllables": 13,
+                "final_word": "arriba",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'uye' | v4 = 'arriba'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Como hojas en otoño, se van fluyendo hacia abajo",
+                "syllables": 13,
+                "final_word": "abajo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'uye' | v4 = 'ajo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'uye' | v4 = 'ar'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo, un río que sin cesar fluye,",
+              "last_word": "fluye",
+              "rhyme": "uye"
+            },
+            "verse_4": {
+              "text": "Como hojas en otoño, sin regresar.",
+              "last_word": "regresar",
+              "rhyme": "ar"
+            },
+            "target_rhyme": "uye",
+            "current_rhyme": "ar",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'uye', pero se obtuvo 'ar'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('uye') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'alma' | v3 = 'ecen'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Dejan rastros de recuerdos en alma",
+              "last_word": "alma",
+              "rhyme": "alma"
+            },
+            "verse_3": {
+              "text": "Las sombras de los años se desvanecen",
+              "last_word": "desvanecen",
+              "rhyme": "ecen"
+            },
+            "target_rhyme": "alma",
+            "current_rhyme": "ecen",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'alma', pero se obtuvo 'ecen'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('alma') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido la rima del verso 3 y ajustado la longitud de algunos versos para cumplir con las restricciones formales"
+        },
+        {
+          "stanza": [
+            "El tiempo, un río que sin cesar corre,",
+            "Dejan rastros de recuerdos en el pecho.",
+            "Las sombras de los años se desvanecen",
+            "Como hojas en otoño, sin regresar."
+          ],
+          "score": 0.7348469228349535,
+          "step_score": 0.6,
+          "score_history": [
+            0.9,
+            0.6
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 2 | mejoras = 1 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo, un río que sin cesar corre,",
+              "Dejan huellas de recuerdos en el corazón.",
+              "Las sombras de los años se desvanecen",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "repaired_stanza": [
+              "El tiempo, un río que sin cesar corre,",
+              "Dejan rastros de recuerdos en el pecho.",
+              "Las sombras de los años se desvanecen",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo, un río que sin cesar corre,",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "El tiempo, un río que sin cesar fluye",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "El tiempo, un río que sin cesar curre",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "El tiempo, un río que sin cesar corre y baña",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "El tiempo, un río que sin cesar corre y avanza",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "El tiempo, un río que sin cesar corre y se extiende",
+                    "syllables": 14,
+                    "distance": 3
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Dejan huellas de recuerdos en el corazón.",
+                "original_syllables": 14,
+                "original_distance": 3,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Dejan rastros de recuerdos en el pecho.",
+                "selected_syllables": 12,
+                "selected_distance": 1,
+                "variants": [
+                  {
+                    "verse": "Dejan rastros de recuerdos en el pecho.",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En el corazón dejaron huellas de recuerdos.",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Dejan huella de recuerdos en mi corazón.",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Dejan huellas de recordatorios en el corazón.",
+                    "syllables": 16,
+                    "distance": 5
+                  },
+                  {
+                    "verse": "Dejan rastros de recuerdos en el alma.",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Las sombras de los años se desvanecen",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Como hojas en otoño, sin regresar.",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "El tiempo, un río que sin cesar corre,",
+              "Dejan rastros de recuerdos en el pecho.",
+              "Las sombras de los años se desvanecen",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "repaired_stanza": [
+              "El tiempo, un río que sin cesar corre,",
+              "Dejan rastros de recuerdos en el pecho.",
+              "Las sombras de los años se desvanecen",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "target_rhyme": "orre",
+            "current_rhyme": "ar",
+            "verse_1": {
+              "text": "El tiempo, un río que sin cesar corre,",
+              "last_word": "corre",
+              "rhyme": "orre"
+            },
+            "candidate_final_words": [
+              "corre"
+            ],
+            "original_verse_4": "Como hojas en otoño, sin regresar.",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "como hojas en otoño, se pierden orre",
+                "syllables": 10,
+                "final_word": "orre",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orre' | v4 = 'e'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "como hojas en otoño, se desvanecen orre",
+                "syllables": 12,
+                "final_word": "orre",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orre' | v4 = 'e'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "como hojas en otoño, se van orre",
+                "syllables": 9,
+                "final_word": "orre",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orre' | v4 = 'e'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "como hojas en otoño, se vuelven orre",
+                "syllables": 10,
+                "final_word": "orre",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orre' | v4 = 'e'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "como hojas en otoño, se alejan orre",
+                "syllables": 9,
+                "final_word": "orre",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orre' | v4 = 'e'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orre' | v4 = 'ar'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo, un río que sin cesar corre,",
+              "last_word": "corre",
+              "rhyme": "orre"
+            },
+            "verse_4": {
+              "text": "Como hojas en otoño, sin regresar.",
+              "last_word": "regresar",
+              "rhyme": "ar"
+            },
+            "target_rhyme": "orre",
+            "current_rhyme": "ar",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'orre', pero se obtuvo 'ar'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('orre') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'echo' | v3 = 'ecen'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Dejan rastros de recuerdos en el pecho.",
+              "last_word": "pecho",
+              "rhyme": "echo"
+            },
+            "verse_3": {
+              "text": "Las sombras de los años se desvanecen",
+              "last_word": "desvanecen",
+              "rhyme": "ecen"
+            },
+            "target_rhyme": "echo",
+            "current_rhyme": "ecen",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'echo', pero se obtuvo 'ecen'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('echo') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 10 silabas, pero deberia tener 11.\n- Verso 2: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido la rima del verso 3 y ajustado la longitud de algunos versos para cumplir con las restricciones formales"
+        },
+        {
+          "stanza": [
+            "Tiempo sin fin, corredor sin parar",
+            "Que lleva a olvido lo que fue, así duró",
+            "Y las huellas de los días se van lejos",
+            "Sin regresar como nubes el cielo"
+          ],
+          "score": 0.6928203230275509,
+          "step_score": 0.8,
+          "score_history": [
+            0.6,
+            0.8
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 1 | mejoras = 1 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo, un corredor sin fin y sin parar",
+              "Que lleva a olvido lo que fue, así duró",
+              "Y las huellas de los días se van lejos",
+              "Sin regresar como nubes el cielo"
+            ],
+            "repaired_stanza": [
+              "Tiempo sin fin, corredor sin parar",
+              "Que lleva a olvido lo que fue, así duró",
+              "Y las huellas de los días se van lejos",
+              "Sin regresar como nubes el cielo"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo, un corredor sin fin y sin parar",
+                "original_syllables": 13,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Tiempo sin fin, corredor sin parar",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "El tiempo, corredor sin fin y sin parar",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Tiempo, corredor infinito sin parar",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Corredor sin fin el tiempo sin parar",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Tiempo sin fin, corredor sin parar",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Corredor, tiempo sin fin y sin parar",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Que lleva a olvido lo que fue, así duró",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y las huellas de los días se van lejos",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Sin regresar como nubes el cielo",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "Tiempo sin fin, corredor sin parar",
+              "Que lleva a olvido lo que fue, así duró",
+              "Y las huellas de los días se van lejos",
+              "Sin regresar como nubes el cielo"
+            ],
+            "repaired_stanza": [
+              "Tiempo sin fin, corredor sin parar",
+              "Que lleva a olvido lo que fue, así duró",
+              "Y las huellas de los días se van lejos",
+              "Sin regresar como nubes el cielo"
+            ],
+            "target_rhyme": "ar",
+            "current_rhyme": "elo",
+            "verse_1": {
+              "text": "Tiempo sin fin, corredor sin parar",
+              "last_word": "parar",
+              "rhyme": "ar"
+            },
+            "candidate_final_words": [
+              "parar"
+            ],
+            "original_verse_4": "Sin regresar como nubes el cielo",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Sin volver como nubes el cielo",
+                "syllables": 10,
+                "final_word": "cielo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'elo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Sin regresar como nubes el arco",
+                "syllables": 11,
+                "final_word": "arco",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'arco'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Sin volver como nube el arco",
+                "syllables": 9,
+                "final_word": "arco",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'arco'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Sin volver como nube el cielo",
+                "syllables": 9,
+                "final_word": "cielo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'elo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'elo'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "Tiempo sin fin, corredor sin parar",
+              "last_word": "parar",
+              "rhyme": "ar"
+            },
+            "verse_4": {
+              "text": "Sin regresar como nubes el cielo",
+              "last_word": "cielo",
+              "rhyme": "elo"
+            },
+            "target_rhyme": "ar",
+            "current_rhyme": "elo",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ar', pero se obtuvo 'elo'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ar') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'o' | v3 = 'ejos'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Que lleva a olvido lo que fue, así duró",
+              "last_word": "duró",
+              "rhyme": "o"
+            },
+            "verse_3": {
+              "text": "Y las huellas de los días se van lejos",
+              "last_word": "lejos",
+              "rhyme": "ejos"
+            },
+            "target_rhyme": "o",
+            "current_rhyme": "ejos",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'o', pero se obtuvo 'ejos'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('o') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: El verso 1 tiene la rima A y el verso 4, el verso 2 tiene la rima B y el verso 3 se corrige para tener la rima B."
+        },
+        {
+          "stanza": [
+            "El tiempo, un corredor sin fin y sin parar",
+            "Que lleva a olvido lo que fue, así duró",
+            "Y las huellas de los días se van lejos",
+            "Sin regresar como nubes el cielo"
+          ],
+          "score": 0.648074069840786,
+          "step_score": 0.7,
+          "score_history": [
+            0.6,
+            0.7
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 1 | mejoras = 0 | cambio = False",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": false,
+            "original_stanza": [
+              "El tiempo, un corredor sin fin y sin parar",
+              "Que lleva a olvido lo que fue, así duró",
+              "Y las huellas de los días se van lejos",
+              "Sin regresar como nubes el cielo"
+            ],
+            "repaired_stanza": [
+              "El tiempo, un corredor sin fin y sin parar",
+              "Que lleva a olvido lo que fue, así duró",
+              "Y las huellas de los días se van lejos",
+              "Sin regresar como nubes el cielo"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo, un corredor sin fin y sin parar",
+                "original_syllables": 13,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "El tiempo, un corredor sin fin",
+                    "syllables": 8,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Tiempo, un corredor sin parar",
+                    "syllables": 9,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Corredor del tiempo sin fin",
+                    "syllables": 8,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Sin fin el tiempo, un corredor",
+                    "syllables": 9,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Un corredor sin fin de tiempo",
+                    "syllables": 9,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Que lleva a olvido lo que fue, así duró",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y las huellas de los días se van lejos",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Sin regresar como nubes el cielo",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "El tiempo, un corredor sin fin y sin parar",
+              "Que lleva a olvido lo que fue, así duró",
+              "Y las huellas de los días se van lejos",
+              "Sin regresar como nubes el cielo"
+            ],
+            "repaired_stanza": [
+              "El tiempo, un corredor sin fin y sin parar",
+              "Que lleva a olvido lo que fue, así duró",
+              "Y las huellas de los días se van lejos",
+              "Sin regresar como nubes el cielo"
+            ],
+            "target_rhyme": "ar",
+            "current_rhyme": "elo",
+            "verse_1": {
+              "text": "El tiempo, un corredor sin fin y sin parar",
+              "last_word": "parar",
+              "rhyme": "ar"
+            },
+            "candidate_final_words": [
+              "parar"
+            ],
+            "original_verse_4": "Sin regresar como nubes el cielo",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Sin volver como hielo el cielo",
+                "syllables": 8,
+                "final_word": "cielo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'elo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Sin regresar como mar el cielo",
+                "syllables": 10,
+                "final_word": "cielo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'elo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Sin aparecer como ardor el cielo",
+                "syllables": 10,
+                "final_word": "cielo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'elo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Sin recordar como amor el cielo",
+                "syllables": 9,
+                "final_word": "cielo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'elo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Sin esperar como lluvia el cielo",
+                "syllables": 10,
+                "final_word": "cielo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'elo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'elo'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo, un corredor sin fin y sin parar",
+              "last_word": "parar",
+              "rhyme": "ar"
+            },
+            "verse_4": {
+              "text": "Sin regresar como nubes el cielo",
+              "last_word": "cielo",
+              "rhyme": "elo"
+            },
+            "target_rhyme": "ar",
+            "current_rhyme": "elo",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ar', pero se obtuvo 'elo'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ar') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'o' | v3 = 'ejos'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Que lleva a olvido lo que fue, así duró",
+              "last_word": "duró",
+              "rhyme": "o"
+            },
+            "verse_3": {
+              "text": "Y las huellas de los días se van lejos",
+              "last_word": "lejos",
+              "rhyme": "ejos"
+            },
+            "target_rhyme": "o",
+            "current_rhyme": "ejos",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'o', pero se obtuvo 'ejos'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('o') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 13 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: El verso 1 tiene la rima A y el verso 4, el verso 2 tiene la rima B y el verso 3 se corrige para tener la rima B."
+        }
+      ]
+    },
+    {
+      "step": 1,
+      "phase": "prune",
+      "selected_beams": [
+        {
+          "stanza": [
+            "El tiempo, un río que sin cesar fluye,",
+            "Dejan rastros de recuerdos en alma",
+            "Las sombras de los años se desvanecen",
+            "Como hojas en otoño, sin regresar."
+          ],
+          "score": 0.7937253933193772,
+          "step_score": 0.7,
+          "score_history": [
+            0.9,
+            0.7
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 2 | mejoras = 1 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo, un río que sin cesar fluye,",
+              "Dejan huellas de recuerdos en el alma.",
+              "Las sombras de los años se desvanecen",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "repaired_stanza": [
+              "El tiempo, un río que sin cesar fluye,",
+              "Dejan rastros de recuerdos en alma",
+              "Las sombras de los años se desvanecen",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo, un río que sin cesar fluye,",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "El tiempo, un río que sin cesar fluye y corriente",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "El tiempo, un río que sin cesar fluye y se desborda",
+                    "syllables": 15,
+                    "distance": 4
+                  },
+                  {
+                    "verse": "El tiempo, un río que sin cesar fluye y se vuelve torrencial",
+                    "syllables": 18,
+                    "distance": 7
+                  },
+                  {
+                    "verse": "El tiempo, un río que sin cesar fluye y se torna impetuoso",
+                    "syllables": 17,
+                    "distance": 6
+                  },
+                  {
+                    "verse": "El tiempo, un río que sin cesar fluye y se convierte en torrente",
+                    "syllables": 18,
+                    "distance": 7
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Dejan huellas de recuerdos en el alma.",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Dejan rastros de recuerdos en alma",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Dejan rastros de recuerdos en alma",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "En el alma dejan huellas de recuerdo",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Rastros de recuerdos en alma dejan",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Dejan huellas de recuerdo en alma",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En alma, rastros de recuerdos dejan",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Las sombras de los años se desvanecen",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Como hojas en otoño, sin regresar.",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "El tiempo, un río que sin cesar fluye,",
+              "Dejan rastros de recuerdos en alma",
+              "Las sombras de los años se desvanecen",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "repaired_stanza": [
+              "El tiempo, un río que sin cesar fluye,",
+              "Dejan rastros de recuerdos en alma",
+              "Las sombras de los años se desvanecen",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "target_rhyme": "uye",
+            "current_rhyme": "ar",
+            "verse_1": {
+              "text": "El tiempo, un río que sin cesar fluye,",
+              "last_word": "fluye",
+              "rhyme": "uye"
+            },
+            "candidate_final_words": [
+              "fluye"
+            ],
+            "original_verse_4": "Como hojas en otoño, sin regresar.",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Como hojas en otoño, se van fluyendo",
+                "syllables": 11,
+                "final_word": "fluyendo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'uye' | v4 = 'endo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Como hojas en otoño, se van desfluyendo",
+                "syllables": 12,
+                "final_word": "desfluyendo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'uye' | v4 = 'endo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Como hojas en otoño, se van fluyendo arriba",
+                "syllables": 12,
+                "final_word": "arriba",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'uye' | v4 = 'arriba'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Como hojas en otoño, se van desfluyendo arriba",
+                "syllables": 13,
+                "final_word": "arriba",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'uye' | v4 = 'arriba'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Como hojas en otoño, se van fluyendo hacia abajo",
+                "syllables": 13,
+                "final_word": "abajo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'uye' | v4 = 'ajo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'uye' | v4 = 'ar'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo, un río que sin cesar fluye,",
+              "last_word": "fluye",
+              "rhyme": "uye"
+            },
+            "verse_4": {
+              "text": "Como hojas en otoño, sin regresar.",
+              "last_word": "regresar",
+              "rhyme": "ar"
+            },
+            "target_rhyme": "uye",
+            "current_rhyme": "ar",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'uye', pero se obtuvo 'ar'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('uye') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'alma' | v3 = 'ecen'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Dejan rastros de recuerdos en alma",
+              "last_word": "alma",
+              "rhyme": "alma"
+            },
+            "verse_3": {
+              "text": "Las sombras de los años se desvanecen",
+              "last_word": "desvanecen",
+              "rhyme": "ecen"
+            },
+            "target_rhyme": "alma",
+            "current_rhyme": "ecen",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'alma', pero se obtuvo 'ecen'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('alma') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido la rima del verso 3 y ajustado la longitud de algunos versos para cumplir con las restricciones formales"
+        },
+        {
+          "stanza": [
+            "El tiempo, un río que sin cesar corre,",
+            "Dejan rastros de recuerdos en el pecho.",
+            "Las sombras de los años se desvanecen",
+            "Como hojas en otoño, sin regresar."
+          ],
+          "score": 0.7348469228349535,
+          "step_score": 0.6,
+          "score_history": [
+            0.9,
+            0.6
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 2 | mejoras = 1 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo, un río que sin cesar corre,",
+              "Dejan huellas de recuerdos en el corazón.",
+              "Las sombras de los años se desvanecen",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "repaired_stanza": [
+              "El tiempo, un río que sin cesar corre,",
+              "Dejan rastros de recuerdos en el pecho.",
+              "Las sombras de los años se desvanecen",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo, un río que sin cesar corre,",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "El tiempo, un río que sin cesar fluye",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "El tiempo, un río que sin cesar curre",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "El tiempo, un río que sin cesar corre y baña",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "El tiempo, un río que sin cesar corre y avanza",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "El tiempo, un río que sin cesar corre y se extiende",
+                    "syllables": 14,
+                    "distance": 3
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Dejan huellas de recuerdos en el corazón.",
+                "original_syllables": 14,
+                "original_distance": 3,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Dejan rastros de recuerdos en el pecho.",
+                "selected_syllables": 12,
+                "selected_distance": 1,
+                "variants": [
+                  {
+                    "verse": "Dejan rastros de recuerdos en el pecho.",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En el corazón dejaron huellas de recuerdos.",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Dejan huella de recuerdos en mi corazón.",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Dejan huellas de recordatorios en el corazón.",
+                    "syllables": 16,
+                    "distance": 5
+                  },
+                  {
+                    "verse": "Dejan rastros de recuerdos en el alma.",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Las sombras de los años se desvanecen",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Como hojas en otoño, sin regresar.",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "El tiempo, un río que sin cesar corre,",
+              "Dejan rastros de recuerdos en el pecho.",
+              "Las sombras de los años se desvanecen",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "repaired_stanza": [
+              "El tiempo, un río que sin cesar corre,",
+              "Dejan rastros de recuerdos en el pecho.",
+              "Las sombras de los años se desvanecen",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "target_rhyme": "orre",
+            "current_rhyme": "ar",
+            "verse_1": {
+              "text": "El tiempo, un río que sin cesar corre,",
+              "last_word": "corre",
+              "rhyme": "orre"
+            },
+            "candidate_final_words": [
+              "corre"
+            ],
+            "original_verse_4": "Como hojas en otoño, sin regresar.",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "como hojas en otoño, se pierden orre",
+                "syllables": 10,
+                "final_word": "orre",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orre' | v4 = 'e'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "como hojas en otoño, se desvanecen orre",
+                "syllables": 12,
+                "final_word": "orre",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orre' | v4 = 'e'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "como hojas en otoño, se van orre",
+                "syllables": 9,
+                "final_word": "orre",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orre' | v4 = 'e'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "como hojas en otoño, se vuelven orre",
+                "syllables": 10,
+                "final_word": "orre",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orre' | v4 = 'e'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "como hojas en otoño, se alejan orre",
+                "syllables": 9,
+                "final_word": "orre",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orre' | v4 = 'e'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orre' | v4 = 'ar'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo, un río que sin cesar corre,",
+              "last_word": "corre",
+              "rhyme": "orre"
+            },
+            "verse_4": {
+              "text": "Como hojas en otoño, sin regresar.",
+              "last_word": "regresar",
+              "rhyme": "ar"
+            },
+            "target_rhyme": "orre",
+            "current_rhyme": "ar",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'orre', pero se obtuvo 'ar'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('orre') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'echo' | v3 = 'ecen'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Dejan rastros de recuerdos en el pecho.",
+              "last_word": "pecho",
+              "rhyme": "echo"
+            },
+            "verse_3": {
+              "text": "Las sombras de los años se desvanecen",
+              "last_word": "desvanecen",
+              "rhyme": "ecen"
+            },
+            "target_rhyme": "echo",
+            "current_rhyme": "ecen",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'echo', pero se obtuvo 'ecen'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('echo') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 10 silabas, pero deberia tener 11.\n- Verso 2: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido la rima del verso 3 y ajustado la longitud de algunos versos para cumplir con las restricciones formales"
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "phase": "expand",
+      "generated_candidates": [
+        {
+          "stanza": [
+            "El tiempo, un río que sin cesar fluye, En alma deja rastros de recuerdos, Y como hojas en otoño se deshacen, Dejan pasar el tiempo, sin regresos.",
+            "Tiempo, un río que sin cesar fluye, Dejan rastros de recuerdos en alma, Las sombras de los años se desvanecen, Y como hojas en otoño, sin regreso.",
+            "El tiempo, un río que sin cesar fluye, En alma deja rastros de recuerdos, Las sombras de los años se deshacen, Y como hojas en otoño, sin regreso.",
+            "Tiempo, un río que sin cesar fluye, Dejan rastros de recuerdos en alma, Las sombras de los años se desvanecen, Y como hojas en otoño, sin regreso."
+          ],
+          "score": 0.7937253933193772,
+          "step_score": 0.7,
+          "score_history": [
+            0.9,
+            0.7
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Verso 1: Añadiendo una silaba para cumplir con la metrica. Verso 4: Corregiendo la rima consonante."
+        },
+        {
+          "stanza": [
+            "El tiempo, como un río que siempre fluye,",
+            "Deja en el corazón huellas de recuerdos.",
+            "Las sombras de los años se desvanecen,",
+            "Como hojas de otoño, sin regresar."
+          ],
+          "score": 0.7348469228349535,
+          "step_score": 0.6,
+          "score_history": [
+            0.9,
+            0.6
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 10 silabas, pero deberia tener 11.\n- Verso 2: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido el número de silabas en versos 1 y 4 para cumplir con las 11 silabas. La rima ha sido mantenida."
+        },
+        {
+          "stanza": [
+            "El tiempo, un río que sin cesar corre,",
+            "Dejan rastros de recuerdos en el pecho.",
+            "Las sombras de los años se desvanecen,",
+            "Como hojas en otoño, sin regresar."
+          ],
+          "score": 0.7348469228349535,
+          "step_score": 0.6,
+          "score_history": [
+            0.9,
+            0.6
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 10 silabas, pero deberia tener 11.\n- Verso 2: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido el número de silabas en versos 2 y 3 para cumplir con las 11 silabas. La rima ha sido mantenida."
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "phase": "score",
+      "candidates": [
+        {
+          "stanza": [
+            "Tiempo, un río encesar fluye, Deja alma rastros y recuerdos.",
+            "Fluye el río sin cesar Tiempo, Dejan rastros de recuerdos en alma",
+            "El tiempo, río sin cesar fluye, deja alma recuerdos",
+            "Tiempo, río encesar fluye, dejan alma recuerdos y sombras"
+          ],
+          "score": 0.6316359597656379,
+          "step_score": 0.4,
+          "score_history": [
+            0.9,
+            0.7,
+            0.4
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=0/4 | rima=2/4 | score=8.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 4 | mejoras = 4 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo, un río que sin cesar fluye, En alma deja rastros de recuerdos, Y como hojas en otoño se deshacen, Dejan pasar el tiempo, sin regresos.",
+              "Tiempo, un río que sin cesar fluye, Dejan rastros de recuerdos en alma, Las sombras de los años se desvanecen, Y como hojas en otoño, sin regreso.",
+              "El tiempo, un río que sin cesar fluye, En alma deja rastros de recuerdos, Las sombras de los años se deshacen, Y como hojas en otoño, sin regreso.",
+              "Tiempo, un río que sin cesar fluye, Dejan rastros de recuerdos en alma, Las sombras de los años se desvanecen, Y como hojas en otoño, sin regreso."
+            ],
+            "repaired_stanza": [
+              "Tiempo, un río encesar fluye, Deja alma rastros y recuerdos.",
+              "Fluye el río sin cesar Tiempo, Dejan rastros de recuerdos en alma",
+              "El tiempo, río sin cesar fluye, deja alma recuerdos",
+              "Tiempo, río encesar fluye, dejan alma recuerdos y sombras"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo, un río que sin cesar fluye, En alma deja rastros de recuerdos, Y como hojas en otoño se deshacen, Dejan pasar el tiempo, sin regresos.",
+                "original_syllables": 42,
+                "original_distance": 31,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Tiempo, un río encesar fluye, Deja alma rastros y recuerdos.",
+                "selected_syllables": 16,
+                "selected_distance": 5,
+                "variants": [
+                  {
+                    "verse": "El tiempo, un río que sin cesar fluye, En alma deja recuerdos y rastros.",
+                    "syllables": 20,
+                    "distance": 9
+                  },
+                  {
+                    "verse": "Tiempo, un río encesar fluye, Deja alma rastros y recuerdos.",
+                    "syllables": 16,
+                    "distance": 5
+                  },
+                  {
+                    "verse": "El tiempo, río sin cesar fluye, Deja alma rastros y recordar.",
+                    "syllables": 19,
+                    "distance": 8
+                  },
+                  {
+                    "verse": "Tiempo, río que sin cesar fluye, En alma deja recuerdos y rastro.",
+                    "syllables": 19,
+                    "distance": 8
+                  },
+                  {
+                    "verse": "El tiempo, río encesar fluye, Deja alma recordar y rastros.",
+                    "syllables": 17,
+                    "distance": 6
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Tiempo, un río que sin cesar fluye, Dejan rastros de recuerdos en alma, Las sombras de los años se desvanecen, Y como hojas en otoño, sin regreso.",
+                "original_syllables": 42,
+                "original_distance": 31,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Fluye el río sin cesar Tiempo, Dejan rastros de recuerdos en alma",
+                "selected_syllables": 19,
+                "selected_distance": 8,
+                "variants": [
+                  {
+                    "verse": "Tiempo río que sin cesar fluye, Dejan rastros de recuerdos en alma",
+                    "syllables": 20,
+                    "distance": 9
+                  },
+                  {
+                    "verse": "Río que sin cesar Tiempo fluye, Dejan rastros de recuerdos en alma",
+                    "syllables": 20,
+                    "distance": 9
+                  },
+                  {
+                    "verse": "Fluye el río sin cesar Tiempo, Dejan rastros de recuerdos en alma",
+                    "syllables": 19,
+                    "distance": 8
+                  },
+                  {
+                    "verse": "Tiempo fluye el río sin cesar, Dejan rastros de recuerdos en alma",
+                    "syllables": 19,
+                    "distance": 8
+                  },
+                  {
+                    "verse": "Río que sin cesar fluye Tiempo, Rastros de recuerdos en alma desvanecen",
+                    "syllables": 22,
+                    "distance": 11
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "El tiempo, un río que sin cesar fluye, En alma deja rastros de recuerdos, Las sombras de los años se deshacen, Y como hojas en otoño, sin regreso.",
+                "original_syllables": 41,
+                "original_distance": 30,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "El tiempo, río sin cesar fluye, deja alma recuerdos",
+                "selected_syllables": 15,
+                "selected_distance": 4,
+                "variants": [
+                  {
+                    "verse": "El tiempo, río sin cesar fluye, deja alma recuerdos",
+                    "syllables": 15,
+                    "distance": 4
+                  },
+                  {
+                    "verse": "Río sin cesar el tiempo fluye, deja en alma recuerdos",
+                    "syllables": 16,
+                    "distance": 5
+                  },
+                  {
+                    "verse": "Tiempo, río sin cesar fluye, deja en alma trazas de recuerdos",
+                    "syllables": 18,
+                    "distance": 7
+                  },
+                  {
+                    "verse": "El tiempo, río sin cesar fluye, deja en alma trazas de recuerdo",
+                    "syllables": 19,
+                    "distance": 8
+                  },
+                  {
+                    "verse": "Río sin cesar el tiempo fluye, deja en alma trazas de recordar",
+                    "syllables": 20,
+                    "distance": 9
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Tiempo, un río que sin cesar fluye, Dejan rastros de recuerdos en alma, Las sombras de los años se desvanecen, Y como hojas en otoño, sin regreso.",
+                "original_syllables": 42,
+                "original_distance": 31,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Tiempo, río encesar fluye, dejan alma recuerdos y sombras",
+                "selected_syllables": 17,
+                "selected_distance": 6,
+                "variants": [
+                  {
+                    "verse": "Tiempo, río que sin cesar fluye, dejan alma recuerdos y sombras",
+                    "syllables": 19,
+                    "distance": 8
+                  },
+                  {
+                    "verse": "Tiempo, río encesar fluye, dejan alma recuerdos y sombras",
+                    "syllables": 17,
+                    "distance": 6
+                  },
+                  {
+                    "verse": "Tiempo, río que fluye sin cesar, dejan alma recuerdos y sombras",
+                    "syllables": 19,
+                    "distance": 8
+                  },
+                  {
+                    "verse": "Tiempo, río que fluye sin cesar, dejan alma recuerdos y desvanecer",
+                    "syllables": 22,
+                    "distance": 11
+                  },
+                  {
+                    "verse": "Tiempo, río que sin cesar fluye, dejan alma recuerdos y desaparecer",
+                    "syllables": 22,
+                    "distance": 11
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "Tiempo, un río encesar fluye, Deja alma rastros y recuerdos.",
+              "Fluye el río sin cesar Tiempo, Dejan rastros de recuerdos en alma",
+              "El tiempo, río sin cesar fluye, deja alma recuerdos",
+              "Tiempo, río encesar fluye, dejan alma recuerdos y sombras"
+            ],
+            "repaired_stanza": [
+              "Tiempo, un río encesar fluye, Deja alma rastros y recuerdos.",
+              "Fluye el río sin cesar Tiempo, Dejan rastros de recuerdos en alma",
+              "El tiempo, río sin cesar fluye, deja alma recuerdos",
+              "Tiempo, río encesar fluye, dejan alma recuerdos y sombras"
+            ],
+            "target_rhyme": "erdos",
+            "current_rhyme": "ombras",
+            "verse_1": {
+              "text": "Tiempo, un río encesar fluye, Deja alma rastros y recuerdos.",
+              "last_word": "recuerdos",
+              "rhyme": "erdos"
+            },
+            "candidate_final_words": [
+              "recuerdos"
+            ],
+            "original_verse_4": "Tiempo, río encesar fluye, dejan alma recuerdos y sombras",
+            "original_verse_4_syllables": 17,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Tiempo, río encesar fluye, dejan alma recuerdos y heridos",
+                "syllables": 18,
+                "final_word": "heridos",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erdos' | v4 = 'idos'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Tiempo, río encesar fluye, dejan alma recuerdos y heridas",
+                "syllables": 18,
+                "final_word": "heridas",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erdos' | v4 = 'idas'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Tiempo, río encesar fluye, dejan alma recuerdos y herido",
+                "syllables": 18,
+                "final_word": "herido",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erdos' | v4 = 'ido'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Tiempo, río encesar fluye, dejan alma recuerdos y heridosa",
+                "syllables": 19,
+                "final_word": "heridosa",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erdos' | v4 = 'osa'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Tiempo, río encesar fluye, dejan alma recuerdos y heridasa",
+                "syllables": 19,
+                "final_word": "heridasa",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erdos' | v4 = 'asa'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erdos' | v4 = 'ombras'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "Tiempo, un río encesar fluye, Deja alma rastros y recuerdos.",
+              "last_word": "recuerdos",
+              "rhyme": "erdos"
+            },
+            "verse_4": {
+              "text": "Tiempo, río encesar fluye, dejan alma recuerdos y sombras",
+              "last_word": "sombras",
+              "rhyme": "ombras"
+            },
+            "target_rhyme": "erdos",
+            "current_rhyme": "ombras",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'erdos', pero se obtuvo 'ombras'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('erdos') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'alma' | v3 = 'erdos'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Fluye el río sin cesar Tiempo, Dejan rastros de recuerdos en alma",
+              "last_word": "alma",
+              "rhyme": "alma"
+            },
+            "verse_3": {
+              "text": "El tiempo, río sin cesar fluye, deja alma recuerdos",
+              "last_word": "recuerdos",
+              "rhyme": "erdos"
+            },
+            "target_rhyme": "alma",
+            "current_rhyme": "erdos",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'alma', pero se obtuvo 'erdos'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('alma') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 8.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 16 silabas, pero deberia tener 11.\n- Verso 2: tiene 19 silabas, pero deberia tener 11.\n- Verso 3: tiene 15 silabas, pero deberia tener 11.\n- Verso 4: tiene 17 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima A, pero se esperaba B.\n- Verso 4: rima C, pero se esperaba A.",
+          "generation_reasoning": "Verso 1: Añadiendo una silaba para cumplir con la metrica. Verso 4: Corregiendo la rima consonante."
+        },
+        {
+          "stanza": [
+            "El tiempo, como un río que siempre fluye,",
+            "Deja en el corazón huellas de recuerdos.",
+            "Las sombras de los años se desvanecen,",
+            "Como hojas de otoño, sin regresar nunca"
+          ],
+          "score": 0.723042679252569,
+          "step_score": 0.7,
+          "score_history": [
+            0.9,
+            0.6,
+            0.7
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 2 | mejoras = 1 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo, como un río que siempre fluye,",
+              "Deja en el corazón huellas de recuerdos.",
+              "Las sombras de los años se desvanecen,",
+              "Como hojas de otoño, sin regresar."
+            ],
+            "repaired_stanza": [
+              "El tiempo, como un río que siempre fluye,",
+              "Deja en el corazón huellas de recuerdos.",
+              "Las sombras de los años se desvanecen,",
+              "Como hojas de otoño, sin regresar nunca"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo, como un río que siempre fluye,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Deja en el corazón huellas de recuerdos.",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Dejan en el corazón huellas de recuerdo",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Deja en el corazón huella de recuerdos",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En el corazón dejan huellas de recuerdo",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Huellas de recuerdo dejan en el corazón",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Dejan en el corazón huellas de rastro recuerdo",
+                    "syllables": 15,
+                    "distance": 4
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Las sombras de los años se desvanecen,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Como hojas de otoño, sin regresar.",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Como hojas de otoño, sin regresar nunca",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Como hojas de otoño, sin regresar nunca",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Como hojas de otoño, sin volver jamás",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Como hojas de otoño, sin retorno posible",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Como hojas de otoño, sin reencuentro algún día",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Como hojas de otoño, nunca más se encuentran",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "El tiempo, como un río que siempre fluye,",
+              "Deja en el corazón huellas de recuerdos.",
+              "Las sombras de los años se desvanecen,",
+              "Como hojas de otoño, sin regresar nunca"
+            ],
+            "repaired_stanza": [
+              "El tiempo, como un río que siempre fluye,",
+              "Deja en el corazón huellas de recuerdos.",
+              "Las sombras de los años se desvanecen,",
+              "Como hojas de otoño, sin regresar nunca"
+            ],
+            "target_rhyme": "uye",
+            "current_rhyme": "unca",
+            "verse_1": {
+              "text": "El tiempo, como un río que siempre fluye,",
+              "last_word": "fluye",
+              "rhyme": "uye"
+            },
+            "candidate_final_words": [
+              "fluye"
+            ],
+            "original_verse_4": "Como hojas de otoño, sin regresar nunca",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "como hojas de otoño, fluyen sin regresar",
+                "syllables": 12,
+                "final_word": "regresar",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'uye' | v4 = 'ar'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "como hojas de otoño, se van sin regresar",
+                "syllables": 12,
+                "final_word": "regresar",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'uye' | v4 = 'ar'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "como hojas de otoño, fluyen sin volver",
+                "syllables": 11,
+                "final_word": "volver",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'uye' | v4 = 'er'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "como hojas de otoño, fluyen sin retorno",
+                "syllables": 10,
+                "final_word": "retorno",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'uye' | v4 = 'etorno'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "como hojas de otoño, fluyen sin vuelta",
+                "syllables": 10,
+                "final_word": "vuelta",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'uye' | v4 = 'elta'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'uye' | v4 = 'unca'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo, como un río que siempre fluye,",
+              "last_word": "fluye",
+              "rhyme": "uye"
+            },
+            "verse_4": {
+              "text": "Como hojas de otoño, sin regresar nunca",
+              "last_word": "nunca",
+              "rhyme": "unca"
+            },
+            "target_rhyme": "uye",
+            "current_rhyme": "unca",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'uye', pero se obtuvo 'unca'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('uye') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'erdos' | v3 = 'ecen'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Deja en el corazón huellas de recuerdos.",
+              "last_word": "recuerdos",
+              "rhyme": "erdos"
+            },
+            "verse_3": {
+              "text": "Las sombras de los años se desvanecen,",
+              "last_word": "desvanecen",
+              "rhyme": "ecen"
+            },
+            "target_rhyme": "erdos",
+            "current_rhyme": "ecen",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'erdos', pero se obtuvo 'ecen'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('erdos') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido el número de silabas en versos 1 y 4 para cumplir con las 11 silabas. La rima ha sido mantenida."
+        },
+        {
+          "stanza": [
+            "El tiempo, un río que sin parada corre",
+            "Dejan rastros de recuerdos en el pecho.",
+            "Las sombras de los años se desvanecen,",
+            "Como hojas en otoño, sin regresar."
+          ],
+          "score": 0.723042679252569,
+          "step_score": 0.7,
+          "score_history": [
+            0.9,
+            0.6,
+            0.7
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 2 | mejoras = 1 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo, un río que sin cesar corre,",
+              "Dejan rastros de recuerdos en el pecho.",
+              "Las sombras de los años se desvanecen,",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "repaired_stanza": [
+              "El tiempo, un río que sin parada corre",
+              "Dejan rastros de recuerdos en el pecho.",
+              "Las sombras de los años se desvanecen,",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo, un río que sin cesar corre,",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "El tiempo, un río que sin parada corre",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "El tiempo, un río que sin cesar fluye",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "El tiempo, un río que en corriente dura",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "El tiempo, un río que sin parada corre",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "El tiempo, un río que sin cesar vuelve",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "El tiempo, un río que sin cesar se mueve",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Dejan rastros de recuerdos en el pecho.",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Dejan huellas de recuerdos en mi pecho",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Dejan rastros de recuerdos en mi corazón",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Dejan rastro de recuerdos en mi pecho",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En el pecho dejan rastros de recuerdo",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En mi pecho dejan rastros de recuerdo",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Las sombras de los años se desvanecen,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Como hojas en otoño, sin regresar.",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "El tiempo, un río que sin parada corre",
+              "Dejan rastros de recuerdos en el pecho.",
+              "Las sombras de los años se desvanecen,",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "repaired_stanza": [
+              "El tiempo, un río que sin parada corre",
+              "Dejan rastros de recuerdos en el pecho.",
+              "Las sombras de los años se desvanecen,",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "target_rhyme": "orre",
+            "current_rhyme": "ar",
+            "verse_1": {
+              "text": "El tiempo, un río que sin parada corre",
+              "last_word": "corre",
+              "rhyme": "orre"
+            },
+            "candidate_final_words": [
+              "corre"
+            ],
+            "original_verse_4": "Como hojas en otoño, sin regresar.",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Como hojas en otoño, se desvanece orre",
+                "syllables": 11,
+                "final_word": "orre",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orre' | v4 = 'e'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Como hojas en otoño, se van orreando",
+                "syllables": 10,
+                "final_word": "orreando",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orre' | v4 = 'ando'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Como hojas en otoño, se corren orre",
+                "syllables": 10,
+                "final_word": "orre",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orre' | v4 = 'e'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Como hojas en otoño, se pierden orre",
+                "syllables": 10,
+                "final_word": "orre",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orre' | v4 = 'e'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Como hojas en otoño, se deshacen orre",
+                "syllables": 11,
+                "final_word": "orre",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orre' | v4 = 'e'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orre' | v4 = 'ar'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo, un río que sin parada corre",
+              "last_word": "corre",
+              "rhyme": "orre"
+            },
+            "verse_4": {
+              "text": "Como hojas en otoño, sin regresar.",
+              "last_word": "regresar",
+              "rhyme": "ar"
+            },
+            "target_rhyme": "orre",
+            "current_rhyme": "ar",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'orre', pero se obtuvo 'ar'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('orre') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'echo' | v3 = 'ecen'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Dejan rastros de recuerdos en el pecho.",
+              "last_word": "pecho",
+              "rhyme": "echo"
+            },
+            "verse_3": {
+              "text": "Las sombras de los años se desvanecen,",
+              "last_word": "desvanecen",
+              "rhyme": "ecen"
+            },
+            "target_rhyme": "echo",
+            "current_rhyme": "ecen",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'echo', pero se obtuvo 'ecen'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('echo') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido el número de silabas en versos 2 y 3 para cumplir con las 11 silabas. La rima ha sido mantenida."
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "phase": "prune",
+      "selected_beams": [
+        {
+          "stanza": [
+            "El tiempo, como un río que siempre fluye,",
+            "Deja en el corazón huellas de recuerdos.",
+            "Las sombras de los años se desvanecen,",
+            "Como hojas de otoño, sin regresar nunca"
+          ],
+          "score": 0.723042679252569,
+          "step_score": 0.7,
+          "score_history": [
+            0.9,
+            0.6,
+            0.7
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 2 | mejoras = 1 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo, como un río que siempre fluye,",
+              "Deja en el corazón huellas de recuerdos.",
+              "Las sombras de los años se desvanecen,",
+              "Como hojas de otoño, sin regresar."
+            ],
+            "repaired_stanza": [
+              "El tiempo, como un río que siempre fluye,",
+              "Deja en el corazón huellas de recuerdos.",
+              "Las sombras de los años se desvanecen,",
+              "Como hojas de otoño, sin regresar nunca"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo, como un río que siempre fluye,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Deja en el corazón huellas de recuerdos.",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Dejan en el corazón huellas de recuerdo",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Deja en el corazón huella de recuerdos",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En el corazón dejan huellas de recuerdo",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Huellas de recuerdo dejan en el corazón",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Dejan en el corazón huellas de rastro recuerdo",
+                    "syllables": 15,
+                    "distance": 4
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Las sombras de los años se desvanecen,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Como hojas de otoño, sin regresar.",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Como hojas de otoño, sin regresar nunca",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Como hojas de otoño, sin regresar nunca",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Como hojas de otoño, sin volver jamás",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Como hojas de otoño, sin retorno posible",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Como hojas de otoño, sin reencuentro algún día",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Como hojas de otoño, nunca más se encuentran",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "El tiempo, como un río que siempre fluye,",
+              "Deja en el corazón huellas de recuerdos.",
+              "Las sombras de los años se desvanecen,",
+              "Como hojas de otoño, sin regresar nunca"
+            ],
+            "repaired_stanza": [
+              "El tiempo, como un río que siempre fluye,",
+              "Deja en el corazón huellas de recuerdos.",
+              "Las sombras de los años se desvanecen,",
+              "Como hojas de otoño, sin regresar nunca"
+            ],
+            "target_rhyme": "uye",
+            "current_rhyme": "unca",
+            "verse_1": {
+              "text": "El tiempo, como un río que siempre fluye,",
+              "last_word": "fluye",
+              "rhyme": "uye"
+            },
+            "candidate_final_words": [
+              "fluye"
+            ],
+            "original_verse_4": "Como hojas de otoño, sin regresar nunca",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "como hojas de otoño, fluyen sin regresar",
+                "syllables": 12,
+                "final_word": "regresar",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'uye' | v4 = 'ar'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "como hojas de otoño, se van sin regresar",
+                "syllables": 12,
+                "final_word": "regresar",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'uye' | v4 = 'ar'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "como hojas de otoño, fluyen sin volver",
+                "syllables": 11,
+                "final_word": "volver",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'uye' | v4 = 'er'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "como hojas de otoño, fluyen sin retorno",
+                "syllables": 10,
+                "final_word": "retorno",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'uye' | v4 = 'etorno'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "como hojas de otoño, fluyen sin vuelta",
+                "syllables": 10,
+                "final_word": "vuelta",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'uye' | v4 = 'elta'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'uye' | v4 = 'unca'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo, como un río que siempre fluye,",
+              "last_word": "fluye",
+              "rhyme": "uye"
+            },
+            "verse_4": {
+              "text": "Como hojas de otoño, sin regresar nunca",
+              "last_word": "nunca",
+              "rhyme": "unca"
+            },
+            "target_rhyme": "uye",
+            "current_rhyme": "unca",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'uye', pero se obtuvo 'unca'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('uye') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'erdos' | v3 = 'ecen'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Deja en el corazón huellas de recuerdos.",
+              "last_word": "recuerdos",
+              "rhyme": "erdos"
+            },
+            "verse_3": {
+              "text": "Las sombras de los años se desvanecen,",
+              "last_word": "desvanecen",
+              "rhyme": "ecen"
+            },
+            "target_rhyme": "erdos",
+            "current_rhyme": "ecen",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'erdos', pero se obtuvo 'ecen'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('erdos') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido el número de silabas en versos 1 y 4 para cumplir con las 11 silabas. La rima ha sido mantenida."
+        },
+        {
+          "stanza": [
+            "El tiempo, un río que sin parada corre",
+            "Dejan rastros de recuerdos en el pecho.",
+            "Las sombras de los años se desvanecen,",
+            "Como hojas en otoño, sin regresar."
+          ],
+          "score": 0.723042679252569,
+          "step_score": 0.7,
+          "score_history": [
+            0.9,
+            0.6,
+            0.7
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 2 | mejoras = 1 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo, un río que sin cesar corre,",
+              "Dejan rastros de recuerdos en el pecho.",
+              "Las sombras de los años se desvanecen,",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "repaired_stanza": [
+              "El tiempo, un río que sin parada corre",
+              "Dejan rastros de recuerdos en el pecho.",
+              "Las sombras de los años se desvanecen,",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo, un río que sin cesar corre,",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "El tiempo, un río que sin parada corre",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "El tiempo, un río que sin cesar fluye",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "El tiempo, un río que en corriente dura",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "El tiempo, un río que sin parada corre",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "El tiempo, un río que sin cesar vuelve",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "El tiempo, un río que sin cesar se mueve",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Dejan rastros de recuerdos en el pecho.",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Dejan huellas de recuerdos en mi pecho",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Dejan rastros de recuerdos en mi corazón",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Dejan rastro de recuerdos en mi pecho",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En el pecho dejan rastros de recuerdo",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En mi pecho dejan rastros de recuerdo",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Las sombras de los años se desvanecen,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Como hojas en otoño, sin regresar.",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "El tiempo, un río que sin parada corre",
+              "Dejan rastros de recuerdos en el pecho.",
+              "Las sombras de los años se desvanecen,",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "repaired_stanza": [
+              "El tiempo, un río que sin parada corre",
+              "Dejan rastros de recuerdos en el pecho.",
+              "Las sombras de los años se desvanecen,",
+              "Como hojas en otoño, sin regresar."
+            ],
+            "target_rhyme": "orre",
+            "current_rhyme": "ar",
+            "verse_1": {
+              "text": "El tiempo, un río que sin parada corre",
+              "last_word": "corre",
+              "rhyme": "orre"
+            },
+            "candidate_final_words": [
+              "corre"
+            ],
+            "original_verse_4": "Como hojas en otoño, sin regresar.",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Como hojas en otoño, se desvanece orre",
+                "syllables": 11,
+                "final_word": "orre",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orre' | v4 = 'e'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Como hojas en otoño, se van orreando",
+                "syllables": 10,
+                "final_word": "orreando",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orre' | v4 = 'ando'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Como hojas en otoño, se corren orre",
+                "syllables": 10,
+                "final_word": "orre",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orre' | v4 = 'e'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Como hojas en otoño, se pierden orre",
+                "syllables": 10,
+                "final_word": "orre",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orre' | v4 = 'e'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Como hojas en otoño, se deshacen orre",
+                "syllables": 11,
+                "final_word": "orre",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orre' | v4 = 'e'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orre' | v4 = 'ar'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo, un río que sin parada corre",
+              "last_word": "corre",
+              "rhyme": "orre"
+            },
+            "verse_4": {
+              "text": "Como hojas en otoño, sin regresar.",
+              "last_word": "regresar",
+              "rhyme": "ar"
+            },
+            "target_rhyme": "orre",
+            "current_rhyme": "ar",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'orre', pero se obtuvo 'ar'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('orre') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'echo' | v3 = 'ecen'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Dejan rastros de recuerdos en el pecho.",
+              "last_word": "pecho",
+              "rhyme": "echo"
+            },
+            "verse_3": {
+              "text": "Las sombras de los años se desvanecen,",
+              "last_word": "desvanecen",
+              "rhyme": "ecen"
+            },
+            "target_rhyme": "echo",
+            "current_rhyme": "ecen",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'echo', pero se obtuvo 'ecen'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('echo') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido el número de silabas en versos 2 y 3 para cumplir con las 11 silabas. La rima ha sido mantenida."
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "phase": "stop",
+      "reason": "max_steps",
+      "best_score": 0.723042679252569
+    }
+  ]
+}

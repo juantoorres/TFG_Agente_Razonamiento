@@ -1,0 +1,42 @@
+ESTROFA FINAL
+
+Modelo: mistral:7b-instruct
+Temperatura: 0.3
+Num predict: 600
+k: 2
+max_steps: 3
+alpha: 1.0
+Reparacion metrica activa: True
+Variantes por verso para reparacion metrica: 5
+Temperatura reparacion metrica: 0.4
+Num predict reparacion metrica: 200
+Reparacion rima A activa: True
+Variantes para reparacion rima A: 5
+Temperatura reparacion rima A: 0.3
+Num predict reparacion rima A: 200
+
+Score global: 0.660
+Historial de scores: [0.8, 0.6, 0.6]
+Resumen de metricas: versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20
+Resumen de reparacion metrica: reparación métrica = activa | intentos = 3 | mejoras = 1 | cambio = True
+Resumen reparacion rima A: reparacion rima A = activa | intento = True | cambio = False
+Resumen rima exterior AXYA: rima AXYA = incorrecta | objetivo = 'amargos' | v4 = 'anciano'
+Resumen rima interior B: rima interior B = incorrecta | objetivo = 'alma' | v3 = 'egra'
+
+Feedback final:
+Puntuacion formal total: 12.0/20.
+Revisa los siguientes aspectos formales antes de generar una nueva version:
+Numero de versos:
+- El numero de versos es correcto.
+Silabas metricas:
+- Verso 2: tiene 12 silabas, pero deberia tener 11.
+- Verso 3: tiene 10 silabas, pero deberia tener 11.
+Rima consonante:
+- Verso 3: rima C, pero se esperaba B.
+- Verso 4: rima D, pero se esperaba A.
+
+Estrofa completa:
+1. El tiempo, un río que trae recuerdos amargos,
+2. Deja un reflejo oscuro y largo en mi alma.
+3. Y la nostalgia, como una flor negra,
+4. No le deja seguir lento y anciano.

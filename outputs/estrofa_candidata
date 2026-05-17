@@ -1,0 +1,20 @@
+=== SCORE STEP 0 ===
+
+=== PRUNE STEP 0 ===
+
+Beam 0:
+Score global: 0.900
+Score ultimo paso: 0.900
+Historial scores: [0.9]
+Resumen métricas: versos=4/4 | endecasilabos=4/4 | rima=3/4 | score=18.0/20
+Reparación métrica: reparación métrica = activa | intentos = 2 | mejoras = 2 | cambio = True
+Reparacion rima A: reparacion rima A = no necesaria
+Rima exterior AXYA: rima AXYA = correcta | v1 = 'ar' | v4 = 'ar'
+Rima interior B: rima interior B = incorrecta | objetivo = 'o' | v3 = 'ecen'
+Estrofa completa:
+  1. El tiempo, un río que pasa sin cesar,
+  2. Dejan rastros de recuerdos en el seno
+  3. Las sombras de los años se desvanecen
+  4. Como hojas en otoño, sin regresar.
+Feedback principal:
+   Puntuacion formal total: 18.0/20.

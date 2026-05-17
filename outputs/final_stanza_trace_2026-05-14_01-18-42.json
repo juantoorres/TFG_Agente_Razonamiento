@@ -1,0 +1,3415 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200
+  },
+  "trace": [
+    {
+      "step": 0,
+      "phase": "expand",
+      "generated_candidates": [
+        {
+          "stanza": [
+            "El tiempo pasa, y yo me quedo atrás",
+            "En recuerdos que no pueden ser retrasados",
+            "Y el corazón se llena de tristeza",
+            "Como un río que ya no puede volver a pasar"
+          ],
+          "score": 0.0,
+          "step_score": 0.0,
+          "score_history": [],
+          "metrics_summary": "versos=?/? | endecasilabos=?/? | rima=?/? | score=?/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "feedback": "Todavia no se ha generado ninguna estrofa.",
+          "generation_reasoning": "Versos generados con rimas consonantes ABBA y temática de nostalgia del tiempo."
+        },
+        {
+          "stanza": [
+            "Pasan los años, y yo me siento viejito",
+            "En esta tristeza que no se puede evitar",
+            "Y el corazón se llena de nostalgia",
+            "Como un río que ya no puede volver a pasar"
+          ],
+          "score": 0.0,
+          "step_score": 0.0,
+          "score_history": [],
+          "metrics_summary": "versos=?/? | endecasilabos=?/? | rima=?/? | score=?/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "feedback": "Todavia no se ha generado ninguna estrofa.",
+          "generation_reasoning": "Versos generados con rimas consonantes ABBA y temática de nostalgia del tiempo."
+        }
+      ]
+    },
+    {
+      "step": 0,
+      "phase": "score",
+      "candidates": [
+        {
+          "stanza": [
+            "El tiempo pasa, y yo me quedo atrás",
+            "Recuerdos inalcanzables por el retraso",
+            "El corazón lleno de tristeza se acerca",
+            "Como un río que ya no puede regresar"
+          ],
+          "score": 0.6,
+          "step_score": 0.6,
+          "score_history": [
+            0.6
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 3 | mejoras = 3 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo pasa, y yo me quedo atrás",
+              "En recuerdos que no pueden ser retrasados",
+              "Y el corazón se llena de tristeza",
+              "Como un río que ya no puede volver a pasar"
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa, y yo me quedo atrás",
+              "Recuerdos inalcanzables por el retraso",
+              "El corazón lleno de tristeza se acerca",
+              "Como un río que ya no puede regresar"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo pasa, y yo me quedo atrás",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En recuerdos que no pueden ser retrasados",
+                "original_syllables": 13,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Recuerdos inalcanzables por el retraso",
+                "selected_syllables": 12,
+                "selected_distance": 1,
+                "variants": [
+                  {
+                    "verse": "En recuerdos que se resisten al retraso",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Recuerdos inalcanzables por el retraso",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Recuerdos que no pueden ser retrasados aún",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Recuerdos que resistir al retraso es imposible",
+                    "syllables": 15,
+                    "distance": 4
+                  },
+                  {
+                    "verse": "En recuerdos que resisten al retrasar",
+                    "syllables": 13,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y el corazón se llena de tristeza",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "El corazón lleno de tristeza se acerca",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Y el corazón se llena de tristeza y soledad",
+                    "syllables": 17,
+                    "distance": 6
+                  },
+                  {
+                    "verse": "El corazón lleno de tristeza se acerca",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Corazón, lleno de tristeza, me rellena",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En mi corazón, la tristeza se acumula",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Tristeza que en mi corazón se apilupa",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Como un río que ya no puede volver a pasar",
+                "original_syllables": 14,
+                "original_distance": 3,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Como un río que ya no puede regresar",
+                "selected_syllables": 12,
+                "selected_distance": 1,
+                "variants": [
+                  {
+                    "verse": "Como un río que ya no puede regresar",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Como un río que ya se ha ido",
+                    "syllables": 6,
+                    "distance": 5
+                  },
+                  {
+                    "verse": "Como un río que su paso acaba",
+                    "syllables": 8,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Como un río que ya se fue",
+                    "syllables": 7,
+                    "distance": 4
+                  },
+                  {
+                    "verse": "Como un río que ya no vuelve",
+                    "syllables": 8,
+                    "distance": 3
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo='as' | v4='ar'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo pasa, y yo me quedo atrás",
+              "last_word": "atrás",
+              "rhyme": "as"
+            },
+            "verse_4": {
+              "text": "Como un río que ya no puede regresar",
+              "last_word": "regresar",
+              "rhyme": "ar"
+            },
+            "target_rhyme": "as",
+            "current_rhyme": "ar",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'as', pero se obtuvo 'ar'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('as') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 12 silabas, pero deberia tener 11.\n- Verso 4: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Versos generados con rimas consonantes ABBA y temática de nostalgia del tiempo."
+        },
+        {
+          "stanza": [
+            "Pasan los años, y yo me siento viejo",
+            "En esta tristeza que es inevitable",
+            "Nostalgia se llena mi corazón",
+            "Como un río que ya no puede volver"
+          ],
+          "score": 0.8,
+          "step_score": 0.8,
+          "score_history": [
+            0.8
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 4 | mejoras = 4 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "Pasan los años, y yo me siento viejito",
+              "En esta tristeza que no se puede evitar",
+              "Y el corazón se llena de nostalgia",
+              "Como un río que ya no puede volver a pasar"
+            ],
+            "repaired_stanza": [
+              "Pasan los años, y yo me siento viejo",
+              "En esta tristeza que es inevitable",
+              "Nostalgia se llena mi corazón",
+              "Como un río que ya no puede volver"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "Pasan los años, y yo me siento viejito",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Pasan los años, y yo me siento viejo",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Pasan los años, y yo me siento viejo",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Pasan los años, y ya me siento viejo",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Pasan los años, y sentimiento viejo",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Pasan los años, y yo el viejo soy",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Pasan los años, y ya voy siendo viejo",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En esta tristeza que no se puede evitar",
+                "original_syllables": 13,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "En esta tristeza que es inevitable",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "En esta tristeza que no se evita",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En esta tristeza que evadir no se",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En esta tristeza que es inevitable",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "En esta tristeza que se puede vivir",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "En esta tristeza que no se escapa",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y el corazón se llena de nostalgia",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Nostalgia se llena mi corazón",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Y lleno se corazón de nostalgia",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Corazón se llena de nostálgica",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Se llena el corazón de nostalgo",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Nostalgia se llena mi corazón",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Lleno es el corazón de nostalgia",
+                    "syllables": 9,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Como un río que ya no puede volver a pasar",
+                "original_syllables": 14,
+                "original_distance": 3,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Como un río que ya no puede volver",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Como un río que ya no puede volver",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Como el río que ya no puede regresar",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Un río que ya no puede regresar más",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Río que ya no puede volver a pasar por aquí",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Ya no se puede volver, como un río viejo",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo='ejo' | v4='er'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "Pasan los años, y yo me siento viejo",
+              "last_word": "viejo",
+              "rhyme": "ejo"
+            },
+            "verse_4": {
+              "text": "Como un río que ya no puede volver",
+              "last_word": "volver",
+              "rhyme": "er"
+            },
+            "target_rhyme": "ejo",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ejo', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ejo') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Versos generados con rimas consonantes ABBA y temática de nostalgia del tiempo."
+        }
+      ]
+    },
+    {
+      "step": 0,
+      "phase": "prune",
+      "selected_beams": [
+        {
+          "stanza": [
+            "Pasan los años, y yo me siento viejo",
+            "En esta tristeza que es inevitable",
+            "Nostalgia se llena mi corazón",
+            "Como un río que ya no puede volver"
+          ],
+          "score": 0.8,
+          "step_score": 0.8,
+          "score_history": [
+            0.8
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 4 | mejoras = 4 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "Pasan los años, y yo me siento viejito",
+              "En esta tristeza que no se puede evitar",
+              "Y el corazón se llena de nostalgia",
+              "Como un río que ya no puede volver a pasar"
+            ],
+            "repaired_stanza": [
+              "Pasan los años, y yo me siento viejo",
+              "En esta tristeza que es inevitable",
+              "Nostalgia se llena mi corazón",
+              "Como un río que ya no puede volver"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "Pasan los años, y yo me siento viejito",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Pasan los años, y yo me siento viejo",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Pasan los años, y yo me siento viejo",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Pasan los años, y ya me siento viejo",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Pasan los años, y sentimiento viejo",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Pasan los años, y yo el viejo soy",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Pasan los años, y ya voy siendo viejo",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En esta tristeza que no se puede evitar",
+                "original_syllables": 13,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "En esta tristeza que es inevitable",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "En esta tristeza que no se evita",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En esta tristeza que evadir no se",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En esta tristeza que es inevitable",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "En esta tristeza que se puede vivir",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "En esta tristeza que no se escapa",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y el corazón se llena de nostalgia",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Nostalgia se llena mi corazón",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Y lleno se corazón de nostalgia",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Corazón se llena de nostálgica",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Se llena el corazón de nostalgo",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Nostalgia se llena mi corazón",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Lleno es el corazón de nostalgia",
+                    "syllables": 9,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Como un río que ya no puede volver a pasar",
+                "original_syllables": 14,
+                "original_distance": 3,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Como un río que ya no puede volver",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Como un río que ya no puede volver",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Como el río que ya no puede regresar",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Un río que ya no puede regresar más",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Río que ya no puede volver a pasar por aquí",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Ya no se puede volver, como un río viejo",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo='ejo' | v4='er'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "Pasan los años, y yo me siento viejo",
+              "last_word": "viejo",
+              "rhyme": "ejo"
+            },
+            "verse_4": {
+              "text": "Como un río que ya no puede volver",
+              "last_word": "volver",
+              "rhyme": "er"
+            },
+            "target_rhyme": "ejo",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ejo', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ejo') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Versos generados con rimas consonantes ABBA y temática de nostalgia del tiempo."
+        },
+        {
+          "stanza": [
+            "El tiempo pasa, y yo me quedo atrás",
+            "Recuerdos inalcanzables por el retraso",
+            "El corazón lleno de tristeza se acerca",
+            "Como un río que ya no puede regresar"
+          ],
+          "score": 0.6,
+          "step_score": 0.6,
+          "score_history": [
+            0.6
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 3 | mejoras = 3 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo pasa, y yo me quedo atrás",
+              "En recuerdos que no pueden ser retrasados",
+              "Y el corazón se llena de tristeza",
+              "Como un río que ya no puede volver a pasar"
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa, y yo me quedo atrás",
+              "Recuerdos inalcanzables por el retraso",
+              "El corazón lleno de tristeza se acerca",
+              "Como un río que ya no puede regresar"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo pasa, y yo me quedo atrás",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En recuerdos que no pueden ser retrasados",
+                "original_syllables": 13,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Recuerdos inalcanzables por el retraso",
+                "selected_syllables": 12,
+                "selected_distance": 1,
+                "variants": [
+                  {
+                    "verse": "En recuerdos que se resisten al retraso",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Recuerdos inalcanzables por el retraso",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Recuerdos que no pueden ser retrasados aún",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Recuerdos que resistir al retraso es imposible",
+                    "syllables": 15,
+                    "distance": 4
+                  },
+                  {
+                    "verse": "En recuerdos que resisten al retrasar",
+                    "syllables": 13,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y el corazón se llena de tristeza",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "El corazón lleno de tristeza se acerca",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Y el corazón se llena de tristeza y soledad",
+                    "syllables": 17,
+                    "distance": 6
+                  },
+                  {
+                    "verse": "El corazón lleno de tristeza se acerca",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Corazón, lleno de tristeza, me rellena",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En mi corazón, la tristeza se acumula",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Tristeza que en mi corazón se apilupa",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Como un río que ya no puede volver a pasar",
+                "original_syllables": 14,
+                "original_distance": 3,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Como un río que ya no puede regresar",
+                "selected_syllables": 12,
+                "selected_distance": 1,
+                "variants": [
+                  {
+                    "verse": "Como un río que ya no puede regresar",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Como un río que ya se ha ido",
+                    "syllables": 6,
+                    "distance": 5
+                  },
+                  {
+                    "verse": "Como un río que su paso acaba",
+                    "syllables": 8,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Como un río que ya se fue",
+                    "syllables": 7,
+                    "distance": 4
+                  },
+                  {
+                    "verse": "Como un río que ya no vuelve",
+                    "syllables": 8,
+                    "distance": 3
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo='as' | v4='ar'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo pasa, y yo me quedo atrás",
+              "last_word": "atrás",
+              "rhyme": "as"
+            },
+            "verse_4": {
+              "text": "Como un río que ya no puede regresar",
+              "last_word": "regresar",
+              "rhyme": "ar"
+            },
+            "target_rhyme": "as",
+            "current_rhyme": "ar",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'as', pero se obtuvo 'ar'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('as') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 12 silabas, pero deberia tener 11.\n- Verso 4: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Versos generados con rimas consonantes ABBA y temática de nostalgia del tiempo."
+        }
+      ]
+    },
+    {
+      "step": 1,
+      "phase": "expand",
+      "generated_candidates": [
+        {
+          "stanza": [
+            "Pasan los años, y el tiempo me vuelve viejo",
+            "En esta tristeza que es inevitablemente mía",
+            "Nostalgia se llena mi corazón en cada rincón",
+            "Como un río que ya no puede volver a su fuente"
+          ],
+          "score": 0.8,
+          "step_score": 0.8,
+          "score_history": [
+            0.8
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido la rima en los versos 2 y 4 para cumplir con las reglas de la estrofa."
+        },
+        {
+          "stanza": [
+            "Pasan los años, y el tiempo me hace viejo",
+            "En esta tristeza que es inevitablemente mía",
+            "Nostalgia se llena mi corazón en cada rincón",
+            "Como un río que ya no puede volver a su curso"
+          ],
+          "score": 0.8,
+          "step_score": 0.8,
+          "score_history": [
+            0.8
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido la rima en los versos 2 y 4 para cumplir con las reglas de la estrofa."
+        },
+        {
+          "stanza": [
+            "El tiempo pasa, y yo me quedo atrás",
+            "Recuerdos inalcanzables por el retraso",
+            "Corazón lleno de tristeza se acerca",
+            "Como un río que ya no puede regresar"
+          ],
+          "score": 0.6,
+          "step_score": 0.6,
+          "score_history": [
+            0.6
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 12 silabas, pero deberia tener 11.\n- Verso 4: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "The original verses have been kept, but the length of some verses has been adjusted to fit the 11 syllable requirement. The rime consonante ABBA has also been maintained."
+        },
+        {
+          "stanza": [
+            "El tiempo pasa, y yo me quedo atrás",
+            "Recuerdos inalcanzables por el retraso",
+            "Corazón lleno de tristeza se acerca",
+            "Como un río que ya no puede regresar"
+          ],
+          "score": 0.6,
+          "step_score": 0.6,
+          "score_history": [
+            0.6
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 12 silabas, pero deberia tener 11.\n- Verso 4: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "The original verses have been kept, but the length of some verses has been adjusted to fit the 11 syllable requirement. The rime consonante ABBA has also been maintained."
+        }
+      ]
+    },
+    {
+      "step": 1,
+      "phase": "score",
+      "candidates": [
+        {
+          "stanza": [
+            "Los años pasan, y el tiempo me hace anciano",
+            "En esta tristeza que es mi inevitable",
+            "Corazón lleno de nostalgia en cada rincón",
+            "Como un río que ya no puede volver"
+          ],
+          "score": 0.7483314773547882,
+          "step_score": 0.7,
+          "score_history": [
+            0.8,
+            0.7
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 4 | mejoras = 4 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "Pasan los años, y el tiempo me vuelve viejo",
+              "En esta tristeza que es inevitablemente mía",
+              "Nostalgia se llena mi corazón en cada rincón",
+              "Como un río que ya no puede volver a su fuente"
+            ],
+            "repaired_stanza": [
+              "Los años pasan, y el tiempo me hace anciano",
+              "En esta tristeza que es mi inevitable",
+              "Corazón lleno de nostalgia en cada rincón",
+              "Como un río que ya no puede volver"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "Pasan los años, y el tiempo me vuelve viejo",
+                "original_syllables": 13,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Los años pasan, y el tiempo me hace anciano",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Pasan los años, y el tiempo me envejece",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Pasan los años, y el tiempo me hace viejo",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Los años pasan, y el tiempo me vuelve antiguo",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Pasan los años, y el tiempo me envejaecer",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Los años pasan, y el tiempo me hace anciano",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En esta tristeza que es inevitablemente mía",
+                "original_syllables": 15,
+                "original_distance": 4,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "En esta tristeza que es mi inevitable",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "En esta tristeza que es mi inevitable",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "En esta tristeza mi inevitablemente",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Mi inevitablemente en esta tristeza",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "En tristeza mi inevitablemente es",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En tristeza es mi inevitablemente",
+                    "syllables": 10,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Nostalgia se llena mi corazón en cada rincón",
+                "original_syllables": 16,
+                "original_distance": 5,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Corazón lleno de nostalgia en cada rincón",
+                "selected_syllables": 13,
+                "selected_distance": 2,
+                "variants": [
+                  {
+                    "verse": "Nostalgia llena mi corazón en cada rincón",
+                    "syllables": 15,
+                    "distance": 4
+                  },
+                  {
+                    "verse": "En cada rincón, nostalgia llena mi corazón",
+                    "syllables": 15,
+                    "distance": 4
+                  },
+                  {
+                    "verse": "Corazón lleno de nostalgia en cada rincón",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Nostalgia en cada rincón, llena mi corazón",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Cada rincón lleno de nostalgia mi corazón",
+                    "syllables": 14,
+                    "distance": 3
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Como un río que ya no puede volver a su fuente",
+                "original_syllables": 14,
+                "original_distance": 3,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Como un río que ya no puede volver",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Como un río que ya no puede volver",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Como un río que ya no regresa a su fuente",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Como un río que ya no vuelve a su origen",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Como un río que ya no retorna a su fuente",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Como un río que ya no puede volver más",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo='anciano' | v4='er'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "Los años pasan, y el tiempo me hace anciano",
+              "last_word": "anciano",
+              "rhyme": "anciano"
+            },
+            "verse_4": {
+              "text": "Como un río que ya no puede volver",
+              "last_word": "volver",
+              "rhyme": "er"
+            },
+            "target_rhyme": "anciano",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'anciano', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('anciano') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 3: tiene 13 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido la rima en los versos 2 y 4 para cumplir con las reglas de la estrofa."
+        },
+        {
+          "stanza": [
+            "Pasan años, y el tiempo me envejece",
+            "En esta tristeza que mía es inevitable",
+            "Corazón lleno de nostalgia en cada rincón",
+            "Como un río que ya no puede volver"
+          ],
+          "score": 0.6928203230275509,
+          "step_score": 0.6,
+          "score_history": [
+            0.8,
+            0.6
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 4 | mejoras = 4 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "Pasan los años, y el tiempo me hace viejo",
+              "En esta tristeza que es inevitablemente mía",
+              "Nostalgia se llena mi corazón en cada rincón",
+              "Como un río que ya no puede volver a su curso"
+            ],
+            "repaired_stanza": [
+              "Pasan años, y el tiempo me envejece",
+              "En esta tristeza que mía es inevitable",
+              "Corazón lleno de nostalgia en cada rincón",
+              "Como un río que ya no puede volver"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "Pasan los años, y el tiempo me hace viejo",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Pasan años, y el tiempo me envejece",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Pasan años, y el tiempo me envejece",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Años pasan, y el tiempo me viejeta",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "El tiempo pasa, y yo me hago viejo",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Ya pasan los años, y el tiempo me envejece",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Pasan años, y el tiempo me hace mayor",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En esta tristeza que es inevitablemente mía",
+                "original_syllables": 15,
+                "original_distance": 4,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "En esta tristeza que mía es inevitable",
+                "selected_syllables": 12,
+                "selected_distance": 1,
+                "variants": [
+                  {
+                    "verse": "En esta tristeza que mía es inevitable",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En esta tristeza que inevitablemente es mía",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "En esta tristeza, inevitablemente mía",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "En esta tristeza mía, inevitablemente",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En esta tristeza mía y inevitable",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Nostalgia se llena mi corazón en cada rincón",
+                "original_syllables": 16,
+                "original_distance": 5,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Corazón lleno de nostalgia en cada rincón",
+                "selected_syllables": 13,
+                "selected_distance": 2,
+                "variants": [
+                  {
+                    "verse": "Nostalgia se llena mi corazón en cada rincón",
+                    "syllables": 16,
+                    "distance": 5
+                  },
+                  {
+                    "verse": "En cada rincón, mi corazón lleno de nostalgia",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Corazón lleno de nostalgia en cada rincón",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Nostalgia en cada rincón rellena mi corazón",
+                    "syllables": 15,
+                    "distance": 4
+                  },
+                  {
+                    "verse": "Mi corazón en cada rincón se llena de nostalgia",
+                    "syllables": 16,
+                    "distance": 5
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Como un río que ya no puede volver a su curso",
+                "original_syllables": 14,
+                "original_distance": 3,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Como un río que ya no puede volver",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Como un río que ya no puede regresar",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Como un río que su curso ha perdido",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Como un río que ya no vuelve a fluir",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Como un río que ya no puede volver",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Como un río que ya no puede retornar",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo='ece' | v4='er'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "Pasan años, y el tiempo me envejece",
+              "last_word": "envejece",
+              "rhyme": "ece"
+            },
+            "verse_4": {
+              "text": "Como un río que ya no puede volver",
+              "last_word": "volver",
+              "rhyme": "er"
+            },
+            "target_rhyme": "ece",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ece', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ece') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 12 silabas, pero deberia tener 11.\n- Verso 3: tiene 13 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido la rima en los versos 2 y 4 para cumplir con las reglas de la estrofa."
+        },
+        {
+          "stanza": [
+            "El tiempo pasa, y yo me quedo atrás",
+            "Recuerdos inalcanzables por el trasgo",
+            "Corazón lleno de tristeza se acerca",
+            "Como un río que ya no puede regresar"
+          ],
+          "score": 0.6,
+          "step_score": 0.6,
+          "score_history": [
+            0.6,
+            0.6
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 3 | mejoras = 1 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo pasa, y yo me quedo atrás",
+              "Recuerdos inalcanzables por el retraso",
+              "Corazón lleno de tristeza se acerca",
+              "Como un río que ya no puede regresar"
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa, y yo me quedo atrás",
+              "Recuerdos inalcanzables por el trasgo",
+              "Corazón lleno de tristeza se acerca",
+              "Como un río que ya no puede regresar"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo pasa, y yo me quedo atrás",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Recuerdos inalcanzables por el retraso",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Recuerdos inalcanzables por el trasgo",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Recuerdos inalcanzables por el rastrero",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Recuerdos inalcanzables por el trasgo",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Recuerdos inalcanzables por el rasto",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Recuerdos inalcanzables por el rastreo",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Recuerdos inalcanzables por el rastron",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Corazón lleno de tristeza se acerca",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Corazón lleno de tristeza se acerca y se detiene",
+                    "syllables": 15,
+                    "distance": 4
+                  },
+                  {
+                    "verse": "Corazón lleno de tristeza, en mi camino se acerca",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Corazón lleno de tristeza, a mi lado se acerca",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Corazón lleno de tristeza, se acerca y me mira",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Corazón lleno de tristeza, en silencio se acerca",
+                    "syllables": 13,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Como un río que ya no puede regresar",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Como un río que ya no vuelve",
+                    "syllables": 8,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Como un río que ya no regresa",
+                    "syllables": 9,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Como un río que ya no volverá",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Como un río que ya no volvió",
+                    "syllables": 9,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Como un río que ya no regresó",
+                    "syllables": 10,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo='as' | v4='ar'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo pasa, y yo me quedo atrás",
+              "last_word": "atrás",
+              "rhyme": "as"
+            },
+            "verse_4": {
+              "text": "Como un río que ya no puede regresar",
+              "last_word": "regresar",
+              "rhyme": "ar"
+            },
+            "target_rhyme": "as",
+            "current_rhyme": "ar",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'as', pero se obtuvo 'ar'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('as') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 3: tiene 10 silabas, pero deberia tener 11.\n- Verso 4: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "The original verses have been kept, but the length of some verses has been adjusted to fit the 11 syllable requirement. The rime consonante ABBA has also been maintained."
+        },
+        {
+          "stanza": [
+            "El tiempo pasa, y yo me quedo atrás",
+            "Recuerdos inalcanzables por el tránsito",
+            "Corazón lleno de tristeza se acerca",
+            "Como un río que ya no puede volver"
+          ],
+          "score": 0.648074069840786,
+          "step_score": 0.7,
+          "score_history": [
+            0.6,
+            0.7
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 3 | mejoras = 2 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo pasa, y yo me quedo atrás",
+              "Recuerdos inalcanzables por el retraso",
+              "Corazón lleno de tristeza se acerca",
+              "Como un río que ya no puede regresar"
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa, y yo me quedo atrás",
+              "Recuerdos inalcanzables por el tránsito",
+              "Corazón lleno de tristeza se acerca",
+              "Como un río que ya no puede volver"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo pasa, y yo me quedo atrás",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Recuerdos inalcanzables por el retraso",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Recuerdos inalcanzables por el tránsito",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Recuerdos inalcanzables por el tránsito",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Recuerdos inalcanzables por el paso",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Recuerdos inalcanzables por el tiempo",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Recuerdos inalcanzables por el camino",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Recuerdos inalcanzables por el rastro",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Corazón lleno de tristeza se acerca",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Corazón lleno de tristeza se acerca y mueve",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Corazón lleno de tristeza, se acerca lentamente",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Corazón lleno de tristeza, se acerca con lentitud",
+                    "syllables": 15,
+                    "distance": 4
+                  },
+                  {
+                    "verse": "Corazón lleno de tristeza, acerca con su peso",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Corazón lleno de tristeza, se acerca y se detiene",
+                    "syllables": 15,
+                    "distance": 4
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Como un río que ya no puede regresar",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Como un río que ya no puede volver",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Como un río que ya no regresa",
+                    "syllables": 9,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Como un río que ya no vuelve",
+                    "syllables": 8,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Como un río que ya no puede volver",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Como un río que ya no puede ir de vuelta",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Como un río que ya no puede regresar más",
+                    "syllables": 13,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo='as' | v4='er'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo pasa, y yo me quedo atrás",
+              "last_word": "atrás",
+              "rhyme": "as"
+            },
+            "verse_4": {
+              "text": "Como un río que ya no puede volver",
+              "last_word": "volver",
+              "rhyme": "er"
+            },
+            "target_rhyme": "as",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'as', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('as') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 3: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "The original verses have been kept, but the length of some verses has been adjusted to fit the 11 syllable requirement. The rime consonante ABBA has also been maintained."
+        }
+      ]
+    },
+    {
+      "step": 1,
+      "phase": "prune",
+      "selected_beams": [
+        {
+          "stanza": [
+            "Los años pasan, y el tiempo me hace anciano",
+            "En esta tristeza que es mi inevitable",
+            "Corazón lleno de nostalgia en cada rincón",
+            "Como un río que ya no puede volver"
+          ],
+          "score": 0.7483314773547882,
+          "step_score": 0.7,
+          "score_history": [
+            0.8,
+            0.7
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 4 | mejoras = 4 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "Pasan los años, y el tiempo me vuelve viejo",
+              "En esta tristeza que es inevitablemente mía",
+              "Nostalgia se llena mi corazón en cada rincón",
+              "Como un río que ya no puede volver a su fuente"
+            ],
+            "repaired_stanza": [
+              "Los años pasan, y el tiempo me hace anciano",
+              "En esta tristeza que es mi inevitable",
+              "Corazón lleno de nostalgia en cada rincón",
+              "Como un río que ya no puede volver"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "Pasan los años, y el tiempo me vuelve viejo",
+                "original_syllables": 13,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Los años pasan, y el tiempo me hace anciano",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Pasan los años, y el tiempo me envejece",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Pasan los años, y el tiempo me hace viejo",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Los años pasan, y el tiempo me vuelve antiguo",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Pasan los años, y el tiempo me envejaecer",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Los años pasan, y el tiempo me hace anciano",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En esta tristeza que es inevitablemente mía",
+                "original_syllables": 15,
+                "original_distance": 4,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "En esta tristeza que es mi inevitable",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "En esta tristeza que es mi inevitable",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "En esta tristeza mi inevitablemente",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Mi inevitablemente en esta tristeza",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "En tristeza mi inevitablemente es",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En tristeza es mi inevitablemente",
+                    "syllables": 10,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Nostalgia se llena mi corazón en cada rincón",
+                "original_syllables": 16,
+                "original_distance": 5,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Corazón lleno de nostalgia en cada rincón",
+                "selected_syllables": 13,
+                "selected_distance": 2,
+                "variants": [
+                  {
+                    "verse": "Nostalgia llena mi corazón en cada rincón",
+                    "syllables": 15,
+                    "distance": 4
+                  },
+                  {
+                    "verse": "En cada rincón, nostalgia llena mi corazón",
+                    "syllables": 15,
+                    "distance": 4
+                  },
+                  {
+                    "verse": "Corazón lleno de nostalgia en cada rincón",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Nostalgia en cada rincón, llena mi corazón",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Cada rincón lleno de nostalgia mi corazón",
+                    "syllables": 14,
+                    "distance": 3
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Como un río que ya no puede volver a su fuente",
+                "original_syllables": 14,
+                "original_distance": 3,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Como un río que ya no puede volver",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Como un río que ya no puede volver",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Como un río que ya no regresa a su fuente",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Como un río que ya no vuelve a su origen",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Como un río que ya no retorna a su fuente",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Como un río que ya no puede volver más",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo='anciano' | v4='er'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "Los años pasan, y el tiempo me hace anciano",
+              "last_word": "anciano",
+              "rhyme": "anciano"
+            },
+            "verse_4": {
+              "text": "Como un río que ya no puede volver",
+              "last_word": "volver",
+              "rhyme": "er"
+            },
+            "target_rhyme": "anciano",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'anciano', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('anciano') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 3: tiene 13 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido la rima en los versos 2 y 4 para cumplir con las reglas de la estrofa."
+        },
+        {
+          "stanza": [
+            "Pasan años, y el tiempo me envejece",
+            "En esta tristeza que mía es inevitable",
+            "Corazón lleno de nostalgia en cada rincón",
+            "Como un río que ya no puede volver"
+          ],
+          "score": 0.6928203230275509,
+          "step_score": 0.6,
+          "score_history": [
+            0.8,
+            0.6
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 4 | mejoras = 4 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "Pasan los años, y el tiempo me hace viejo",
+              "En esta tristeza que es inevitablemente mía",
+              "Nostalgia se llena mi corazón en cada rincón",
+              "Como un río que ya no puede volver a su curso"
+            ],
+            "repaired_stanza": [
+              "Pasan años, y el tiempo me envejece",
+              "En esta tristeza que mía es inevitable",
+              "Corazón lleno de nostalgia en cada rincón",
+              "Como un río que ya no puede volver"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "Pasan los años, y el tiempo me hace viejo",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Pasan años, y el tiempo me envejece",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Pasan años, y el tiempo me envejece",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Años pasan, y el tiempo me viejeta",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "El tiempo pasa, y yo me hago viejo",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Ya pasan los años, y el tiempo me envejece",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Pasan años, y el tiempo me hace mayor",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En esta tristeza que es inevitablemente mía",
+                "original_syllables": 15,
+                "original_distance": 4,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "En esta tristeza que mía es inevitable",
+                "selected_syllables": 12,
+                "selected_distance": 1,
+                "variants": [
+                  {
+                    "verse": "En esta tristeza que mía es inevitable",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En esta tristeza que inevitablemente es mía",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "En esta tristeza, inevitablemente mía",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "En esta tristeza mía, inevitablemente",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En esta tristeza mía y inevitable",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Nostalgia se llena mi corazón en cada rincón",
+                "original_syllables": 16,
+                "original_distance": 5,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Corazón lleno de nostalgia en cada rincón",
+                "selected_syllables": 13,
+                "selected_distance": 2,
+                "variants": [
+                  {
+                    "verse": "Nostalgia se llena mi corazón en cada rincón",
+                    "syllables": 16,
+                    "distance": 5
+                  },
+                  {
+                    "verse": "En cada rincón, mi corazón lleno de nostalgia",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Corazón lleno de nostalgia en cada rincón",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Nostalgia en cada rincón rellena mi corazón",
+                    "syllables": 15,
+                    "distance": 4
+                  },
+                  {
+                    "verse": "Mi corazón en cada rincón se llena de nostalgia",
+                    "syllables": 16,
+                    "distance": 5
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Como un río que ya no puede volver a su curso",
+                "original_syllables": 14,
+                "original_distance": 3,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Como un río que ya no puede volver",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Como un río que ya no puede regresar",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Como un río que su curso ha perdido",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Como un río que ya no vuelve a fluir",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Como un río que ya no puede volver",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Como un río que ya no puede retornar",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo='ece' | v4='er'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "Pasan años, y el tiempo me envejece",
+              "last_word": "envejece",
+              "rhyme": "ece"
+            },
+            "verse_4": {
+              "text": "Como un río que ya no puede volver",
+              "last_word": "volver",
+              "rhyme": "er"
+            },
+            "target_rhyme": "ece",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ece', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ece') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 12 silabas, pero deberia tener 11.\n- Verso 3: tiene 13 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido la rima en los versos 2 y 4 para cumplir con las reglas de la estrofa."
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "phase": "expand",
+      "generated_candidates": [
+        {
+          "stanza": [
+            "Los años pasan, y el tiempo me hace viejo",
+            "En esta tristeza que es mi inevitable",
+            "Corazón lleno de nostalgia en cada rincón",
+            "Como un río que ya no puede volver a su cauce"
+          ],
+          "score": 0.7483314773547882,
+          "step_score": 0.7,
+          "score_history": [
+            0.8,
+            0.7
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 3: tiene 13 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Cambie la palabra 'anciano' por 'viejo' en el verso 1 para cumplir con las 11 silabas. Alargue ligeramente el verso 4 para mantener la rima y la estructura."
+        },
+        {
+          "stanza": [
+            "Los años pasan, y el tiempo me hace anciano",
+            "En esta tristeza que es mi inevitable",
+            "Corazón lleno de nostalgia en cada rincón",
+            "Como un río que ya no puede volver a su curso"
+          ],
+          "score": 0.7483314773547882,
+          "step_score": 0.7,
+          "score_history": [
+            0.8,
+            0.7
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 3: tiene 13 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Ajuste la palabra final del verso 3 para cumplir con la rima B. Alargue ligeramente el verso 4 para mantener la rima y la estructura."
+        },
+        {
+          "stanza": [
+            "Pasan años, y el tiempo me envejece,",
+            "En tristeza que mía es inevitable.",
+            "Corazón lleno de nostalgia en cada rincón,",
+            "Como un río que ya no puede volver."
+          ],
+          "score": 0.6928203230275509,
+          "step_score": 0.6,
+          "score_history": [
+            0.8,
+            0.6
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 12 silabas, pero deberia tener 11.\n- Verso 3: tiene 13 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Verso 2 y 3 corregidos para tener exactamente 11 silabas metricas. La rima se mantiene ABBA."
+        },
+        {
+          "stanza": [
+            "Pasan años, y el tiempo me envejece,",
+            "En tristeza que mía es inevitable.",
+            "Corazón lleno de nostalgia en cada rincón,",
+            "Como un río que ya no regresa."
+          ],
+          "score": 0.6928203230275509,
+          "step_score": 0.6,
+          "score_history": [
+            0.8,
+            0.6
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 12 silabas, pero deberia tener 11.\n- Verso 3: tiene 13 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Verso 4 corregido para tener exactamente 11 silabas metricas y cumplir la rima ABBA. La palabra 'volver' fue cambiada por 'regresar'."
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "phase": "score",
+      "candidates": [
+        {
+          "stanza": [
+            "Los años van y el tiempo me envejece",
+            "En esta tristeza que es mi inevitable",
+            "Corazón lleno de nostalgia en cada rincón",
+            "Como un río que ya no puede volverse"
+          ],
+          "score": 0.7318611420045943,
+          "step_score": 0.7,
+          "score_history": [
+            0.8,
+            0.7,
+            0.7
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 3 | mejoras = 2 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "Los años pasan, y el tiempo me hace viejo",
+              "En esta tristeza que es mi inevitable",
+              "Corazón lleno de nostalgia en cada rincón",
+              "Como un río que ya no puede volver a su cauce"
+            ],
+            "repaired_stanza": [
+              "Los años van y el tiempo me envejece",
+              "En esta tristeza que es mi inevitable",
+              "Corazón lleno de nostalgia en cada rincón",
+              "Como un río que ya no puede volverse"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "Los años pasan, y el tiempo me hace viejo",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Los años van y el tiempo me envejece",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Los años van y el tiempo me envejece",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "El tiempo pasa y los años me viejecen",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Ante el tiempo, los años me hacen viejo",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Pasan los años y el tiempo me hace viejo",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Tiempo y años que me hacen viejo pasan",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En esta tristeza que es mi inevitable",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Corazón lleno de nostalgia en cada rincón",
+                "original_syllables": 13,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Corazón lleno de nostalgia en cada rincón",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "En cada rincón, corazón lleno de nostalgia",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Corazón en cada rincón lleno de nostalgia",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Nostalgia en cada rincón llena mi corazón",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "En cada rincón, nostalgia llena mi corazón",
+                    "syllables": 15,
+                    "distance": 4
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Como un río que ya no puede volver a su cauce",
+                "original_syllables": 14,
+                "original_distance": 3,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Como un río que ya no puede volverse",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Como un río que ya no vuelve al cauce",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Como un río que ya no regresa a su curso",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Como un río que ya no puede volverse",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Como un río que ya no puede retornar al cauce",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Como un río que ya no puede regresar a su curso",
+                    "syllables": 15,
+                    "distance": 4
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo='ece' | v4='erse'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "Los años van y el tiempo me envejece",
+              "last_word": "envejece",
+              "rhyme": "ece"
+            },
+            "verse_4": {
+              "text": "Como un río que ya no puede volverse",
+              "last_word": "volverse",
+              "rhyme": "erse"
+            },
+            "target_rhyme": "ece",
+            "current_rhyme": "erse",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ece', pero se obtuvo 'erse'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ece') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 3: tiene 13 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Cambie la palabra 'anciano' por 'viejo' en el verso 1 para cumplir con las 11 silabas. Alargue ligeramente el verso 4 para mantener la rima y la estructura."
+        },
+        {
+          "stanza": [
+            "Los años pasan, y el tiempo me hace anciano",
+            "En esta tristeza que es mi inevitable",
+            "Nostalgia en cada rincón, corazón lleno",
+            "Como un río que ya no vuelve su curso"
+          ],
+          "score": 0.7651724731089556,
+          "step_score": 0.8,
+          "score_history": [
+            0.8,
+            0.7,
+            0.8
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 2 | mejoras = 2 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "Los años pasan, y el tiempo me hace anciano",
+              "En esta tristeza que es mi inevitable",
+              "Corazón lleno de nostalgia en cada rincón",
+              "Como un río que ya no puede volver a su curso"
+            ],
+            "repaired_stanza": [
+              "Los años pasan, y el tiempo me hace anciano",
+              "En esta tristeza que es mi inevitable",
+              "Nostalgia en cada rincón, corazón lleno",
+              "Como un río que ya no vuelve su curso"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "Los años pasan, y el tiempo me hace anciano",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En esta tristeza que es mi inevitable",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Corazón lleno de nostalgia en cada rincón",
+                "original_syllables": 13,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Nostalgia en cada rincón, corazón lleno",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Corazón lleno de nostalgia en cada rincon",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Corazón nostálgico en cada rincón",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Nostalgia en cada rincón, corazón lleno",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "En cada rincón, corazón de nostalgia",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Corazón en cada rincón, nostalgia lleno",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Como un río que ya no puede volver a su curso",
+                "original_syllables": 14,
+                "original_distance": 3,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Como un río que ya no vuelve su curso",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Como un río que ya no vuelve su curso",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Como un río que ya no regresa al curso",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Como un río que ya no puede volver",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Como un río que ya no volverá su curso",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Como un río que ya no puede regresar",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo='anciano' | v4='urso'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "Los años pasan, y el tiempo me hace anciano",
+              "last_word": "anciano",
+              "rhyme": "anciano"
+            },
+            "verse_4": {
+              "text": "Como un río que ya no vuelve su curso",
+              "last_word": "curso",
+              "rhyme": "urso"
+            },
+            "target_rhyme": "anciano",
+            "current_rhyme": "urso",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'anciano', pero se obtuvo 'urso'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('anciano') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Ajuste la palabra final del verso 3 para cumplir con la rima B. Alargue ligeramente el verso 4 para mantener la rima y la estructura."
+        },
+        {
+          "stanza": [
+            "Pasan años, y el tiempo me envejece,",
+            "En tristeza que mía es inevitable.",
+            "Corazón lleno de nostalgia en cada rincon",
+            "Como un río que ya no puede volver."
+          ],
+          "score": 0.6603854497789253,
+          "step_score": 0.6,
+          "score_history": [
+            0.8,
+            0.6,
+            0.6
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 2 | mejoras = 1 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "Pasan años, y el tiempo me envejece,",
+              "En tristeza que mía es inevitable.",
+              "Corazón lleno de nostalgia en cada rincón,",
+              "Como un río que ya no puede volver."
+            ],
+            "repaired_stanza": [
+              "Pasan años, y el tiempo me envejece,",
+              "En tristeza que mía es inevitable.",
+              "Corazón lleno de nostalgia en cada rincon",
+              "Como un río que ya no puede volver."
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "Pasan años, y el tiempo me envejece,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En tristeza que mía es inevitable.",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "En tristeza que miá es inevitablemente",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En tristeza que miá es inescapablemente",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En tristeza que miá es irremediablemente",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En tristeza que miá es invenciblemente",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En tristeza que miá es inevitablemente también",
+                    "syllables": 15,
+                    "distance": 4
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Corazón lleno de nostalgia en cada rincón,",
+                "original_syllables": 13,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Corazón lleno de nostalgia en cada rincon",
+                "selected_syllables": 12,
+                "selected_distance": 1,
+                "variants": [
+                  {
+                    "verse": "Corazón lleno de nostalgia en cada rincon",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Corazón lleno de nostalgia en cada esquina",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Corazón lleno de nostalgia en cada recinto",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Corazón lleno de nostalgia en cada rinc-ón",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Corazón lleno de nostalgia en cada rincon-",
+                    "syllables": 14,
+                    "distance": 3
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Como un río que ya no puede volver.",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo='ece' | v4='er'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "Pasan años, y el tiempo me envejece,",
+              "last_word": "envejece",
+              "rhyme": "ece"
+            },
+            "verse_4": {
+              "text": "Como un río que ya no puede volver.",
+              "last_word": "volver",
+              "rhyme": "er"
+            },
+            "target_rhyme": "ece",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ece', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ece') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\n- Verso 3: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Verso 2 y 3 corregidos para tener exactamente 11 silabas metricas. La rima se mantiene ABBA."
+        },
+        {
+          "stanza": [
+            "Pasan años, y el tiempo me envejece,",
+            "En tristeza, mi tiempo inexorablemente",
+            "Corazón lleno de nostalgia en cada rincón,",
+            "Como un río que ya no regresa más"
+          ],
+          "score": 0.6952053289772899,
+          "step_score": 0.7,
+          "score_history": [
+            0.8,
+            0.6,
+            0.7
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 3 | mejoras = 2 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "Pasan años, y el tiempo me envejece,",
+              "En tristeza que mía es inevitable.",
+              "Corazón lleno de nostalgia en cada rincón,",
+              "Como un río que ya no regresa."
+            ],
+            "repaired_stanza": [
+              "Pasan años, y el tiempo me envejece,",
+              "En tristeza, mi tiempo inexorablemente",
+              "Corazón lleno de nostalgia en cada rincón,",
+              "Como un río que ya no regresa más"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "Pasan años, y el tiempo me envejece,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En tristeza que mía es inevitable.",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "En tristeza, mi tiempo inexorablemente",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "En tristeza que inevitablemente es mía",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En tristeza que mi inevitable es",
+                    "syllables": 9,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "En tristeza, mi inexorable es el tiempo",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En tristeza, mi tiempo inexorablemente",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "En tristeza, mi tiempo es inevitablemente",
+                    "syllables": 13,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Corazón lleno de nostalgia en cada rincón,",
+                "original_syllables": 13,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Corazón lleno de nostalgia en cada rincón y rincon",
+                    "syllables": 15,
+                    "distance": 4
+                  },
+                  {
+                    "verse": "En cada rincón, corazón lleno de nostalgia",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Corazón lleno de nostalgia en cada rincón y rincón",
+                    "syllables": 16,
+                    "distance": 5
+                  },
+                  {
+                    "verse": "En cada rincón, corazón lleno de nostalgias",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "En cada rincón, corazón lleno de nostalgía (breve)",
+                    "syllables": 15,
+                    "distance": 4
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Como un río que ya no regresa.",
+                "original_syllables": 9,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Como un río que ya no regresa más",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Como un río que ya no regresa más",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Como un río que ya no volverá",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Como un río que ya no regresa nunca",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Como un río que ya no regresará",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Como un río que ya no regresará jamás",
+                    "syllables": 13,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo='ece' | v4='as'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "Pasan años, y el tiempo me envejece,",
+              "last_word": "envejece",
+              "rhyme": "ece"
+            },
+            "verse_4": {
+              "text": "Como un río que ya no regresa más",
+              "last_word": "más",
+              "rhyme": "as"
+            },
+            "target_rhyme": "ece",
+            "current_rhyme": "as",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ece', pero se obtuvo 'as'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ece') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 3: tiene 13 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Verso 4 corregido para tener exactamente 11 silabas metricas y cumplir la rima ABBA. La palabra 'volver' fue cambiada por 'regresar'."
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "phase": "prune",
+      "selected_beams": [
+        {
+          "stanza": [
+            "Los años pasan, y el tiempo me hace anciano",
+            "En esta tristeza que es mi inevitable",
+            "Nostalgia en cada rincón, corazón lleno",
+            "Como un río que ya no vuelve su curso"
+          ],
+          "score": 0.7651724731089556,
+          "step_score": 0.8,
+          "score_history": [
+            0.8,
+            0.7,
+            0.8
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 2 | mejoras = 2 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "Los años pasan, y el tiempo me hace anciano",
+              "En esta tristeza que es mi inevitable",
+              "Corazón lleno de nostalgia en cada rincón",
+              "Como un río que ya no puede volver a su curso"
+            ],
+            "repaired_stanza": [
+              "Los años pasan, y el tiempo me hace anciano",
+              "En esta tristeza que es mi inevitable",
+              "Nostalgia en cada rincón, corazón lleno",
+              "Como un río que ya no vuelve su curso"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "Los años pasan, y el tiempo me hace anciano",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En esta tristeza que es mi inevitable",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Corazón lleno de nostalgia en cada rincón",
+                "original_syllables": 13,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Nostalgia en cada rincón, corazón lleno",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Corazón lleno de nostalgia en cada rincon",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Corazón nostálgico en cada rincón",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Nostalgia en cada rincón, corazón lleno",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "En cada rincón, corazón de nostalgia",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Corazón en cada rincón, nostalgia lleno",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Como un río que ya no puede volver a su curso",
+                "original_syllables": 14,
+                "original_distance": 3,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Como un río que ya no vuelve su curso",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Como un río que ya no vuelve su curso",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Como un río que ya no regresa al curso",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Como un río que ya no puede volver",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Como un río que ya no volverá su curso",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Como un río que ya no puede regresar",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo='anciano' | v4='urso'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "Los años pasan, y el tiempo me hace anciano",
+              "last_word": "anciano",
+              "rhyme": "anciano"
+            },
+            "verse_4": {
+              "text": "Como un río que ya no vuelve su curso",
+              "last_word": "curso",
+              "rhyme": "urso"
+            },
+            "target_rhyme": "anciano",
+            "current_rhyme": "urso",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'anciano', pero se obtuvo 'urso'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('anciano') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Ajuste la palabra final del verso 3 para cumplir con la rima B. Alargue ligeramente el verso 4 para mantener la rima y la estructura."
+        },
+        {
+          "stanza": [
+            "Los años van y el tiempo me envejece",
+            "En esta tristeza que es mi inevitable",
+            "Corazón lleno de nostalgia en cada rincón",
+            "Como un río que ya no puede volverse"
+          ],
+          "score": 0.7318611420045943,
+          "step_score": 0.7,
+          "score_history": [
+            0.8,
+            0.7,
+            0.7
+          ],
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 3 | mejoras = 2 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "Los años pasan, y el tiempo me hace viejo",
+              "En esta tristeza que es mi inevitable",
+              "Corazón lleno de nostalgia en cada rincón",
+              "Como un río que ya no puede volver a su cauce"
+            ],
+            "repaired_stanza": [
+              "Los años van y el tiempo me envejece",
+              "En esta tristeza que es mi inevitable",
+              "Corazón lleno de nostalgia en cada rincón",
+              "Como un río que ya no puede volverse"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "Los años pasan, y el tiempo me hace viejo",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Los años van y el tiempo me envejece",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Los años van y el tiempo me envejece",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "El tiempo pasa y los años me viejecen",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Ante el tiempo, los años me hacen viejo",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Pasan los años y el tiempo me hace viejo",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Tiempo y años que me hacen viejo pasan",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En esta tristeza que es mi inevitable",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Corazón lleno de nostalgia en cada rincón",
+                "original_syllables": 13,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Corazón lleno de nostalgia en cada rincón",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "En cada rincón, corazón lleno de nostalgia",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Corazón en cada rincón lleno de nostalgia",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Nostalgia en cada rincón llena mi corazón",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "En cada rincón, nostalgia llena mi corazón",
+                    "syllables": 15,
+                    "distance": 4
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Como un río que ya no puede volver a su cauce",
+                "original_syllables": 14,
+                "original_distance": 3,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Como un río que ya no puede volverse",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Como un río que ya no vuelve al cauce",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Como un río que ya no regresa a su curso",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Como un río que ya no puede volverse",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Como un río que ya no puede retornar al cauce",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Como un río que ya no puede regresar a su curso",
+                    "syllables": 15,
+                    "distance": 4
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo='ece' | v4='erse'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "Los años van y el tiempo me envejece",
+              "last_word": "envejece",
+              "rhyme": "ece"
+            },
+            "verse_4": {
+              "text": "Como un río que ya no puede volverse",
+              "last_word": "volverse",
+              "rhyme": "erse"
+            },
+            "target_rhyme": "ece",
+            "current_rhyme": "erse",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ece', pero se obtuvo 'erse'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ece') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 3: tiene 13 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Cambie la palabra 'anciano' por 'viejo' en el verso 1 para cumplir con las 11 silabas. Alargue ligeramente el verso 4 para mantener la rima y la estructura."
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "phase": "stop",
+      "reason": "max_steps",
+      "best_score": 0.7651724731089556
+    }
+  ]
+}

@@ -1,0 +1,4532 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200
+  },
+  "trace": [
+    {
+      "step": 0,
+      "phase": "expand",
+      "generated_candidates": [
+        {
+          "stanza": [
+            "El tiempo, un río que pasa sin cesar,",
+            "Deja atrás recuerdos que me duele",
+            "Y el corazón se llena de tristeza",
+            "Por lo que ya no volverá jamás"
+          ],
+          "score": 0.0,
+          "step_score": 0.0,
+          "score_history": [],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=?/? | endecasilabos=?/? | rima=?/? | score=?/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Todavia no se ha generado ninguna estrofa.",
+          "generation_reasoning": "Rima ABBA con versos endecasilabos que expresan la nostalgia del paso del tiempo."
+        },
+        {
+          "stanza": [
+            "El tiempo, un rastro que siempre se pierde,",
+            "Deja atrás recuerdos de amores perdidos",
+            "Y el corazón se llena de nostalgia",
+            "Por lo que ya no volverá jamás"
+          ],
+          "score": 0.0,
+          "step_score": 0.0,
+          "score_history": [],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=?/? | endecasilabos=?/? | rima=?/? | score=?/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Todavia no se ha generado ninguna estrofa.",
+          "generation_reasoning": "Rima ABBA con versos endecasilabos que expresan la nostalgia del paso del tiempo."
+        }
+      ]
+    },
+    {
+      "step": 0,
+      "phase": "score",
+      "candidates": [
+        {
+          "stanza": [
+            "El tiempo, un río que pasa sin cesar,",
+            "Deja atrás recuerdos que me duele",
+            "Y el corazón se llena de tristeza",
+            "Por lo que ya no volverá jamás"
+          ],
+          "score": 0.6,
+          "step_score": 0.6,
+          "score_history": [
+            0.6
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 2 | mejoras = 0 | cambio = False",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": false,
+            "original_stanza": [
+              "El tiempo, un río que pasa sin cesar,",
+              "Deja atrás recuerdos que me duele",
+              "Y el corazón se llena de tristeza",
+              "Por lo que ya no volverá jamás"
+            ],
+            "repaired_stanza": [
+              "El tiempo, un río que pasa sin cesar,",
+              "Deja atrás recuerdos que me duele",
+              "Y el corazón se llena de tristeza",
+              "Por lo que ya no volverá jamás"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo, un río que pasa sin cesar,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Deja atrás recuerdos que me duele",
+                "original_syllables": 9,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Dejan atrás recuerdos que me duele y lloro",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Dejan atrás recuerdos que me duele profundo",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Dejan atrás recuerdos que me duele con dolor",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Dejan atrás recuerdos que me duele y tristeza",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Dejan atrás recuerdos que me duele y lleno de tristeza",
+                    "syllables": 16,
+                    "distance": 5
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y el corazón se llena de tristeza",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Y el corazón se llena de tristeza y dolor",
+                    "syllables": 16,
+                    "distance": 5
+                  },
+                  {
+                    "verse": "El corazón se llena de tristeza en profundo",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Corazón lleno de tristeza, en su hondo dolor",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Tristeza que llena el corazón, dolor profundo",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "En su corazón lleno de tristeza, dolor profundo",
+                    "syllables": 15,
+                    "distance": 4
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Por lo que ya no volverá jamás",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "El tiempo, un río que pasa sin cesar,",
+              "Deja atrás recuerdos que me duele",
+              "Y el corazón se llena de tristeza",
+              "Por lo que ya no volverá jamás"
+            ],
+            "repaired_stanza": [
+              "El tiempo, un río que pasa sin cesar,",
+              "Deja atrás recuerdos que me duele",
+              "Y el corazón se llena de tristeza",
+              "Por lo que ya no volverá jamás"
+            ],
+            "target_rhyme": "ar",
+            "current_rhyme": "as",
+            "verse_1": {
+              "text": "El tiempo, un río que pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "candidate_final_words": [
+              "cesar"
+            ],
+            "enforced_candidate_final_words": [],
+            "original_verse_4": "Por lo que ya no volverá jamás",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Por lo que ya no volverá más allá",
+                "syllables": 11,
+                "final_word": "allá",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'a'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya no volverá en años",
+                "syllables": 9,
+                "final_word": "años",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'os'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya no volverá nunca mas",
+                "syllables": 11,
+                "final_word": "mas",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya no volverá jamás más",
+                "syllables": 12,
+                "final_word": "más",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya no volverán jamás",
+                "syllables": 11,
+                "final_word": "jamás",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'as'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo, un río que pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "verse_4": {
+              "text": "Por lo que ya no volverá jamás",
+              "last_word": "jamás",
+              "rhyme": "as"
+            },
+            "target_rhyme": "ar",
+            "current_rhyme": "as",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ar', pero se obtuvo 'as'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ar') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ele' | v3 = 'eza'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Deja atrás recuerdos que me duele",
+              "last_word": "duele",
+              "rhyme": "ele"
+            },
+            "verse_3": {
+              "text": "Y el corazón se llena de tristeza",
+              "last_word": "tristeza",
+              "rhyme": "eza"
+            },
+            "target_rhyme": "ele",
+            "current_rhyme": "eza",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ele', pero se obtuvo 'eza'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ele') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 9 silabas, pero deberia tener 11.\n- Verso 3: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Rima ABBA con versos endecasilabos que expresan la nostalgia del paso del tiempo."
+        },
+        {
+          "stanza": [
+            "El tiempo, un rastro que siempre se pierde,",
+            "Deja atrás recuerdos de amores perdidos",
+            "Y el corazón se llena de saña",
+            "Por lo que ya no volverá jamás"
+          ],
+          "score": 0.7,
+          "step_score": 0.7,
+          "score_history": [
+            0.7
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 2 | mejoras = 1 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo, un rastro que siempre se pierde,",
+              "Deja atrás recuerdos de amores perdidos",
+              "Y el corazón se llena de nostalgia",
+              "Por lo que ya no volverá jamás"
+            ],
+            "repaired_stanza": [
+              "El tiempo, un rastro que siempre se pierde,",
+              "Deja atrás recuerdos de amores perdidos",
+              "Y el corazón se llena de saña",
+              "Por lo que ya no volverá jamás"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo, un rastro que siempre se pierde,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Deja atrás recuerdos de amores perdidos",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Dejan atrás recuerdos de amores perdidos y olvidados",
+                    "syllables": 16,
+                    "distance": 5
+                  },
+                  {
+                    "verse": "Deja atrás recordaciones de amores que ya no existen",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Dejan atrás reminiscencias de amores perdidos en el pasado",
+                    "syllables": 18,
+                    "distance": 7
+                  },
+                  {
+                    "verse": "Dejan atrás recuerdos de amores que ahora son solo fantasmas",
+                    "syllables": 16,
+                    "distance": 5
+                  },
+                  {
+                    "verse": "Dejan atrás recuerdos de amores que han desaparecido por completo",
+                    "syllables": 18,
+                    "distance": 7
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y el corazón se llena de nostalgia",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Y el corazón se llena de saña",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Y el corazón se llena de saña",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Y el corazón se llena de sospecha",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Y el corazón se llena de siena",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Y el corazón se llena de sangre",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Y el corazón se llena de sana",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Por lo que ya no volverá jamás",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "El tiempo, un rastro que siempre se pierde,",
+              "Deja atrás recuerdos de amores perdidos",
+              "Y el corazón se llena de saña",
+              "Por lo que ya no volverá jamás"
+            ],
+            "repaired_stanza": [
+              "El tiempo, un rastro que siempre se pierde,",
+              "Deja atrás recuerdos de amores perdidos",
+              "Y el corazón se llena de saña",
+              "Por lo que ya no volverá jamás"
+            ],
+            "target_rhyme": "erde",
+            "current_rhyme": "as",
+            "verse_1": {
+              "text": "El tiempo, un rastro que siempre se pierde,",
+              "last_word": "pierde",
+              "rhyme": "erde"
+            },
+            "candidate_final_words": [
+              "pierde"
+            ],
+            "enforced_candidate_final_words": [],
+            "original_verse_4": "Por lo que ya no volverá jamás",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Por lo que ya no regresará jamás",
+                "syllables": 12,
+                "final_word": "jamás",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya no volverá más",
+                "syllables": 10,
+                "final_word": "más",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya no retornará jamás",
+                "syllables": 12,
+                "final_word": "jamás",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya no volverá en el futuro",
+                "syllables": 12,
+                "final_word": "futuro",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'uro'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya no se encontrará jamás",
+                "syllables": 12,
+                "final_word": "jamás",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'as'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo, un rastro que siempre se pierde,",
+              "last_word": "pierde",
+              "rhyme": "erde"
+            },
+            "verse_4": {
+              "text": "Por lo que ya no volverá jamás",
+              "last_word": "jamás",
+              "rhyme": "as"
+            },
+            "target_rhyme": "erde",
+            "current_rhyme": "as",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'erde', pero se obtuvo 'as'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('erde') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'idos' | v3 = 'aña'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Deja atrás recuerdos de amores perdidos",
+              "last_word": "perdidos",
+              "rhyme": "idos"
+            },
+            "verse_3": {
+              "text": "Y el corazón se llena de saña",
+              "last_word": "saña",
+              "rhyme": "aña"
+            },
+            "target_rhyme": "idos",
+            "current_rhyme": "aña",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'idos', pero se obtuvo 'aña'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('idos') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Rima ABBA con versos endecasilabos que expresan la nostalgia del paso del tiempo."
+        }
+      ]
+    },
+    {
+      "step": 0,
+      "phase": "prune",
+      "selected_beams": [
+        {
+          "stanza": [
+            "El tiempo, un rastro que siempre se pierde,",
+            "Deja atrás recuerdos de amores perdidos",
+            "Y el corazón se llena de saña",
+            "Por lo que ya no volverá jamás"
+          ],
+          "score": 0.7,
+          "step_score": 0.7,
+          "score_history": [
+            0.7
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 2 | mejoras = 1 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo, un rastro que siempre se pierde,",
+              "Deja atrás recuerdos de amores perdidos",
+              "Y el corazón se llena de nostalgia",
+              "Por lo que ya no volverá jamás"
+            ],
+            "repaired_stanza": [
+              "El tiempo, un rastro que siempre se pierde,",
+              "Deja atrás recuerdos de amores perdidos",
+              "Y el corazón se llena de saña",
+              "Por lo que ya no volverá jamás"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo, un rastro que siempre se pierde,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Deja atrás recuerdos de amores perdidos",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Dejan atrás recuerdos de amores perdidos y olvidados",
+                    "syllables": 16,
+                    "distance": 5
+                  },
+                  {
+                    "verse": "Deja atrás recordaciones de amores que ya no existen",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Dejan atrás reminiscencias de amores perdidos en el pasado",
+                    "syllables": 18,
+                    "distance": 7
+                  },
+                  {
+                    "verse": "Dejan atrás recuerdos de amores que ahora son solo fantasmas",
+                    "syllables": 16,
+                    "distance": 5
+                  },
+                  {
+                    "verse": "Dejan atrás recuerdos de amores que han desaparecido por completo",
+                    "syllables": 18,
+                    "distance": 7
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y el corazón se llena de nostalgia",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Y el corazón se llena de saña",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Y el corazón se llena de saña",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Y el corazón se llena de sospecha",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Y el corazón se llena de siena",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Y el corazón se llena de sangre",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Y el corazón se llena de sana",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Por lo que ya no volverá jamás",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "El tiempo, un rastro que siempre se pierde,",
+              "Deja atrás recuerdos de amores perdidos",
+              "Y el corazón se llena de saña",
+              "Por lo que ya no volverá jamás"
+            ],
+            "repaired_stanza": [
+              "El tiempo, un rastro que siempre se pierde,",
+              "Deja atrás recuerdos de amores perdidos",
+              "Y el corazón se llena de saña",
+              "Por lo que ya no volverá jamás"
+            ],
+            "target_rhyme": "erde",
+            "current_rhyme": "as",
+            "verse_1": {
+              "text": "El tiempo, un rastro que siempre se pierde,",
+              "last_word": "pierde",
+              "rhyme": "erde"
+            },
+            "candidate_final_words": [
+              "pierde"
+            ],
+            "enforced_candidate_final_words": [],
+            "original_verse_4": "Por lo que ya no volverá jamás",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Por lo que ya no regresará jamás",
+                "syllables": 12,
+                "final_word": "jamás",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya no volverá más",
+                "syllables": 10,
+                "final_word": "más",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya no retornará jamás",
+                "syllables": 12,
+                "final_word": "jamás",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya no volverá en el futuro",
+                "syllables": 12,
+                "final_word": "futuro",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'uro'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya no se encontrará jamás",
+                "syllables": 12,
+                "final_word": "jamás",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'as'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo, un rastro que siempre se pierde,",
+              "last_word": "pierde",
+              "rhyme": "erde"
+            },
+            "verse_4": {
+              "text": "Por lo que ya no volverá jamás",
+              "last_word": "jamás",
+              "rhyme": "as"
+            },
+            "target_rhyme": "erde",
+            "current_rhyme": "as",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'erde', pero se obtuvo 'as'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('erde') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'idos' | v3 = 'aña'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Deja atrás recuerdos de amores perdidos",
+              "last_word": "perdidos",
+              "rhyme": "idos"
+            },
+            "verse_3": {
+              "text": "Y el corazón se llena de saña",
+              "last_word": "saña",
+              "rhyme": "aña"
+            },
+            "target_rhyme": "idos",
+            "current_rhyme": "aña",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'idos', pero se obtuvo 'aña'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('idos') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Rima ABBA con versos endecasilabos que expresan la nostalgia del paso del tiempo."
+        },
+        {
+          "stanza": [
+            "El tiempo, un río que pasa sin cesar,",
+            "Deja atrás recuerdos que me duele",
+            "Y el corazón se llena de tristeza",
+            "Por lo que ya no volverá jamás"
+          ],
+          "score": 0.6,
+          "step_score": 0.6,
+          "score_history": [
+            0.6
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 2 | mejoras = 0 | cambio = False",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": false,
+            "original_stanza": [
+              "El tiempo, un río que pasa sin cesar,",
+              "Deja atrás recuerdos que me duele",
+              "Y el corazón se llena de tristeza",
+              "Por lo que ya no volverá jamás"
+            ],
+            "repaired_stanza": [
+              "El tiempo, un río que pasa sin cesar,",
+              "Deja atrás recuerdos que me duele",
+              "Y el corazón se llena de tristeza",
+              "Por lo que ya no volverá jamás"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo, un río que pasa sin cesar,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Deja atrás recuerdos que me duele",
+                "original_syllables": 9,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Dejan atrás recuerdos que me duele y lloro",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Dejan atrás recuerdos que me duele profundo",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Dejan atrás recuerdos que me duele con dolor",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Dejan atrás recuerdos que me duele y tristeza",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Dejan atrás recuerdos que me duele y lleno de tristeza",
+                    "syllables": 16,
+                    "distance": 5
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y el corazón se llena de tristeza",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Y el corazón se llena de tristeza y dolor",
+                    "syllables": 16,
+                    "distance": 5
+                  },
+                  {
+                    "verse": "El corazón se llena de tristeza en profundo",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Corazón lleno de tristeza, en su hondo dolor",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Tristeza que llena el corazón, dolor profundo",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "En su corazón lleno de tristeza, dolor profundo",
+                    "syllables": 15,
+                    "distance": 4
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Por lo que ya no volverá jamás",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "El tiempo, un río que pasa sin cesar,",
+              "Deja atrás recuerdos que me duele",
+              "Y el corazón se llena de tristeza",
+              "Por lo que ya no volverá jamás"
+            ],
+            "repaired_stanza": [
+              "El tiempo, un río que pasa sin cesar,",
+              "Deja atrás recuerdos que me duele",
+              "Y el corazón se llena de tristeza",
+              "Por lo que ya no volverá jamás"
+            ],
+            "target_rhyme": "ar",
+            "current_rhyme": "as",
+            "verse_1": {
+              "text": "El tiempo, un río que pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "candidate_final_words": [
+              "cesar"
+            ],
+            "enforced_candidate_final_words": [],
+            "original_verse_4": "Por lo que ya no volverá jamás",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Por lo que ya no volverá más allá",
+                "syllables": 11,
+                "final_word": "allá",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'a'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya no volverá en años",
+                "syllables": 9,
+                "final_word": "años",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'os'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya no volverá nunca mas",
+                "syllables": 11,
+                "final_word": "mas",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya no volverá jamás más",
+                "syllables": 12,
+                "final_word": "más",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya no volverán jamás",
+                "syllables": 11,
+                "final_word": "jamás",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'as'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo, un río que pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "verse_4": {
+              "text": "Por lo que ya no volverá jamás",
+              "last_word": "jamás",
+              "rhyme": "as"
+            },
+            "target_rhyme": "ar",
+            "current_rhyme": "as",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ar', pero se obtuvo 'as'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ar') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ele' | v3 = 'eza'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Deja atrás recuerdos que me duele",
+              "last_word": "duele",
+              "rhyme": "ele"
+            },
+            "verse_3": {
+              "text": "Y el corazón se llena de tristeza",
+              "last_word": "tristeza",
+              "rhyme": "eza"
+            },
+            "target_rhyme": "ele",
+            "current_rhyme": "eza",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ele', pero se obtuvo 'eza'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ele') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 9 silabas, pero deberia tener 11.\n- Verso 3: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Rima ABBA con versos endecasilabos que expresan la nostalgia del paso del tiempo."
+        }
+      ]
+    },
+    {
+      "step": 1,
+      "phase": "expand",
+      "generated_candidates": [
+        {
+          "stanza": [
+            "El tiempo, un rastro que siempre se pierde, En sus huellas, el corazón se llena de saña, Por lo que ya no volverá jamás, Y la nostalgia es mi compañera.",
+            "Deja atrás recuerdos de amores perdidos, Que flotan en el aire como un sueño vano, En mi corazón, una tristeza se abre, Y el tiempo, un rastro que siempre se pierde.",
+            "Por lo que ya no volverá jamás, Un recuerdo de amores perdidos, Y la nostalgia es mi compañera, Que flotan en el aire como un sueño vano.",
+            "Y la nostalgia es mi compañera, Por lo que ya no volverá jamás, Un recuerdo de amores perdidos, En sus huellas, el corazón se llena de saña."
+          ],
+          "score": 0.7,
+          "step_score": 0.7,
+          "score_history": [
+            0.7
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido la longitud de los versos y la rima. Ajustado la estrofa para mejorar la rima consonante ABBA."
+        },
+        {
+          "stanza": [
+            "El tiempo, un río que siempre fluye",
+            "Deja atrás recuerdos que me duele",
+            "Y el corazón se llena de nostalgia",
+            "Por lo que ya no volverá jamás"
+          ],
+          "score": 0.6,
+          "step_score": 0.6,
+          "score_history": [
+            0.6
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 9 silabas, pero deberia tener 11.\n- Verso 3: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Cambié la palabra final del verso 2 para cumplir con la rima, alargué el verso 3 ligeramente para tener 11 silabas y cambié la palabra final del verso 4 para que no rimara exactamente con el verso 1."
+        },
+        {
+          "stanza": [
+            "El tiempo, un río que siempre fluye",
+            "Deja atrás recuerdos que me duele",
+            "Y el corazón se llena de tristeza",
+            "Por lo que ya no volverá nunca"
+          ],
+          "score": 0.6,
+          "step_score": 0.6,
+          "score_history": [
+            0.6
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 9 silabas, pero deberia tener 11.\n- Verso 3: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Cambié la palabra final del verso 4 para cumplir con la rima, alargué el verso 3 ligeramente para tener 11 silabas y cambié la palabra final del verso 2 para que no rimara exactamente con el verso 3."
+        }
+      ]
+    },
+    {
+      "step": 1,
+      "phase": "score",
+      "candidates": [
+        {
+          "stanza": [
+            "Rastro, el tiempo que siempre se pierde",
+            "Dejan atrás recuerdos de amores perdidos",
+            "No volverá jamás en este mundo",
+            "Nostalgia, mi compañera eterna, No volverá jamás, un recordado."
+          ],
+          "score": 0.648074069840786,
+          "step_score": 0.6,
+          "score_history": [
+            0.7,
+            0.6
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 4 | mejoras = 4 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo, un rastro que siempre se pierde, En sus huellas, el corazón se llena de saña, Por lo que ya no volverá jamás, Y la nostalgia es mi compañera.",
+              "Deja atrás recuerdos de amores perdidos, Que flotan en el aire como un sueño vano, En mi corazón, una tristeza se abre, Y el tiempo, un rastro que siempre se pierde.",
+              "Por lo que ya no volverá jamás, Un recuerdo de amores perdidos, Y la nostalgia es mi compañera, Que flotan en el aire como un sueño vano.",
+              "Y la nostalgia es mi compañera, Por lo que ya no volverá jamás, Un recuerdo de amores perdidos, En sus huellas, el corazón se llena de saña."
+            ],
+            "repaired_stanza": [
+              "Rastro, el tiempo que siempre se pierde",
+              "Dejan atrás recuerdos de amores perdidos",
+              "No volverá jamás en este mundo",
+              "Nostalgia, mi compañera eterna, No volverá jamás, un recordado."
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo, un rastro que siempre se pierde, En sus huellas, el corazón se llena de saña, Por lo que ya no volverá jamás, Y la nostalgia es mi compañera.",
+                "original_syllables": 44,
+                "original_distance": 33,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Rastro, el tiempo que siempre se pierde",
+                "selected_syllables": 10,
+                "selected_distance": 1,
+                "variants": [
+                  {
+                    "verse": "El tiempo, un rastro pierde siempre",
+                    "syllables": 9,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Tiempo, el rastro que pierde siempre",
+                    "syllables": 9,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Rastro, el tiempo que siempre se pierde",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Siempre se pierde rastro de tiempo",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Pierde siempre el rastro del tiempo",
+                    "syllables": 9,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Deja atrás recuerdos de amores perdidos, Que flotan en el aire como un sueño vano, En mi corazón, una tristeza se abre, Y el tiempo, un rastro que siempre se pierde.",
+                "original_syllables": 43,
+                "original_distance": 32,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Dejan atrás recuerdos de amores perdidos",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Dejan atrás recuerdos de amores perdidos",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Recuerdos de amores perdidos dejan atrás",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Atrás dejan recuerdos de amores perdidos",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Dejan atrás recuerdos, amores perdidos",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Atrás dejan recuerdos: amores perdidos",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Por lo que ya no volverá jamás, Un recuerdo de amores perdidos, Y la nostalgia es mi compañera, Que flotan en el aire como un sueño vano.",
+                "original_syllables": 41,
+                "original_distance": 30,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "No volverá jamás en este mundo",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Por lo que ya no volverá más",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Ya no volverá jamás más",
+                    "syllables": 9,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "No volverá jamás en este mundo",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "En este mundo ya no regresará",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "No volverá jamás, en este tiempo",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Y la nostalgia es mi compañera, Por lo que ya no volverá jamás, Un recuerdo de amores perdidos, En sus huellas, el corazón se llena de saña.",
+                "original_syllables": 43,
+                "original_distance": 32,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Nostalgia, mi compañera eterna, No volverá jamás, un recordado.",
+                "selected_syllables": 20,
+                "selected_distance": 9,
+                "variants": [
+                  {
+                    "verse": "Y nostalgia mi acompañante es, Por lo que no volverá jamás, Un recuerdo de amores perdidos.",
+                    "syllables": 26,
+                    "distance": 15
+                  },
+                  {
+                    "verse": "Nostalgia, mi compañera permanente, No volverá jamás en este mundo.",
+                    "syllables": 23,
+                    "distance": 12
+                  },
+                  {
+                    "verse": "Nostalgia, mi compañera eterna, No volverá jamás, un recordado.",
+                    "syllables": 20,
+                    "distance": 9
+                  },
+                  {
+                    "verse": "Nostalgia, mi acompañante, No volverá jamás, Recuerdo de amores perdidos.",
+                    "syllables": 21,
+                    "distance": 10
+                  },
+                  {
+                    "verse": "Nostalgia, mi compañera, No volverá jamás, Un recuerdo perdido.",
+                    "syllables": 21,
+                    "distance": 10
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "Rastro, el tiempo que siempre se pierde",
+              "Dejan atrás recuerdos de amores perdidos",
+              "No volverá jamás en este mundo",
+              "Nostalgia, mi compañera eterna, No volverá jamás, un recordado."
+            ],
+            "repaired_stanza": [
+              "Rastro, el tiempo que siempre se pierde",
+              "Dejan atrás recuerdos de amores perdidos",
+              "No volverá jamás en este mundo",
+              "Nostalgia, mi compañera eterna, No volverá jamás, un recordado."
+            ],
+            "target_rhyme": "erde",
+            "current_rhyme": "ado",
+            "verse_1": {
+              "text": "Rastro, el tiempo que siempre se pierde",
+              "last_word": "pierde",
+              "rhyme": "erde"
+            },
+            "candidate_final_words": [
+              "pierde"
+            ],
+            "enforced_candidate_final_words": [],
+            "original_verse_4": "Nostalgia, mi compañera eterna, No volverá jamás, un recordado.",
+            "original_verse_4_syllables": 20,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Nostalgia, mi compañera eterna, No volverá jamás, un recordado eros",
+                "syllables": 20,
+                "final_word": "eros",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'os'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Nostalgia, mi compañera eterna, No volverá jamás, un recuerdo eres",
+                "syllables": 19,
+                "final_word": "eres",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'es'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Nostalgia, mi compañera eterna, No volverá jamás, un recordado eras",
+                "syllables": 20,
+                "final_word": "eras",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Nostalgia, mi compañera eterna, No volverá jamás, un recuerdo erdes",
+                "syllables": 20,
+                "final_word": "erdes",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'erdes'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Nostalgia, mi compañera eterna, No volverá jamás, un recordado herde",
+                "syllables": 21,
+                "final_word": "herde",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": true,
+                "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'erde' | v4 = 'erde'",
+                "accepted": false,
+                "rejection_reason": "Empeora la distancia metrica del verso 4."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'ado'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "Rastro, el tiempo que siempre se pierde",
+              "last_word": "pierde",
+              "rhyme": "erde"
+            },
+            "verse_4": {
+              "text": "Nostalgia, mi compañera eterna, No volverá jamás, un recordado.",
+              "last_word": "recordado",
+              "rhyme": "ado"
+            },
+            "target_rhyme": "erde",
+            "current_rhyme": "ado",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'erde', pero se obtuvo 'ado'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('erde') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'idos' | v3 = 'undo'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Dejan atrás recuerdos de amores perdidos",
+              "last_word": "perdidos",
+              "rhyme": "idos"
+            },
+            "verse_3": {
+              "text": "No volverá jamás en este mundo",
+              "last_word": "mundo",
+              "rhyme": "undo"
+            },
+            "target_rhyme": "idos",
+            "current_rhyme": "undo",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'idos', pero se obtuvo 'undo'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('idos') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 10 silabas, pero deberia tener 11.\n- Verso 4: tiene 20 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido la longitud de los versos y la rima. Ajustado la estrofa para mejorar la rima consonante ABBA."
+        },
+        {
+          "stanza": [
+            "El tiempo, un río que siempre fluye y se va",
+            "Deja atrás recuerdos que me duele",
+            "Y el corazón se llena de nostalgia",
+            "Por lo que ya no volverá más allá"
+          ],
+          "score": 0.6,
+          "step_score": 0.6,
+          "score_history": [
+            0.6,
+            0.6
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=1/4 | rima=3/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 3 | mejoras = 1 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo, un río que siempre fluye",
+              "Deja atrás recuerdos que me duele",
+              "Y el corazón se llena de nostalgia",
+              "Por lo que ya no volverá jamás"
+            ],
+            "repaired_stanza": [
+              "El tiempo, un río que siempre fluye y se va",
+              "Deja atrás recuerdos que me duele",
+              "Y el corazón se llena de nostalgia",
+              "Por lo que ya no volverá jamás"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo, un río que siempre fluye",
+                "original_syllables": 9,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "El tiempo, un río que siempre fluye y se va",
+                "selected_syllables": 12,
+                "selected_distance": 1,
+                "variants": [
+                  {
+                    "verse": "El tiempo, un río que siempre fluye y se va",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "El tiempo, un río que siempre fluye en vano",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "El tiempo, un río que siempre fluye sin cesar",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "El tiempo, un río que siempre fluye en su curso",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "El tiempo, un río que siempre fluye y se pierde",
+                    "syllables": 13,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Deja atrás recuerdos que me duele",
+                "original_syllables": 9,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Dejan atrás recuerdos que me duele y que me hacen llorar",
+                    "syllables": 17,
+                    "distance": 6
+                  },
+                  {
+                    "verse": "Dejan atrás recuerdos que me duele, como lluvia en mi corazón",
+                    "syllables": 19,
+                    "distance": 8
+                  },
+                  {
+                    "verse": "Dejan atrás recuerdos que me duele, como un dolor en el alma",
+                    "syllables": 18,
+                    "distance": 7
+                  },
+                  {
+                    "verse": "Dejan atrás recuerdos que me duele, acompañados de una tristeza profunda",
+                    "syllables": 20,
+                    "distance": 9
+                  },
+                  {
+                    "verse": "Dejan atrás recuerdos que me duele, como una melancolía sin fin",
+                    "syllables": 18,
+                    "distance": 7
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y el corazón se llena de nostalgia",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Y el corazón se llena de nostalgia en su misterioso camino",
+                    "syllables": 19,
+                    "distance": 8
+                  },
+                  {
+                    "verse": "Corazón se llena de nostalgia, en un rastro perdido",
+                    "syllables": 16,
+                    "distance": 5
+                  },
+                  {
+                    "verse": "Nostalgia invade el corazón, en un recuerdo perdido",
+                    "syllables": 16,
+                    "distance": 5
+                  },
+                  {
+                    "verse": "En su misterioso camino, el corazón se llena de nostalgia",
+                    "syllables": 18,
+                    "distance": 7
+                  },
+                  {
+                    "verse": "Corazón se llena de nostalgia, en un camino olvidado",
+                    "syllables": 16,
+                    "distance": 5
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Por lo que ya no volverá jamás",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = True",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": true,
+            "reason": "Se acepto una variante que corrige AXYA.",
+            "original_stanza": [
+              "El tiempo, un río que siempre fluye y se va",
+              "Deja atrás recuerdos que me duele",
+              "Y el corazón se llena de nostalgia",
+              "Por lo que ya no volverá jamás"
+            ],
+            "repaired_stanza": [
+              "El tiempo, un río que siempre fluye y se va",
+              "Deja atrás recuerdos que me duele",
+              "Y el corazón se llena de nostalgia",
+              "Por lo que ya no volverá más allá"
+            ],
+            "target_rhyme": "a",
+            "current_rhyme": "as",
+            "verse_1": {
+              "text": "El tiempo, un río que siempre fluye y se va",
+              "last_word": "va",
+              "rhyme": "a"
+            },
+            "candidate_final_words": [
+              "va"
+            ],
+            "enforced_candidate_final_words": [],
+            "original_verse_4": "Por lo que ya no volverá jamás",
+            "original_verse_4_syllables": 11,
+            "selected_variant": "Por lo que ya no volverá más allá",
+            "selected_variant_syllables": 11,
+            "variants": [
+              {
+                "verse": "Por lo que ya no volverá más allá",
+                "syllables": 11,
+                "final_word": "allá",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": true,
+                "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'a' | v4 = 'a'",
+                "accepted": true,
+                "rejection_reason": null
+              },
+              {
+                "verse": "Por lo que ya no volverá nunca más",
+                "syllables": 12,
+                "final_word": "más",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'a' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya no volverá jamás más",
+                "syllables": 12,
+                "final_word": "más",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'a' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya no volverán jamás",
+                "syllables": 11,
+                "final_word": "jamás",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'a' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya no volverá jamás otra vez",
+                "syllables": 13,
+                "final_word": "vez",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'a' | v4 = 'ez'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'a' | v4 = 'a'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": true,
+            "verse_1": {
+              "text": "El tiempo, un río que siempre fluye y se va",
+              "last_word": "va",
+              "rhyme": "a"
+            },
+            "verse_4": {
+              "text": "Por lo que ya no volverá más allá",
+              "last_word": "allá",
+              "rhyme": "a"
+            },
+            "target_rhyme": "a",
+            "current_rhyme": "a",
+            "errors": [],
+            "feedback": "La rima exterior AXYA es correcta: el verso 4 conserva la rima consonante del verso 1 ('a')."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ele' | v3 = 'algia'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Deja atrás recuerdos que me duele",
+              "last_word": "duele",
+              "rhyme": "ele"
+            },
+            "verse_3": {
+              "text": "Y el corazón se llena de nostalgia",
+              "last_word": "nostalgia",
+              "rhyme": "algia"
+            },
+            "target_rhyme": "ele",
+            "current_rhyme": "algia",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ele', pero se obtuvo 'algia'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ele') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 12 silabas, pero deberia tener 11.\n- Verso 2: tiene 9 silabas, pero deberia tener 11.\n- Verso 3: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.",
+          "generation_reasoning": "Cambié la palabra final del verso 2 para cumplir con la rima, alargué el verso 3 ligeramente para tener 11 silabas y cambié la palabra final del verso 4 para que no rimara exactamente con el verso 1."
+        },
+        {
+          "stanza": [
+            "El tiempo, un río que siempre fluye incesante",
+            "Dejan atrás recuerdos que me duele",
+            "El corazón se llena de tristezas",
+            "Por lo que ya nunca volverá más"
+          ],
+          "score": 0.6,
+          "step_score": 0.6,
+          "score_history": [
+            0.6,
+            0.6
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 4 | mejoras = 4 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo, un río que siempre fluye",
+              "Deja atrás recuerdos que me duele",
+              "Y el corazón se llena de tristeza",
+              "Por lo que ya no volverá nunca"
+            ],
+            "repaired_stanza": [
+              "El tiempo, un río que siempre fluye incesante",
+              "Dejan atrás recuerdos que me duele",
+              "El corazón se llena de tristezas",
+              "Por lo que ya nunca volverá más"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo, un río que siempre fluye",
+                "original_syllables": 9,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "El tiempo, un río que siempre fluye incesante",
+                "selected_syllables": 12,
+                "selected_distance": 1,
+                "variants": [
+                  {
+                    "verse": "El tiempo, un río que siempre fluye y nunca se detiene",
+                    "syllables": 16,
+                    "distance": 5
+                  },
+                  {
+                    "verse": "El tiempo, un río que siempre fluye sin cesar",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "El tiempo, un río que siempre fluye incesante",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "El tiempo, un río que siempre fluye sin pausa",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "El tiempo, un río que siempre fluye persistente",
+                    "syllables": 13,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Deja atrás recuerdos que me duele",
+                "original_syllables": 9,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Dejan atrás recuerdos que me duele",
+                "selected_syllables": 10,
+                "selected_distance": 1,
+                "variants": [
+                  {
+                    "verse": "Dejan atrás recuerdos que me duele",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Dejan atrás recordados que me dolían",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Dejan atrás recuerdos que me dolían mucho",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Dejan atrás recordados de tiempos dulces y amargos",
+                    "syllables": 15,
+                    "distance": 4
+                  },
+                  {
+                    "verse": "Dejan atrás recordados de tiempos dulces, amargos y llenos de sentimientos",
+                    "syllables": 22,
+                    "distance": 11
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y el corazón se llena de tristeza",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "El corazón se llena de tristezas",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Y el corazón lleno de tristeza",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "El corazón se llena de tristezas",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Y el corazón lleno es de tristeza",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "El corazón lleno es tristeza",
+                    "syllables": 8,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Y el corazón lleno en tristeza",
+                    "syllables": 9,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Por lo que ya no volverá nunca",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Por lo que ya nunca volverá más",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Por lo que ya nunca volverá más",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Por lo que ya no volverán jamás",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Por lo que ya no volverán nunca mas",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Por lo que ya no volverán nunca más que",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Por lo que ya no volverán nunca más, pues",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "El tiempo, un río que siempre fluye incesante",
+              "Dejan atrás recuerdos que me duele",
+              "El corazón se llena de tristezas",
+              "Por lo que ya nunca volverá más"
+            ],
+            "repaired_stanza": [
+              "El tiempo, un río que siempre fluye incesante",
+              "Dejan atrás recuerdos que me duele",
+              "El corazón se llena de tristezas",
+              "Por lo que ya nunca volverá más"
+            ],
+            "target_rhyme": "ante",
+            "current_rhyme": "as",
+            "verse_1": {
+              "text": "El tiempo, un río que siempre fluye incesante",
+              "last_word": "incesante",
+              "rhyme": "ante"
+            },
+            "candidate_final_words": [
+              "incesante"
+            ],
+            "enforced_candidate_final_words": [],
+            "original_verse_4": "Por lo que ya nunca volverá más",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Por lo que ya nunca volverá en pie",
+                "syllables": 10,
+                "final_word": "pie",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ante' | v4 = 'e'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya nunca volverá el sol",
+                "syllables": 11,
+                "final_word": "sol",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ante' | v4 = 'ol'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya nunca volverán los años",
+                "syllables": 11,
+                "final_word": "años",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ante' | v4 = 'os'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya nunca volverá la mañana",
+                "syllables": 13,
+                "final_word": "mañana",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ante' | v4 = 'ana'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya nunca volverá el tiempo",
+                "syllables": 11,
+                "final_word": "tiempo",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ante' | v4 = 'empo'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ante' | v4 = 'as'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo, un río que siempre fluye incesante",
+              "last_word": "incesante",
+              "rhyme": "ante"
+            },
+            "verse_4": {
+              "text": "Por lo que ya nunca volverá más",
+              "last_word": "más",
+              "rhyme": "as"
+            },
+            "target_rhyme": "ante",
+            "current_rhyme": "as",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ante', pero se obtuvo 'as'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ante') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ele' | v3 = 'ezas'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Dejan atrás recuerdos que me duele",
+              "last_word": "duele",
+              "rhyme": "ele"
+            },
+            "verse_3": {
+              "text": "El corazón se llena de tristezas",
+              "last_word": "tristezas",
+              "rhyme": "ezas"
+            },
+            "target_rhyme": "ele",
+            "current_rhyme": "ezas",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ele', pero se obtuvo 'ezas'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ele') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 12 silabas, pero deberia tener 11.\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Cambié la palabra final del verso 4 para cumplir con la rima, alargué el verso 3 ligeramente para tener 11 silabas y cambié la palabra final del verso 2 para que no rimara exactamente con el verso 3."
+        }
+      ]
+    },
+    {
+      "step": 1,
+      "phase": "prune",
+      "selected_beams": [
+        {
+          "stanza": [
+            "El tiempo, un rastro que siempre se pierde,",
+            "Deja atrás recuerdos de amores perdidos",
+            "Y el corazón se llena de saña",
+            "Por lo que ya no volverá jamás"
+          ],
+          "score": 0.7,
+          "step_score": 0.7,
+          "score_history": [
+            0.7
+          ],
+          "preserved_by_elitism": true,
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 2 | mejoras = 1 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo, un rastro que siempre se pierde,",
+              "Deja atrás recuerdos de amores perdidos",
+              "Y el corazón se llena de nostalgia",
+              "Por lo que ya no volverá jamás"
+            ],
+            "repaired_stanza": [
+              "El tiempo, un rastro que siempre se pierde,",
+              "Deja atrás recuerdos de amores perdidos",
+              "Y el corazón se llena de saña",
+              "Por lo que ya no volverá jamás"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo, un rastro que siempre se pierde,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Deja atrás recuerdos de amores perdidos",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Dejan atrás recuerdos de amores perdidos y olvidados",
+                    "syllables": 16,
+                    "distance": 5
+                  },
+                  {
+                    "verse": "Deja atrás recordaciones de amores que ya no existen",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Dejan atrás reminiscencias de amores perdidos en el pasado",
+                    "syllables": 18,
+                    "distance": 7
+                  },
+                  {
+                    "verse": "Dejan atrás recuerdos de amores que ahora son solo fantasmas",
+                    "syllables": 16,
+                    "distance": 5
+                  },
+                  {
+                    "verse": "Dejan atrás recuerdos de amores que han desaparecido por completo",
+                    "syllables": 18,
+                    "distance": 7
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y el corazón se llena de nostalgia",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Y el corazón se llena de saña",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Y el corazón se llena de saña",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Y el corazón se llena de sospecha",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Y el corazón se llena de siena",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Y el corazón se llena de sangre",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Y el corazón se llena de sana",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Por lo que ya no volverá jamás",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "El tiempo, un rastro que siempre se pierde,",
+              "Deja atrás recuerdos de amores perdidos",
+              "Y el corazón se llena de saña",
+              "Por lo que ya no volverá jamás"
+            ],
+            "repaired_stanza": [
+              "El tiempo, un rastro que siempre se pierde,",
+              "Deja atrás recuerdos de amores perdidos",
+              "Y el corazón se llena de saña",
+              "Por lo que ya no volverá jamás"
+            ],
+            "target_rhyme": "erde",
+            "current_rhyme": "as",
+            "verse_1": {
+              "text": "El tiempo, un rastro que siempre se pierde,",
+              "last_word": "pierde",
+              "rhyme": "erde"
+            },
+            "candidate_final_words": [
+              "pierde"
+            ],
+            "enforced_candidate_final_words": [],
+            "original_verse_4": "Por lo que ya no volverá jamás",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Por lo que ya no regresará jamás",
+                "syllables": 12,
+                "final_word": "jamás",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya no volverá más",
+                "syllables": 10,
+                "final_word": "más",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya no retornará jamás",
+                "syllables": 12,
+                "final_word": "jamás",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya no volverá en el futuro",
+                "syllables": 12,
+                "final_word": "futuro",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'uro'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya no se encontrará jamás",
+                "syllables": 12,
+                "final_word": "jamás",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'as'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo, un rastro que siempre se pierde,",
+              "last_word": "pierde",
+              "rhyme": "erde"
+            },
+            "verse_4": {
+              "text": "Por lo que ya no volverá jamás",
+              "last_word": "jamás",
+              "rhyme": "as"
+            },
+            "target_rhyme": "erde",
+            "current_rhyme": "as",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'erde', pero se obtuvo 'as'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('erde') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'idos' | v3 = 'aña'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Deja atrás recuerdos de amores perdidos",
+              "last_word": "perdidos",
+              "rhyme": "idos"
+            },
+            "verse_3": {
+              "text": "Y el corazón se llena de saña",
+              "last_word": "saña",
+              "rhyme": "aña"
+            },
+            "target_rhyme": "idos",
+            "current_rhyme": "aña",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'idos', pero se obtuvo 'aña'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('idos') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Rima ABBA con versos endecasilabos que expresan la nostalgia del paso del tiempo."
+        },
+        {
+          "stanza": [
+            "Rastro, el tiempo que siempre se pierde",
+            "Dejan atrás recuerdos de amores perdidos",
+            "No volverá jamás en este mundo",
+            "Nostalgia, mi compañera eterna, No volverá jamás, un recordado."
+          ],
+          "score": 0.648074069840786,
+          "step_score": 0.6,
+          "score_history": [
+            0.7,
+            0.6
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 4 | mejoras = 4 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo, un rastro que siempre se pierde, En sus huellas, el corazón se llena de saña, Por lo que ya no volverá jamás, Y la nostalgia es mi compañera.",
+              "Deja atrás recuerdos de amores perdidos, Que flotan en el aire como un sueño vano, En mi corazón, una tristeza se abre, Y el tiempo, un rastro que siempre se pierde.",
+              "Por lo que ya no volverá jamás, Un recuerdo de amores perdidos, Y la nostalgia es mi compañera, Que flotan en el aire como un sueño vano.",
+              "Y la nostalgia es mi compañera, Por lo que ya no volverá jamás, Un recuerdo de amores perdidos, En sus huellas, el corazón se llena de saña."
+            ],
+            "repaired_stanza": [
+              "Rastro, el tiempo que siempre se pierde",
+              "Dejan atrás recuerdos de amores perdidos",
+              "No volverá jamás en este mundo",
+              "Nostalgia, mi compañera eterna, No volverá jamás, un recordado."
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo, un rastro que siempre se pierde, En sus huellas, el corazón se llena de saña, Por lo que ya no volverá jamás, Y la nostalgia es mi compañera.",
+                "original_syllables": 44,
+                "original_distance": 33,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Rastro, el tiempo que siempre se pierde",
+                "selected_syllables": 10,
+                "selected_distance": 1,
+                "variants": [
+                  {
+                    "verse": "El tiempo, un rastro pierde siempre",
+                    "syllables": 9,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Tiempo, el rastro que pierde siempre",
+                    "syllables": 9,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Rastro, el tiempo que siempre se pierde",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Siempre se pierde rastro de tiempo",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Pierde siempre el rastro del tiempo",
+                    "syllables": 9,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Deja atrás recuerdos de amores perdidos, Que flotan en el aire como un sueño vano, En mi corazón, una tristeza se abre, Y el tiempo, un rastro que siempre se pierde.",
+                "original_syllables": 43,
+                "original_distance": 32,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Dejan atrás recuerdos de amores perdidos",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Dejan atrás recuerdos de amores perdidos",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Recuerdos de amores perdidos dejan atrás",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Atrás dejan recuerdos de amores perdidos",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Dejan atrás recuerdos, amores perdidos",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Atrás dejan recuerdos: amores perdidos",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Por lo que ya no volverá jamás, Un recuerdo de amores perdidos, Y la nostalgia es mi compañera, Que flotan en el aire como un sueño vano.",
+                "original_syllables": 41,
+                "original_distance": 30,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "No volverá jamás en este mundo",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Por lo que ya no volverá más",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Ya no volverá jamás más",
+                    "syllables": 9,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "No volverá jamás en este mundo",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "En este mundo ya no regresará",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "No volverá jamás, en este tiempo",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Y la nostalgia es mi compañera, Por lo que ya no volverá jamás, Un recuerdo de amores perdidos, En sus huellas, el corazón se llena de saña.",
+                "original_syllables": 43,
+                "original_distance": 32,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Nostalgia, mi compañera eterna, No volverá jamás, un recordado.",
+                "selected_syllables": 20,
+                "selected_distance": 9,
+                "variants": [
+                  {
+                    "verse": "Y nostalgia mi acompañante es, Por lo que no volverá jamás, Un recuerdo de amores perdidos.",
+                    "syllables": 26,
+                    "distance": 15
+                  },
+                  {
+                    "verse": "Nostalgia, mi compañera permanente, No volverá jamás en este mundo.",
+                    "syllables": 23,
+                    "distance": 12
+                  },
+                  {
+                    "verse": "Nostalgia, mi compañera eterna, No volverá jamás, un recordado.",
+                    "syllables": 20,
+                    "distance": 9
+                  },
+                  {
+                    "verse": "Nostalgia, mi acompañante, No volverá jamás, Recuerdo de amores perdidos.",
+                    "syllables": 21,
+                    "distance": 10
+                  },
+                  {
+                    "verse": "Nostalgia, mi compañera, No volverá jamás, Un recuerdo perdido.",
+                    "syllables": 21,
+                    "distance": 10
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "Rastro, el tiempo que siempre se pierde",
+              "Dejan atrás recuerdos de amores perdidos",
+              "No volverá jamás en este mundo",
+              "Nostalgia, mi compañera eterna, No volverá jamás, un recordado."
+            ],
+            "repaired_stanza": [
+              "Rastro, el tiempo que siempre se pierde",
+              "Dejan atrás recuerdos de amores perdidos",
+              "No volverá jamás en este mundo",
+              "Nostalgia, mi compañera eterna, No volverá jamás, un recordado."
+            ],
+            "target_rhyme": "erde",
+            "current_rhyme": "ado",
+            "verse_1": {
+              "text": "Rastro, el tiempo que siempre se pierde",
+              "last_word": "pierde",
+              "rhyme": "erde"
+            },
+            "candidate_final_words": [
+              "pierde"
+            ],
+            "enforced_candidate_final_words": [],
+            "original_verse_4": "Nostalgia, mi compañera eterna, No volverá jamás, un recordado.",
+            "original_verse_4_syllables": 20,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Nostalgia, mi compañera eterna, No volverá jamás, un recordado eros",
+                "syllables": 20,
+                "final_word": "eros",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'os'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Nostalgia, mi compañera eterna, No volverá jamás, un recuerdo eres",
+                "syllables": 19,
+                "final_word": "eres",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'es'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Nostalgia, mi compañera eterna, No volverá jamás, un recordado eras",
+                "syllables": 20,
+                "final_word": "eras",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Nostalgia, mi compañera eterna, No volverá jamás, un recuerdo erdes",
+                "syllables": 20,
+                "final_word": "erdes",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'erdes'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Nostalgia, mi compañera eterna, No volverá jamás, un recordado herde",
+                "syllables": 21,
+                "final_word": "herde",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": true,
+                "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'erde' | v4 = 'erde'",
+                "accepted": false,
+                "rejection_reason": "Empeora la distancia metrica del verso 4."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'ado'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "Rastro, el tiempo que siempre se pierde",
+              "last_word": "pierde",
+              "rhyme": "erde"
+            },
+            "verse_4": {
+              "text": "Nostalgia, mi compañera eterna, No volverá jamás, un recordado.",
+              "last_word": "recordado",
+              "rhyme": "ado"
+            },
+            "target_rhyme": "erde",
+            "current_rhyme": "ado",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'erde', pero se obtuvo 'ado'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('erde') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'idos' | v3 = 'undo'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Dejan atrás recuerdos de amores perdidos",
+              "last_word": "perdidos",
+              "rhyme": "idos"
+            },
+            "verse_3": {
+              "text": "No volverá jamás en este mundo",
+              "last_word": "mundo",
+              "rhyme": "undo"
+            },
+            "target_rhyme": "idos",
+            "current_rhyme": "undo",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'idos', pero se obtuvo 'undo'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('idos') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 10 silabas, pero deberia tener 11.\n- Verso 4: tiene 20 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido la longitud de los versos y la rima. Ajustado la estrofa para mejorar la rima consonante ABBA."
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "phase": "expand",
+      "generated_candidates": [
+        {
+          "stanza": [
+            "El tiempo, un rastro que siempre se pierde, En su triste paso deja atrás recuerdos, Y el corazón se llena de nostalgia, Por lo que ya no volverá jamás.",
+            "Deja atrás recuerdos de amores perdidos, Son como hojas en el viento, que se van, El tiempo las lleva a lugares lejanos, Donde nunca más podremos encontrarlos.",
+            "Y el corazón se llena de nostalgia, Por lo que ya no volverá jamás, Recuerdos y amores, un rastro perdido, Que en el tiempo se pierden sin traza.",
+            "Por lo que ya no volverá jamás, Son como hojas en el viento, que se van, El tiempo las lleva a lugares lejanos, Donde nunca más podremos encontrarlos."
+          ],
+          "score": 0.7,
+          "step_score": 0.7,
+          "score_history": [
+            0.7
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Verso 2 fue alargado para tener 11 silabas. Verso 3 y 4 fueron modificados para cumplir con la rima consonante ABBA."
+        },
+        {
+          "stanza": [
+            "Rastro, el tiempo que siempre se pierde",
+            "Dejan atrás recuerdos de amores perdidos",
+            "En esta vida no volverá jamás",
+            "Nostalgia, mi compañera eterna"
+          ],
+          "score": 0.648074069840786,
+          "step_score": 0.6,
+          "score_history": [
+            0.7,
+            0.6
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 10 silabas, pero deberia tener 11.\n- Verso 4: tiene 20 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido la longitud de los versos y la rima consonante."
+        },
+        {
+          "stanza": [
+            "Rastro, el tiempo que siempre se pierde",
+            "Dejan atrás recuerdos de amores perdidos",
+            "No volverá jamás en este mundo",
+            "Nostalgia, mi compañera eterna"
+          ],
+          "score": 0.648074069840786,
+          "step_score": 0.6,
+          "score_history": [
+            0.7,
+            0.6
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 10 silabas, pero deberia tener 11.\n- Verso 4: tiene 20 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido la longitud de los versos y la rima consonante."
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "phase": "score",
+      "candidates": [
+        {
+          "stanza": [
+            "El tiempo, un rastro que siempre se pierde,",
+            "Dejan atrás recuerdos de amores perdidos",
+            "Y lleno de nostalgia se convierte el corazón,",
+            "Que se van como hojas en el viento"
+          ],
+          "score": 0.648074069840786,
+          "step_score": 0.6,
+          "score_history": [
+            0.7,
+            0.6
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 4 | mejoras = 4 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo, un rastro que siempre se pierde, En su triste paso deja atrás recuerdos, Y el corazón se llena de nostalgia, Por lo que ya no volverá jamás.",
+              "Deja atrás recuerdos de amores perdidos, Son como hojas en el viento, que se van, El tiempo las lleva a lugares lejanos, Donde nunca más podremos encontrarlos.",
+              "Y el corazón se llena de nostalgia, Por lo que ya no volverá jamás, Recuerdos y amores, un rastro perdido, Que en el tiempo se pierden sin traza.",
+              "Por lo que ya no volverá jamás, Son como hojas en el viento, que se van, El tiempo las lleva a lugares lejanos, Donde nunca más podremos encontrarlos."
+            ],
+            "repaired_stanza": [
+              "El tiempo, un rastro que siempre se pierde,",
+              "Dejan atrás recuerdos de amores perdidos",
+              "Y lleno de nostalgia se convierte el corazón,",
+              "Que se van como hojas en el viento"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo, un rastro que siempre se pierde, En su triste paso deja atrás recuerdos, Y el corazón se llena de nostalgia, Por lo que ya no volverá jamás.",
+                "original_syllables": 44,
+                "original_distance": 33,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "El tiempo, un rastro que siempre se pierde,",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "El tiempo, un rastro que siempre se pierde,",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Tiempo, el rastro que siempre se pierde,",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Tiempo, rastro que siempre se pierde,",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Rastro, tiempo que siempre se pierde,",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Siempre se pierde, tiempo el rastro",
+                    "syllables": 9,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Deja atrás recuerdos de amores perdidos, Son como hojas en el viento, que se van, El tiempo las lleva a lugares lejanos, Donde nunca más podremos encontrarlos.",
+                "original_syllables": 45,
+                "original_distance": 34,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Dejan atrás recuerdos de amores perdidos",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Dejan atrás recuerdos de amores perdidos",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Recuerdos de amores abandonados se van",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Abandonan recuerdos de amores perdidos",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Se van los recuerdos de amores perdidos",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Recuerdos de amores perdidos se irán",
+                    "syllables": 10,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y el corazón se llena de nostalgia, Por lo que ya no volverá jamás, Recuerdos y amores, un rastro perdido, Que en el tiempo se pierden sin traza.",
+                "original_syllables": 44,
+                "original_distance": 33,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Y lleno de nostalgia se convierte el corazón,",
+                "selected_syllables": 14,
+                "selected_distance": 3,
+                "variants": [
+                  {
+                    "verse": "Y lleno de nostalgia se convierte el corazón,",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Corazón lleno de nostalgia nunca volverá,",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Nostalgia repleto es mi corazón, jamás volverá,",
+                    "syllables": 16,
+                    "distance": 5
+                  },
+                  {
+                    "verse": "Corazón repleto de nostalgia nunca más,",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "En el corazón se acumula la nostalgia, jamás volverá",
+                    "syllables": 18,
+                    "distance": 7
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Por lo que ya no volverá jamás, Son como hojas en el viento, que se van, El tiempo las lleva a lugares lejanos, Donde nunca más podremos encontrarlos.",
+                "original_syllables": 45,
+                "original_distance": 34,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Que se van como hojas en el viento",
+                "selected_syllables": 10,
+                "selected_distance": 1,
+                "variants": [
+                  {
+                    "verse": "Que se van como hojas en el viento",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Se van como hojas al lejano viento",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Hojas que se van al lejano viento",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Se llevan como hojas el viento",
+                    "syllables": 9,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Como hojas se van el viento lejano",
+                    "syllables": 10,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "El tiempo, un rastro que siempre se pierde,",
+              "Dejan atrás recuerdos de amores perdidos",
+              "Y lleno de nostalgia se convierte el corazón,",
+              "Que se van como hojas en el viento"
+            ],
+            "repaired_stanza": [
+              "El tiempo, un rastro que siempre se pierde,",
+              "Dejan atrás recuerdos de amores perdidos",
+              "Y lleno de nostalgia se convierte el corazón,",
+              "Que se van como hojas en el viento"
+            ],
+            "target_rhyme": "erde",
+            "current_rhyme": "ento",
+            "verse_1": {
+              "text": "El tiempo, un rastro que siempre se pierde,",
+              "last_word": "pierde",
+              "rhyme": "erde"
+            },
+            "candidate_final_words": [
+              "pierde"
+            ],
+            "enforced_candidate_final_words": [],
+            "original_verse_4": "Que se van como hojas en el viento",
+            "original_verse_4_syllables": 10,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "que se van como hojas en el viento eros",
+                "syllables": 10,
+                "final_word": "eros",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'os'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "que se van como hojas en el viento eries",
+                "syllables": 10,
+                "final_word": "eries",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'es'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "que se van como hojas en el viento eridas",
+                "syllables": 11,
+                "final_word": "eridas",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'eridas'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "que se van como hojas en el viento erradas",
+                "syllables": 11,
+                "final_word": "erradas",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'adas'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "que se van como hojas en el viento erizadas",
+                "syllables": 12,
+                "final_word": "erizadas",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'adas'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'ento'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo, un rastro que siempre se pierde,",
+              "last_word": "pierde",
+              "rhyme": "erde"
+            },
+            "verse_4": {
+              "text": "Que se van como hojas en el viento",
+              "last_word": "viento",
+              "rhyme": "ento"
+            },
+            "target_rhyme": "erde",
+            "current_rhyme": "ento",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'erde', pero se obtuvo 'ento'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('erde') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'idos' | v3 = 'on'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Dejan atrás recuerdos de amores perdidos",
+              "last_word": "perdidos",
+              "rhyme": "idos"
+            },
+            "verse_3": {
+              "text": "Y lleno de nostalgia se convierte el corazón,",
+              "last_word": "corazón",
+              "rhyme": "on"
+            },
+            "target_rhyme": "idos",
+            "current_rhyme": "on",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'idos', pero se obtuvo 'on'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('idos') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 3: tiene 14 silabas, pero deberia tener 11.\n- Verso 4: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Verso 2 fue alargado para tener 11 silabas. Verso 3 y 4 fueron modificados para cumplir con la rima consonante ABBA."
+        },
+        {
+          "stanza": [
+            "Rastro, en el tiempo que siempre se pierde",
+            "Dejan atrás recuerdos de amores perdidos",
+            "No volverá jamás en esta vida",
+            "Nostalgia, mi eterna y fiel compañera"
+          ],
+          "score": 0.69520532897729,
+          "step_score": 0.8,
+          "score_history": [
+            0.7,
+            0.6,
+            0.8
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 3 | mejoras = 3 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "Rastro, el tiempo que siempre se pierde",
+              "Dejan atrás recuerdos de amores perdidos",
+              "En esta vida no volverá jamás",
+              "Nostalgia, mi compañera eterna"
+            ],
+            "repaired_stanza": [
+              "Rastro, en el tiempo que siempre se pierde",
+              "Dejan atrás recuerdos de amores perdidos",
+              "No volverá jamás en esta vida",
+              "Nostalgia, mi eterna y fiel compañera"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "Rastro, el tiempo que siempre se pierde",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Rastro, en el tiempo que siempre se pierde",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Rastro, en el tiempo que siempre se pierde",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Rastro, en el tiempo que siempre se desvanece",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Rastro, en el tiempo que siempre se escapa",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Rastro, en el tiempo que siempre se olvida",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Rastro, en el tiempo que siempre se pierde y se desvanece",
+                    "syllables": 17,
+                    "distance": 6
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Dejan atrás recuerdos de amores perdidos",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "En esta vida no volverá jamás",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "No volverá jamás en esta vida",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "No volverá jamás en esta vida",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "En esta vida no vuelve jamás",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "No volverá jamás este vida",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En esta vida no volvió jamás",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "No volverá este jamás en vida",
+                    "syllables": 10,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Nostalgia, mi compañera eterna",
+                "original_syllables": 9,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Nostalgia, mi eterna y fiel compañera",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Nostalgia, mi eterna y constante acompañera",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Nostalgia, mi compañera invariable e inmutable",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Nostalgia, mi eterna y permanente compañera",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Nostalgia, mi compañera eterna y sin fin",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Nostalgia, mi eterna y fiel compañera",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "Rastro, en el tiempo que siempre se pierde",
+              "Dejan atrás recuerdos de amores perdidos",
+              "No volverá jamás en esta vida",
+              "Nostalgia, mi eterna y fiel compañera"
+            ],
+            "repaired_stanza": [
+              "Rastro, en el tiempo que siempre se pierde",
+              "Dejan atrás recuerdos de amores perdidos",
+              "No volverá jamás en esta vida",
+              "Nostalgia, mi eterna y fiel compañera"
+            ],
+            "target_rhyme": "erde",
+            "current_rhyme": "era",
+            "verse_1": {
+              "text": "Rastro, en el tiempo que siempre se pierde",
+              "last_word": "pierde",
+              "rhyme": "erde"
+            },
+            "candidate_final_words": [
+              "pierde"
+            ],
+            "enforced_candidate_final_words": [],
+            "original_verse_4": "Nostalgia, mi eterna y fiel compañera",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Rastro, en el tiempo que siempre se pierde, Nostalgia, mi dolor eterno y cercana",
+                "syllables": 22,
+                "final_word": "cercana",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'ana'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Rastro, en el tiempo que siempre se pierde, Nostalgia, mi amargura y constante compañera",
+                "syllables": 25,
+                "final_word": "compañera",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'era'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Rastro, en el tiempo que siempre se pierde, Nostalgia, mi dolor eterno y leal acompañante",
+                "syllables": 24,
+                "final_word": "acompañante",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'ante'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Rastro, en el tiempo que siempre se pierde, Nostalgia, mi amargura y fiel compañera inseparable",
+                "syllables": 27,
+                "final_word": "inseparable",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'able'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Rastro, en el tiempo que siempre se pierde, Nostalgia, mi dolor eterno y cercano acompañante",
+                "syllables": 24,
+                "final_word": "acompañante",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'ante'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'era'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "Rastro, en el tiempo que siempre se pierde",
+              "last_word": "pierde",
+              "rhyme": "erde"
+            },
+            "verse_4": {
+              "text": "Nostalgia, mi eterna y fiel compañera",
+              "last_word": "compañera",
+              "rhyme": "era"
+            },
+            "target_rhyme": "erde",
+            "current_rhyme": "era",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'erde', pero se obtuvo 'era'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('erde') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'idos' | v3 = 'ida'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Dejan atrás recuerdos de amores perdidos",
+              "last_word": "perdidos",
+              "rhyme": "idos"
+            },
+            "verse_3": {
+              "text": "No volverá jamás en esta vida",
+              "last_word": "vida",
+              "rhyme": "ida"
+            },
+            "target_rhyme": "idos",
+            "current_rhyme": "ida",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'idos', pero se obtuvo 'ida'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('idos') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido la longitud de los versos y la rima consonante."
+        },
+        {
+          "stanza": [
+            "Rastro, el tiempo que siempre se pierde",
+            "Dejan atrás recuerdos de amores perdidos",
+            "No volverá jamás en este mundo",
+            "Nostalgia, mi compañera inmortal"
+          ],
+          "score": 0.6649399761150976,
+          "step_score": 0.7,
+          "score_history": [
+            0.7,
+            0.6,
+            0.7
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 2 | mejoras = 1 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "Rastro, el tiempo que siempre se pierde",
+              "Dejan atrás recuerdos de amores perdidos",
+              "No volverá jamás en este mundo",
+              "Nostalgia, mi compañera eterna"
+            ],
+            "repaired_stanza": [
+              "Rastro, el tiempo que siempre se pierde",
+              "Dejan atrás recuerdos de amores perdidos",
+              "No volverá jamás en este mundo",
+              "Nostalgia, mi compañera inmortal"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "Rastro, el tiempo que siempre se pierde",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Rastro, el tiempo que siempre se pierde y desvanece",
+                    "syllables": 15,
+                    "distance": 4
+                  },
+                  {
+                    "verse": "Rastro, el tiempo que siempre se pierde y se esconde",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Rastro, el tiempo que siempre se pierde y se olvida",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Rastro, el tiempo que siempre se pierde y se perdona",
+                    "syllables": 15,
+                    "distance": 4
+                  },
+                  {
+                    "verse": "Rastro, el tiempo que siempre se pierde y se remite",
+                    "syllables": 15,
+                    "distance": 4
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Dejan atrás recuerdos de amores perdidos",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "No volverá jamás en este mundo",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Nostalgia, mi compañera eterna",
+                "original_syllables": 9,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Nostalgia, mi compañera inmortal",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Nostalgia, mi acompañante eterna",
+                    "syllables": 8,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Nostalgia, mi compañera inmortal",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Nostalgia, mi constante acompañante",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Nostalgia, mi eterna acompañante presente",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Nostalgia, mi eterna y fiel acompañante",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "Rastro, el tiempo que siempre se pierde",
+              "Dejan atrás recuerdos de amores perdidos",
+              "No volverá jamás en este mundo",
+              "Nostalgia, mi compañera inmortal"
+            ],
+            "repaired_stanza": [
+              "Rastro, el tiempo que siempre se pierde",
+              "Dejan atrás recuerdos de amores perdidos",
+              "No volverá jamás en este mundo",
+              "Nostalgia, mi compañera inmortal"
+            ],
+            "target_rhyme": "erde",
+            "current_rhyme": "al",
+            "verse_1": {
+              "text": "Rastro, el tiempo que siempre se pierde",
+              "last_word": "pierde",
+              "rhyme": "erde"
+            },
+            "candidate_final_words": [
+              "pierde"
+            ],
+            "enforced_candidate_final_words": [],
+            "original_verse_4": "Nostalgia, mi compañera inmortal",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Recuerdos, mi compañera inmortal",
+                "syllables": 11,
+                "final_word": "inmortal",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'al'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Sentimientos, mi compañera inmortal",
+                "syllables": 12,
+                "final_word": "inmortal",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'al'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Tristezas, mi compañera inmortal",
+                "syllables": 11,
+                "final_word": "inmortal",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'al'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Memorias, mi compañera inmortal",
+                "syllables": 11,
+                "final_word": "inmortal",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'al'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Sueños, mi compañera inmortal",
+                "syllables": 10,
+                "final_word": "inmortal",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'al'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'al'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "Rastro, el tiempo que siempre se pierde",
+              "last_word": "pierde",
+              "rhyme": "erde"
+            },
+            "verse_4": {
+              "text": "Nostalgia, mi compañera inmortal",
+              "last_word": "inmortal",
+              "rhyme": "al"
+            },
+            "target_rhyme": "erde",
+            "current_rhyme": "al",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'erde', pero se obtuvo 'al'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('erde') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'idos' | v3 = 'undo'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Dejan atrás recuerdos de amores perdidos",
+              "last_word": "perdidos",
+              "rhyme": "idos"
+            },
+            "verse_3": {
+              "text": "No volverá jamás en este mundo",
+              "last_word": "mundo",
+              "rhyme": "undo"
+            },
+            "target_rhyme": "idos",
+            "current_rhyme": "undo",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'idos', pero se obtuvo 'undo'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('idos') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido la longitud de los versos y la rima consonante."
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "phase": "prune",
+      "selected_beams": [
+        {
+          "stanza": [
+            "El tiempo, un rastro que siempre se pierde,",
+            "Deja atrás recuerdos de amores perdidos",
+            "Y el corazón se llena de saña",
+            "Por lo que ya no volverá jamás"
+          ],
+          "score": 0.7,
+          "step_score": 0.7,
+          "score_history": [
+            0.7
+          ],
+          "preserved_by_elitism": true,
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 2 | mejoras = 1 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo, un rastro que siempre se pierde,",
+              "Deja atrás recuerdos de amores perdidos",
+              "Y el corazón se llena de nostalgia",
+              "Por lo que ya no volverá jamás"
+            ],
+            "repaired_stanza": [
+              "El tiempo, un rastro que siempre se pierde,",
+              "Deja atrás recuerdos de amores perdidos",
+              "Y el corazón se llena de saña",
+              "Por lo que ya no volverá jamás"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo, un rastro que siempre se pierde,",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Deja atrás recuerdos de amores perdidos",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Dejan atrás recuerdos de amores perdidos y olvidados",
+                    "syllables": 16,
+                    "distance": 5
+                  },
+                  {
+                    "verse": "Deja atrás recordaciones de amores que ya no existen",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Dejan atrás reminiscencias de amores perdidos en el pasado",
+                    "syllables": 18,
+                    "distance": 7
+                  },
+                  {
+                    "verse": "Dejan atrás recuerdos de amores que ahora son solo fantasmas",
+                    "syllables": 16,
+                    "distance": 5
+                  },
+                  {
+                    "verse": "Dejan atrás recuerdos de amores que han desaparecido por completo",
+                    "syllables": 18,
+                    "distance": 7
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Y el corazón se llena de nostalgia",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Y el corazón se llena de saña",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Y el corazón se llena de saña",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Y el corazón se llena de sospecha",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Y el corazón se llena de siena",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Y el corazón se llena de sangre",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Y el corazón se llena de sana",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Por lo que ya no volverá jamás",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "El tiempo, un rastro que siempre se pierde,",
+              "Deja atrás recuerdos de amores perdidos",
+              "Y el corazón se llena de saña",
+              "Por lo que ya no volverá jamás"
+            ],
+            "repaired_stanza": [
+              "El tiempo, un rastro que siempre se pierde,",
+              "Deja atrás recuerdos de amores perdidos",
+              "Y el corazón se llena de saña",
+              "Por lo que ya no volverá jamás"
+            ],
+            "target_rhyme": "erde",
+            "current_rhyme": "as",
+            "verse_1": {
+              "text": "El tiempo, un rastro que siempre se pierde,",
+              "last_word": "pierde",
+              "rhyme": "erde"
+            },
+            "candidate_final_words": [
+              "pierde"
+            ],
+            "enforced_candidate_final_words": [],
+            "original_verse_4": "Por lo que ya no volverá jamás",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Por lo que ya no regresará jamás",
+                "syllables": 12,
+                "final_word": "jamás",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya no volverá más",
+                "syllables": 10,
+                "final_word": "más",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya no retornará jamás",
+                "syllables": 12,
+                "final_word": "jamás",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya no volverá en el futuro",
+                "syllables": 12,
+                "final_word": "futuro",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'uro'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Por lo que ya no se encontrará jamás",
+                "syllables": 12,
+                "final_word": "jamás",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'as'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo, un rastro que siempre se pierde,",
+              "last_word": "pierde",
+              "rhyme": "erde"
+            },
+            "verse_4": {
+              "text": "Por lo que ya no volverá jamás",
+              "last_word": "jamás",
+              "rhyme": "as"
+            },
+            "target_rhyme": "erde",
+            "current_rhyme": "as",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'erde', pero se obtuvo 'as'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('erde') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'idos' | v3 = 'aña'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Deja atrás recuerdos de amores perdidos",
+              "last_word": "perdidos",
+              "rhyme": "idos"
+            },
+            "verse_3": {
+              "text": "Y el corazón se llena de saña",
+              "last_word": "saña",
+              "rhyme": "aña"
+            },
+            "target_rhyme": "idos",
+            "current_rhyme": "aña",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'idos', pero se obtuvo 'aña'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('idos') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Rima ABBA con versos endecasilabos que expresan la nostalgia del paso del tiempo."
+        },
+        {
+          "stanza": [
+            "Rastro, en el tiempo que siempre se pierde",
+            "Dejan atrás recuerdos de amores perdidos",
+            "No volverá jamás en esta vida",
+            "Nostalgia, mi eterna y fiel compañera"
+          ],
+          "score": 0.69520532897729,
+          "step_score": 0.8,
+          "score_history": [
+            0.7,
+            0.6,
+            0.8
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 3 | mejoras = 3 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "Rastro, el tiempo que siempre se pierde",
+              "Dejan atrás recuerdos de amores perdidos",
+              "En esta vida no volverá jamás",
+              "Nostalgia, mi compañera eterna"
+            ],
+            "repaired_stanza": [
+              "Rastro, en el tiempo que siempre se pierde",
+              "Dejan atrás recuerdos de amores perdidos",
+              "No volverá jamás en esta vida",
+              "Nostalgia, mi eterna y fiel compañera"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "Rastro, el tiempo que siempre se pierde",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Rastro, en el tiempo que siempre se pierde",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Rastro, en el tiempo que siempre se pierde",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Rastro, en el tiempo que siempre se desvanece",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Rastro, en el tiempo que siempre se escapa",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Rastro, en el tiempo que siempre se olvida",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Rastro, en el tiempo que siempre se pierde y se desvanece",
+                    "syllables": 17,
+                    "distance": 6
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "Dejan atrás recuerdos de amores perdidos",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "En esta vida no volverá jamás",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "No volverá jamás en esta vida",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "No volverá jamás en esta vida",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "En esta vida no vuelve jamás",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "No volverá jamás este vida",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En esta vida no volvió jamás",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "No volverá este jamás en vida",
+                    "syllables": 10,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Nostalgia, mi compañera eterna",
+                "original_syllables": 9,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Nostalgia, mi eterna y fiel compañera",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Nostalgia, mi eterna y constante acompañera",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Nostalgia, mi compañera invariable e inmutable",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Nostalgia, mi eterna y permanente compañera",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Nostalgia, mi compañera eterna y sin fin",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Nostalgia, mi eterna y fiel compañera",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "Rastro, en el tiempo que siempre se pierde",
+              "Dejan atrás recuerdos de amores perdidos",
+              "No volverá jamás en esta vida",
+              "Nostalgia, mi eterna y fiel compañera"
+            ],
+            "repaired_stanza": [
+              "Rastro, en el tiempo que siempre se pierde",
+              "Dejan atrás recuerdos de amores perdidos",
+              "No volverá jamás en esta vida",
+              "Nostalgia, mi eterna y fiel compañera"
+            ],
+            "target_rhyme": "erde",
+            "current_rhyme": "era",
+            "verse_1": {
+              "text": "Rastro, en el tiempo que siempre se pierde",
+              "last_word": "pierde",
+              "rhyme": "erde"
+            },
+            "candidate_final_words": [
+              "pierde"
+            ],
+            "enforced_candidate_final_words": [],
+            "original_verse_4": "Nostalgia, mi eterna y fiel compañera",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Rastro, en el tiempo que siempre se pierde, Nostalgia, mi dolor eterno y cercana",
+                "syllables": 22,
+                "final_word": "cercana",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'ana'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Rastro, en el tiempo que siempre se pierde, Nostalgia, mi amargura y constante compañera",
+                "syllables": 25,
+                "final_word": "compañera",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'era'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Rastro, en el tiempo que siempre se pierde, Nostalgia, mi dolor eterno y leal acompañante",
+                "syllables": 24,
+                "final_word": "acompañante",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'ante'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Rastro, en el tiempo que siempre se pierde, Nostalgia, mi amargura y fiel compañera inseparable",
+                "syllables": 27,
+                "final_word": "inseparable",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'able'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              },
+              {
+                "verse": "Rastro, en el tiempo que siempre se pierde, Nostalgia, mi dolor eterno y cercano acompañante",
+                "syllables": 24,
+                "final_word": "acompañante",
+                "final_word_matches_anchor": false,
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'ante'",
+                "accepted": false,
+                "rejection_reason": "No corrige la rima exterior AXYA."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erde' | v4 = 'era'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "Rastro, en el tiempo que siempre se pierde",
+              "last_word": "pierde",
+              "rhyme": "erde"
+            },
+            "verse_4": {
+              "text": "Nostalgia, mi eterna y fiel compañera",
+              "last_word": "compañera",
+              "rhyme": "era"
+            },
+            "target_rhyme": "erde",
+            "current_rhyme": "era",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'erde', pero se obtuvo 'era'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('erde') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'idos' | v3 = 'ida'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Dejan atrás recuerdos de amores perdidos",
+              "last_word": "perdidos",
+              "rhyme": "idos"
+            },
+            "verse_3": {
+              "text": "No volverá jamás en esta vida",
+              "last_word": "vida",
+              "rhyme": "ida"
+            },
+            "target_rhyme": "idos",
+            "current_rhyme": "ida",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'idos', pero se obtuvo 'ida'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('idos') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido la longitud de los versos y la rima consonante."
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "phase": "stop",
+      "reason": "max_steps",
+      "best_score": 0.7
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+ESTROFA FINAL
+
+Modelo: mistral:7b-instruct
+Temperatura: 0.3
+Num predict: 600
+k: 2
+max_steps: 3
+alpha: 1.0
+Reparacion metrica activa: True
+Variantes por verso para reparacion metrica: 5
+Temperatura reparacion metrica: 0.4
+Num predict reparacion metrica: 200
+
+Score global: 0.765
+Historial de scores: [0.8, 0.7, 0.8]
+Resumen de metricas: versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20
+Resumen de reparacion metrica: reparación métrica = activa | intentos = 2 | mejoras = 2 | cambio = True
+Resumen rima exterior AXYA: rima AXYA = incorrecta | objetivo='anciano' | v4='urso'
+
+Feedback final:
+Puntuacion formal total: 16.0/20.
+Revisa los siguientes aspectos formales antes de generar una nueva version:
+Numero de versos:
+- El numero de versos es correcto.
+Silabas metricas:
+- Todos los versos evaluados tienen 11 silabas.
+Rima consonante:
+- Verso 3: rima C, pero se esperaba B.
+- Verso 4: rima D, pero se esperaba A.
+
+Estrofa completa:
+1. Los años pasan, y el tiempo me hace anciano
+2. En esta tristeza que es mi inevitable
+3. Nostalgia en cada rincón, corazón lleno
+4. Como un río que ya no vuelve su curso

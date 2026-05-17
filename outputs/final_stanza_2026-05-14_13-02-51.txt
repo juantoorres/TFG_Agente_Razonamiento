@@ -1,0 +1,41 @@
+ESTROFA FINAL
+
+Modelo: mistral:7b-instruct
+Temperatura: 0.3
+Num predict: 600
+k: 2
+max_steps: 3
+alpha: 1.0
+Reparacion metrica activa: True
+Variantes por verso para reparacion metrica: 5
+Temperatura reparacion metrica: 0.4
+Num predict reparacion metrica: 200
+Reparacion rima A activa: True
+Variantes para reparacion rima A: 5
+Temperatura reparacion rima A: 0.3
+Num predict reparacion rima A: 200
+
+Score global: 0.665
+Historial de scores: [0.6, 0.7, 0.7]
+Resumen de metricas: versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20
+Resumen de reparacion metrica: reparación métrica = activa | intentos = 3 | mejoras = 2 | cambio = True
+Resumen reparacion rima A: reparacion rima A = activa | intento = True | cambio = False
+Resumen rima exterior AXYA: rima AXYA = incorrecta | objetivo = 'eva' | v4 = 'as'
+Resumen rima interior B: rima interior B = incorrecta | objetivo = 'ulce' | v3 = 'i'
+
+Feedback final:
+Puntuacion formal total: 14.0/20.
+Revisa los siguientes aspectos formales antes de generar una nueva version:
+Numero de versos:
+- El numero de versos es correcto.
+Silabas metricas:
+- Verso 1: tiene 10 silabas, pero deberia tener 11.
+Rima consonante:
+- Verso 3: rima C, pero se esperaba B.
+- Verso 4: rima D, pero se esperaba A.
+
+Estrofa completa:
+1. El tiempo, un rastro que el viento lleva
+2. En la memoria, un recuerdo amargo dulce
+3. Corazón, triste profundidad allí
+4. Que nunca se olvidará jamás más

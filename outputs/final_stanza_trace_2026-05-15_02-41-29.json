@@ -1,0 +1,4384 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200
+  },
+  "trace": [
+    {
+      "step": 0,
+      "phase": "expand",
+      "generated_candidates": [
+        {
+          "stanza": [
+            "El tiempo pasa, y yo me quedo atrás",
+            "En la tristeza de mi corazón",
+            "Recuerdos que no vuelven a ver",
+            "Aún estoy aquí, pero ya no soy así"
+          ],
+          "score": 0.0,
+          "step_score": 0.0,
+          "score_history": [],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=?/? | endecasilabos=?/? | rima=?/? | score=?/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Todavia no se ha generado ninguna estrofa.",
+          "generation_reasoning": "Versos que expresan nostalgia del paso del tiempo con rima ABBA y tendencia a 11 silabas metricas."
+        },
+        {
+          "stanza": [
+            "El reloj de mi vida se ha detenido",
+            "En la tristeza que me arrasa",
+            "Recuerdos que no vuelven a ver",
+            "Aún estoy aquí, pero ya no soy así"
+          ],
+          "score": 0.0,
+          "step_score": 0.0,
+          "score_history": [],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=?/? | endecasilabos=?/? | rima=?/? | score=?/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Todavia no se ha generado ninguna estrofa.",
+          "generation_reasoning": "Versos que expresan nostalgia del paso del tiempo con rima ABBA y tendencia a 11 silabas metricas."
+        }
+      ]
+    },
+    {
+      "step": 0,
+      "phase": "score",
+      "candidates": [
+        {
+          "stanza": [
+            "El tiempo pasa, y yo me quedo atrás",
+            "En la tristeza de mi corazón",
+            "Recuerdos que no vuelven a volver",
+            "Aún estoy aquí, pero ya no soy así"
+          ],
+          "score": 0.8,
+          "step_score": 0.8,
+          "score_history": [
+            0.8
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 1 | mejoras = 1 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo pasa, y yo me quedo atrás",
+              "En la tristeza de mi corazón",
+              "Recuerdos que no vuelven a ver",
+              "Aún estoy aquí, pero ya no soy así"
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa, y yo me quedo atrás",
+              "En la tristeza de mi corazón",
+              "Recuerdos que no vuelven a volver",
+              "Aún estoy aquí, pero ya no soy así"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo pasa, y yo me quedo atrás",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En la tristeza de mi corazón",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Recuerdos que no vuelven a ver",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Recuerdos que no vuelven a volver",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Recuerdos que no vuelven a volver",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Recuerdos que ya no regresan a ver",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Recuerdos que nunca más volarán a ver",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Recuerdos que jamás volverán a ver",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Recuerdos que ya no volverán a ir",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Aún estoy aquí, pero ya no soy así",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "El tiempo pasa, y yo me quedo atrás",
+              "En la tristeza de mi corazón",
+              "Recuerdos que no vuelven a volver",
+              "Aún estoy aquí, pero ya no soy así"
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa, y yo me quedo atrás",
+              "En la tristeza de mi corazón",
+              "Recuerdos que no vuelven a volver",
+              "Aún estoy aquí, pero ya no soy así"
+            ],
+            "target_rhyme": "as",
+            "current_rhyme": "i",
+            "verse_1": {
+              "text": "El tiempo pasa, y yo me quedo atrás",
+              "last_word": "atrás",
+              "rhyme": "as"
+            },
+            "candidate_final_words": [
+              "atrás"
+            ],
+            "original_verse_4": "Aún estoy aquí, pero ya no soy así",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Aún estoy aquí, pero ya no soy como antes",
+                "syllables": 12,
+                "final_word": "antes",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'antes'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero ya no soy lo mismo",
+                "syllables": 12,
+                "final_word": "mismo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'ismo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero ya no soy así como antes",
+                "syllables": 13,
+                "final_word": "antes",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'antes'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero ya no me reconozco",
+                "syllables": 13,
+                "final_word": "reconozco",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'ozco'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero ya no soy el mismo",
+                "syllables": 12,
+                "final_word": "mismo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'ismo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'i'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo pasa, y yo me quedo atrás",
+              "last_word": "atrás",
+              "rhyme": "as"
+            },
+            "verse_4": {
+              "text": "Aún estoy aquí, pero ya no soy así",
+              "last_word": "así",
+              "rhyme": "i"
+            },
+            "target_rhyme": "as",
+            "current_rhyme": "i",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'as', pero se obtuvo 'i'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('as') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'on' | v3 = 'er'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "En la tristeza de mi corazón",
+              "last_word": "corazón",
+              "rhyme": "on"
+            },
+            "verse_3": {
+              "text": "Recuerdos que no vuelven a volver",
+              "last_word": "volver",
+              "rhyme": "er"
+            },
+            "target_rhyme": "on",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'on', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('on') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Versos que expresan nostalgia del paso del tiempo con rima ABBA y tendencia a 11 silabas metricas."
+        },
+        {
+          "stanza": [
+            "El reloj de mi vida se paró",
+            "En la tristeza que me arrasa y asola",
+            "Recuerdos que no vuelven a volver",
+            "Aún estoy aquí, pero ya no soy así"
+          ],
+          "score": 0.8,
+          "step_score": 0.8,
+          "score_history": [
+            0.8
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 3 | mejoras = 3 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El reloj de mi vida se ha detenido",
+              "En la tristeza que me arrasa",
+              "Recuerdos que no vuelven a ver",
+              "Aún estoy aquí, pero ya no soy así"
+            ],
+            "repaired_stanza": [
+              "El reloj de mi vida se paró",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que no vuelven a volver",
+              "Aún estoy aquí, pero ya no soy así"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El reloj de mi vida se ha detenido",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "El reloj de mi vida se paró",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "El reloj de mi vida se paró",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Mi vida se detuvo el reloj",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Detuvo el reloj mi vida",
+                    "syllables": 8,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "El reloj, mi vida, se detuvo",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Se detuvo el reloj de mi vida",
+                    "syllables": 10,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En la tristeza que me arrasa",
+                "original_syllables": 8,
+                "original_distance": 3,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "En la tristeza que me arrasa y asola",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "En la tristeza que me arrasa y atormenta",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En la tristeza que me arrastra y destroza",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En la tristeza que me arrasa y asolada",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En la tristeza que me arrasa y asola",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "En la tristeza que me arrasa y asole",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Recuerdos que no vuelven a ver",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Recuerdos que no vuelven a volver",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Recuerdos que no vuelven a volver",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Recuerdos que ya no vuelven a ser",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Recuerdos que nunca más vuelven a ver",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Recuerdos que ya no vuelven a estar",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Recuerdos que ya no vuelven a ser aquellos",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Aún estoy aquí, pero ya no soy así",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "El reloj de mi vida se paró",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que no vuelven a volver",
+              "Aún estoy aquí, pero ya no soy así"
+            ],
+            "repaired_stanza": [
+              "El reloj de mi vida se paró",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que no vuelven a volver",
+              "Aún estoy aquí, pero ya no soy así"
+            ],
+            "target_rhyme": "o",
+            "current_rhyme": "i",
+            "verse_1": {
+              "text": "El reloj de mi vida se paró",
+              "last_word": "paró",
+              "rhyme": "o"
+            },
+            "candidate_final_words": [
+              "paró"
+            ],
+            "original_verse_4": "Aún estoy aquí, pero ya no soy así",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Aún soy aquí, pero ya no soy el mismo",
+                "syllables": 11,
+                "final_word": "mismo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'o' | v4 = 'ismo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero ya no soy como antes",
+                "syllables": 12,
+                "final_word": "antes",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'o' | v4 = 'antes'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero mi ser no es así",
+                "syllables": 11,
+                "final_word": "así",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'o' | v4 = 'i'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero ya no soy más",
+                "syllables": 11,
+                "final_word": "más",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'o' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero ya no soy el mismo hombre",
+                "syllables": 13,
+                "final_word": "hombre",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'o' | v4 = 'ombre'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'o' | v4 = 'i'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El reloj de mi vida se paró",
+              "last_word": "paró",
+              "rhyme": "o"
+            },
+            "verse_4": {
+              "text": "Aún estoy aquí, pero ya no soy así",
+              "last_word": "así",
+              "rhyme": "i"
+            },
+            "target_rhyme": "o",
+            "current_rhyme": "i",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'o', pero se obtuvo 'i'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('o') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ola' | v3 = 'er'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "En la tristeza que me arrasa y asola",
+              "last_word": "asola",
+              "rhyme": "ola"
+            },
+            "verse_3": {
+              "text": "Recuerdos que no vuelven a volver",
+              "last_word": "volver",
+              "rhyme": "er"
+            },
+            "target_rhyme": "ola",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ola', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ola') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Versos que expresan nostalgia del paso del tiempo con rima ABBA y tendencia a 11 silabas metricas."
+        }
+      ]
+    },
+    {
+      "step": 0,
+      "phase": "prune",
+      "selected_beams": [
+        {
+          "stanza": [
+            "El tiempo pasa, y yo me quedo atrás",
+            "En la tristeza de mi corazón",
+            "Recuerdos que no vuelven a volver",
+            "Aún estoy aquí, pero ya no soy así"
+          ],
+          "score": 0.8,
+          "step_score": 0.8,
+          "score_history": [
+            0.8
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 1 | mejoras = 1 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo pasa, y yo me quedo atrás",
+              "En la tristeza de mi corazón",
+              "Recuerdos que no vuelven a ver",
+              "Aún estoy aquí, pero ya no soy así"
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa, y yo me quedo atrás",
+              "En la tristeza de mi corazón",
+              "Recuerdos que no vuelven a volver",
+              "Aún estoy aquí, pero ya no soy así"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo pasa, y yo me quedo atrás",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En la tristeza de mi corazón",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Recuerdos que no vuelven a ver",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Recuerdos que no vuelven a volver",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Recuerdos que no vuelven a volver",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Recuerdos que ya no regresan a ver",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Recuerdos que nunca más volarán a ver",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Recuerdos que jamás volverán a ver",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Recuerdos que ya no volverán a ir",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Aún estoy aquí, pero ya no soy así",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "El tiempo pasa, y yo me quedo atrás",
+              "En la tristeza de mi corazón",
+              "Recuerdos que no vuelven a volver",
+              "Aún estoy aquí, pero ya no soy así"
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa, y yo me quedo atrás",
+              "En la tristeza de mi corazón",
+              "Recuerdos que no vuelven a volver",
+              "Aún estoy aquí, pero ya no soy así"
+            ],
+            "target_rhyme": "as",
+            "current_rhyme": "i",
+            "verse_1": {
+              "text": "El tiempo pasa, y yo me quedo atrás",
+              "last_word": "atrás",
+              "rhyme": "as"
+            },
+            "candidate_final_words": [
+              "atrás"
+            ],
+            "original_verse_4": "Aún estoy aquí, pero ya no soy así",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Aún estoy aquí, pero ya no soy como antes",
+                "syllables": 12,
+                "final_word": "antes",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'antes'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero ya no soy lo mismo",
+                "syllables": 12,
+                "final_word": "mismo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'ismo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero ya no soy así como antes",
+                "syllables": 13,
+                "final_word": "antes",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'antes'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero ya no me reconozco",
+                "syllables": 13,
+                "final_word": "reconozco",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'ozco'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero ya no soy el mismo",
+                "syllables": 12,
+                "final_word": "mismo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'ismo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'i'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo pasa, y yo me quedo atrás",
+              "last_word": "atrás",
+              "rhyme": "as"
+            },
+            "verse_4": {
+              "text": "Aún estoy aquí, pero ya no soy así",
+              "last_word": "así",
+              "rhyme": "i"
+            },
+            "target_rhyme": "as",
+            "current_rhyme": "i",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'as', pero se obtuvo 'i'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('as') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'on' | v3 = 'er'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "En la tristeza de mi corazón",
+              "last_word": "corazón",
+              "rhyme": "on"
+            },
+            "verse_3": {
+              "text": "Recuerdos que no vuelven a volver",
+              "last_word": "volver",
+              "rhyme": "er"
+            },
+            "target_rhyme": "on",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'on', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('on') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Versos que expresan nostalgia del paso del tiempo con rima ABBA y tendencia a 11 silabas metricas."
+        },
+        {
+          "stanza": [
+            "El reloj de mi vida se paró",
+            "En la tristeza que me arrasa y asola",
+            "Recuerdos que no vuelven a volver",
+            "Aún estoy aquí, pero ya no soy así"
+          ],
+          "score": 0.8,
+          "step_score": 0.8,
+          "score_history": [
+            0.8
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 3 | mejoras = 3 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El reloj de mi vida se ha detenido",
+              "En la tristeza que me arrasa",
+              "Recuerdos que no vuelven a ver",
+              "Aún estoy aquí, pero ya no soy así"
+            ],
+            "repaired_stanza": [
+              "El reloj de mi vida se paró",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que no vuelven a volver",
+              "Aún estoy aquí, pero ya no soy así"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El reloj de mi vida se ha detenido",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "El reloj de mi vida se paró",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "El reloj de mi vida se paró",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Mi vida se detuvo el reloj",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Detuvo el reloj mi vida",
+                    "syllables": 8,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "El reloj, mi vida, se detuvo",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Se detuvo el reloj de mi vida",
+                    "syllables": 10,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En la tristeza que me arrasa",
+                "original_syllables": 8,
+                "original_distance": 3,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "En la tristeza que me arrasa y asola",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "En la tristeza que me arrasa y atormenta",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En la tristeza que me arrastra y destroza",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En la tristeza que me arrasa y asolada",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En la tristeza que me arrasa y asola",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "En la tristeza que me arrasa y asole",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Recuerdos que no vuelven a ver",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Recuerdos que no vuelven a volver",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Recuerdos que no vuelven a volver",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Recuerdos que ya no vuelven a ser",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Recuerdos que nunca más vuelven a ver",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Recuerdos que ya no vuelven a estar",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Recuerdos que ya no vuelven a ser aquellos",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Aún estoy aquí, pero ya no soy así",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "El reloj de mi vida se paró",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que no vuelven a volver",
+              "Aún estoy aquí, pero ya no soy así"
+            ],
+            "repaired_stanza": [
+              "El reloj de mi vida se paró",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que no vuelven a volver",
+              "Aún estoy aquí, pero ya no soy así"
+            ],
+            "target_rhyme": "o",
+            "current_rhyme": "i",
+            "verse_1": {
+              "text": "El reloj de mi vida se paró",
+              "last_word": "paró",
+              "rhyme": "o"
+            },
+            "candidate_final_words": [
+              "paró"
+            ],
+            "original_verse_4": "Aún estoy aquí, pero ya no soy así",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Aún soy aquí, pero ya no soy el mismo",
+                "syllables": 11,
+                "final_word": "mismo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'o' | v4 = 'ismo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero ya no soy como antes",
+                "syllables": 12,
+                "final_word": "antes",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'o' | v4 = 'antes'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero mi ser no es así",
+                "syllables": 11,
+                "final_word": "así",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'o' | v4 = 'i'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero ya no soy más",
+                "syllables": 11,
+                "final_word": "más",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'o' | v4 = 'as'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero ya no soy el mismo hombre",
+                "syllables": 13,
+                "final_word": "hombre",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'o' | v4 = 'ombre'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'o' | v4 = 'i'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El reloj de mi vida se paró",
+              "last_word": "paró",
+              "rhyme": "o"
+            },
+            "verse_4": {
+              "text": "Aún estoy aquí, pero ya no soy así",
+              "last_word": "así",
+              "rhyme": "i"
+            },
+            "target_rhyme": "o",
+            "current_rhyme": "i",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'o', pero se obtuvo 'i'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('o') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ola' | v3 = 'er'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "En la tristeza que me arrasa y asola",
+              "last_word": "asola",
+              "rhyme": "ola"
+            },
+            "verse_3": {
+              "text": "Recuerdos que no vuelven a volver",
+              "last_word": "volver",
+              "rhyme": "er"
+            },
+            "target_rhyme": "ola",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ola', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ola') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Versos que expresan nostalgia del paso del tiempo con rima ABBA y tendencia a 11 silabas metricas."
+        }
+      ]
+    },
+    {
+      "step": 1,
+      "phase": "expand",
+      "generated_candidates": [
+        {
+          "stanza": [
+            "El tiempo pasa, y yo me siento perdido",
+            "En la tristeza de mi corazón se refleja",
+            "Recuerdos que no vuelven a volver, son un espejo",
+            "Aún estoy aquí, pero ya no soy el mismo"
+          ],
+          "score": 0.8,
+          "step_score": 0.8,
+          "score_history": [
+            0.8
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido la rima en versos 3 y 4 para cumplir con las restricciones."
+        },
+        {
+          "stanza": [
+            "El tiempo pasa, y yo me quedo atrás",
+            "En mi corazón, tristeza y nostalgia",
+            "Recuerdos que no vuelven a volver, son una pesadilla",
+            "Aún estoy aquí, pero ya no soy el mismo"
+          ],
+          "score": 0.8,
+          "step_score": 0.8,
+          "score_history": [
+            0.8
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido la rima en verso 3 para cumplir con las restricciones."
+        },
+        {
+          "stanza": [
+            "El reloj de mi vida se detiene",
+            "En la tristeza que me arrasa y asola",
+            "Recuerdos que no vuelven a volver",
+            "Aún estoy aquí, pero ya no soy el mismo"
+          ],
+          "score": 0.8,
+          "step_score": 0.8,
+          "score_history": [
+            0.8
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido para respetar la rima consonante ABBA y mantener la metrica de 11 silabas en cada verso."
+        },
+        {
+          "stanza": [
+            "El reloj de mi vida se detiene",
+            "En la tristeza que me arrasa y asola",
+            "Recuerdos que no vuelven a volver",
+            "Aún estoy aquí, pero ya no soy el mismo"
+          ],
+          "score": 0.8,
+          "step_score": 0.8,
+          "score_history": [
+            0.8
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido para respetar la rima consonante ABBA y mantener la metrica de 11 silabas en cada verso."
+        }
+      ]
+    },
+    {
+      "step": 1,
+      "phase": "score",
+      "candidates": [
+        {
+          "stanza": [
+            "Tiempo que pasa, yo me siento perdido",
+            "Tristeza de mi corazón se muestra",
+            "Recuerdos que no vuelven a presentarse",
+            "Aún estoy aquí, pero ya no soy el mismo"
+          ],
+          "score": 0.6324555320336759,
+          "step_score": 0.5,
+          "score_history": [
+            0.8,
+            0.5
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=1/4 | rima=2/4 | score=10.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 4 | mejoras = 3 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo pasa, y yo me siento perdido",
+              "En la tristeza de mi corazón se refleja",
+              "Recuerdos que no vuelven a volver, son un espejo",
+              "Aún estoy aquí, pero ya no soy el mismo"
+            ],
+            "repaired_stanza": [
+              "Tiempo que pasa, yo me siento perdido",
+              "Tristeza de mi corazón se muestra",
+              "Recuerdos que no vuelven a presentarse",
+              "Aún estoy aquí, pero ya no soy el mismo"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo pasa, y yo me siento perdido",
+                "original_syllables": 13,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Tiempo que pasa, yo me siento perdido",
+                "selected_syllables": 12,
+                "selected_distance": 1,
+                "variants": [
+                  {
+                    "verse": "El tiempo transcurre, yo me siento perdido",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Tiempo que pasa, yo me siento perdido",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Yo me siento perdido por el tiempo pasado",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Por el tiempo que pasa, yo me siento perdido",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "El tiempo transcurre, yo me encuentro perdido",
+                    "syllables": 13,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En la tristeza de mi corazón se refleja",
+                "original_syllables": 14,
+                "original_distance": 3,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Tristeza de mi corazón se muestra",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "En tristeza mi corazón se refleja",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Tristeza de mi corazón se muestra",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "En tristeza, mi corazón se ve",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Mi corazón en tristeza se refleja",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Tristeza en mi corazón se ve",
+                    "syllables": 9,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Recuerdos que no vuelven a volver, son un espejo",
+                "original_syllables": 15,
+                "original_distance": 4,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Recuerdos que no vuelven a presentarse",
+                "selected_syllables": 12,
+                "selected_distance": 1,
+                "variants": [
+                  {
+                    "verse": "Recuerdos que no vuelven a presentarse",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Recuerdos que ya no regresan, son un espejo",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Recordados que nunca retornan, son un espejo",
+                    "syllables": 15,
+                    "distance": 4
+                  },
+                  {
+                    "verse": "Recuerdos que no volverán, son un espejo",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Recordados que no vuelven a aparecer, son un espejo",
+                    "syllables": 16,
+                    "distance": 5
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Aún estoy aquí, pero ya no soy el mismo",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Aún estoy presente, pero no soy el mismo",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Aún aquí estoy, pero ya soy distinto",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Aún estoy en este lugar, pero no lo mismo",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Aún estoy aquí, pero yo cambié",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Aún presente, pero yo no soy el mismo",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "Tiempo que pasa, yo me siento perdido",
+              "Tristeza de mi corazón se muestra",
+              "Recuerdos que no vuelven a presentarse",
+              "Aún estoy aquí, pero ya no soy el mismo"
+            ],
+            "repaired_stanza": [
+              "Tiempo que pasa, yo me siento perdido",
+              "Tristeza de mi corazón se muestra",
+              "Recuerdos que no vuelven a presentarse",
+              "Aún estoy aquí, pero ya no soy el mismo"
+            ],
+            "target_rhyme": "ido",
+            "current_rhyme": "ismo",
+            "verse_1": {
+              "text": "Tiempo que pasa, yo me siento perdido",
+              "last_word": "perdido",
+              "rhyme": "ido"
+            },
+            "candidate_final_words": [
+              "dormido",
+              "perdido",
+              "olvido"
+            ],
+            "original_verse_4": "Aún estoy aquí, pero ya no soy el mismo",
+            "original_verse_4_syllables": 12,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Aún estoy aquí, pero ya no soy el mismo, ido como un fantasma",
+                "syllables": 17,
+                "final_word": "fantasma",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ido' | v4 = 'asma'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero ya no soy el mismo, ido en la memoria triste",
+                "syllables": 18,
+                "final_word": "triste",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ido' | v4 = 'iste'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero ya no soy el mismo, olvido en mi corazón",
+                "syllables": 19,
+                "final_word": "corazón",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ido' | v4 = 'on'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero ya no soy el mismo, dormido en los recuerdos",
+                "syllables": 19,
+                "final_word": "recuerdos",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ido' | v4 = 'erdos'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero ya no soy el mismo, ido en la soledad profunda",
+                "syllables": 19,
+                "final_word": "profunda",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ido' | v4 = 'unda'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ido' | v4 = 'ismo'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "Tiempo que pasa, yo me siento perdido",
+              "last_word": "perdido",
+              "rhyme": "ido"
+            },
+            "verse_4": {
+              "text": "Aún estoy aquí, pero ya no soy el mismo",
+              "last_word": "mismo",
+              "rhyme": "ismo"
+            },
+            "target_rhyme": "ido",
+            "current_rhyme": "ismo",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ido', pero se obtuvo 'ismo'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ido') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'estra' | v3 = 'arse'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "Tristeza de mi corazón se muestra",
+              "last_word": "muestra",
+              "rhyme": "estra"
+            },
+            "verse_3": {
+              "text": "Recuerdos que no vuelven a presentarse",
+              "last_word": "presentarse",
+              "rhyme": "arse"
+            },
+            "target_rhyme": "estra",
+            "current_rhyme": "arse",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'estra', pero se obtuvo 'arse'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('estra') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 10.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 12 silabas, pero deberia tener 11.\n- Verso 3: tiene 12 silabas, pero deberia tener 11.\n- Verso 4: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido la rima en versos 3 y 4 para cumplir con las restricciones."
+        },
+        {
+          "stanza": [
+            "El tiempo pasa, y yo me quedo atrás",
+            "En mi pecho, tristeza y nostalgia",
+            "Recuerdos que no vuelven a llamar",
+            "Aún estoy aquí, pero ya no soy el mismo"
+          ],
+          "score": 0.7483314773547882,
+          "step_score": 0.7,
+          "score_history": [
+            0.8,
+            0.7
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 3 | mejoras = 2 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo pasa, y yo me quedo atrás",
+              "En mi corazón, tristeza y nostalgia",
+              "Recuerdos que no vuelven a volver, son una pesadilla",
+              "Aún estoy aquí, pero ya no soy el mismo"
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa, y yo me quedo atrás",
+              "En mi pecho, tristeza y nostalgia",
+              "Recuerdos que no vuelven a llamar",
+              "Aún estoy aquí, pero ya no soy el mismo"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo pasa, y yo me quedo atrás",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En mi corazón, tristeza y nostalgia",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "En mi pecho, tristeza y nostalgia",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "En mi pecho, tristeza y nostalgia",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "En mi corazón, tristeza y saña",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "En mi alma, tristeza y nostálgica",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En mi corazón, tristeza y sonámbula",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En mi pecho, tristeza y somnolenta",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Recuerdos que no vuelven a volver, son una pesadilla",
+                "original_syllables": 16,
+                "original_distance": 5,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Recuerdos que no vuelven a llamar",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Recuerdos que no vuelven a llamar",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Recuerdos que ya no regresan",
+                    "syllables": 9,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Recuerdos que no vuelven a llamar más",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Recuerdos que ya no regresan nunca",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Recuerdos que ya no vuelven a llamar, son un pesadilla",
+                    "syllables": 17,
+                    "distance": 6
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Aún estoy aquí, pero ya no soy el mismo",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Aún estoy presente, pero no soy más el mismo",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Aún me encuentro aquí, pero ya no soy el que fui",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Aún aquí permanezco, pero ya no soy igual",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Aún me hallo aquí, pero ya no soy el yo anterior",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Aún estoy allí, pero ya no soy el mismo que antes",
+                    "syllables": 14,
+                    "distance": 3
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "El tiempo pasa, y yo me quedo atrás",
+              "En mi pecho, tristeza y nostalgia",
+              "Recuerdos que no vuelven a llamar",
+              "Aún estoy aquí, pero ya no soy el mismo"
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa, y yo me quedo atrás",
+              "En mi pecho, tristeza y nostalgia",
+              "Recuerdos que no vuelven a llamar",
+              "Aún estoy aquí, pero ya no soy el mismo"
+            ],
+            "target_rhyme": "as",
+            "current_rhyme": "ismo",
+            "verse_1": {
+              "text": "El tiempo pasa, y yo me quedo atrás",
+              "last_word": "atrás",
+              "rhyme": "as"
+            },
+            "candidate_final_words": [
+              "atrás"
+            ],
+            "original_verse_4": "Aún estoy aquí, pero ya no soy el mismo",
+            "original_verse_4_syllables": 12,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Aún aquí me quedo, pero ya no soy el mismo",
+                "syllables": 13,
+                "final_word": "mismo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'ismo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero ya no soy como antes",
+                "syllables": 12,
+                "final_word": "antes",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'antes'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún permanezco aquí, pero ya no soy el mismo",
+                "syllables": 13,
+                "final_word": "mismo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'ismo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy en este lugar, pero ya no soy el mismo",
+                "syllables": 16,
+                "final_word": "mismo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'ismo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún aquí permanezco, pero ya no soy el mismo hombre",
+                "syllables": 15,
+                "final_word": "hombre",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'ombre'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'ismo'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo pasa, y yo me quedo atrás",
+              "last_word": "atrás",
+              "rhyme": "as"
+            },
+            "verse_4": {
+              "text": "Aún estoy aquí, pero ya no soy el mismo",
+              "last_word": "mismo",
+              "rhyme": "ismo"
+            },
+            "target_rhyme": "as",
+            "current_rhyme": "ismo",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'as', pero se obtuvo 'ismo'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('as') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'algia' | v3 = 'ar'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "En mi pecho, tristeza y nostalgia",
+              "last_word": "nostalgia",
+              "rhyme": "algia"
+            },
+            "verse_3": {
+              "text": "Recuerdos que no vuelven a llamar",
+              "last_word": "llamar",
+              "rhyme": "ar"
+            },
+            "target_rhyme": "algia",
+            "current_rhyme": "ar",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'algia', pero se obtuvo 'ar'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('algia') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 4: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido la rima en verso 3 para cumplir con las restricciones."
+        },
+        {
+          "stanza": [
+            "El reloj de mi vida se detiene",
+            "En la tristeza que me arrasa y asola",
+            "Recuerdos que no vuelven a volver",
+            "El reloj en silencio me detiene"
+          ],
+          "score": 0.8485281374238571,
+          "step_score": 0.9,
+          "score_history": [
+            0.8,
+            0.9
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=3/4 | score=18.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 1 | mejoras = 1 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El reloj de mi vida se detiene",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que no vuelven a volver",
+              "Aún estoy aquí, pero ya no soy el mismo"
+            ],
+            "repaired_stanza": [
+              "El reloj de mi vida se detiene",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que no vuelven a volver",
+              "Aún aquí estoy, pero mi ser se ha cambiado"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El reloj de mi vida se detiene",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En la tristeza que me arrasa y asola",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Recuerdos que no vuelven a volver",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Aún estoy aquí, pero ya no soy el mismo",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Aún aquí estoy, pero mi ser se ha cambiado",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Aún estoy presente, pero ya no soy el mismo",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Aún aquí estoy, pero mi ser se ha cambiado",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Aún estoy en este lugar, pero ya no soy el mismo",
+                    "syllables": 16,
+                    "distance": 5
+                  },
+                  {
+                    "verse": "Aún estoy aquí, pero yo he cambiado",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Aún estoy presente, pero ya no soy como antes",
+                    "syllables": 14,
+                    "distance": 3
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = True",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": true,
+            "reason": "Se acepto una variante que corrige AXYA.",
+            "original_stanza": [
+              "El reloj de mi vida se detiene",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que no vuelven a volver",
+              "Aún aquí estoy, pero mi ser se ha cambiado"
+            ],
+            "repaired_stanza": [
+              "El reloj de mi vida se detiene",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que no vuelven a volver",
+              "El reloj en silencio me detiene"
+            ],
+            "target_rhyme": "ene",
+            "current_rhyme": "ado",
+            "verse_1": {
+              "text": "El reloj de mi vida se detiene",
+              "last_word": "detiene",
+              "rhyme": "ene"
+            },
+            "candidate_final_words": [
+              "detiene"
+            ],
+            "original_verse_4": "Aún aquí estoy, pero mi ser se ha cambiado",
+            "original_verse_4_syllables": 11,
+            "selected_variant": "El reloj en silencio me detiene",
+            "selected_variant_syllables": 11,
+            "variants": [
+              {
+                "verse": "El reloj en silencio me detiene",
+                "syllables": 11,
+                "final_word": "detiene",
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": true,
+                "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ene' | v4 = 'ene'",
+                "accepted": true,
+                "rejection_reason": null
+              },
+              {
+                "verse": "En el reloj, mi vida se detiene",
+                "syllables": 11,
+                "final_word": "detiene",
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": true,
+                "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ene' | v4 = 'ene'",
+                "accepted": false,
+                "rejection_reason": null
+              },
+              {
+                "verse": "El reloj de mi vida se detiene",
+                "syllables": 11,
+                "final_word": "detiene",
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": true,
+                "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ene' | v4 = 'ene'",
+                "accepted": false,
+                "rejection_reason": null
+              },
+              {
+                "verse": "El reloj en la noche se detiene",
+                "syllables": 11,
+                "final_word": "detiene",
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": true,
+                "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ene' | v4 = 'ene'",
+                "accepted": false,
+                "rejection_reason": null
+              },
+              {
+                "verse": "El reloj de mi pasado se detiene",
+                "syllables": 12,
+                "final_word": "detiene",
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": true,
+                "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ene' | v4 = 'ene'",
+                "accepted": false,
+                "rejection_reason": "Empeora la distancia metrica del verso 4."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ene' | v4 = 'ene'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": true,
+            "verse_1": {
+              "text": "El reloj de mi vida se detiene",
+              "last_word": "detiene",
+              "rhyme": "ene"
+            },
+            "verse_4": {
+              "text": "El reloj en silencio me detiene",
+              "last_word": "detiene",
+              "rhyme": "ene"
+            },
+            "target_rhyme": "ene",
+            "current_rhyme": "ene",
+            "errors": [],
+            "feedback": "La rima exterior AXYA es correcta: el verso 4 conserva la rima consonante del verso 1 ('ene')."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ola' | v3 = 'er'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "En la tristeza que me arrasa y asola",
+              "last_word": "asola",
+              "rhyme": "ola"
+            },
+            "verse_3": {
+              "text": "Recuerdos que no vuelven a volver",
+              "last_word": "volver",
+              "rhyme": "er"
+            },
+            "target_rhyme": "ola",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ola', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ola') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.",
+          "generation_reasoning": "Corregido para respetar la rima consonante ABBA y mantener la metrica de 11 silabas en cada verso."
+        },
+        {
+          "stanza": [
+            "El reloj de mi vida se detiene",
+            "En la tristeza que me arrasa y asola",
+            "Recuerdos que no vuelven a volver",
+            "Aún estoy aquí, pero ya no soy el mismo"
+          ],
+          "score": 0.7483314773547882,
+          "step_score": 0.7,
+          "score_history": [
+            0.8,
+            0.7
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 1 | mejoras = 0 | cambio = False",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": false,
+            "original_stanza": [
+              "El reloj de mi vida se detiene",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que no vuelven a volver",
+              "Aún estoy aquí, pero ya no soy el mismo"
+            ],
+            "repaired_stanza": [
+              "El reloj de mi vida se detiene",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que no vuelven a volver",
+              "Aún estoy aquí, pero ya no soy el mismo"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El reloj de mi vida se detiene",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En la tristeza que me arrasa y asola",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Recuerdos que no vuelven a volver",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Aún estoy aquí, pero ya no soy el mismo",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Aún estoy presente, pero no soy más el mismo",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Aún estoy aquí, pero me he cambiado",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Aún estoy en este lugar, pero ya no soy el mismo hombre",
+                    "syllables": 17,
+                    "distance": 6
+                  },
+                  {
+                    "verse": "Aún estoy aquí, pero yo no soy como antes",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Aún estoy presente, pero mi ser se ha alterado",
+                    "syllables": 14,
+                    "distance": 3
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "El reloj de mi vida se detiene",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que no vuelven a volver",
+              "Aún estoy aquí, pero ya no soy el mismo"
+            ],
+            "repaired_stanza": [
+              "El reloj de mi vida se detiene",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que no vuelven a volver",
+              "Aún estoy aquí, pero ya no soy el mismo"
+            ],
+            "target_rhyme": "ene",
+            "current_rhyme": "ismo",
+            "verse_1": {
+              "text": "El reloj de mi vida se detiene",
+              "last_word": "detiene",
+              "rhyme": "ene"
+            },
+            "candidate_final_words": [
+              "detiene"
+            ],
+            "original_verse_4": "Aún estoy aquí, pero ya no soy el mismo",
+            "original_verse_4_syllables": 12,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Aún estoy aquí, pero ya no soy el mismo ene",
+                "syllables": 12,
+                "final_word": "ene",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ene' | v4 = 'e'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero mi alma ya no es el mismo ene",
+                "syllables": 13,
+                "final_word": "ene",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ene' | v4 = 'e'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero ya no soy el yo del mismo ene",
+                "syllables": 14,
+                "final_word": "ene",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ene' | v4 = 'e'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero ya no soy el ser que fui el mismo ene",
+                "syllables": 15,
+                "final_word": "ene",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ene' | v4 = 'e'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero ya no soy el hombre que era el mismo ene",
+                "syllables": 15,
+                "final_word": "ene",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ene' | v4 = 'e'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ene' | v4 = 'ismo'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El reloj de mi vida se detiene",
+              "last_word": "detiene",
+              "rhyme": "ene"
+            },
+            "verse_4": {
+              "text": "Aún estoy aquí, pero ya no soy el mismo",
+              "last_word": "mismo",
+              "rhyme": "ismo"
+            },
+            "target_rhyme": "ene",
+            "current_rhyme": "ismo",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ene', pero se obtuvo 'ismo'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ene') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ola' | v3 = 'er'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "En la tristeza que me arrasa y asola",
+              "last_word": "asola",
+              "rhyme": "ola"
+            },
+            "verse_3": {
+              "text": "Recuerdos que no vuelven a volver",
+              "last_word": "volver",
+              "rhyme": "er"
+            },
+            "target_rhyme": "ola",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ola', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ola') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 4: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido para respetar la rima consonante ABBA y mantener la metrica de 11 silabas en cada verso."
+        }
+      ]
+    },
+    {
+      "step": 1,
+      "phase": "prune",
+      "selected_beams": [
+        {
+          "stanza": [
+            "El reloj de mi vida se detiene",
+            "En la tristeza que me arrasa y asola",
+            "Recuerdos que no vuelven a volver",
+            "El reloj en silencio me detiene"
+          ],
+          "score": 0.8485281374238571,
+          "step_score": 0.9,
+          "score_history": [
+            0.8,
+            0.9
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=3/4 | score=18.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 1 | mejoras = 1 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El reloj de mi vida se detiene",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que no vuelven a volver",
+              "Aún estoy aquí, pero ya no soy el mismo"
+            ],
+            "repaired_stanza": [
+              "El reloj de mi vida se detiene",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que no vuelven a volver",
+              "Aún aquí estoy, pero mi ser se ha cambiado"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El reloj de mi vida se detiene",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En la tristeza que me arrasa y asola",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Recuerdos que no vuelven a volver",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Aún estoy aquí, pero ya no soy el mismo",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Aún aquí estoy, pero mi ser se ha cambiado",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Aún estoy presente, pero ya no soy el mismo",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Aún aquí estoy, pero mi ser se ha cambiado",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Aún estoy en este lugar, pero ya no soy el mismo",
+                    "syllables": 16,
+                    "distance": 5
+                  },
+                  {
+                    "verse": "Aún estoy aquí, pero yo he cambiado",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Aún estoy presente, pero ya no soy como antes",
+                    "syllables": 14,
+                    "distance": 3
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = True",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": true,
+            "reason": "Se acepto una variante que corrige AXYA.",
+            "original_stanza": [
+              "El reloj de mi vida se detiene",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que no vuelven a volver",
+              "Aún aquí estoy, pero mi ser se ha cambiado"
+            ],
+            "repaired_stanza": [
+              "El reloj de mi vida se detiene",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que no vuelven a volver",
+              "El reloj en silencio me detiene"
+            ],
+            "target_rhyme": "ene",
+            "current_rhyme": "ado",
+            "verse_1": {
+              "text": "El reloj de mi vida se detiene",
+              "last_word": "detiene",
+              "rhyme": "ene"
+            },
+            "candidate_final_words": [
+              "detiene"
+            ],
+            "original_verse_4": "Aún aquí estoy, pero mi ser se ha cambiado",
+            "original_verse_4_syllables": 11,
+            "selected_variant": "El reloj en silencio me detiene",
+            "selected_variant_syllables": 11,
+            "variants": [
+              {
+                "verse": "El reloj en silencio me detiene",
+                "syllables": 11,
+                "final_word": "detiene",
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": true,
+                "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ene' | v4 = 'ene'",
+                "accepted": true,
+                "rejection_reason": null
+              },
+              {
+                "verse": "En el reloj, mi vida se detiene",
+                "syllables": 11,
+                "final_word": "detiene",
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": true,
+                "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ene' | v4 = 'ene'",
+                "accepted": false,
+                "rejection_reason": null
+              },
+              {
+                "verse": "El reloj de mi vida se detiene",
+                "syllables": 11,
+                "final_word": "detiene",
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": true,
+                "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ene' | v4 = 'ene'",
+                "accepted": false,
+                "rejection_reason": null
+              },
+              {
+                "verse": "El reloj en la noche se detiene",
+                "syllables": 11,
+                "final_word": "detiene",
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": true,
+                "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ene' | v4 = 'ene'",
+                "accepted": false,
+                "rejection_reason": null
+              },
+              {
+                "verse": "El reloj de mi pasado se detiene",
+                "syllables": 12,
+                "final_word": "detiene",
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": true,
+                "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ene' | v4 = 'ene'",
+                "accepted": false,
+                "rejection_reason": "Empeora la distancia metrica del verso 4."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ene' | v4 = 'ene'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": true,
+            "verse_1": {
+              "text": "El reloj de mi vida se detiene",
+              "last_word": "detiene",
+              "rhyme": "ene"
+            },
+            "verse_4": {
+              "text": "El reloj en silencio me detiene",
+              "last_word": "detiene",
+              "rhyme": "ene"
+            },
+            "target_rhyme": "ene",
+            "current_rhyme": "ene",
+            "errors": [],
+            "feedback": "La rima exterior AXYA es correcta: el verso 4 conserva la rima consonante del verso 1 ('ene')."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ola' | v3 = 'er'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "En la tristeza que me arrasa y asola",
+              "last_word": "asola",
+              "rhyme": "ola"
+            },
+            "verse_3": {
+              "text": "Recuerdos que no vuelven a volver",
+              "last_word": "volver",
+              "rhyme": "er"
+            },
+            "target_rhyme": "ola",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ola', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ola') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.",
+          "generation_reasoning": "Corregido para respetar la rima consonante ABBA y mantener la metrica de 11 silabas en cada verso."
+        },
+        {
+          "stanza": [
+            "El tiempo pasa, y yo me quedo atrás",
+            "En la tristeza de mi corazón",
+            "Recuerdos que no vuelven a volver",
+            "Aún estoy aquí, pero ya no soy así"
+          ],
+          "score": 0.8,
+          "step_score": 0.8,
+          "score_history": [
+            0.8
+          ],
+          "preserved_by_elitism": true,
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 1 | mejoras = 1 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo pasa, y yo me quedo atrás",
+              "En la tristeza de mi corazón",
+              "Recuerdos que no vuelven a ver",
+              "Aún estoy aquí, pero ya no soy así"
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa, y yo me quedo atrás",
+              "En la tristeza de mi corazón",
+              "Recuerdos que no vuelven a volver",
+              "Aún estoy aquí, pero ya no soy así"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo pasa, y yo me quedo atrás",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En la tristeza de mi corazón",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Recuerdos que no vuelven a ver",
+                "original_syllables": 10,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Recuerdos que no vuelven a volver",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Recuerdos que no vuelven a volver",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Recuerdos que ya no regresan a ver",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Recuerdos que nunca más volarán a ver",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Recuerdos que jamás volverán a ver",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Recuerdos que ya no volverán a ir",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Aún estoy aquí, pero ya no soy así",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "El tiempo pasa, y yo me quedo atrás",
+              "En la tristeza de mi corazón",
+              "Recuerdos que no vuelven a volver",
+              "Aún estoy aquí, pero ya no soy así"
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa, y yo me quedo atrás",
+              "En la tristeza de mi corazón",
+              "Recuerdos que no vuelven a volver",
+              "Aún estoy aquí, pero ya no soy así"
+            ],
+            "target_rhyme": "as",
+            "current_rhyme": "i",
+            "verse_1": {
+              "text": "El tiempo pasa, y yo me quedo atrás",
+              "last_word": "atrás",
+              "rhyme": "as"
+            },
+            "candidate_final_words": [
+              "atrás"
+            ],
+            "original_verse_4": "Aún estoy aquí, pero ya no soy así",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Aún estoy aquí, pero ya no soy como antes",
+                "syllables": 12,
+                "final_word": "antes",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'antes'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero ya no soy lo mismo",
+                "syllables": 12,
+                "final_word": "mismo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'ismo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero ya no soy así como antes",
+                "syllables": 13,
+                "final_word": "antes",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'antes'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero ya no me reconozco",
+                "syllables": 13,
+                "final_word": "reconozco",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'ozco'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero ya no soy el mismo",
+                "syllables": 12,
+                "final_word": "mismo",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'ismo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'i'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo pasa, y yo me quedo atrás",
+              "last_word": "atrás",
+              "rhyme": "as"
+            },
+            "verse_4": {
+              "text": "Aún estoy aquí, pero ya no soy así",
+              "last_word": "así",
+              "rhyme": "i"
+            },
+            "target_rhyme": "as",
+            "current_rhyme": "i",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'as', pero se obtuvo 'i'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('as') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'on' | v3 = 'er'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "En la tristeza de mi corazón",
+              "last_word": "corazón",
+              "rhyme": "on"
+            },
+            "verse_3": {
+              "text": "Recuerdos que no vuelven a volver",
+              "last_word": "volver",
+              "rhyme": "er"
+            },
+            "target_rhyme": "on",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'on', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('on') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Versos que expresan nostalgia del paso del tiempo con rima ABBA y tendencia a 11 silabas metricas."
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "phase": "expand",
+      "generated_candidates": [
+        {
+          "stanza": [
+            "El reloj de mi vida se detiene",
+            "En la tristeza que me arrasa y asola",
+            "Recuerdos que en el corazón se mueven",
+            "El reloj en silencio me detiene"
+          ],
+          "score": 0.8485281374238571,
+          "step_score": 0.9,
+          "score_history": [
+            0.8,
+            0.9
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=3/4 | score=18.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.",
+          "generation_reasoning": "Corregido el verso 3 para satisfacer la rima consonante BBA. El verso 3 ahora tiene un sentimiento de movimiento y continuidad."
+        },
+        {
+          "stanza": [
+            "El reloj de mi vida se detiene",
+            "En la tristeza que me arrasa y asola",
+            "Recuerdos que en el corazón se esconden",
+            "El reloj en silencio me detiene"
+          ],
+          "score": 0.8485281374238571,
+          "step_score": 0.9,
+          "score_history": [
+            0.8,
+            0.9
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=3/4 | score=18.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.",
+          "generation_reasoning": "Corregido el verso 3 para satisfacer la rima consonante BBA. El verso 3 ahora tiene un sentimiento de ocultamiento y preservación."
+        },
+        {
+          "stanza": [
+            "El tiempo pasa, y yo me quedo en el recuerdo",
+            "En la tristeza de mi corazón se escribe",
+            "Recuerdos que no vuelven a volver, pero si quedan",
+            "Aún estoy aquí, pero ya no soy como antes"
+          ],
+          "score": 0.8,
+          "step_score": 0.8,
+          "score_history": [
+            0.8
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido el verso 3 para cumplir con la rima B. Además, se agregó una palabra en el verso 1 para mejorar la estrofa."
+        },
+        {
+          "stanza": [
+            "El tiempo pasa, y yo me quedo en el olvido",
+            "En la tristeza de mi corazón se escribe",
+            "Recuerdos que no vuelven a volver, pero si quedan",
+            "Aún estoy aquí, pero ya no soy como antes"
+          ],
+          "score": 0.8,
+          "step_score": 0.8,
+          "score_history": [
+            0.8
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido el verso 1 para cumplir con la rima A. Además, se agregó una palabra en el verso 4 para mejorar la estrofa."
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "phase": "score",
+      "candidates": [
+        {
+          "stanza": [
+            "El reloj de mi vida se detiene",
+            "En la tristeza que me arrasa y asola",
+            "Recuerdos que en el corazón se mueven",
+            "El reloj en silencio me detiene"
+          ],
+          "score": 0.865349742184445,
+          "step_score": 0.9,
+          "score_history": [
+            0.8,
+            0.9,
+            0.9
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=3/4 | score=18.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 0 | mejoras = 0 | cambio = False",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": false,
+            "original_stanza": [
+              "El reloj de mi vida se detiene",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que en el corazón se mueven",
+              "El reloj en silencio me detiene"
+            ],
+            "repaired_stanza": [
+              "El reloj de mi vida se detiene",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que en el corazón se mueven",
+              "El reloj en silencio me detiene"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El reloj de mi vida se detiene",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En la tristeza que me arrasa y asola",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Recuerdos que en el corazón se mueven",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "El reloj en silencio me detiene",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = no necesaria",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": false,
+            "changed": false,
+            "reason": "La rima exterior AXYA ya es correcta.",
+            "original_stanza": [
+              "El reloj de mi vida se detiene",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que en el corazón se mueven",
+              "El reloj en silencio me detiene"
+            ],
+            "repaired_stanza": [
+              "El reloj de mi vida se detiene",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que en el corazón se mueven",
+              "El reloj en silencio me detiene"
+            ],
+            "target_rhyme": "ene",
+            "current_rhyme": "ene",
+            "verse_1": {
+              "text": "El reloj de mi vida se detiene",
+              "last_word": "detiene",
+              "rhyme": "ene"
+            },
+            "candidate_final_words": [],
+            "original_verse_4": "El reloj en silencio me detiene",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ene' | v4 = 'ene'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": true,
+            "verse_1": {
+              "text": "El reloj de mi vida se detiene",
+              "last_word": "detiene",
+              "rhyme": "ene"
+            },
+            "verse_4": {
+              "text": "El reloj en silencio me detiene",
+              "last_word": "detiene",
+              "rhyme": "ene"
+            },
+            "target_rhyme": "ene",
+            "current_rhyme": "ene",
+            "errors": [],
+            "feedback": "La rima exterior AXYA es correcta: el verso 4 conserva la rima consonante del verso 1 ('ene')."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ola' | v3 = 'even'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "En la tristeza que me arrasa y asola",
+              "last_word": "asola",
+              "rhyme": "ola"
+            },
+            "verse_3": {
+              "text": "Recuerdos que en el corazón se mueven",
+              "last_word": "mueven",
+              "rhyme": "even"
+            },
+            "target_rhyme": "ola",
+            "current_rhyme": "even",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ola', pero se obtuvo 'even'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ola') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.",
+          "generation_reasoning": "Corregido el verso 3 para satisfacer la rima consonante BBA. El verso 3 ahora tiene un sentimiento de movimiento y continuidad."
+        },
+        {
+          "stanza": [
+            "El reloj de mi vida se detiene",
+            "En la tristeza que me arrasa y asola",
+            "Recuerdos que en el corazón se esconden",
+            "El reloj en silencio me detiene"
+          ],
+          "score": 0.865349742184445,
+          "step_score": 0.9,
+          "score_history": [
+            0.8,
+            0.9,
+            0.9
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=3/4 | score=18.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 0 | mejoras = 0 | cambio = False",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": false,
+            "original_stanza": [
+              "El reloj de mi vida se detiene",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que en el corazón se esconden",
+              "El reloj en silencio me detiene"
+            ],
+            "repaired_stanza": [
+              "El reloj de mi vida se detiene",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que en el corazón se esconden",
+              "El reloj en silencio me detiene"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El reloj de mi vida se detiene",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En la tristeza que me arrasa y asola",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Recuerdos que en el corazón se esconden",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "El reloj en silencio me detiene",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = no necesaria",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": false,
+            "changed": false,
+            "reason": "La rima exterior AXYA ya es correcta.",
+            "original_stanza": [
+              "El reloj de mi vida se detiene",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que en el corazón se esconden",
+              "El reloj en silencio me detiene"
+            ],
+            "repaired_stanza": [
+              "El reloj de mi vida se detiene",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que en el corazón se esconden",
+              "El reloj en silencio me detiene"
+            ],
+            "target_rhyme": "ene",
+            "current_rhyme": "ene",
+            "verse_1": {
+              "text": "El reloj de mi vida se detiene",
+              "last_word": "detiene",
+              "rhyme": "ene"
+            },
+            "candidate_final_words": [],
+            "original_verse_4": "El reloj en silencio me detiene",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ene' | v4 = 'ene'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": true,
+            "verse_1": {
+              "text": "El reloj de mi vida se detiene",
+              "last_word": "detiene",
+              "rhyme": "ene"
+            },
+            "verse_4": {
+              "text": "El reloj en silencio me detiene",
+              "last_word": "detiene",
+              "rhyme": "ene"
+            },
+            "target_rhyme": "ene",
+            "current_rhyme": "ene",
+            "errors": [],
+            "feedback": "La rima exterior AXYA es correcta: el verso 4 conserva la rima consonante del verso 1 ('ene')."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ola' | v3 = 'onden'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "En la tristeza que me arrasa y asola",
+              "last_word": "asola",
+              "rhyme": "ola"
+            },
+            "verse_3": {
+              "text": "Recuerdos que en el corazón se esconden",
+              "last_word": "esconden",
+              "rhyme": "onden"
+            },
+            "target_rhyme": "ola",
+            "current_rhyme": "onden",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ola', pero se obtuvo 'onden'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ola') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.",
+          "generation_reasoning": "Corregido el verso 3 para satisfacer la rima consonante BBA. El verso 3 ahora tiene un sentimiento de ocultamiento y preservación."
+        },
+        {
+          "stanza": [
+            "Tiempo pasa, yo quedo en el recuerdo",
+            "En tristeza mi corazón se escribe",
+            "Recuerdos que no vuelven a ser",
+            "Aún estoy aquí, pero me he transformado"
+          ],
+          "score": 0.7483314773547882,
+          "step_score": 0.7,
+          "score_history": [
+            0.8,
+            0.7
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=3/4 | rima=2/4 | score=14.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 4 | mejoras = 4 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo pasa, y yo me quedo en el recuerdo",
+              "En la tristeza de mi corazón se escribe",
+              "Recuerdos que no vuelven a volver, pero si quedan",
+              "Aún estoy aquí, pero ya no soy como antes"
+            ],
+            "repaired_stanza": [
+              "Tiempo pasa, yo quedo en el recuerdo",
+              "En tristeza mi corazón se escribe",
+              "Recuerdos que no vuelven a ser",
+              "Aún estoy aquí, pero me he transformado"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo pasa, y yo me quedo en el recuerdo",
+                "original_syllables": 14,
+                "original_distance": 3,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Tiempo pasa, yo quedo en el recuerdo",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "El tiempo va, y yo me quedo en recuerdo",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Tiempo pasa, yo quedo en el recuerdo",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Yo me quedo en el tiempo del recuerdo",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "En el tiempo pasado me quedo en recuerdo",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "El tiempo pasa, y yo en recuerdo me quedo",
+                    "syllables": 13,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En la tristeza de mi corazón se escribe",
+                "original_syllables": 13,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "En tristeza mi corazón se escribe",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "En tristeza mi corazón se escribe",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Tristeza en mi corazón se escribe",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Mi corazón se escribe en la tristeza",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Se escribe en mi corazón la tristeza",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Corazón se escribe en tristeza",
+                    "syllables": 9,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Recuerdos que no vuelven a volver, pero si quedan",
+                "original_syllables": 15,
+                "original_distance": 4,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Recuerdos que no vuelven a ser",
+                "selected_syllables": 10,
+                "selected_distance": 1,
+                "variants": [
+                  {
+                    "verse": "Recuerdos que no vuelven a ser",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Recuerdos que ya no regresan",
+                    "syllables": 9,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Recuerdos que ya no volverán",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Recuerdos que no pueden volver",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Recuerdos que ya no vuelven",
+                    "syllables": 8,
+                    "distance": 3
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Aún estoy aquí, pero ya no soy como antes",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Aún estoy aquí, pero me he transformado",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "Aún aquí estoy, pero ya no soy como antaño",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Aún estoy presente, pero yo cambié de carácter",
+                    "syllables": 15,
+                    "distance": 4
+                  },
+                  {
+                    "verse": "Aún estoy en este lugar, pero no soy el mismo que antes",
+                    "syllables": 17,
+                    "distance": 6
+                  },
+                  {
+                    "verse": "Aún estoy aquí, pero me he transformado",
+                    "syllables": 11,
+                    "distance": 0
+                  },
+                  {
+                    "verse": "Aún estoy presente, pero ya no soy como antes, por así decirlo",
+                    "syllables": 19,
+                    "distance": 8
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "Tiempo pasa, yo quedo en el recuerdo",
+              "En tristeza mi corazón se escribe",
+              "Recuerdos que no vuelven a ser",
+              "Aún estoy aquí, pero me he transformado"
+            ],
+            "repaired_stanza": [
+              "Tiempo pasa, yo quedo en el recuerdo",
+              "En tristeza mi corazón se escribe",
+              "Recuerdos que no vuelven a ser",
+              "Aún estoy aquí, pero me he transformado"
+            ],
+            "target_rhyme": "erdo",
+            "current_rhyme": "ado",
+            "verse_1": {
+              "text": "Tiempo pasa, yo quedo en el recuerdo",
+              "last_word": "recuerdo",
+              "rhyme": "erdo"
+            },
+            "candidate_final_words": [
+              "recuerdo"
+            ],
+            "original_verse_4": "Aún estoy aquí, pero me he transformado",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Aún soy aquí, pero me he enredado",
+                "syllables": 9,
+                "final_word": "enredado",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erdo' | v4 = 'ado'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero me he deshecho",
+                "syllables": 10,
+                "final_word": "deshecho",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erdo' | v4 = 'echo'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero me he desmoronado",
+                "syllables": 12,
+                "final_word": "desmoronado",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erdo' | v4 = 'ado'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero me he desgarrado",
+                "syllables": 11,
+                "final_word": "desgarrado",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erdo' | v4 = 'ado'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              },
+              {
+                "verse": "Aún estoy aquí, pero me he desintegrado",
+                "syllables": 12,
+                "final_word": "desintegrado",
+                "uses_candidate_final_word": false,
+                "outer_rhyme_valid": false,
+                "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erdo' | v4 = 'ado'",
+                "accepted": false,
+                "rejection_reason": "No termina en una palabra final candidata."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'erdo' | v4 = 'ado'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "Tiempo pasa, yo quedo en el recuerdo",
+              "last_word": "recuerdo",
+              "rhyme": "erdo"
+            },
+            "verse_4": {
+              "text": "Aún estoy aquí, pero me he transformado",
+              "last_word": "transformado",
+              "rhyme": "ado"
+            },
+            "target_rhyme": "erdo",
+            "current_rhyme": "ado",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'erdo', pero se obtuvo 'ado'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('erdo') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ibe' | v3 = 'er'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "En tristeza mi corazón se escribe",
+              "last_word": "escribe",
+              "rhyme": "ibe"
+            },
+            "verse_3": {
+              "text": "Recuerdos que no vuelven a ser",
+              "last_word": "ser",
+              "rhyme": "er"
+            },
+            "target_rhyme": "ibe",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ibe', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ibe') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 3: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido el verso 3 para cumplir con la rima B. Además, se agregó una palabra en el verso 1 para mejorar la estrofa."
+        },
+        {
+          "stanza": [
+            "El tiempo va, y yo me quedo en el olvido",
+            "En el corazón tristeza se escribe",
+            "Recuerdos que no regresan, pero quedan",
+            "Aún estoy aquí, pero ya no soy como antes"
+          ],
+          "score": 0.6324555320336759,
+          "step_score": 0.5,
+          "score_history": [
+            0.8,
+            0.5
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=1/4 | rima=2/4 | score=10.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 4 | mejoras = 3 | cambio = True",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": true,
+            "original_stanza": [
+              "El tiempo pasa, y yo me quedo en el olvido",
+              "En la tristeza de mi corazón se escribe",
+              "Recuerdos que no vuelven a volver, pero si quedan",
+              "Aún estoy aquí, pero ya no soy como antes"
+            ],
+            "repaired_stanza": [
+              "El tiempo va, y yo me quedo en el olvido",
+              "En el corazón tristeza se escribe",
+              "Recuerdos que no regresan, pero quedan",
+              "Aún estoy aquí, pero ya no soy como antes"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El tiempo pasa, y yo me quedo en el olvido",
+                "original_syllables": 14,
+                "original_distance": 3,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "El tiempo va, y yo me quedo en el olvido",
+                "selected_syllables": 13,
+                "selected_distance": 2,
+                "variants": [
+                  {
+                    "verse": "El tiempo va, y yo me quedo en el olvido",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "El tiempo avanza, y yo me quedo en el olvido",
+                    "syllables": 13,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "El tiempo transcurre, y yo me quedo en el olvido",
+                    "syllables": 15,
+                    "distance": 4
+                  },
+                  {
+                    "verse": "El tiempo se mueve, y yo me quedo en el olvido",
+                    "syllables": 15,
+                    "distance": 4
+                  },
+                  {
+                    "verse": "El tiempo pasa rápido, y yo me quedo en el olvido",
+                    "syllables": 17,
+                    "distance": 6
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En la tristeza de mi corazón se escribe",
+                "original_syllables": 13,
+                "original_distance": 2,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "En el corazón tristeza se escribe",
+                "selected_syllables": 11,
+                "selected_distance": 0,
+                "variants": [
+                  {
+                    "verse": "En tristeza se escribe mi corazón",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En mi corazón se escribe la tristeza",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Se en el corazón de la tristeza escribe",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Tristeza en el corazón se escribe",
+                    "syllables": 10,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "En el corazón tristeza se escribe",
+                    "syllables": 11,
+                    "distance": 0
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Recuerdos que no vuelven a volver, pero si quedan",
+                "original_syllables": 15,
+                "original_distance": 4,
+                "attempted": true,
+                "improved": true,
+                "selected_variant": "Recuerdos que no regresan, pero quedan",
+                "selected_syllables": 12,
+                "selected_distance": 1,
+                "variants": [
+                  {
+                    "verse": "Recuerdos que no vuelven a volver, pero quedan",
+                    "syllables": 14,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Recuerdos que no regresan, pero quedan",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Recuerdos que no vuelven, quedan sin vuelta",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Recuerdos que no vuelven más, pero quedan",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Recuerdos que no vuelven, quedan en mente",
+                    "syllables": 12,
+                    "distance": 1
+                  }
+                ],
+                "error": null
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "Aún estoy aquí, pero ya no soy como antes",
+                "original_syllables": 12,
+                "original_distance": 1,
+                "attempted": true,
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "selected_distance": null,
+                "variants": [
+                  {
+                    "verse": "Aún estoy presente, pero no como antes",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Aún aquí estoy, pero no como era",
+                    "syllables": 8,
+                    "distance": 3
+                  },
+                  {
+                    "verse": "Aún presente, pero no como solía",
+                    "syllables": 12,
+                    "distance": 1
+                  },
+                  {
+                    "verse": "Aún estoy aqui, pero ya no igual",
+                    "syllables": 9,
+                    "distance": 2
+                  },
+                  {
+                    "verse": "Aún yo estoy, pero no como antes",
+                    "syllables": 9,
+                    "distance": 2
+                  }
+                ],
+                "error": null
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = activa | intento = True | cambio = False",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": true,
+            "changed": false,
+            "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+            "original_stanza": [
+              "El tiempo va, y yo me quedo en el olvido",
+              "En el corazón tristeza se escribe",
+              "Recuerdos que no regresan, pero quedan",
+              "Aún estoy aquí, pero ya no soy como antes"
+            ],
+            "repaired_stanza": [
+              "El tiempo va, y yo me quedo en el olvido",
+              "En el corazón tristeza se escribe",
+              "Recuerdos que no regresan, pero quedan",
+              "Aún estoy aquí, pero ya no soy como antes"
+            ],
+            "target_rhyme": "ido",
+            "current_rhyme": "antes",
+            "verse_1": {
+              "text": "El tiempo va, y yo me quedo en el olvido",
+              "last_word": "olvido",
+              "rhyme": "ido"
+            },
+            "candidate_final_words": [
+              "dormido",
+              "perdido",
+              "olvido"
+            ],
+            "original_verse_4": "Aún estoy aquí, pero ya no soy como antes",
+            "original_verse_4_syllables": 12,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [
+              {
+                "verse": "Aún estoy aquí, pero ya no soy como antes, dormido",
+                "syllables": 15,
+                "final_word": "dormido",
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": true,
+                "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ido' | v4 = 'ido'",
+                "accepted": false,
+                "rejection_reason": "Empeora la distancia metrica del verso 4."
+              },
+              {
+                "verse": "Aún estoy aquí, pero ya no soy como antes, perdido",
+                "syllables": 15,
+                "final_word": "perdido",
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": true,
+                "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ido' | v4 = 'ido'",
+                "accepted": false,
+                "rejection_reason": "Empeora la distancia metrica del verso 4."
+              },
+              {
+                "verse": "Aún estoy aquí, pero ya no soy como antes, olvido",
+                "syllables": 15,
+                "final_word": "olvido",
+                "uses_candidate_final_word": true,
+                "outer_rhyme_valid": true,
+                "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ido' | v4 = 'ido'",
+                "accepted": false,
+                "rejection_reason": "Empeora la distancia metrica del verso 4."
+              }
+            ],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ido' | v4 = 'antes'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo va, y yo me quedo en el olvido",
+              "last_word": "olvido",
+              "rhyme": "ido"
+            },
+            "verse_4": {
+              "text": "Aún estoy aquí, pero ya no soy como antes",
+              "last_word": "antes",
+              "rhyme": "antes"
+            },
+            "target_rhyme": "ido",
+            "current_rhyme": "antes",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ido', pero se obtuvo 'antes'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ido') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ibe' | v3 = 'edan'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "En el corazón tristeza se escribe",
+              "last_word": "escribe",
+              "rhyme": "ibe"
+            },
+            "verse_3": {
+              "text": "Recuerdos que no regresan, pero quedan",
+              "last_word": "quedan",
+              "rhyme": "edan"
+            },
+            "target_rhyme": "ibe",
+            "current_rhyme": "edan",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ibe', pero se obtuvo 'edan'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ibe') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 10.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 13 silabas, pero deberia tener 11.\n- Verso 3: tiene 12 silabas, pero deberia tener 11.\n- Verso 4: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido el verso 1 para cumplir con la rima A. Además, se agregó una palabra en el verso 4 para mejorar la estrofa."
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "phase": "prune",
+      "selected_beams": [
+        {
+          "stanza": [
+            "El reloj de mi vida se detiene",
+            "En la tristeza que me arrasa y asola",
+            "Recuerdos que en el corazón se mueven",
+            "El reloj en silencio me detiene"
+          ],
+          "score": 0.865349742184445,
+          "step_score": 0.9,
+          "score_history": [
+            0.8,
+            0.9,
+            0.9
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=3/4 | score=18.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 0 | mejoras = 0 | cambio = False",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": false,
+            "original_stanza": [
+              "El reloj de mi vida se detiene",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que en el corazón se mueven",
+              "El reloj en silencio me detiene"
+            ],
+            "repaired_stanza": [
+              "El reloj de mi vida se detiene",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que en el corazón se mueven",
+              "El reloj en silencio me detiene"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El reloj de mi vida se detiene",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En la tristeza que me arrasa y asola",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Recuerdos que en el corazón se mueven",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "El reloj en silencio me detiene",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = no necesaria",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": false,
+            "changed": false,
+            "reason": "La rima exterior AXYA ya es correcta.",
+            "original_stanza": [
+              "El reloj de mi vida se detiene",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que en el corazón se mueven",
+              "El reloj en silencio me detiene"
+            ],
+            "repaired_stanza": [
+              "El reloj de mi vida se detiene",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que en el corazón se mueven",
+              "El reloj en silencio me detiene"
+            ],
+            "target_rhyme": "ene",
+            "current_rhyme": "ene",
+            "verse_1": {
+              "text": "El reloj de mi vida se detiene",
+              "last_word": "detiene",
+              "rhyme": "ene"
+            },
+            "candidate_final_words": [],
+            "original_verse_4": "El reloj en silencio me detiene",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ene' | v4 = 'ene'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": true,
+            "verse_1": {
+              "text": "El reloj de mi vida se detiene",
+              "last_word": "detiene",
+              "rhyme": "ene"
+            },
+            "verse_4": {
+              "text": "El reloj en silencio me detiene",
+              "last_word": "detiene",
+              "rhyme": "ene"
+            },
+            "target_rhyme": "ene",
+            "current_rhyme": "ene",
+            "errors": [],
+            "feedback": "La rima exterior AXYA es correcta: el verso 4 conserva la rima consonante del verso 1 ('ene')."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ola' | v3 = 'even'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "En la tristeza que me arrasa y asola",
+              "last_word": "asola",
+              "rhyme": "ola"
+            },
+            "verse_3": {
+              "text": "Recuerdos que en el corazón se mueven",
+              "last_word": "mueven",
+              "rhyme": "even"
+            },
+            "target_rhyme": "ola",
+            "current_rhyme": "even",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ola', pero se obtuvo 'even'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ola') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.",
+          "generation_reasoning": "Corregido el verso 3 para satisfacer la rima consonante BBA. El verso 3 ahora tiene un sentimiento de movimiento y continuidad."
+        },
+        {
+          "stanza": [
+            "El reloj de mi vida se detiene",
+            "En la tristeza que me arrasa y asola",
+            "Recuerdos que en el corazón se esconden",
+            "El reloj en silencio me detiene"
+          ],
+          "score": 0.865349742184445,
+          "step_score": 0.9,
+          "score_history": [
+            0.8,
+            0.9,
+            0.9
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=4/4 | rima=3/4 | score=18.0/20",
+          "meter_repair_summary": "reparación métrica = activa | intentos = 0 | mejoras = 0 | cambio = False",
+          "meter_repair_report": {
+            "enabled": true,
+            "changed": false,
+            "original_stanza": [
+              "El reloj de mi vida se detiene",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que en el corazón se esconden",
+              "El reloj en silencio me detiene"
+            ],
+            "repaired_stanza": [
+              "El reloj de mi vida se detiene",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que en el corazón se esconden",
+              "El reloj en silencio me detiene"
+            ],
+            "verse_repairs": [
+              {
+                "verse_number": 1,
+                "original_verse": "El reloj de mi vida se detiene",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 2,
+                "original_verse": "En la tristeza que me arrasa y asola",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 3,
+                "original_verse": "Recuerdos que en el corazón se esconden",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              },
+              {
+                "verse_number": 4,
+                "original_verse": "El reloj en silencio me detiene",
+                "original_syllables": 11,
+                "original_distance": 0,
+                "attempted": false,
+                "reason": "El verso ya tiene 11 silabas metricas.",
+                "improved": false,
+                "selected_variant": null,
+                "selected_syllables": null,
+                "variants": []
+              }
+            ]
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = no necesaria",
+          "outer_rhyme_repair_report": {
+            "enabled": true,
+            "attempted": false,
+            "changed": false,
+            "reason": "La rima exterior AXYA ya es correcta.",
+            "original_stanza": [
+              "El reloj de mi vida se detiene",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que en el corazón se esconden",
+              "El reloj en silencio me detiene"
+            ],
+            "repaired_stanza": [
+              "El reloj de mi vida se detiene",
+              "En la tristeza que me arrasa y asola",
+              "Recuerdos que en el corazón se esconden",
+              "El reloj en silencio me detiene"
+            ],
+            "target_rhyme": "ene",
+            "current_rhyme": "ene",
+            "verse_1": {
+              "text": "El reloj de mi vida se detiene",
+              "last_word": "detiene",
+              "rhyme": "ene"
+            },
+            "candidate_final_words": [],
+            "original_verse_4": "El reloj en silencio me detiene",
+            "original_verse_4_syllables": 11,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ene' | v4 = 'ene'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": true,
+            "verse_1": {
+              "text": "El reloj de mi vida se detiene",
+              "last_word": "detiene",
+              "rhyme": "ene"
+            },
+            "verse_4": {
+              "text": "El reloj en silencio me detiene",
+              "last_word": "detiene",
+              "rhyme": "ene"
+            },
+            "target_rhyme": "ene",
+            "current_rhyme": "ene",
+            "errors": [],
+            "feedback": "La rima exterior AXYA es correcta: el verso 4 conserva la rima consonante del verso 1 ('ene')."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ola' | v3 = 'onden'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "En la tristeza que me arrasa y asola",
+              "last_word": "asola",
+              "rhyme": "ola"
+            },
+            "verse_3": {
+              "text": "Recuerdos que en el corazón se esconden",
+              "last_word": "esconden",
+              "rhyme": "onden"
+            },
+            "target_rhyme": "ola",
+            "current_rhyme": "onden",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ola', pero se obtuvo 'onden'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ola') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.",
+          "generation_reasoning": "Corregido el verso 3 para satisfacer la rima consonante BBA. El verso 3 ahora tiene un sentimiento de ocultamiento y preservación."
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "phase": "stop",
+      "reason": "max_steps",
+      "best_score": 0.865349742184445
+    }
+  ]
+}

@@ -1,0 +1,296 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200
+  },
+  "stanza": [
+    "El sol se desplaza en el horizonte,",
+    "Deja atrás un día más lento y claro.",
+    "En mi alma fluye el río de la nostalgia,",
+    "El pasado pierde en el horizonte"
+  ],
+  "score": 0.8,
+  "step_score": 0.8,
+  "score_history": [
+    0.8,
+    0.8,
+    0.8
+  ],
+  "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.",
+  "metrics": {
+    "score": 0.8,
+    "score_20": 16.0,
+    "verses": [
+      "El sol se desplaza en el horizonte,",
+      "Deja atrás un día más lento y claro.",
+      "En mi alma fluye el río de la nostalgia,",
+      "El pasado pierde en el horizonte"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        10,
+        11,
+        11
+      ],
+      "correct_verses": 3,
+      "total_expected_verses": 4,
+      "score": 0.75,
+      "errors": [
+        "Verso 2: tiene 10 silabas, pero deberia tener 11."
+      ]
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "onte",
+        "aro",
+        "algia",
+        "onte"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "C",
+        "A"
+      ],
+      "correct_positions": 3,
+      "total_positions": 4,
+      "score": 0.75,
+      "errors": [
+        "Verso 3: rima C, pero se esperaba B."
+      ]
+    },
+    "errors": [
+      "Verso 2: tiene 10 silabas, pero deberia tener 11.",
+      "Verso 3: rima C, pero se esperaba B."
+    ],
+    "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": true,
+    "original_stanza": [
+      "El sol se desplaza en el horizonte,",
+      "Deja atrás un día más lento y claro.",
+      "En mi alma fluye el río de la nostalgia,",
+      "El pasado perdido en el horizonte."
+    ],
+    "repaired_stanza": [
+      "El sol se desplaza en el horizonte,",
+      "Deja atrás un día más lento y claro.",
+      "En mi alma fluye el río de la nostalgia,",
+      "El pasado pierde en el horizonte"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "El sol se desplaza en el horizonte,",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "Deja atrás un día más lento y claro.",
+        "original_syllables": 10,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "selected_distance": null,
+        "variants": [
+          {
+            "verse": "Deja atrás un día más lento, claro y tranquilo.",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "Deja atrás un día más largo y luminoso.",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "Deja atrás un día más tranquilo, lento y claro.",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "Deja atrás un día más largo, claro y sereno.",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "Deja atrás un día más tranquilamente lento y claro.",
+            "syllables": 15,
+            "distance": 4
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "En mi alma fluye el río de la nostalgia,",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "El pasado perdido en el horizonte.",
+        "original_syllables": 12,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "El pasado pierde en el horizonte",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "El pasado pierde en el horizonte",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "En el horizonte pierde el pasado",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Pierde el pasado en el horizonte",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "El horizonte pierde el pasado",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "Horizonte pierde pasado allí",
+            "syllables": 10,
+            "distance": 1
+          }
+        ],
+        "error": null
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": false,
+    "changed": false,
+    "reason": "La rima exterior AXYA ya es correcta.",
+    "original_stanza": [
+      "El sol se desplaza en el horizonte,",
+      "Deja atrás un día más lento y claro.",
+      "En mi alma fluye el río de la nostalgia,",
+      "El pasado pierde en el horizonte"
+    ],
+    "repaired_stanza": [
+      "El sol se desplaza en el horizonte,",
+      "Deja atrás un día más lento y claro.",
+      "En mi alma fluye el río de la nostalgia,",
+      "El pasado pierde en el horizonte"
+    ],
+    "target_rhyme": "onte",
+    "current_rhyme": "onte",
+    "verse_1": {
+      "text": "El sol se desplaza en el horizonte,",
+      "last_word": "horizonte",
+      "rhyme": "onte"
+    },
+    "candidate_final_words": [],
+    "original_verse_4": "El pasado pierde en el horizonte",
+    "original_verse_4_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": true,
+    "verse_1": {
+      "text": "El sol se desplaza en el horizonte,",
+      "last_word": "horizonte",
+      "rhyme": "onte"
+    },
+    "verse_4": {
+      "text": "El pasado pierde en el horizonte",
+      "last_word": "horizonte",
+      "rhyme": "onte"
+    },
+    "target_rhyme": "onte",
+    "current_rhyme": "onte",
+    "errors": [],
+    "feedback": "La rima exterior AXYA es correcta: el verso 4 conserva la rima consonante del verso 1 ('onte')."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_2": {
+      "text": "Deja atrás un día más lento y claro.",
+      "last_word": "claro",
+      "rhyme": "aro"
+    },
+    "verse_3": {
+      "text": "En mi alma fluye el río de la nostalgia,",
+      "last_word": "nostalgia",
+      "rhyme": "algia"
+    },
+    "target_rhyme": "aro",
+    "current_rhyme": "algia",
+    "errors": [
+      "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'aro', pero se obtuvo 'algia'."
+    ],
+    "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('aro') y reescribe el verso 3 para que termine con esa misma rima consonante."
+  },
+  "generation_reasoning": "Modifique el verso 2 para ajustar la rima y reducir la longitud del verso 4"
+}

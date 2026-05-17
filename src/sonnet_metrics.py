@@ -467,8 +467,8 @@ def _get_syllable_start_positions(syllables: list[str]) -> list[int]:
 
 def _find_stressed_vowel_offset_in_syllable(syllable: str) -> int | None:
     """Localiza la vocal tonica aproximada dentro de una silaba sin tilde."""
-    for index, character in enumerate(syllable):
-        if character in STRONG_VOWELS:
+    for index in range(len(syllable) - 1, -1, -1):
+        if syllable[index] in STRONG_VOWELS:
             return index
 
     for index in range(len(syllable) - 1, -1, -1):
@@ -930,6 +930,162 @@ def evaluate_stanza_rhyme_scheme(verses: list[str]) -> dict[str, object]:
         "total_positions": EXPECTED_STANZA_VERSES,
         "score": correct_positions / EXPECTED_STANZA_VERSES,
         "errors": errors,
+    }
+
+
+def diagnose_stanza_outer_rhyme(stanza: str | list[str]) -> dict[str, object]:
+    """Diagnostica si los versos 1 y 4 cumplen la rima exterior AXYA."""
+    verses = normalize_verses_input(stanza)
+    has_enough_verses = len(verses) >= EXPECTED_STANZA_VERSES
+    errors = []
+
+    verse_1_text = verses[0] if verses else None
+    verse_4_text = verses[3] if has_enough_verses else None
+
+    verse_1_last_word = get_last_word(verse_1_text) if verse_1_text else None
+    verse_4_last_word = get_last_word(verse_4_text) if verse_4_text else None
+    verse_1_rhyme = extract_verse_rhyme(verse_1_text) if verse_1_text else None
+    verse_4_rhyme = extract_verse_rhyme(verse_4_text) if verse_4_text else None
+
+    if not has_enough_verses:
+        errors.append(
+            "Se necesitan al menos 4 versos para diagnosticar la rima AXYA."
+        )
+
+    if has_enough_verses and not verse_1_rhyme:
+        errors.append("Verso 1: no se pudo extraer rima.")
+
+    if has_enough_verses and not verse_4_rhyme:
+        errors.append("Verso 4: no se pudo extraer rima.")
+
+    is_valid = bool(
+        has_enough_verses
+        and verse_1_rhyme
+        and verse_4_rhyme
+        and verse_1_rhyme == verse_4_rhyme
+    )
+
+    if has_enough_verses and verse_1_rhyme and verse_4_rhyme and not is_valid:
+        errors.append(
+            "El verso 4 no rima consonantemente con el verso 1: "
+            f"se esperaba la rima '{verse_1_rhyme}', "
+            f"pero se obtuvo '{verse_4_rhyme}'."
+        )
+
+    if is_valid:
+        feedback = (
+            "La rima exterior AXYA es correcta: el verso 4 conserva la rima "
+            f"consonante del verso 1 ('{verse_1_rhyme}')."
+        )
+    elif has_enough_verses and verse_1_rhyme:
+        feedback = (
+            "Para cumplir AXYA, conserva la rima del verso 1 "
+            f"('{verse_1_rhyme}') y reescribe el verso 4 para que termine "
+            "con esa misma rima consonante."
+        )
+    else:
+        feedback = (
+            "No se puede diagnosticar completamente AXYA: se necesitan 4 "
+            "versos y una rima extraible en el verso 1."
+        )
+
+    return {
+        "target_pattern": "AXYA",
+        "required_pair": [1, 4],
+        "has_enough_verses": has_enough_verses,
+        "is_valid": is_valid,
+        "verse_1": {
+            "text": verse_1_text,
+            "last_word": verse_1_last_word,
+            "rhyme": verse_1_rhyme,
+        },
+        "verse_4": {
+            "text": verse_4_text,
+            "last_word": verse_4_last_word,
+            "rhyme": verse_4_rhyme,
+        },
+        "target_rhyme": verse_1_rhyme,
+        "current_rhyme": verse_4_rhyme,
+        "errors": errors,
+        "feedback": feedback,
+    }
+
+
+def diagnose_stanza_inner_rhyme(stanza: str | list[str]) -> dict[str, object]:
+    """Diagnostica si los versos 2 y 3 cumplen la rima interior B."""
+    verses = normalize_verses_input(stanza)
+    has_enough_verses = len(verses) >= 3
+    errors = []
+
+    verse_2_text = verses[1] if len(verses) >= 2 else None
+    verse_3_text = verses[2] if has_enough_verses else None
+
+    verse_2_last_word = get_last_word(verse_2_text) if verse_2_text else None
+    verse_3_last_word = get_last_word(verse_3_text) if verse_3_text else None
+    verse_2_rhyme = extract_verse_rhyme(verse_2_text) if verse_2_text else None
+    verse_3_rhyme = extract_verse_rhyme(verse_3_text) if verse_3_text else None
+
+    if not has_enough_verses:
+        errors.append(
+            "Se necesitan al menos 3 versos para diagnosticar la rima interior B."
+        )
+
+    if has_enough_verses and not verse_2_rhyme:
+        errors.append("Verso 2: no se pudo extraer rima.")
+
+    if has_enough_verses and not verse_3_rhyme:
+        errors.append("Verso 3: no se pudo extraer rima.")
+
+    is_valid = bool(
+        has_enough_verses
+        and verse_2_rhyme
+        and verse_3_rhyme
+        and verse_2_rhyme == verse_3_rhyme
+    )
+
+    if has_enough_verses and verse_2_rhyme and verse_3_rhyme and not is_valid:
+        errors.append(
+            "El verso 3 no rima consonantemente con el verso 2: "
+            f"se esperaba la rima '{verse_2_rhyme}', "
+            f"pero se obtuvo '{verse_3_rhyme}'."
+        )
+
+    if is_valid:
+        feedback = (
+            "La rima interior B es correcta: el verso 3 conserva la rima "
+            f"consonante del verso 2 ('{verse_2_rhyme}')."
+        )
+    elif has_enough_verses and verse_2_rhyme:
+        feedback = (
+            "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 "
+            f"('{verse_2_rhyme}') y reescribe el verso 3 para que termine "
+            "con esa misma rima consonante."
+        )
+    else:
+        feedback = (
+            "No se puede diagnosticar completamente la rima interior B: "
+            "se necesitan al menos 3 versos y una rima extraible en el verso 2."
+        )
+
+    return {
+        "target_pattern": "XBBY",
+        "required_pair": [2, 3],
+        "has_enough_verses": has_enough_verses,
+        "is_valid": is_valid,
+        "verse_2": {
+            "text": verse_2_text,
+            "last_word": verse_2_last_word,
+            "rhyme": verse_2_rhyme,
+        },
+        "verse_3": {
+            "text": verse_3_text,
+            "last_word": verse_3_last_word,
+            "rhyme": verse_3_rhyme,
+        },
+        "target_rhyme": verse_2_rhyme,
+        "current_rhyme": verse_3_rhyme,
+        "errors": errors,
+        "feedback": feedback,
     }
 
 
