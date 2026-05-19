@@ -1,0 +1,326 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200
+  },
+  "stanza": [
+    "El tiempo pasando, deja huella suena",
+    "Y la juventud se ha ido, sin regresar",
+    "En el alma se guarda y llorar",
+    "Un recuerdo que no se olvida en la arena"
+  ],
+  "score": 0.8944271909999159,
+  "step_score": 1.0,
+  "score_history": [
+    0.8,
+    1.0
+  ],
+  "feedback": "Puntuacion formal total: 20.0/20.\nLa estrofa cumple las restricciones formales evaluadas: 4 versos, computo silabico objetivo y esquema de rima ABBA.",
+  "metrics": {
+    "score": 1.0,
+    "score_20": 20.0,
+    "verses": [
+      "El tiempo pasando, deja huella suena",
+      "Y la juventud se ha ido, sin regresar",
+      "En el alma se guarda y llorar",
+      "Un recuerdo que no se olvida en la arena"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "correct_verses": 4,
+      "total_expected_verses": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "ena",
+        "ar",
+        "ar",
+        "ena"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "correct_positions": 4,
+      "total_positions": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "errors": [],
+    "feedback": "Puntuacion formal total: 20.0/20.\nLa estrofa cumple las restricciones formales evaluadas: 4 versos, computo silabico objetivo y esquema de rima ABBA."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": true,
+    "original_stanza": [
+      "El tiempo pasa, deja huella suena",
+      "Y la juventud se fue, sin regresar",
+      "En el alma se guarda y llorar",
+      "Un recuerdo que no se olvida en la arena"
+    ],
+    "repaired_stanza": [
+      "El tiempo pasando, deja huella suena",
+      "Y la juventud se ha ido, sin regresar",
+      "En el alma se guarda y llorar",
+      "Un recuerdo que no se olvida en la arena"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "El tiempo pasa, deja huella suena",
+        "original_syllables": 10,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "El tiempo pasando, deja huella suena",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "El tiempo pase, deja huella suena",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "El tiempo pasando, deja huella suena",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "El tiempo pasa y deja huella suena",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "El tiempo pasado, deja huella suena",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "El tiempo pasado ya, deja huella suena",
+            "syllables": 12,
+            "distance": 1
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "Y la juventud se fue, sin regresar",
+        "original_syllables": 12,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Y la juventud se ha ido, sin regresar",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "Y la juventud se ha ido, sin regresar",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "La juventud se fue y no vuelve",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "Juventud se fue, sin volver",
+            "syllables": 9,
+            "distance": 2
+          },
+          {
+            "verse": "Se fue la juventud, sin retorno",
+            "syllables": 9,
+            "distance": 2
+          },
+          {
+            "verse": "Juventud se fue, sin volver al paso",
+            "syllables": 11,
+            "distance": 0
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "En el alma se guarda y llorar",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "Un recuerdo que no se olvida en la arena",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": false,
+    "changed": false,
+    "reason": "La rima exterior AXYA ya es correcta.",
+    "original_stanza": [
+      "El tiempo pasando, deja huella suena",
+      "Y la juventud se ha ido, sin regresar",
+      "En el alma se guarda y llorar",
+      "Un recuerdo que no se olvida en la arena"
+    ],
+    "repaired_stanza": [
+      "El tiempo pasando, deja huella suena",
+      "Y la juventud se ha ido, sin regresar",
+      "En el alma se guarda y llorar",
+      "Un recuerdo que no se olvida en la arena"
+    ],
+    "target_rhyme": "ena",
+    "current_rhyme": "ena",
+    "verse_1": {
+      "text": "El tiempo pasando, deja huella suena",
+      "last_word": "suena",
+      "rhyme": "ena"
+    },
+    "candidate_final_words": [],
+    "enforced_candidate_final_words": [],
+    "original_verse_4": "Un recuerdo que no se olvida en la arena",
+    "original_verse_4_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": false,
+    "changed": false,
+    "reason": "La rima interior B ya es correcta.",
+    "original_stanza": [
+      "El tiempo pasando, deja huella suena",
+      "Y la juventud se ha ido, sin regresar",
+      "En el alma se guarda y llorar",
+      "Un recuerdo que no se olvida en la arena"
+    ],
+    "repaired_stanza": [
+      "El tiempo pasando, deja huella suena",
+      "Y la juventud se ha ido, sin regresar",
+      "En el alma se guarda y llorar",
+      "Un recuerdo que no se olvida en la arena"
+    ],
+    "target_rhyme": "ar",
+    "current_rhyme": "ar",
+    "verse_2": {
+      "text": "Y la juventud se ha ido, sin regresar",
+      "last_word": "regresar",
+      "rhyme": "ar"
+    },
+    "candidate_final_words": [],
+    "enforced_candidate_final_words": [],
+    "has_enforced_candidate_final_words": false,
+    "candidate_warning": null,
+    "original_verse_3": "En el alma se guarda y llorar",
+    "original_verse_3_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": true,
+    "verse_1": {
+      "text": "El tiempo pasando, deja huella suena",
+      "last_word": "suena",
+      "rhyme": "ena"
+    },
+    "verse_4": {
+      "text": "Un recuerdo que no se olvida en la arena",
+      "last_word": "arena",
+      "rhyme": "ena"
+    },
+    "target_rhyme": "ena",
+    "current_rhyme": "ena",
+    "errors": [],
+    "feedback": "La rima exterior AXYA es correcta: el verso 4 conserva la rima consonante del verso 1 ('ena')."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": true,
+    "verse_2": {
+      "text": "Y la juventud se ha ido, sin regresar",
+      "last_word": "regresar",
+      "rhyme": "ar"
+    },
+    "verse_3": {
+      "text": "En el alma se guarda y llorar",
+      "last_word": "llorar",
+      "rhyme": "ar"
+    },
+    "target_rhyme": "ar",
+    "current_rhyme": "ar",
+    "errors": [],
+    "feedback": "La rima interior B es correcta: el verso 3 conserva la rima consonante del verso 2 ('ar')."
+  },
+  "generation_reasoning": "Mantiene la rima ABBA y ajusta la longitud de los versos para cumplir con las 11 silabas metricas."
+}

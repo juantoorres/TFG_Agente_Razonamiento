@@ -1,0 +1,512 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200
+  },
+  "stanza": [
+    "Sin piedad se va el tiempo, en sus manos se desvanece.",
+    "Libros olvidados, recuerdos en vano.",
+    "Arrastrado por el tiempo, dolor de aquellos momentos",
+    "El tiempo ya no hay tiempo para atajar"
+  ],
+  "score": 0.5313292845913056,
+  "step_score": 0.6,
+  "score_history": [
+    0.5,
+    0.5,
+    0.6
+  ],
+  "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 15 silabas, pero deberia tener 11.\n- Verso 3: tiene 14 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+  "metrics": {
+    "score": 0.6,
+    "score_20": 12.0,
+    "verses": [
+      "Sin piedad se va el tiempo, en sus manos se desvanece.",
+      "Libros olvidados, recuerdos en vano.",
+      "Arrastrado por el tiempo, dolor de aquellos momentos",
+      "El tiempo ya no hay tiempo para atajar"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        15,
+        11,
+        14,
+        11
+      ],
+      "correct_verses": 2,
+      "total_expected_verses": 4,
+      "score": 0.5,
+      "errors": [
+        "Verso 1: tiene 15 silabas, pero deberia tener 11.",
+        "Verso 3: tiene 14 silabas, pero deberia tener 11."
+      ]
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "ece",
+        "o",
+        "entos",
+        "ar"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_positions": 2,
+      "total_positions": 4,
+      "score": 0.5,
+      "errors": [
+        "Verso 3: rima C, pero se esperaba B.",
+        "Verso 4: rima D, pero se esperaba A."
+      ]
+    },
+    "errors": [
+      "Verso 1: tiene 15 silabas, pero deberia tener 11.",
+      "Verso 3: tiene 14 silabas, pero deberia tener 11.",
+      "Verso 3: rima C, pero se esperaba B.",
+      "Verso 4: rima D, pero se esperaba A."
+    ],
+    "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 15 silabas, pero deberia tener 11.\n- Verso 3: tiene 14 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": true,
+    "original_stanza": [
+      "Tiempo se va sin piedad,/ en sus manos se desvanece.",
+      "Libros olvidados, recuerdos irrecup./ Nostalgia aguda arrastra al corazón triste.",
+      "Arrastrado por el paso del tiempo,/ el dolor de aquellos momentos perdidos.",
+      "Ya no hay tiempo para atajar/ el paso del tiempo."
+    ],
+    "repaired_stanza": [
+      "Sin piedad se va el tiempo, en sus manos se desvanece.",
+      "Libros olvidados, recuerdos en vano.",
+      "Arrastrado por el tiempo, dolor de aquellos momentos",
+      "El tiempo ya no hay tiempo para atajar"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "Tiempo se va sin piedad,/ en sus manos se desvanece.",
+        "original_syllables": 17,
+        "original_distance": 6,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Sin piedad se va el tiempo, en sus manos se desvanece.",
+        "selected_syllables": 15,
+        "selected_distance": 4,
+        "variants": [
+          {
+            "verse": "Tiempo se va sin piedad, en sus manos se desvanece.",
+            "syllables": 16,
+            "distance": 5
+          },
+          {
+            "verse": "Se va tiempo sin piedad; en sus manos se desvanece.",
+            "syllables": 16,
+            "distance": 5
+          },
+          {
+            "verse": "Sin piedad se va el tiempo, en sus manos se desvanece.",
+            "syllables": 15,
+            "distance": 4
+          },
+          {
+            "verse": "Tiempo se va sin piedad, en su mano se desvanece.",
+            "syllables": 16,
+            "distance": 5
+          },
+          {
+            "verse": "En sus manos se va el tiempo, sin piedad se desvanece.",
+            "syllables": 16,
+            "distance": 5
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "Libros olvidados, recuerdos irrecup./ Nostalgia aguda arrastra al corazón triste.",
+        "original_syllables": 22,
+        "original_distance": 11,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Libros olvidados, recuerdos en vano.",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "Libros olvidados, recuerdos perdidos.",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "Recuerdos olvidados, libros perdidos.",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "Libros olvidados, recuerdos en pena.",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "Libros olvidados, recuerdos en penas.",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "Libros olvidados, recuerdos en vano.",
+            "syllables": 11,
+            "distance": 0
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "Arrastrado por el paso del tiempo,/ el dolor de aquellos momentos perdidos.",
+        "original_syllables": 21,
+        "original_distance": 10,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Arrastrado por el tiempo, dolor de aquellos momentos",
+        "selected_syllables": 14,
+        "selected_distance": 3,
+        "variants": [
+          {
+            "verse": "Arrastrado por el tiempo, dolor de aquellos momentos",
+            "syllables": 14,
+            "distance": 3
+          },
+          {
+            "verse": "Por el tiempo arrastrado, dolor de los momentos perdidos",
+            "syllables": 16,
+            "distance": 5
+          },
+          {
+            "verse": "En el tiempo arrastrado, dolor de aquellos pasados momentos",
+            "syllables": 16,
+            "distance": 5
+          },
+          {
+            "verse": "Arrastrado en el tiempo, dolor de aquel momento perdido",
+            "syllables": 15,
+            "distance": 4
+          },
+          {
+            "verse": "Arrastrado por el tiempo, dolor de aquel instante perdido",
+            "syllables": 16,
+            "distance": 5
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "Ya no hay tiempo para atajar/ el paso del tiempo.",
+        "original_syllables": 14,
+        "original_distance": 3,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "El tiempo ya no hay tiempo para atajar",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "Ya no hay tiempo para atajarlo",
+            "syllables": 8,
+            "distance": 3
+          },
+          {
+            "verse": "Para atajar el paso del tiempo ya no hay",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "No hay tiempo más para atajar el tiempo",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "Atajar al tiempo ya no hay tiempo",
+            "syllables": 9,
+            "distance": 2
+          },
+          {
+            "verse": "El tiempo ya no hay tiempo para atajar",
+            "syllables": 11,
+            "distance": 0
+          }
+        ],
+        "error": null
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+    "original_stanza": [
+      "Sin piedad se va el tiempo, en sus manos se desvanece.",
+      "Libros olvidados, recuerdos en vano.",
+      "Arrastrado por el tiempo, dolor de aquellos momentos",
+      "El tiempo ya no hay tiempo para atajar"
+    ],
+    "repaired_stanza": [
+      "Sin piedad se va el tiempo, en sus manos se desvanece.",
+      "Libros olvidados, recuerdos en vano.",
+      "Arrastrado por el tiempo, dolor de aquellos momentos",
+      "El tiempo ya no hay tiempo para atajar"
+    ],
+    "target_rhyme": "ece",
+    "current_rhyme": "ar",
+    "verse_1": {
+      "text": "Sin piedad se va el tiempo, en sus manos se desvanece.",
+      "last_word": "desvanece",
+      "rhyme": "ece"
+    },
+    "candidate_final_words": [
+      "desvanece"
+    ],
+    "enforced_candidate_final_words": [],
+    "original_verse_4": "El tiempo ya no hay tiempo para atajar",
+    "original_verse_4_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "El tiempo ya no hay espacio para esperar",
+        "syllables": 13,
+        "final_word": "esperar",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ece' | v4 = 'ar'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "El tiempo ya no hay lugar para detener",
+        "syllables": 13,
+        "final_word": "detener",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ece' | v4 = 'er'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "El tiempo ya no hay rastro para seguir",
+        "syllables": 12,
+        "final_word": "seguir",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ece' | v4 = 'ir'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "El tiempo ya no hay trazo para recordar",
+        "syllables": 13,
+        "final_word": "recordar",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ece' | v4 = 'ar'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "El tiempo ya no hay huella para encontrar",
+        "syllables": 12,
+        "final_word": "encontrar",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ece' | v4 = 'ar'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige B sin empeorar metrica.",
+    "original_stanza": [
+      "Sin piedad se va el tiempo, en sus manos se desvanece.",
+      "Libros olvidados, recuerdos en vano.",
+      "Arrastrado por el tiempo, dolor de aquellos momentos",
+      "El tiempo ya no hay tiempo para atajar"
+    ],
+    "repaired_stanza": [
+      "Sin piedad se va el tiempo, en sus manos se desvanece.",
+      "Libros olvidados, recuerdos en vano.",
+      "Arrastrado por el tiempo, dolor de aquellos momentos",
+      "El tiempo ya no hay tiempo para atajar"
+    ],
+    "target_rhyme": "o",
+    "current_rhyme": "entos",
+    "verse_2": {
+      "text": "Libros olvidados, recuerdos en vano.",
+      "last_word": "vano",
+      "rhyme": "o"
+    },
+    "candidate_final_words": [
+      "vano"
+    ],
+    "enforced_candidate_final_words": [],
+    "has_enforced_candidate_final_words": false,
+    "candidate_warning": "No hay palabras finales candidatas distintas de la palabra ancla para la rima B.",
+    "original_verse_3": "Arrastrado por el tiempo, dolor de aquellos momentos",
+    "original_verse_3_syllables": 14,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "Arrastrado por el tiempo, dolor de aquellos días",
+        "syllables": 13,
+        "final_word": "días",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'o' | v3 = 'ias'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Arrastrado por el tiempo, dolor de esos momentos",
+        "syllables": 13,
+        "final_word": "momentos",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'o' | v3 = 'entos'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Arrastrado por el tiempo, dolor de esas horas",
+        "syllables": 12,
+        "final_word": "horas",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'o' | v3 = 'oras'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Arrastrado por el tiempo, dolor de esa época",
+        "syllables": 11,
+        "final_word": "época",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'o' | v3 = 'epoca'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Arrastrado por el tiempo, dolor de aquella vida",
+        "syllables": 13,
+        "final_word": "vida",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'o' | v3 = 'ida'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_1": {
+      "text": "Sin piedad se va el tiempo, en sus manos se desvanece.",
+      "last_word": "desvanece",
+      "rhyme": "ece"
+    },
+    "verse_4": {
+      "text": "El tiempo ya no hay tiempo para atajar",
+      "last_word": "atajar",
+      "rhyme": "ar"
+    },
+    "target_rhyme": "ece",
+    "current_rhyme": "ar",
+    "errors": [
+      "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ece', pero se obtuvo 'ar'."
+    ],
+    "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ece') y reescribe el verso 4 para que termine con esa misma rima consonante."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_2": {
+      "text": "Libros olvidados, recuerdos en vano.",
+      "last_word": "vano",
+      "rhyme": "o"
+    },
+    "verse_3": {
+      "text": "Arrastrado por el tiempo, dolor de aquellos momentos",
+      "last_word": "momentos",
+      "rhyme": "entos"
+    },
+    "target_rhyme": "o",
+    "current_rhyme": "entos",
+    "errors": [
+      "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'o', pero se obtuvo 'entos'."
+    ],
+    "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('o') y reescribe el verso 3 para que termine con esa misma rima consonante."
+  },
+  "generation_reasoning": "Verso 1 y 4 mantenido, versos 2 y 3 reestructurados para cumplir con las restricciones de silabas y rima."
+}

@@ -1,0 +1,40 @@
+ESTROFA FINAL
+
+Modelo: mistral:7b-instruct
+Temperatura: 0.3
+Num predict: 600
+k: 2
+max_steps: 3
+alpha: 1.0
+Tiempo total de ejecucion: 2603.65 segundos (43.39 minutos)
+Reparacion metrica activa: True
+Variantes por verso para reparacion metrica: 5
+Temperatura reparacion metrica: 0.4
+Num predict reparacion metrica: 200
+Reparacion rima A activa: True
+Variantes para reparacion rima A: 5
+Temperatura reparacion rima A: 0.3
+Num predict reparacion rima A: 200
+Reparacion rima B activa: True
+Variantes para reparacion rima B: 5
+Temperatura reparacion rima B: 0.3
+Num predict reparacion rima B: 200
+
+Score global: 0.894
+Historial de scores: [0.8, 1.0]
+Resumen de metricas: versos=4/4 | endecasilabos=4/4 | rima=4/4 | score=20.0/20
+Resumen de reparacion metrica: reparación métrica = activa | intentos = 2 | mejoras = 2 | cambio = True
+Resumen reparacion rima A: reparacion rima A = no necesaria
+Resumen reparacion rima B: reparacion rima B = no necesaria
+Resumen rima exterior AXYA: rima AXYA = correcta | v1 = 'ena' | v4 = 'ena'
+Resumen rima interior B: rima interior B = correcta | v2 = 'ar' | v3 = 'ar'
+
+Feedback final:
+Puntuacion formal total: 20.0/20.
+La estrofa cumple las restricciones formales evaluadas: 4 versos, computo silabico objetivo y esquema de rima ABBA.
+
+Estrofa completa:
+1. El tiempo pasando, deja huella suena
+2. Y la juventud se ha ido, sin regresar
+3. En el alma se guarda y llorar
+4. Un recuerdo que no se olvida en la arena

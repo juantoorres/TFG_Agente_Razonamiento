@@ -1,0 +1,420 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200
+  },
+  "stanza": [
+    "El tiempo se fue, pero el recuerdo no",
+    "En mi alma, como un reliquias antiguo",
+    "Y en cada sonrís, juventud se acerca",
+    "Al recuerdo del tiempo que pasó"
+  ],
+  "score": 0.7958114415792784,
+  "step_score": 0.9,
+  "score_history": [
+    0.7,
+    0.8,
+    0.9
+  ],
+  "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.",
+  "metrics": {
+    "score": 0.9,
+    "score_20": 18.0,
+    "verses": [
+      "El tiempo se fue, pero el recuerdo no",
+      "En mi alma, como un reliquias antiguo",
+      "Y en cada sonrís, juventud se acerca",
+      "Al recuerdo del tiempo que pasó"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "correct_verses": 4,
+      "total_expected_verses": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "o",
+        "iguo",
+        "erca",
+        "o"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "C",
+        "A"
+      ],
+      "correct_positions": 3,
+      "total_positions": 4,
+      "score": 0.75,
+      "errors": [
+        "Verso 3: rima C, pero se esperaba B."
+      ]
+    },
+    "errors": [
+      "Verso 3: rima C, pero se esperaba B."
+    ],
+    "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": true,
+    "original_stanza": [
+      "El tiempo se fue, pero el recuerdo no",
+      "En mi alma, como un reliquias antiguo",
+      "Y en cada sonrís, juventud se acerca",
+      "A la nostalgia del tiempo que pasó"
+    ],
+    "repaired_stanza": [
+      "El tiempo se fue, pero el recuerdo no",
+      "En mi alma, como un reliquias antiguo",
+      "Y en cada sonrís, juventud se acerca",
+      "A la nostalgia de tiempo pasado"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "El tiempo se fue, pero el recuerdo no",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "En mi alma, como un reliquias antiguo",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "Y en cada sonrís, juventud se acerca",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "A la nostalgia del tiempo que pasó",
+        "original_syllables": 12,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "A la nostalgia de tiempo pasado",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "A la nostalgia de tiempo pasado",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Al recuerdo de tiempo pasado",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "Nostálgica del tiempo pasado",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "Del tiempo que ya ha pasado",
+            "syllables": 8,
+            "distance": 3
+          },
+          {
+            "verse": "En la nostalgia de tiempo paso",
+            "syllables": 10,
+            "distance": 1
+          }
+        ],
+        "error": null
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": true,
+    "reason": "Se acepto una variante que corrige AXYA.",
+    "original_stanza": [
+      "El tiempo se fue, pero el recuerdo no",
+      "En mi alma, como un reliquias antiguo",
+      "Y en cada sonrís, juventud se acerca",
+      "A la nostalgia de tiempo pasado"
+    ],
+    "repaired_stanza": [
+      "El tiempo se fue, pero el recuerdo no",
+      "En mi alma, como un reliquias antiguo",
+      "Y en cada sonrís, juventud se acerca",
+      "Al recuerdo del tiempo que pasó"
+    ],
+    "target_rhyme": "o",
+    "current_rhyme": "ado",
+    "verse_1": {
+      "text": "El tiempo se fue, pero el recuerdo no",
+      "last_word": "no",
+      "rhyme": "o"
+    },
+    "candidate_final_words": [
+      "no"
+    ],
+    "enforced_candidate_final_words": [],
+    "original_verse_4": "A la nostalgia de tiempo pasado",
+    "original_verse_4_syllables": 11,
+    "selected_variant": "Al recuerdo del tiempo que pasó",
+    "selected_variant_syllables": 11,
+    "variants": [
+      {
+        "verse": "A la tristeza de tiempos perdidos",
+        "syllables": 11,
+        "final_word": "perdidos",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'o' | v4 = 'idos'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Al recuerdo del tiempo que pasó",
+        "syllables": 11,
+        "final_word": "pasó",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": true,
+        "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'o' | v4 = 'o'",
+        "accepted": true,
+        "rejection_reason": null
+      },
+      {
+        "verse": "A la melancolía de años anteriores",
+        "syllables": 11,
+        "final_word": "anteriores",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'o' | v4 = 'ores'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Al nostálgico pasado remanente",
+        "syllables": 12,
+        "final_word": "remanente",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'o' | v4 = 'ente'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Al dolor de la juventud desaparecida",
+        "syllables": 13,
+        "final_word": "desaparecida",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'o' | v4 = 'ida'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige B sin empeorar metrica.",
+    "original_stanza": [
+      "El tiempo se fue, pero el recuerdo no",
+      "En mi alma, como un reliquias antiguo",
+      "Y en cada sonrís, juventud se acerca",
+      "Al recuerdo del tiempo que pasó"
+    ],
+    "repaired_stanza": [
+      "El tiempo se fue, pero el recuerdo no",
+      "En mi alma, como un reliquias antiguo",
+      "Y en cada sonrís, juventud se acerca",
+      "Al recuerdo del tiempo que pasó"
+    ],
+    "target_rhyme": "iguo",
+    "current_rhyme": "erca",
+    "verse_2": {
+      "text": "En mi alma, como un reliquias antiguo",
+      "last_word": "antiguo",
+      "rhyme": "iguo"
+    },
+    "candidate_final_words": [
+      "antiguo"
+    ],
+    "enforced_candidate_final_words": [],
+    "original_verse_3": "Y en cada sonrís, juventud se acerca",
+    "original_verse_3_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "Y en cada sonrisa, juventud se acerca",
+        "syllables": 12,
+        "final_word": "acerca",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'iguo' | v3 = 'erca'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Y en cada risa, la juventud se acerca",
+        "syllables": 12,
+        "final_word": "acerca",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'iguo' | v3 = 'erca'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Y en cada sonríe, la juventud se acerca",
+        "syllables": 12,
+        "final_word": "acerca",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'iguo' | v3 = 'erca'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Y en cada risa, el recuerdo de la juventud se acerca",
+        "syllables": 16,
+        "final_word": "acerca",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'iguo' | v3 = 'erca'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Y en cada sonrís, el recuerdo de la juventud se acerca",
+        "syllables": 17,
+        "final_word": "acerca",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'iguo' | v3 = 'erca'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": true,
+    "verse_1": {
+      "text": "El tiempo se fue, pero el recuerdo no",
+      "last_word": "no",
+      "rhyme": "o"
+    },
+    "verse_4": {
+      "text": "Al recuerdo del tiempo que pasó",
+      "last_word": "pasó",
+      "rhyme": "o"
+    },
+    "target_rhyme": "o",
+    "current_rhyme": "o",
+    "errors": [],
+    "feedback": "La rima exterior AXYA es correcta: el verso 4 conserva la rima consonante del verso 1 ('o')."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_2": {
+      "text": "En mi alma, como un reliquias antiguo",
+      "last_word": "antiguo",
+      "rhyme": "iguo"
+    },
+    "verse_3": {
+      "text": "Y en cada sonrís, juventud se acerca",
+      "last_word": "acerca",
+      "rhyme": "erca"
+    },
+    "target_rhyme": "iguo",
+    "current_rhyme": "erca",
+    "errors": [
+      "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'iguo', pero se obtuvo 'erca'."
+    ],
+    "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('iguo') y reescribe el verso 3 para que termine con esa misma rima consonante."
+  },
+  "generation_reasoning": "Mantiene la rima ABBA y los versos originales, pero corrige el verso 4 para tener 11 silabas."
+}

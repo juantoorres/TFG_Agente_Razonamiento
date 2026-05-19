@@ -1,0 +1,422 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200
+  },
+  "stanza": [
+    "El tiempo, como un vuelo rápido se ha ido",
+    "Deja en mi corazón tristeza nueva",
+    "Llevo a sitios de recuerdos antiguos",
+    "En mi alma, nostalgia que no se olvida"
+  ],
+  "score": 0.7651724731089556,
+  "step_score": 0.8,
+  "score_history": [
+    0.7,
+    0.8,
+    0.8
+  ],
+  "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+  "metrics": {
+    "score": 0.8,
+    "score_20": 16.0,
+    "verses": [
+      "El tiempo, como un vuelo rápido se ha ido",
+      "Deja en mi corazón tristeza nueva",
+      "Llevo a sitios de recuerdos antiguos",
+      "En mi alma, nostalgia que no se olvida"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "correct_verses": 4,
+      "total_expected_verses": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "o",
+        "eva",
+        "iguos",
+        "ida"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_positions": 2,
+      "total_positions": 4,
+      "score": 0.5,
+      "errors": [
+        "Verso 3: rima C, pero se esperaba B.",
+        "Verso 4: rima D, pero se esperaba A."
+      ]
+    },
+    "errors": [
+      "Verso 3: rima C, pero se esperaba B.",
+      "Verso 4: rima D, pero se esperaba A."
+    ],
+    "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": true,
+    "original_stanza": [
+      "El tiempo, como un vuelo rápido se ha ido",
+      "Deja en mi corazón tristeza nueva",
+      "Me lleva a sitios de recuerdos antiguos",
+      "En mi alma, nostalgia que no se olvida"
+    ],
+    "repaired_stanza": [
+      "El tiempo, como un vuelo rápido se ha ido",
+      "Deja en mi corazón tristeza nueva",
+      "Llevo a sitios de recuerdos antiguos",
+      "En mi alma, nostalgia que no se olvida"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "El tiempo, como un vuelo rápido se ha ido",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "Deja en mi corazón tristeza nueva",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "Me lleva a sitios de recuerdos antiguos",
+        "original_syllables": 12,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Llevo a sitios de recuerdos antiguos",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "Me llevan a lugares de recuerdos antiguos",
+            "syllables": 14,
+            "distance": 3
+          },
+          {
+            "verse": "Voy a sitios de recordatorios antiguos",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "A sitios de recuerdos antiguos me lleva",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "Llevo a sitios de recuerdos antiguos",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Me llevan a sitio de recuerdos antiguos",
+            "syllables": 13,
+            "distance": 2
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "En mi alma, nostalgia que no se olvida",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+    "original_stanza": [
+      "El tiempo, como un vuelo rápido se ha ido",
+      "Deja en mi corazón tristeza nueva",
+      "Llevo a sitios de recuerdos antiguos",
+      "En mi alma, nostalgia que no se olvida"
+    ],
+    "repaired_stanza": [
+      "El tiempo, como un vuelo rápido se ha ido",
+      "Deja en mi corazón tristeza nueva",
+      "Llevo a sitios de recuerdos antiguos",
+      "En mi alma, nostalgia que no se olvida"
+    ],
+    "target_rhyme": "o",
+    "current_rhyme": "ida",
+    "verse_1": {
+      "text": "El tiempo, como un vuelo rápido se ha ido",
+      "last_word": "ido",
+      "rhyme": "o"
+    },
+    "candidate_final_words": [
+      "ido"
+    ],
+    "enforced_candidate_final_words": [],
+    "original_verse_4": "En mi alma, nostalgia que no se olvida",
+    "original_verse_4_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "En mi alma, nostalgia que no se olvida o se ve",
+        "syllables": 13,
+        "final_word": "ve",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'o' | v4 = 'e'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "En mi alma, nostalgia que no se olvida o se veía",
+        "syllables": 14,
+        "final_word": "veía",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'o' | v4 = 'ia'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "En mi alma, nostalgia que no se olvida o se lleva",
+        "syllables": 14,
+        "final_word": "lleva",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'o' | v4 = 'eva'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "En mi alma, nostalgia que no se olvida o se deja",
+        "syllables": 14,
+        "final_word": "deja",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'o' | v4 = 'eja'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "En mi alma, nostalgia que no se olvida o se veía ayer",
+        "syllables": 14,
+        "final_word": "ayer",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'o' | v4 = 'er'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige B sin empeorar metrica.",
+    "original_stanza": [
+      "El tiempo, como un vuelo rápido se ha ido",
+      "Deja en mi corazón tristeza nueva",
+      "Llevo a sitios de recuerdos antiguos",
+      "En mi alma, nostalgia que no se olvida"
+    ],
+    "repaired_stanza": [
+      "El tiempo, como un vuelo rápido se ha ido",
+      "Deja en mi corazón tristeza nueva",
+      "Llevo a sitios de recuerdos antiguos",
+      "En mi alma, nostalgia que no se olvida"
+    ],
+    "target_rhyme": "eva",
+    "current_rhyme": "iguos",
+    "verse_2": {
+      "text": "Deja en mi corazón tristeza nueva",
+      "last_word": "nueva",
+      "rhyme": "eva"
+    },
+    "candidate_final_words": [
+      "lleva",
+      "nueva",
+      "eleva",
+      "conlleva",
+      "nieva"
+    ],
+    "enforced_candidate_final_words": [
+      "lleva",
+      "eleva",
+      "conlleva",
+      "nieva"
+    ],
+    "original_verse_3": "Llevo a sitios de recuerdos antiguos",
+    "original_verse_3_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "Llevo a sitios de recuerdos antiguos evas",
+        "syllables": 12,
+        "final_word": "evas",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'eva' | v3 = 'as'",
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 2."
+      },
+      {
+        "verse": "En los sitios de recuerdos antiguos eleva",
+        "syllables": 13,
+        "final_word": "eleva",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'eva' | v3 = 'eva'",
+        "accepted": false,
+        "rejection_reason": "Empeora la distancia metrica del verso 3."
+      },
+      {
+        "verse": "Conllevo a sitios de recuerdos antiguos",
+        "syllables": 12,
+        "final_word": "antiguos",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'eva' | v3 = 'iguos'",
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 2."
+      },
+      {
+        "verse": "Nieve cubre sitios de recuerdos antiguos",
+        "syllables": 13,
+        "final_word": "antiguos",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'eva' | v3 = 'iguos'",
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 2."
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_1": {
+      "text": "El tiempo, como un vuelo rápido se ha ido",
+      "last_word": "ido",
+      "rhyme": "o"
+    },
+    "verse_4": {
+      "text": "En mi alma, nostalgia que no se olvida",
+      "last_word": "olvida",
+      "rhyme": "ida"
+    },
+    "target_rhyme": "o",
+    "current_rhyme": "ida",
+    "errors": [
+      "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'o', pero se obtuvo 'ida'."
+    ],
+    "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('o') y reescribe el verso 4 para que termine con esa misma rima consonante."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_2": {
+      "text": "Deja en mi corazón tristeza nueva",
+      "last_word": "nueva",
+      "rhyme": "eva"
+    },
+    "verse_3": {
+      "text": "Llevo a sitios de recuerdos antiguos",
+      "last_word": "antiguos",
+      "rhyme": "iguos"
+    },
+    "target_rhyme": "eva",
+    "current_rhyme": "iguos",
+    "errors": [
+      "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'eva', pero se obtuvo 'iguos'."
+    ],
+    "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('eva') y reescribe el verso 3 para que termine con esa misma rima consonante."
+  },
+  "generation_reasoning": "Corregido la rima en el verso 4 para adecuarse a la rima ABBA."
+}

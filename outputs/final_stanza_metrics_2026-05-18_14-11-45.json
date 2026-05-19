@@ -1,0 +1,389 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200
+  },
+  "stanza": [
+    "Tiempo: río que siempre fluye y se va",
+    "Deja atrás recuerdos como arena finísima",
+    "En el corazón se guardan silencio",
+    "Como joyas preciosas, no olvidan ya"
+  ],
+  "score": 0.8320335292207618,
+  "step_score": 0.9,
+  "score_history": [
+    0.8,
+    0.8,
+    0.9
+  ],
+  "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.",
+  "metrics": {
+    "score": 0.9,
+    "score_20": 18.0,
+    "verses": [
+      "Tiempo: río que siempre fluye y se va",
+      "Deja atrás recuerdos como arena finísima",
+      "En el corazón se guardan silencio",
+      "Como joyas preciosas, no olvidan ya"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "correct_verses": 4,
+      "total_expected_verses": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "a",
+        "isima",
+        "encio",
+        "a"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "C",
+        "A"
+      ],
+      "correct_positions": 3,
+      "total_positions": 4,
+      "score": 0.75,
+      "errors": [
+        "Verso 3: rima C, pero se esperaba B."
+      ]
+    },
+    "errors": [
+      "Verso 3: rima C, pero se esperaba B."
+    ],
+    "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": true,
+    "original_stanza": [
+      "El tiempo, un río que siempre fluye y se va",
+      "Deja atrás recuerdos como arena finísima",
+      "En el corazón se guardan en silencio",
+      "Como joyas preciosas, no olvidan ya"
+    ],
+    "repaired_stanza": [
+      "Tiempo: río que siempre fluye y se va",
+      "Deja atrás recuerdos como arena finísima",
+      "En el corazón se guardan silencio",
+      "Como joyas preciosas, no olvidan ya"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "El tiempo, un río que siempre fluye y se va",
+        "original_syllables": 12,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Tiempo: río que siempre fluye y se va",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "El tiempo, un río que siempre fluye",
+            "syllables": 9,
+            "distance": 2
+          },
+          {
+            "verse": "Tiempo, río que siempre fluye y va",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "Río de tiempo que siempre fluye",
+            "syllables": 9,
+            "distance": 2
+          },
+          {
+            "verse": "Tiempo es un río que siempre fluye",
+            "syllables": 9,
+            "distance": 2
+          },
+          {
+            "verse": "Tiempo: río que siempre fluye y se va",
+            "syllables": 11,
+            "distance": 0
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "Deja atrás recuerdos como arena finísima",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "En el corazón se guardan en silencio",
+        "original_syllables": 12,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "En el corazón se guardan silencio",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "En el corazón se guardan en silencio",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "En el corazón se guarden en silencio",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "En el corazón se guardan en silencio,",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "En el corazón se guardan silencio",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "En el corazón se guarda silencio",
+            "syllables": 11,
+            "distance": 0
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "Como joyas preciosas, no olvidan ya",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": false,
+    "changed": false,
+    "reason": "La rima exterior AXYA ya es correcta.",
+    "original_stanza": [
+      "Tiempo: río que siempre fluye y se va",
+      "Deja atrás recuerdos como arena finísima",
+      "En el corazón se guardan silencio",
+      "Como joyas preciosas, no olvidan ya"
+    ],
+    "repaired_stanza": [
+      "Tiempo: río que siempre fluye y se va",
+      "Deja atrás recuerdos como arena finísima",
+      "En el corazón se guardan silencio",
+      "Como joyas preciosas, no olvidan ya"
+    ],
+    "target_rhyme": "a",
+    "current_rhyme": "a",
+    "verse_1": {
+      "text": "Tiempo: río que siempre fluye y se va",
+      "last_word": "va",
+      "rhyme": "a"
+    },
+    "candidate_final_words": [],
+    "enforced_candidate_final_words": [],
+    "original_verse_4": "Como joyas preciosas, no olvidan ya",
+    "original_verse_4_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige B sin empeorar metrica.",
+    "original_stanza": [
+      "Tiempo: río que siempre fluye y se va",
+      "Deja atrás recuerdos como arena finísima",
+      "En el corazón se guardan silencio",
+      "Como joyas preciosas, no olvidan ya"
+    ],
+    "repaired_stanza": [
+      "Tiempo: río que siempre fluye y se va",
+      "Deja atrás recuerdos como arena finísima",
+      "En el corazón se guardan silencio",
+      "Como joyas preciosas, no olvidan ya"
+    ],
+    "target_rhyme": "isima",
+    "current_rhyme": "encio",
+    "verse_2": {
+      "text": "Deja atrás recuerdos como arena finísima",
+      "last_word": "finísima",
+      "rhyme": "isima"
+    },
+    "candidate_final_words": [
+      "finísima"
+    ],
+    "enforced_candidate_final_words": [],
+    "original_verse_3": "En el corazón se guardan silencio",
+    "original_verse_3_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "En el alma se guardan secretos",
+        "syllables": 10,
+        "final_word": "secretos",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'isima' | v3 = 'etos'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "En el alma se guardan recuerdos",
+        "syllables": 10,
+        "final_word": "recuerdos",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'isima' | v3 = 'erdos'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "En el alma se guardan tristezas",
+        "syllables": 10,
+        "final_word": "tristezas",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'isima' | v3 = 'ezas'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "En el alma se guardan pesares",
+        "syllables": 10,
+        "final_word": "pesares",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'isima' | v3 = 'ares'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "En el alma se guardan lágrimas",
+        "syllables": 9,
+        "final_word": "lágrimas",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'isima' | v3 = 'agrimas'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": true,
+    "verse_1": {
+      "text": "Tiempo: río que siempre fluye y se va",
+      "last_word": "va",
+      "rhyme": "a"
+    },
+    "verse_4": {
+      "text": "Como joyas preciosas, no olvidan ya",
+      "last_word": "ya",
+      "rhyme": "a"
+    },
+    "target_rhyme": "a",
+    "current_rhyme": "a",
+    "errors": [],
+    "feedback": "La rima exterior AXYA es correcta: el verso 4 conserva la rima consonante del verso 1 ('a')."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_2": {
+      "text": "Deja atrás recuerdos como arena finísima",
+      "last_word": "finísima",
+      "rhyme": "isima"
+    },
+    "verse_3": {
+      "text": "En el corazón se guardan silencio",
+      "last_word": "silencio",
+      "rhyme": "encio"
+    },
+    "target_rhyme": "isima",
+    "current_rhyme": "encio",
+    "errors": [
+      "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'isima', pero se obtuvo 'encio'."
+    ],
+    "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('isima') y reescribe el verso 3 para que termine con esa misma rima consonante."
+  },
+  "generation_reasoning": "Mantiene la rima ABBA y la estructura de 4 versos endecasílabos. El verso 1 tiene 12 silabas, se acorta al verso 2 para mantener la rima B y se añade una palabra en el verso 3 para llegar a las 11 silabas."
+}

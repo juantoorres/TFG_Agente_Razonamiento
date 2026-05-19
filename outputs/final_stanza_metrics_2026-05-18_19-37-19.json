@@ -1,0 +1,451 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200
+  },
+  "stanza": [
+    "El tiempo, como un viento, nos llevamos",
+    "y deja atrás lo que era nuestra alegría, una sombra",
+    "En cada recuerdo, una flor se desmueve",
+    "Y el corazón se entierra en la noche"
+  ],
+  "score": 0.7318611420045943,
+  "step_score": 0.8,
+  "score_history": [
+    0.7,
+    0.7,
+    0.8
+  ],
+  "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+  "metrics": {
+    "score": 0.8,
+    "score_20": 16.0,
+    "verses": [
+      "El tiempo, como un viento, nos llevamos",
+      "y deja atrás lo que era nuestra alegría, una sombra",
+      "En cada recuerdo, una flor se desmueve",
+      "Y el corazón se entierra en la noche"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "correct_verses": 4,
+      "total_expected_verses": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "amos",
+        "ombra",
+        "eve",
+        "oche"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_positions": 2,
+      "total_positions": 4,
+      "score": 0.5,
+      "errors": [
+        "Verso 3: rima C, pero se esperaba B.",
+        "Verso 4: rima D, pero se esperaba A."
+      ]
+    },
+    "errors": [
+      "Verso 3: rima C, pero se esperaba B.",
+      "Verso 4: rima D, pero se esperaba A."
+    ],
+    "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": true,
+    "original_stanza": [
+      "El tiempo, como un viento, nos lleva",
+      "y deja atrás lo que era nuestra alegría, una sombra",
+      "En cada recuerdo, una flor se desmueve",
+      "Y el corazón se entierra en la noche nueva"
+    ],
+    "repaired_stanza": [
+      "El tiempo, como un viento, nos llevamos",
+      "y deja atrás lo que era nuestra alegría, una sombra",
+      "En cada recuerdo, una flor se desmueve",
+      "Y el corazón se entierra en la noche"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "El tiempo, como un viento, nos lleva",
+        "original_syllables": 10,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "El tiempo, como un viento, nos llevamos",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "El tiempo, como un viento, nos llevamos",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "El tiempo, como un viento, nos arrastra",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "El tiempo, como un viento, nos lleva adelante",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "El tiempo, como un viento, nos lleva lejos",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "El tiempo, como un viento, nos lleva a pasar",
+            "syllables": 13,
+            "distance": 2
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "y deja atrás lo que era nuestra alegría, una sombra",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "En cada recuerdo, una flor se desmueve",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "Y el corazón se entierra en la noche nueva",
+        "original_syllables": 13,
+        "original_distance": 2,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Y el corazón se entierra en la noche",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "Y el corazón se entierra en la noche",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "En la noche nueva se entierra el corazón",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "Corazón se entierra en la noche nueva breve",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "El corazón se entierra en la noche breve",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "Noche nueva, corazón se entierra en ti",
+            "syllables": 11,
+            "distance": 0
+          }
+        ],
+        "error": null
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+    "original_stanza": [
+      "El tiempo, como un viento, nos llevamos",
+      "y deja atrás lo que era nuestra alegría, una sombra",
+      "En cada recuerdo, una flor se desmueve",
+      "Y el corazón se entierra en la noche"
+    ],
+    "repaired_stanza": [
+      "El tiempo, como un viento, nos llevamos",
+      "y deja atrás lo que era nuestra alegría, una sombra",
+      "En cada recuerdo, una flor se desmueve",
+      "Y el corazón se entierra en la noche"
+    ],
+    "target_rhyme": "amos",
+    "current_rhyme": "oche",
+    "verse_1": {
+      "text": "El tiempo, como un viento, nos llevamos",
+      "last_word": "llevamos",
+      "rhyme": "amos"
+    },
+    "candidate_final_words": [
+      "llevamos"
+    ],
+    "enforced_candidate_final_words": [],
+    "original_verse_4": "Y el corazón se entierra en la noche",
+    "original_verse_4_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "Y el corazón se entierra en la sombra",
+        "syllables": 11,
+        "final_word": "sombra",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'amos' | v4 = 'ombra'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Y el corazón se entierra en el olvido",
+        "syllables": 12,
+        "final_word": "olvido",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'amos' | v4 = 'ido'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Y el corazón se entierra en las tinieblas",
+        "syllables": 12,
+        "final_word": "tinieblas",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'amos' | v4 = 'eblas'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Y el corazón se entierra en el abismo",
+        "syllables": 11,
+        "final_word": "abismo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'amos' | v4 = 'abismo'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Y el corazón se entierra en la tristeza",
+        "syllables": 12,
+        "final_word": "tristeza",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'amos' | v4 = 'eza'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige B sin empeorar metrica.",
+    "original_stanza": [
+      "El tiempo, como un viento, nos llevamos",
+      "y deja atrás lo que era nuestra alegría, una sombra",
+      "En cada recuerdo, una flor se desmueve",
+      "Y el corazón se entierra en la noche"
+    ],
+    "repaired_stanza": [
+      "El tiempo, como un viento, nos llevamos",
+      "y deja atrás lo que era nuestra alegría, una sombra",
+      "En cada recuerdo, una flor se desmueve",
+      "Y el corazón se entierra en la noche"
+    ],
+    "target_rhyme": "ombra",
+    "current_rhyme": "eve",
+    "verse_2": {
+      "text": "y deja atrás lo que era nuestra alegría, una sombra",
+      "last_word": "sombra",
+      "rhyme": "ombra"
+    },
+    "candidate_final_words": [
+      "sombra"
+    ],
+    "enforced_candidate_final_words": [],
+    "original_verse_3": "En cada recuerdo, una flor se desmueve",
+    "original_verse_3_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "En cada recuerdo, una luz se apaga",
+        "syllables": 9,
+        "final_word": "apaga",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ombra' | v3 = 'aga'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "En cada recuerdo, un corazón se rompe",
+        "syllables": 12,
+        "final_word": "rompe",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ombra' | v3 = 'ompe'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "En cada recuerdo, una sonrisa se pierde",
+        "syllables": 12,
+        "final_word": "pierde",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ombra' | v3 = 'erde'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "En cada recuerdo, una ilusión se desvanece",
+        "syllables": 12,
+        "final_word": "desvanece",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ombra' | v3 = 'ece'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "En cada recuerdo, una esperanza se desmueve",
+        "syllables": 13,
+        "final_word": "desmueve",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ombra' | v3 = 'eve'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_1": {
+      "text": "El tiempo, como un viento, nos llevamos",
+      "last_word": "llevamos",
+      "rhyme": "amos"
+    },
+    "verse_4": {
+      "text": "Y el corazón se entierra en la noche",
+      "last_word": "noche",
+      "rhyme": "oche"
+    },
+    "target_rhyme": "amos",
+    "current_rhyme": "oche",
+    "errors": [
+      "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'amos', pero se obtuvo 'oche'."
+    ],
+    "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('amos') y reescribe el verso 4 para que termine con esa misma rima consonante."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_2": {
+      "text": "y deja atrás lo que era nuestra alegría, una sombra",
+      "last_word": "sombra",
+      "rhyme": "ombra"
+    },
+    "verse_3": {
+      "text": "En cada recuerdo, una flor se desmueve",
+      "last_word": "desmueve",
+      "rhyme": "eve"
+    },
+    "target_rhyme": "ombra",
+    "current_rhyme": "eve",
+    "errors": [
+      "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ombra', pero se obtuvo 'eve'."
+    ],
+    "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ombra') y reescribe el verso 3 para que termine con esa misma rima consonante."
+  },
+  "generation_reasoning": "Corregido: Verso 1 tiene la correcta cantidad de silabas. Verso 4 agrega 'nueva' para cumplir con la rima ABBA y evitar repetir 'noche'. Todos los versos tienen una estructura compacta."
+}

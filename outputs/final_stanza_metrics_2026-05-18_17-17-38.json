@@ -1,0 +1,423 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200
+  },
+  "stanza": [
+    "El tiempo se va, y yo quedo solo",
+    "En recordados que me hacen llorar',",
+    "Y aún escucho sus suaves sonidos",
+    "Que me hacen sentir un triste amor y deseo"
+  ],
+  "score": 0.7483314773547882,
+  "step_score": 0.8,
+  "score_history": [
+    0.7,
+    0.8
+  ],
+  "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+  "metrics": {
+    "score": 0.8,
+    "score_20": 16.0,
+    "verses": [
+      "El tiempo se va, y yo quedo solo",
+      "En recordados que me hacen llorar',",
+      "Y aún escucho sus suaves sonidos",
+      "Que me hacen sentir un triste amor y deseo"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "correct_verses": 4,
+      "total_expected_verses": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "olo",
+        "ar",
+        "idos",
+        "eseo"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_positions": 2,
+      "total_positions": 4,
+      "score": 0.5,
+      "errors": [
+        "Verso 3: rima C, pero se esperaba B.",
+        "Verso 4: rima D, pero se esperaba A."
+      ]
+    },
+    "errors": [
+      "Verso 3: rima C, pero se esperaba B.",
+      "Verso 4: rima D, pero se esperaba A."
+    ],
+    "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": true,
+    "original_stanza": [
+      "El tiempo se va, y yo quedo solo",
+      "En recuerdos que me hacen llorar sin pausa",
+      "Y aún escucho sus suaves sonidos",
+      "Que me hacen sentir un triste amor y deseo"
+    ],
+    "repaired_stanza": [
+      "El tiempo se va, y yo quedo solo",
+      "En recordados que me hacen llorar',",
+      "Y aún escucho sus suaves sonidos",
+      "Que me hacen sentir un triste amor y deseo"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "El tiempo se va, y yo quedo solo",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "En recuerdos que me hacen llorar sin pausa",
+        "original_syllables": 12,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "En recordados que me hacen llorar',",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "En recuerdos que me hacen llorar",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "En recordados que me hacen llora",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "En recuerdos que me hacen lloran",
+            "syllables": 9,
+            "distance": 2
+          },
+          {
+            "verse": "En recordados que me hacen llorar',",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "En recuerdos que me hacen lloran'",
+            "syllables": 9,
+            "distance": 2
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "Y aún escucho sus suaves sonidos",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "Que me hacen sentir un triste amor y deseo",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+    "original_stanza": [
+      "El tiempo se va, y yo quedo solo",
+      "En recordados que me hacen llorar',",
+      "Y aún escucho sus suaves sonidos",
+      "Que me hacen sentir un triste amor y deseo"
+    ],
+    "repaired_stanza": [
+      "El tiempo se va, y yo quedo solo",
+      "En recordados que me hacen llorar',",
+      "Y aún escucho sus suaves sonidos",
+      "Que me hacen sentir un triste amor y deseo"
+    ],
+    "target_rhyme": "olo",
+    "current_rhyme": "eseo",
+    "verse_1": {
+      "text": "El tiempo se va, y yo quedo solo",
+      "last_word": "solo",
+      "rhyme": "olo"
+    },
+    "candidate_final_words": [
+      "solo"
+    ],
+    "enforced_candidate_final_words": [],
+    "original_verse_4": "Que me hacen sentir un triste amor y deseo",
+    "original_verse_4_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "Que me hacen sentir un triste amor y deseo olvidado",
+        "syllables": 14,
+        "final_word": "olvidado",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'olo' | v4 = 'ado'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Que me hacen sentir un triste amor y deseo soledad",
+        "syllables": 15,
+        "final_word": "soledad",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'olo' | v4 = 'ad'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Que me hacen sentir un triste amor y deseo solo",
+        "syllables": 13,
+        "final_word": "solo",
+        "final_word_matches_anchor": true,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": true,
+        "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'olo' | v4 = 'olo'",
+        "accepted": false,
+        "rejection_reason": "Empeora la distancia metrica del verso 4."
+      },
+      {
+        "verse": "Que me hacen sentir un triste amor y deseo olas",
+        "syllables": 11,
+        "final_word": "olas",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'olo' | v4 = 'as'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Que me hacen sentir un triste amor y deseo ola",
+        "syllables": 11,
+        "final_word": "ola",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'olo' | v4 = 'a'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige B sin empeorar metrica.",
+    "original_stanza": [
+      "El tiempo se va, y yo quedo solo",
+      "En recordados que me hacen llorar',",
+      "Y aún escucho sus suaves sonidos",
+      "Que me hacen sentir un triste amor y deseo"
+    ],
+    "repaired_stanza": [
+      "El tiempo se va, y yo quedo solo",
+      "En recordados que me hacen llorar',",
+      "Y aún escucho sus suaves sonidos",
+      "Que me hacen sentir un triste amor y deseo"
+    ],
+    "target_rhyme": "ar",
+    "current_rhyme": "idos",
+    "verse_2": {
+      "text": "En recordados que me hacen llorar',",
+      "last_word": "llorar",
+      "rhyme": "ar"
+    },
+    "candidate_final_words": [
+      "llorar"
+    ],
+    "enforced_candidate_final_words": [],
+    "original_verse_3": "Y aún escucho sus suaves sonidos",
+    "original_verse_3_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "Y aún oigo sus suaves sonidos",
+        "syllables": 10,
+        "final_word": "sonidos",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ar' | v3 = 'idos'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Y aún escucho sus suaves acentos",
+        "syllables": 10,
+        "final_word": "acentos",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ar' | v3 = 'entos'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Y aún escucho sus suaves ecos",
+        "syllables": 9,
+        "final_word": "ecos",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ar' | v3 = 'os'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Y aún escucho sus suaves ruidos",
+        "syllables": 10,
+        "final_word": "ruidos",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ar' | v3 = 'idos'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Y aún escucho sus suaves ruido",
+        "syllables": 10,
+        "final_word": "ruido",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ar' | v3 = 'ido'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_1": {
+      "text": "El tiempo se va, y yo quedo solo",
+      "last_word": "solo",
+      "rhyme": "olo"
+    },
+    "verse_4": {
+      "text": "Que me hacen sentir un triste amor y deseo",
+      "last_word": "deseo",
+      "rhyme": "eseo"
+    },
+    "target_rhyme": "olo",
+    "current_rhyme": "eseo",
+    "errors": [
+      "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'olo', pero se obtuvo 'eseo'."
+    ],
+    "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('olo') y reescribe el verso 4 para que termine con esa misma rima consonante."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_2": {
+      "text": "En recordados que me hacen llorar',",
+      "last_word": "llorar",
+      "rhyme": "ar"
+    },
+    "verse_3": {
+      "text": "Y aún escucho sus suaves sonidos",
+      "last_word": "sonidos",
+      "rhyme": "idos"
+    },
+    "target_rhyme": "ar",
+    "current_rhyme": "idos",
+    "errors": [
+      "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ar', pero se obtuvo 'idos'."
+    ],
+    "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ar') y reescribe el verso 3 para que termine con esa misma rima consonante."
+  },
+  "generation_reasoning": "The number of verses, syllable count and rime consonance are correct. The original verse 2 has 12 syllables instead of the required 11, so it was shortened slightly."
+}

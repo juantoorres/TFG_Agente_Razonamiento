@@ -1,0 +1,397 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200
+  },
+  "stanza": [
+    "Tiempo pasa, deja un recuerdo triste",
+    "En mi corazón, nostalgia se extiende",
+    "Eco se siente en el aire que se mueve",
+    "Y cada instante, lo siento de nuevo"
+  ],
+  "score": 0.7318611420045943,
+  "step_score": 0.8,
+  "score_history": [
+    0.7,
+    0.7,
+    0.8
+  ],
+  "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+  "metrics": {
+    "score": 0.8,
+    "score_20": 16.0,
+    "verses": [
+      "Tiempo pasa, deja un recuerdo triste",
+      "En mi corazón, nostalgia se extiende",
+      "Eco se siente en el aire que se mueve",
+      "Y cada instante, lo siento de nuevo"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "correct_verses": 4,
+      "total_expected_verses": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "iste",
+        "ende",
+        "eve",
+        "evo"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_positions": 2,
+      "total_positions": 4,
+      "score": 0.5,
+      "errors": [
+        "Verso 3: rima C, pero se esperaba B.",
+        "Verso 4: rima D, pero se esperaba A."
+      ]
+    },
+    "errors": [
+      "Verso 3: rima C, pero se esperaba B.",
+      "Verso 4: rima D, pero se esperaba A."
+    ],
+    "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": false,
+    "original_stanza": [
+      "Tiempo pasa, deja un recuerdo triste",
+      "En mi corazón, nostalgia se extiende",
+      "Eco se siente en el aire que se mueve",
+      "Y cada instante, lo siento de nuevo"
+    ],
+    "repaired_stanza": [
+      "Tiempo pasa, deja un recuerdo triste",
+      "En mi corazón, nostalgia se extiende",
+      "Eco se siente en el aire que se mueve",
+      "Y cada instante, lo siento de nuevo"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "Tiempo pasa, deja un recuerdo triste",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "En mi corazón, nostalgia se extiende",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "Eco se siente en el aire que se mueve",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "Y cada instante, lo siento de nuevo",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+    "original_stanza": [
+      "Tiempo pasa, deja un recuerdo triste",
+      "En mi corazón, nostalgia se extiende",
+      "Eco se siente en el aire que se mueve",
+      "Y cada instante, lo siento de nuevo"
+    ],
+    "repaired_stanza": [
+      "Tiempo pasa, deja un recuerdo triste",
+      "En mi corazón, nostalgia se extiende",
+      "Eco se siente en el aire que se mueve",
+      "Y cada instante, lo siento de nuevo"
+    ],
+    "target_rhyme": "iste",
+    "current_rhyme": "evo",
+    "verse_1": {
+      "text": "Tiempo pasa, deja un recuerdo triste",
+      "last_word": "triste",
+      "rhyme": "iste"
+    },
+    "candidate_final_words": [
+      "triste"
+    ],
+    "enforced_candidate_final_words": [],
+    "original_verse_4": "Y cada instante, lo siento de nuevo",
+    "original_verse_4_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "Y cada instante, el dolor me viste",
+        "syllables": 10,
+        "final_word": "viste",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": true,
+        "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'iste' | v4 = 'iste'",
+        "accepted": false,
+        "rejection_reason": "Empeora la distancia metrica del verso 4."
+      },
+      {
+        "verse": "Y cada instante, el recuerdo me miente",
+        "syllables": 11,
+        "final_word": "miente",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'iste' | v4 = 'ente'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Y cada instante, el tiempo me enniega",
+        "syllables": 10,
+        "final_word": "enniega",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'iste' | v4 = 'ega'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Y cada instante, el paso me entristece",
+        "syllables": 11,
+        "final_word": "entristece",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'iste' | v4 = 'ece'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Y cada instante, el olvido me deiste",
+        "syllables": 11,
+        "final_word": "deiste",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'iste' | v4 = 'eiste'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige B sin empeorar metrica.",
+    "original_stanza": [
+      "Tiempo pasa, deja un recuerdo triste",
+      "En mi corazón, nostalgia se extiende",
+      "Eco se siente en el aire que se mueve",
+      "Y cada instante, lo siento de nuevo"
+    ],
+    "repaired_stanza": [
+      "Tiempo pasa, deja un recuerdo triste",
+      "En mi corazón, nostalgia se extiende",
+      "Eco se siente en el aire que se mueve",
+      "Y cada instante, lo siento de nuevo"
+    ],
+    "target_rhyme": "ende",
+    "current_rhyme": "eve",
+    "verse_2": {
+      "text": "En mi corazón, nostalgia se extiende",
+      "last_word": "extiende",
+      "rhyme": "ende"
+    },
+    "candidate_final_words": [
+      "extiende"
+    ],
+    "enforced_candidate_final_words": [],
+    "original_verse_3": "Eco se siente en el aire que se mueve",
+    "original_verse_3_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "Eco se siente en el aire que se mueve y se extiende",
+        "syllables": 15,
+        "final_word": "extiende",
+        "final_word_matches_anchor": true,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'ende' | v3 = 'ende'",
+        "accepted": false,
+        "rejection_reason": "Empeora la distancia metrica del verso 3."
+      },
+      {
+        "verse": "Eco se siente en el aire que se mueve, se extiende y se vive",
+        "syllables": 18,
+        "final_word": "vive",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ende' | v3 = 'ive'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Eco se siente en el aire que se mueve, se extiende y se ve",
+        "syllables": 17,
+        "final_word": "ve",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ende' | v3 = 'e'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Eco se siente en el aire que se mueve, se extiende y se ve más allá",
+        "syllables": 20,
+        "final_word": "allá",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ende' | v3 = 'a'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Eco se siente en el aire que se mueve, se extiende y se escucha",
+        "syllables": 18,
+        "final_word": "escucha",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ende' | v3 = 'ucha'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_1": {
+      "text": "Tiempo pasa, deja un recuerdo triste",
+      "last_word": "triste",
+      "rhyme": "iste"
+    },
+    "verse_4": {
+      "text": "Y cada instante, lo siento de nuevo",
+      "last_word": "nuevo",
+      "rhyme": "evo"
+    },
+    "target_rhyme": "iste",
+    "current_rhyme": "evo",
+    "errors": [
+      "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'iste', pero se obtuvo 'evo'."
+    ],
+    "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('iste') y reescribe el verso 4 para que termine con esa misma rima consonante."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_2": {
+      "text": "En mi corazón, nostalgia se extiende",
+      "last_word": "extiende",
+      "rhyme": "ende"
+    },
+    "verse_3": {
+      "text": "Eco se siente en el aire que se mueve",
+      "last_word": "mueve",
+      "rhyme": "eve"
+    },
+    "target_rhyme": "ende",
+    "current_rhyme": "eve",
+    "errors": [
+      "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ende', pero se obtuvo 'eve'."
+    ],
+    "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ende') y reescribe el verso 3 para que termine con esa misma rima consonante."
+  },
+  "generation_reasoning": "Corregido la cantidad de silabas en el verso 1 y cambiado la rima del verso 3 para cumplir con las restricciones."
+}

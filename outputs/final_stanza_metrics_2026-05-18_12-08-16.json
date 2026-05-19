@@ -1,0 +1,424 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200
+  },
+  "stanza": [
+    "El tiempo se va como un río en furore",
+    "Dejan atrás recuerdos que no se alcancan",
+    "Mi corazón lleno de saña y pena",
+    "Por aquellos momentos que ya no están"
+  ],
+  "score": 0.7651724731089556,
+  "step_score": 0.8,
+  "score_history": [
+    0.7,
+    0.8,
+    0.8
+  ],
+  "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+  "metrics": {
+    "score": 0.8,
+    "score_20": 16.0,
+    "verses": [
+      "El tiempo se va como un río en furore",
+      "Dejan atrás recuerdos que no se alcancan",
+      "Mi corazón lleno de saña y pena",
+      "Por aquellos momentos que ya no están"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "correct_verses": 4,
+      "total_expected_verses": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "ore",
+        "ancan",
+        "ena",
+        "an"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_positions": 2,
+      "total_positions": 4,
+      "score": 0.5,
+      "errors": [
+        "Verso 3: rima C, pero se esperaba B.",
+        "Verso 4: rima D, pero se esperaba A."
+      ]
+    },
+    "errors": [
+      "Verso 3: rima C, pero se esperaba B.",
+      "Verso 4: rima D, pero se esperaba A."
+    ],
+    "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": true,
+    "original_stanza": [
+      "El tiempo se va como un río en furore",
+      "Dejan atrás recuerdos que no se alcancan",
+      "Y mi corazón se llena de saña y pena",
+      "Por aquellos momentos que ya no están"
+    ],
+    "repaired_stanza": [
+      "El tiempo se va como un río en furore",
+      "Dejan atrás recuerdos que no se alcancan",
+      "Mi corazón lleno de saña y pena",
+      "Por aquellos momentos que ya no están"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "El tiempo se va como un río en furore",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "Dejan atrás recuerdos que no se alcancan",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "Y mi corazón se llena de saña y pena",
+        "original_syllables": 14,
+        "original_distance": 3,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Mi corazón lleno de saña y pena",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "Y mi corazón se llena de saña y pena",
+            "syllables": 14,
+            "distance": 3
+          },
+          {
+            "verse": "Mi corazón lleno de saña y pena",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Corazón lleno de saña y pena",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "Saña y pena mi corazón",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "Lleno de saña y pena el corazón",
+            "syllables": 11,
+            "distance": 0
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "Por aquellos momentos que ya no están",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+    "original_stanza": [
+      "El tiempo se va como un río en furore",
+      "Dejan atrás recuerdos que no se alcancan",
+      "Mi corazón lleno de saña y pena",
+      "Por aquellos momentos que ya no están"
+    ],
+    "repaired_stanza": [
+      "El tiempo se va como un río en furore",
+      "Dejan atrás recuerdos que no se alcancan",
+      "Mi corazón lleno de saña y pena",
+      "Por aquellos momentos que ya no están"
+    ],
+    "target_rhyme": "ore",
+    "current_rhyme": "an",
+    "verse_1": {
+      "text": "El tiempo se va como un río en furore",
+      "last_word": "furore",
+      "rhyme": "ore"
+    },
+    "candidate_final_words": [
+      "furore"
+    ],
+    "enforced_candidate_final_words": [],
+    "original_verse_4": "Por aquellos momentos que ya no están",
+    "original_verse_4_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "Por aquellos momentos que ya no son",
+        "syllables": 10,
+        "final_word": "son",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ore' | v4 = 'on'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Por aquellos momentos que ya no sonre",
+        "syllables": 11,
+        "final_word": "sonre",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ore' | v4 = 'onre'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Por aquellos momentos que ya no soñan",
+        "syllables": 11,
+        "final_word": "soñan",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ore' | v4 = 'oñan'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Por aquellos momentos que ya no sonrían",
+        "syllables": 12,
+        "final_word": "sonrían",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ore' | v4 = 'ian'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Por aquellos momentos que ya no sonroen",
+        "syllables": 11,
+        "final_word": "sonroen",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ore' | v4 = 'onroen'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige B sin empeorar metrica.",
+    "original_stanza": [
+      "El tiempo se va como un río en furore",
+      "Dejan atrás recuerdos que no se alcancan",
+      "Mi corazón lleno de saña y pena",
+      "Por aquellos momentos que ya no están"
+    ],
+    "repaired_stanza": [
+      "El tiempo se va como un río en furore",
+      "Dejan atrás recuerdos que no se alcancan",
+      "Mi corazón lleno de saña y pena",
+      "Por aquellos momentos que ya no están"
+    ],
+    "target_rhyme": "ancan",
+    "current_rhyme": "ena",
+    "verse_2": {
+      "text": "Dejan atrás recuerdos que no se alcancan",
+      "last_word": "alcancan",
+      "rhyme": "ancan"
+    },
+    "candidate_final_words": [
+      "alcancan"
+    ],
+    "enforced_candidate_final_words": [],
+    "original_verse_3": "Mi corazón lleno de saña y pena",
+    "original_verse_3_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "Mi corazón lleno de saña y penas",
+        "syllables": 11,
+        "final_word": "penas",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ancan' | v3 = 'enas'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Mi corazón lleno de saña y penasos",
+        "syllables": 12,
+        "final_word": "penasos",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ancan' | v3 = 'asos'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Mi corazón lleno de saña y pena, ahogado",
+        "syllables": 13,
+        "final_word": "ahogado",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ancan' | v3 = 'ado'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Mi corazón lleno de saña y pena, en vano",
+        "syllables": 12,
+        "final_word": "vano",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ancan' | v3 = 'o'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Mi corazón lleno de saña y pena, en ruinas",
+        "syllables": 13,
+        "final_word": "ruinas",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ancan' | v3 = 'inas'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_1": {
+      "text": "El tiempo se va como un río en furore",
+      "last_word": "furore",
+      "rhyme": "ore"
+    },
+    "verse_4": {
+      "text": "Por aquellos momentos que ya no están",
+      "last_word": "están",
+      "rhyme": "an"
+    },
+    "target_rhyme": "ore",
+    "current_rhyme": "an",
+    "errors": [
+      "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ore', pero se obtuvo 'an'."
+    ],
+    "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ore') y reescribe el verso 4 para que termine con esa misma rima consonante."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_2": {
+      "text": "Dejan atrás recuerdos que no se alcancan",
+      "last_word": "alcancan",
+      "rhyme": "ancan"
+    },
+    "verse_3": {
+      "text": "Mi corazón lleno de saña y pena",
+      "last_word": "pena",
+      "rhyme": "ena"
+    },
+    "target_rhyme": "ancan",
+    "current_rhyme": "ena",
+    "errors": [
+      "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ancan', pero se obtuvo 'ena'."
+    ],
+    "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ancan') y reescribe el verso 3 para que termine con esa misma rima consonante."
+  },
+  "generation_reasoning": "Corregido la rima en el verso 3, agregando 'pena' para satisfacer la regla de rima ABBA."
+}

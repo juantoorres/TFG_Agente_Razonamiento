@@ -4,6 +4,7 @@ from datetime import datetime
 import json
 from pathlib import Path
 import re
+from time import perf_counter
 from typing import Any, Dict, List, TypedDict
 
 import requests
@@ -49,6 +50,13 @@ ENABLE_OUTER_RHYME_REPAIR = True
 OUTER_RHYME_REPAIR_VARIANTS = 5
 OUTER_RHYME_REPAIR_TEMPERATURE = 0.3
 OUTER_RHYME_REPAIR_NUM_PREDICT = 200
+
+# Fase experimental opcional: si la rima interior B falla, intenta
+# reescribir solo el verso 3 para que rime con el verso 2.
+ENABLE_INNER_RHYME_REPAIR = True
+INNER_RHYME_REPAIR_VARIANTS = 5
+INNER_RHYME_REPAIR_TEMPERATURE = 0.3
+INNER_RHYME_REPAIR_NUM_PREDICT = 200
 
 ENABLE_BEAM_ELITISM = True
 ELITE_BEAMS_TO_KEEP = 1
@@ -772,11 +780,11 @@ def repair_stanza_meter_with_ollama(
 # 8. Reparacion de rima exterior A
 # =========================
 
-def parse_outer_rhyme_repair_variants_response(
+def parse_rhyme_repair_variants_response(
     raw_response: str,
     max_variants: int,
 ) -> list[str]:
-    """Parsea variantes del verso 4 para reparar la rima exterior A."""
+    """Parsea variantes JSON de reparacion de rima para un unico verso."""
     parsed = json.loads(raw_response)
     if not isinstance(parsed, dict):
         raise ValueError("La respuesta del reparador de rima no es un objeto JSON.")
@@ -800,13 +808,37 @@ def parse_outer_rhyme_repair_variants_response(
     return cleaned_variants
 
 
+def parse_outer_rhyme_repair_variants_response(
+    raw_response: str,
+    max_variants: int,
+) -> list[str]:
+    """Parsea variantes del verso 4 para reparar la rima exterior A."""
+    return parse_rhyme_repair_variants_response(raw_response, max_variants)
+
+
 RHYME_HINT_EXAMPLES = {
     "eva": ["lleva", "nueva", "eleva", "conlleva", "nieva"],
     "argos": ["amargos", "largos"],
     "argo": ["amargo", "largo"],
     "oria": ["memoria", "historia", "gloria"],
-    "ido": ["dormido", "perdido", "olvido"],
-    "ida": ["vida", "herida", "partida"],
+    "ombra": ["sombra", "alfombra", "asombra", "nombra"],
+    "ende": ["extiende", "enciende", "defiende", "comprende", "aprende"],
+    "eso": ["retroceso", "proceso", "exceso", "regreso"],
+    "ar": ["llorar", "pasar", "mirar", "soñar", "callar", "recordar"],
+    "isima": ["finisima", "bellisima", "tristisima", "purisima"],
+    "iguo": ["antiguo", "contiguo"],
+    "igo": ["conmigo", "testigo", "abrigo", "amigo"],
+    "anca": ["arranca", "banca", "blanca"],
+    "anco": ["blanco", "franco", "banco"],
+    "ena": ["pena", "condena", "arena", "cadena"],
+    "ido": ["dormido", "perdido", "olvido", "herido", "partido"],
+    "ida": ["vida", "herida", "partida", "salida", "caida"],
+    "ado": ["helado", "olvidado", "callado", "pasado", "soñado", "amado"],
+    "ura": ["oscura", "ternura", "locura", "altura", "llanura"],
+    "or": ["dolor", "amor", "temor", "rumor", "ardor"],
+    "ente": ["presente", "ausente", "siente", "puente", "frente"],
+    "ero": ["sendero", "entero", "primero", "sincero"],
+    "ante": ["instante", "distante", "errante", "constante"],
 }
 
 
@@ -837,10 +869,16 @@ def get_candidate_final_words_for_rhyme(
 def build_rhyme_target_hint(
     anchor_word: str | None,
     target_rhyme: str | None,
+    anchor_verse_label: str = "verso 1",
+    repaired_verse_label: str = "verso 4",
 ) -> str:
     """Construye una ayuda textual sobre palabras reales con la rima objetivo."""
     clean_anchor_word = str(anchor_word or "").strip()
     clean_target_rhyme = str(target_rhyme or "").strip()
+    clean_anchor_verse_label = str(anchor_verse_label or "verso ancla").strip()
+    clean_repaired_verse_label = str(
+        repaired_verse_label or "verso reparable"
+    ).strip()
     candidate_words = get_candidate_final_words_for_rhyme(
         anchor_word=clean_anchor_word,
         target_rhyme=clean_target_rhyme,
@@ -852,29 +890,31 @@ def build_rhyme_target_hint(
     lines = [
         f'La rima objetivo "{clean_target_rhyme}" es una terminacion de rima, '
         "no una palabra que debas copiar literalmente.",
-        "El verso 4 debe terminar en una palabra real que tenga esa rima "
-        "consonante.",
+        f"El {clean_repaired_verse_label} debe terminar en una palabra real "
+        "que tenga esa rima consonante.",
     ]
 
     if clean_anchor_word:
         lines.append(
-            f'El verso 1 termina en "{clean_anchor_word}"; el verso 4 no '
-            f'tiene que terminar necesariamente en "{clean_anchor_word}", '
-            "pero si en una palabra que rime consonantemente con ella."
+            f'El {clean_anchor_verse_label} termina en "{clean_anchor_word}"; '
+            f'el {clean_repaired_verse_label} no tiene que terminar '
+            f'necesariamente en "{clean_anchor_word}", pero si en una palabra '
+            "que rime consonantemente con ella."
         )
         lines.append(
-            f'Evita que el verso 4 termine tambien en "{clean_anchor_word}" '
-            "si existe otra palabra real con la misma rima consonante."
+            f'Evita que el {clean_repaired_verse_label} termine tambien en '
+            f'"{clean_anchor_word}" si existe otra palabra real con la misma '
+            "rima consonante."
         )
 
     if non_anchor_candidate_words:
         lines.append(
-            "Palabras finales candidatas para el verso 4: "
+            f"Palabras finales candidatas para el {clean_repaired_verse_label}: "
             f"{', '.join(non_anchor_candidate_words)}."
         )
         lines.append(
-            "El nuevo verso 4 debe terminar exactamente en una de esas "
-            "palabras."
+            f"El nuevo {clean_repaired_verse_label} debe terminar exactamente "
+            "en una de esas palabras."
         )
         lines.append(
             f'No escribas solo "{clean_target_rhyme}"; usa una palabra real '
@@ -882,9 +922,9 @@ def build_rhyme_target_hint(
         )
     elif candidate_words:
         lines.append(
-            "La lista actual solo contiene la palabra final del verso 1 como "
-            "referencia; busca otra palabra real que comparta la rima "
-            "consonante, si es posible."
+            "La lista actual solo contiene la palabra final del "
+            f"{clean_anchor_verse_label} como referencia; busca otra palabra "
+            "real que comparta la rima consonante, si es posible."
         )
         lines.append(
             f'No escribas solo "{clean_target_rhyme}"; usa una palabra real '
@@ -1038,7 +1078,7 @@ def generate_outer_rhyme_repair_variants_with_ollama(
         temperature=OUTER_RHYME_REPAIR_TEMPERATURE,
         num_predict=OUTER_RHYME_REPAIR_NUM_PREDICT,
     )
-    return parse_outer_rhyme_repair_variants_response(raw_response, num_variants)
+    return parse_rhyme_repair_variants_response(raw_response, num_variants)
 
 
 def build_outer_rhyme_repair_report(
@@ -1218,7 +1258,342 @@ def repair_stanza_outer_rhyme_with_ollama(
 
 
 # =========================
-# 9. Resumenes y trazas
+# 9. Reparacion de rima interior B
+# =========================
+
+def _build_inner_rhyme_repair_messages(
+    question: str,
+    stanza: list[str],
+    inner_rhyme_diagnosis: dict[str, Any],
+    num_variants: int,
+) -> List[Dict[str, str]]:
+    """Construye el prompt para pedir variantes del verso 3."""
+    verse_2 = inner_rhyme_diagnosis.get("verse_2", {})
+    if not isinstance(verse_2, dict):
+        verse_2 = {}
+
+    verse_3 = inner_rhyme_diagnosis.get("verse_3", {})
+    if not isinstance(verse_3, dict):
+        verse_3 = {}
+
+    verse_2_text = verse_2.get("text", "")
+    verse_2_last_word = verse_2.get("last_word", "")
+    target_rhyme = inner_rhyme_diagnosis.get("target_rhyme", "")
+    current_rhyme = inner_rhyme_diagnosis.get("current_rhyme", "")
+    current_verse_3 = verse_3.get("text", stanza[2] if len(stanza) >= 3 else "")
+    rhyme_target_hint = build_rhyme_target_hint(
+        anchor_word=verse_2_last_word,
+        target_rhyme=target_rhyme,
+        anchor_verse_label="verso 2",
+        repaired_verse_label="verso 3",
+    )
+    candidate_final_words = get_candidate_final_words_for_rhyme(
+        anchor_word=verse_2_last_word,
+        target_rhyme=target_rhyme,
+    )
+    non_anchor_candidate_final_words = [
+        word for word in candidate_final_words if word != verse_2_last_word
+    ]
+    enforced_candidate_final_words = non_anchor_candidate_final_words
+    candidate_final_words_section = ""
+    candidate_final_words_restrictions = ""
+    if enforced_candidate_final_words:
+        candidate_final_words_section = (
+            "Palabras finales candidatas para el nuevo verso 3:\n"
+            + "\n".join(f"- {word}" for word in enforced_candidate_final_words)
+            + "\n\n"
+            "Cada variante debe terminar exactamente en una de esas palabras.\n"
+            "No uses otras palabras finales en este paso.\n"
+            "No escribas texto despues de la palabra final.\n\n"
+        )
+        candidate_final_words_restrictions = (
+            "- Cada variante debe terminar exactamente en una de las palabras finales candidatas.\n"
+            "- No uses una palabra final distinta de la lista.\n"
+            "- No escribas nada despues de la palabra final candidata.\n"
+            "- La ultima palabra de cada variante debe ser una palabra de la lista.\n"
+        )
+    elif verse_2_last_word:
+        candidate_final_words_section = (
+            "No hay palabras finales candidatas distintas de la palabra final "
+            f'del verso 2 ("{verse_2_last_word}") en la lista actual.\n'
+            "Busca una palabra real distinta que comparta la misma rima "
+            "consonante, si es posible.\n\n"
+        )
+
+    system_prompt = (
+        "Eres un asistente de reparacion de rima consonante para poesia "
+        "espanola.\n"
+        "Tu tarea es proponer variantes de un unico verso: el verso 3.\n"
+        "No reescribas la estrofa completa.\n"
+        "No evalues belleza poetica ni expliques el resultado.\n"
+        "Devuelve solamente JSON valido.\n\n"
+        "FORMATO JSON OBLIGATORIO:\n"
+        "{\n"
+        '  "variants": [\n'
+        '    "nuevo verso 3",\n'
+        '    "nuevo verso 3 alternativo"\n'
+        "  ]\n"
+        "}\n"
+        "No incluyas texto antes ni despues del JSON."
+    )
+
+    user_prompt = (
+        f"Tarea original:\n{question}\n\n"
+        "Estrofa completa como contexto:\n"
+        f"{format_numbered_verses(stanza)}\n\n"
+        "Verso 2 como ancla:\n"
+        f"{verse_2_text}\n"
+        f"Palabra final del verso 2: {verse_2_last_word}\n"
+        f"Rima consonante objetivo del verso 2: {target_rhyme}\n\n"
+        "Orientacion para la palabra final del verso 3:\n"
+        f"{rhyme_target_hint}\n\n"
+        f"{candidate_final_words_section}"
+        "Verso 3 actual:\n"
+        f"{current_verse_3}\n"
+        f"Rima actual del verso 3: {current_rhyme}\n\n"
+        f"Genera exactamente {num_variants} variantes para reescribir solo "
+        "el verso 3.\n"
+        "Restricciones:\n"
+        "- Reescribe solo el verso 3.\n"
+        "- No modifiques el verso 1.\n"
+        "- No modifiques el verso 2.\n"
+        "- No modifiques el verso 4.\n"
+        "- El nuevo verso 3 debe rimar consonantemente con el verso 2.\n"
+        f"- La rima objetivo es: {target_rhyme}.\n"
+        "- Evita que el verso 3 termine con la misma palabra final que el verso 2 si existe alternativa.\n"
+        "- La rima objetivo es una terminacion de rima, no una palabra obligatoria.\n"
+        "- No copies literalmente la rima objetivo como palabra final si no es una palabra natural.\n"
+        "- Termina el verso 3 con una palabra real que tenga esa rima consonante.\n"
+        "- La palabra final del verso 3 debe ser una palabra completa y natural en espanol.\n"
+        "- No fuerces terminaciones artificiales.\n"
+        "- No termines el verso con fragmentos como \"eva\", \"argos\", \"ido\" o similares si no funcionan como palabra real.\n"
+        f"{candidate_final_words_restrictions}"
+        "- Intenta que el nuevo verso 3 tenga 11 silabas metricas.\n"
+        "- Devuelve solo variantes del verso 3, no la estrofa completa.\n"
+        "- No anadas titulo.\n"
+        "- No numeres las variantes.\n"
+        "- Responde solo con JSON valido."
+    )
+
+    return [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": user_prompt},
+    ]
+
+
+def generate_inner_rhyme_repair_variants_with_ollama(
+    question: str,
+    stanza: list[str],
+    inner_rhyme_diagnosis: dict[str, Any],
+    num_variants: int = INNER_RHYME_REPAIR_VARIANTS,
+) -> list[str]:
+    """Pide al LLM variantes del verso 3 para reparar la rima interior B."""
+    messages = _build_inner_rhyme_repair_messages(
+        question=question,
+        stanza=stanza,
+        inner_rhyme_diagnosis=inner_rhyme_diagnosis,
+        num_variants=num_variants,
+    )
+
+    raw_response = chat_ollama(
+        model=GENERATION_MODEL,
+        messages=messages,
+        temperature=INNER_RHYME_REPAIR_TEMPERATURE,
+        num_predict=INNER_RHYME_REPAIR_NUM_PREDICT,
+    )
+    return parse_rhyme_repair_variants_response(raw_response, num_variants)
+
+
+def build_inner_rhyme_repair_report(
+    enabled: bool,
+    stanza: list[str],
+) -> dict[str, Any]:
+    """Crea la estructura base del informe de reparacion de rima B."""
+    return {
+        "enabled": enabled,
+        "attempted": False,
+        "changed": False,
+        "reason": None,
+        "original_stanza": stanza.copy(),
+        "repaired_stanza": stanza.copy(),
+        "target_rhyme": None,
+        "current_rhyme": None,
+        "verse_2": None,
+        "candidate_final_words": [],
+        "enforced_candidate_final_words": [],
+        "has_enforced_candidate_final_words": False,
+        "candidate_warning": None,
+        "original_verse_3": None,
+        "original_verse_3_syllables": None,
+        "selected_variant": None,
+        "selected_variant_syllables": None,
+        "variants": [],
+        "error": None,
+    }
+
+
+def repair_stanza_inner_rhyme_with_ollama(
+    question: str,
+    stanza: list[str],
+    inner_rhyme_diagnosis: dict[str, Any],
+) -> tuple[list[str], dict[str, Any]]:
+    """Intenta reparar la rima interior B reescribiendo solo el verso 3."""
+    report = build_inner_rhyme_repair_report(ENABLE_INNER_RHYME_REPAIR, stanza)
+    repaired_stanza = stanza.copy()
+
+    report["target_rhyme"] = inner_rhyme_diagnosis.get("target_rhyme")
+    report["current_rhyme"] = inner_rhyme_diagnosis.get("current_rhyme")
+    report["verse_2"] = inner_rhyme_diagnosis.get("verse_2")
+
+    if not ENABLE_INNER_RHYME_REPAIR:
+        report["reason"] = "Reparacion de rima B desactivada."
+        return repaired_stanza, report
+
+    if len(stanza) != 4:
+        report["reason"] = "La estrofa no tiene 4 versos."
+        return repaired_stanza, report
+
+    original_verse_3 = stanza[2]
+    original_verse_3_syllables = count_verse_syllables(original_verse_3)
+    original_distance = syllable_distance_to_target(original_verse_3_syllables)
+    report["original_verse_3"] = original_verse_3
+    report["original_verse_3_syllables"] = original_verse_3_syllables
+
+    if inner_rhyme_diagnosis.get("is_valid", False):
+        report["reason"] = "La rima interior B ya es correcta."
+        return repaired_stanza, report
+
+    target_rhyme = inner_rhyme_diagnosis.get("target_rhyme")
+    if not target_rhyme:
+        report["reason"] = "No hay rima objetivo para reparar la rima B."
+        return repaired_stanza, report
+
+    verse_2 = inner_rhyme_diagnosis.get("verse_2", {})
+    anchor_word = verse_2.get("last_word") if isinstance(verse_2, dict) else None
+    candidate_final_words = get_candidate_final_words_for_rhyme(
+        anchor_word=anchor_word,
+        target_rhyme=target_rhyme,
+    )
+    enforced_candidate_final_words = [
+        word for word in candidate_final_words if word != anchor_word
+    ]
+    report["candidate_final_words"] = candidate_final_words
+    report["enforced_candidate_final_words"] = enforced_candidate_final_words
+    report["has_enforced_candidate_final_words"] = bool(
+        enforced_candidate_final_words
+    )
+    if anchor_word and not enforced_candidate_final_words:
+        report["candidate_warning"] = (
+            "No hay palabras finales candidatas distintas de la palabra ancla "
+            "para la rima B."
+        )
+    else:
+        report["candidate_warning"] = None
+
+    report["attempted"] = True
+
+    try:
+        variants = generate_inner_rhyme_repair_variants_with_ollama(
+            question=question,
+            stanza=stanza,
+            inner_rhyme_diagnosis=inner_rhyme_diagnosis,
+        )
+    except Exception as exc:
+        report["error"] = str(exc)
+        report["reason"] = "Fallo generando variantes de rima interior B."
+        print(f"[WARN] Fallo reparando rima interior B: {exc}")
+        return repaired_stanza, report
+
+    acceptable_variants = []
+
+    for variant_index, variant in enumerate(variants):
+        candidate_stanza = stanza.copy()
+        candidate_stanza[2] = variant
+
+        variant_diagnosis = diagnose_stanza_inner_rhyme(candidate_stanza)
+        variant_syllables = count_verse_syllables(variant)
+        variant_distance = syllable_distance_to_target(variant_syllables)
+        inner_rhyme_valid = bool(variant_diagnosis.get("is_valid", False))
+        metric_not_worse = variant_distance <= original_distance
+        variant_final_word = get_last_word(variant)
+        final_word_matches_anchor = bool(
+            anchor_word and variant_final_word == anchor_word
+        )
+        uses_candidate_final_word = (
+            not enforced_candidate_final_words
+            or variant_final_word in enforced_candidate_final_words
+        )
+        is_acceptable = (
+            inner_rhyme_valid
+            and metric_not_worse
+            and uses_candidate_final_word
+        )
+
+        variant_info = {
+            "verse": variant,
+            "syllables": variant_syllables,
+            "final_word": variant_final_word,
+            "final_word_matches_anchor": final_word_matches_anchor,
+            "uses_candidate_final_word": uses_candidate_final_word,
+            "inner_rhyme_valid": inner_rhyme_valid,
+            "inner_rhyme_summary": summarize_inner_rhyme_diagnosis(
+                variant_diagnosis
+            ),
+            "accepted": False,
+            "rejection_reason": None,
+        }
+
+        if is_acceptable:
+            acceptable_variants.append(
+                {
+                    "index": variant_index,
+                    "verse": variant,
+                    "syllables": variant_syllables,
+                    "distance": variant_distance,
+                    "final_word_matches_anchor": final_word_matches_anchor,
+                    "variant_info": variant_info,
+                }
+            )
+        elif not uses_candidate_final_word:
+            variant_info["rejection_reason"] = (
+                "No termina en una palabra final candidata distinta del verso 2."
+            )
+        elif not inner_rhyme_valid:
+            variant_info["rejection_reason"] = "No corrige la rima interior B."
+        else:
+            variant_info["rejection_reason"] = (
+                "Empeora la distancia metrica del verso 3."
+            )
+
+        report["variants"].append(variant_info)
+
+    if not acceptable_variants:
+        report["reason"] = "Ninguna variante corrige B sin empeorar metrica."
+        report["repaired_stanza"] = repaired_stanza.copy()
+        return repaired_stanza, report
+
+    selected = min(
+        acceptable_variants,
+        key=lambda item: (
+            item["final_word_matches_anchor"],
+            item["distance"],
+            item["index"],
+        ),
+    )
+    selected["variant_info"]["accepted"] = True
+    selected["variant_info"]["rejection_reason"] = None
+
+    repaired_stanza[2] = selected["verse"]
+    report["changed"] = True
+    report["reason"] = "Se acepto una variante que corrige la rima interior B."
+    report["selected_variant"] = selected["verse"]
+    report["selected_variant_syllables"] = selected["syllables"]
+    report["repaired_stanza"] = repaired_stanza.copy()
+    return repaired_stanza, report
+
+
+# =========================
+# 10. Resumenes y trazas
 # =========================
 
 def _get_nested_metric(metrics: dict[str, Any], section: str, key: str) -> Any:
@@ -1294,6 +1669,21 @@ def summarize_outer_rhyme_repair_report(report: dict[str, Any]) -> str:
     return f"reparacion rima A = activa | intento = True | cambio = {changed}"
 
 
+def summarize_inner_rhyme_repair_report(report: dict[str, Any]) -> str:
+    """Resume el informe de reparacion de rima interior B en una linea."""
+    if not isinstance(report, dict):
+        return "reparacion rima B = sin informe"
+
+    if not report.get("enabled", False):
+        return "reparacion rima B = desactivada"
+
+    if not report.get("attempted", False):
+        return "reparacion rima B = no necesaria"
+
+    changed = bool(report.get("changed", False))
+    return f"reparacion rima B = activa | intento = True | cambio = {changed}"
+
+
 def summarize_outer_rhyme_diagnosis(diagnosis: dict[str, Any]) -> str:
     """Resume el diagnostico de rima exterior AXYA en una linea."""
     if not isinstance(diagnosis, dict):
@@ -1362,6 +1752,10 @@ def build_trace_entry(item: dict[str, Any]) -> dict[str, Any]:
     if not isinstance(outer_rhyme_repair_report, dict):
         outer_rhyme_repair_report = {}
 
+    inner_rhyme_repair_report = item.get("inner_rhyme_repair_report", {})
+    if not isinstance(inner_rhyme_repair_report, dict):
+        inner_rhyme_repair_report = {}
+
     outer_rhyme_diagnosis = item.get("outer_rhyme_diagnosis", {})
     if not isinstance(outer_rhyme_diagnosis, dict):
         outer_rhyme_diagnosis = {}
@@ -1383,6 +1777,10 @@ def build_trace_entry(item: dict[str, Any]) -> dict[str, Any]:
             outer_rhyme_repair_report
         ),
         "outer_rhyme_repair_report": outer_rhyme_repair_report,
+        "inner_rhyme_repair_summary": summarize_inner_rhyme_repair_report(
+            inner_rhyme_repair_report
+        ),
+        "inner_rhyme_repair_report": inner_rhyme_repair_report,
         "outer_rhyme_summary": summarize_outer_rhyme_diagnosis(
             outer_rhyme_diagnosis
         ),
@@ -1509,6 +1907,7 @@ def expand_node(state: BeamSearchState) -> dict:
                 "metrics": beam.get("metrics", {}).copy(),
                 "meter_repair_report": {},
                 "outer_rhyme_repair_report": {},
+                "inner_rhyme_repair_report": {},
                 "outer_rhyme_diagnosis": {},
                 "inner_rhyme_diagnosis": {},
                 "preserved_by_elitism": False,
@@ -1561,6 +1960,12 @@ def score_node(state: BeamSearchState) -> dict:
             stanza=stanza,
             outer_rhyme_diagnosis=outer_rhyme_diagnosis,
         )
+        inner_rhyme_diagnosis = diagnose_stanza_inner_rhyme(stanza)
+        stanza, inner_rhyme_repair_report = repair_stanza_inner_rhyme_with_ollama(
+            question=state["question"],
+            stanza=stanza,
+            inner_rhyme_diagnosis=inner_rhyme_diagnosis,
+        )
         evaluation = evaluate_stanza_abba(stanza)
         outer_rhyme_diagnosis = diagnose_stanza_outer_rhyme(stanza)
         inner_rhyme_diagnosis = diagnose_stanza_inner_rhyme(stanza)
@@ -1586,6 +1991,10 @@ def score_node(state: BeamSearchState) -> dict:
             f"{summarize_outer_rhyme_repair_report(outer_rhyme_repair_report)}"
         )
         print(
+            "Reparacion rima B: "
+            f"{summarize_inner_rhyme_repair_report(inner_rhyme_repair_report)}"
+        )
+        print(
             "Rima exterior AXYA: "
             f"{summarize_outer_rhyme_diagnosis(outer_rhyme_diagnosis)}"
         )
@@ -1603,6 +2012,7 @@ def score_node(state: BeamSearchState) -> dict:
             "metrics": evaluation,
             "meter_repair_report": meter_repair_report,
             "outer_rhyme_repair_report": outer_rhyme_repair_report,
+            "inner_rhyme_repair_report": inner_rhyme_repair_report,
             "outer_rhyme_diagnosis": outer_rhyme_diagnosis,
             "inner_rhyme_diagnosis": inner_rhyme_diagnosis,
             "preserved_by_elitism": bool(
@@ -1674,6 +2084,10 @@ def prune_node(state: BeamSearchState) -> dict:
         print(
             "Reparacion rima A: "
             f"{summarize_outer_rhyme_repair_report(beam.get('outer_rhyme_repair_report', {}))}"
+        )
+        print(
+            "Reparacion rima B: "
+            f"{summarize_inner_rhyme_repair_report(beam.get('inner_rhyme_repair_report', {}))}"
         )
         print(
             "Rima exterior AXYA: "
@@ -1762,10 +2176,28 @@ def should_continue(state: BeamSearchState) -> str:
 # 11. Guardado de resultados
 # =========================
 
+def format_execution_time(seconds: float | None) -> str:
+    """Formatea una duracion en segundos para mostrarla en el TXT final."""
+    if seconds is None or isinstance(seconds, bool):
+        return "no disponible"
+
+    try:
+        seconds_value = float(seconds)
+    except (TypeError, ValueError):
+        return "no disponible"
+
+    if seconds_value < 0 or seconds_value != seconds_value:
+        return "no disponible"
+
+    minutes_value = seconds_value / 60.0
+    return f"{seconds_value:.2f} segundos ({minutes_value:.2f} minutos)"
+
+
 def save_final_result(
     best_beam: dict[str, Any],
     trace: list[dict[str, Any]],
     run_parameters: dict[str, Any],
+    execution_time_seconds: float | None = None,
     output_dir: str = "outputs",
 ) -> None:
     """Guarda la estrofa final, sus metricas y la traza completa."""
@@ -1797,6 +2229,10 @@ def save_final_result(
     if not isinstance(outer_rhyme_repair_report, dict):
         outer_rhyme_repair_report = {}
 
+    inner_rhyme_repair_report = best_beam.get("inner_rhyme_repair_report", {})
+    if not isinstance(inner_rhyme_repair_report, dict):
+        inner_rhyme_repair_report = {}
+
     outer_rhyme_diagnosis = best_beam.get("outer_rhyme_diagnosis", {})
     if not isinstance(outer_rhyme_diagnosis, dict):
         outer_rhyme_diagnosis = {}
@@ -1804,6 +2240,8 @@ def save_final_result(
     inner_rhyme_diagnosis = best_beam.get("inner_rhyme_diagnosis", {})
     if not isinstance(inner_rhyme_diagnosis, dict):
         inner_rhyme_diagnosis = {}
+
+    execution_time_summary = format_execution_time(execution_time_seconds)
 
     text_lines = [
         "ESTROFA FINAL",
@@ -1814,6 +2252,7 @@ def save_final_result(
         f"k: {run_parameters.get('k')}",
         f"max_steps: {run_parameters.get('max_steps')}",
         f"alpha: {run_parameters.get('alpha')}",
+        f"Tiempo total de ejecucion: {execution_time_summary}",
         f"Reparacion metrica activa: {run_parameters.get('enable_local_meter_repair')}",
         (
             "Variantes por verso para reparacion metrica: "
@@ -1840,6 +2279,19 @@ def save_final_result(
             "Num predict reparacion rima A: "
             f"{run_parameters.get('outer_rhyme_repair_num_predict')}"
         ),
+        f"Reparacion rima B activa: {run_parameters.get('enable_inner_rhyme_repair')}",
+        (
+            "Variantes para reparacion rima B: "
+            f"{run_parameters.get('inner_rhyme_repair_variants')}"
+        ),
+        (
+            "Temperatura reparacion rima B: "
+            f"{run_parameters.get('inner_rhyme_repair_temperature')}"
+        ),
+        (
+            "Num predict reparacion rima B: "
+            f"{run_parameters.get('inner_rhyme_repair_num_predict')}"
+        ),
         "",
         f"Score global: {float(best_beam.get('score', 0.0)):.3f}",
         f"Historial de scores: {[round(float(score), 3) for score in score_history]}",
@@ -1848,6 +2300,10 @@ def save_final_result(
         (
             "Resumen reparacion rima A: "
             f"{summarize_outer_rhyme_repair_report(outer_rhyme_repair_report)}"
+        ),
+        (
+            "Resumen reparacion rima B: "
+            f"{summarize_inner_rhyme_repair_report(inner_rhyme_repair_report)}"
         ),
         (
             "Resumen rima exterior AXYA: "
@@ -1884,6 +2340,7 @@ def save_final_result(
         "metrics": metrics,
         "meter_repair_report": meter_repair_report,
         "outer_rhyme_repair_report": outer_rhyme_repair_report,
+        "inner_rhyme_repair_report": inner_rhyme_repair_report,
         "outer_rhyme_diagnosis": outer_rhyme_diagnosis,
         "inner_rhyme_diagnosis": inner_rhyme_diagnosis,
         "generation_reasoning": best_beam.get("generation_reasoning", ""),
@@ -1948,6 +2405,7 @@ def main() -> None:
                 "metrics": {},
                 "meter_repair_report": {},
                 "outer_rhyme_repair_report": {},
+                "inner_rhyme_repair_report": {},
                 "outer_rhyme_diagnosis": {},
                 "inner_rhyme_diagnosis": {},
                 "generation_reasoning": "Estado inicial sin estrofa.",
@@ -1975,9 +2433,15 @@ def main() -> None:
         "outer_rhyme_repair_variants": OUTER_RHYME_REPAIR_VARIANTS,
         "outer_rhyme_repair_temperature": OUTER_RHYME_REPAIR_TEMPERATURE,
         "outer_rhyme_repair_num_predict": OUTER_RHYME_REPAIR_NUM_PREDICT,
+        "enable_inner_rhyme_repair": ENABLE_INNER_RHYME_REPAIR,
+        "inner_rhyme_repair_variants": INNER_RHYME_REPAIR_VARIANTS,
+        "inner_rhyme_repair_temperature": INNER_RHYME_REPAIR_TEMPERATURE,
+        "inner_rhyme_repair_num_predict": INNER_RHYME_REPAIR_NUM_PREDICT,
     }
 
+    execution_start = perf_counter()
     result = graph.invoke(initial_state)
+    execution_time_seconds = perf_counter() - execution_start
 
     print("\n=== RESULTADO FINAL ===")
     for index, beam in enumerate(result["beams"]):
@@ -1992,6 +2456,10 @@ def main() -> None:
         print(
             "Reparacion rima A: "
             f"{summarize_outer_rhyme_repair_report(beam.get('outer_rhyme_repair_report', {}))}"
+        )
+        print(
+            "Reparacion rima B: "
+            f"{summarize_inner_rhyme_repair_report(beam.get('inner_rhyme_repair_report', {}))}"
         )
         print(
             "Rima exterior AXYA: "
@@ -2021,6 +2489,7 @@ def main() -> None:
             best_beam=result["beams"][0],
             trace=result.get("trace", []),
             run_parameters=run_parameters,
+            execution_time_seconds=execution_time_seconds,
         )
 
 

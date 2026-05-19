@@ -1,0 +1,456 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200
+  },
+  "stanza": [
+    "Tiempo nos deja atrás, hojas en el viento",
+    "Recordemos que no nos olvidamos",
+    "En cada momento pierde algo lindo",
+    "Florecer y luego se van, con tristeza ene"
+  ],
+  "score": 0.6952053289772899,
+  "step_score": 0.7,
+  "score_history": [
+    0.6,
+    0.8,
+    0.7
+  ],
+  "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 4: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+  "metrics": {
+    "score": 0.7,
+    "score_20": 14.0,
+    "verses": [
+      "Tiempo nos deja atrás, hojas en el viento",
+      "Recordemos que no nos olvidamos",
+      "En cada momento pierde algo lindo",
+      "Florecer y luego se van, con tristeza ene"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        12
+      ],
+      "correct_verses": 3,
+      "total_expected_verses": 4,
+      "score": 0.75,
+      "errors": [
+        "Verso 4: tiene 12 silabas, pero deberia tener 11."
+      ]
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "ento",
+        "amos",
+        "indo",
+        "e"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_positions": 2,
+      "total_positions": 4,
+      "score": 0.5,
+      "errors": [
+        "Verso 3: rima C, pero se esperaba B.",
+        "Verso 4: rima D, pero se esperaba A."
+      ]
+    },
+    "errors": [
+      "Verso 4: tiene 12 silabas, pero deberia tener 11.",
+      "Verso 3: rima C, pero se esperaba B.",
+      "Verso 4: rima D, pero se esperaba A."
+    ],
+    "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 4: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": true,
+    "original_stanza": [
+      "Tiempo nos deja atrás, hojas en el viento",
+      "Recuerdos que no nos pueden escapar",
+      "En cada momento pierde algo lindo",
+      "Florecer y luego se van, con tristeza ento"
+    ],
+    "repaired_stanza": [
+      "Tiempo nos deja atrás, hojas en el viento",
+      "Recordemos que no nos olvidamos",
+      "En cada momento pierde algo lindo",
+      "Florecer y luego se van, con tristeza ene"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "Tiempo nos deja atrás, hojas en el viento",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "Recuerdos que no nos pueden escapar",
+        "original_syllables": 12,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Recordemos que no nos olvidamos",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "Recuerdos que nos persiguen",
+            "syllables": 8,
+            "distance": 3
+          },
+          {
+            "verse": "Recordemos que no nos olvidamos",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Recuerdos que nos siguen",
+            "syllables": 7,
+            "distance": 4
+          },
+          {
+            "verse": "Recordados que no nos huyen",
+            "syllables": 9,
+            "distance": 2
+          },
+          {
+            "verse": "Recuerdos que nos acompañan",
+            "syllables": 8,
+            "distance": 3
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "En cada momento pierde algo lindo",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "Florecer y luego se van, con tristeza ento",
+        "original_syllables": 13,
+        "original_distance": 2,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Florecer y luego se van, con tristeza ene",
+        "selected_syllables": 12,
+        "selected_distance": 1,
+        "variants": [
+          {
+            "verse": "Florecer y luego se van, con tristeza ente",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "Florecer y luego se vayan, tristeza ente",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "Florecer y luego se vayan, con tristeza en",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "Florecer y luego se van, con tristeza ene",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "Florecer y luego se vayan, con tristeza ene",
+            "syllables": 13,
+            "distance": 2
+          }
+        ],
+        "error": null
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+    "original_stanza": [
+      "Tiempo nos deja atrás, hojas en el viento",
+      "Recordemos que no nos olvidamos",
+      "En cada momento pierde algo lindo",
+      "Florecer y luego se van, con tristeza ene"
+    ],
+    "repaired_stanza": [
+      "Tiempo nos deja atrás, hojas en el viento",
+      "Recordemos que no nos olvidamos",
+      "En cada momento pierde algo lindo",
+      "Florecer y luego se van, con tristeza ene"
+    ],
+    "target_rhyme": "ento",
+    "current_rhyme": "e",
+    "verse_1": {
+      "text": "Tiempo nos deja atrás, hojas en el viento",
+      "last_word": "viento",
+      "rhyme": "ento"
+    },
+    "candidate_final_words": [
+      "viento"
+    ],
+    "enforced_candidate_final_words": [],
+    "original_verse_4": "Florecer y luego se van, con tristeza ene",
+    "original_verse_4_syllables": 12,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "Florecen y luego se van, con tristeza en el ento",
+        "syllables": 15,
+        "final_word": "ento",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": true,
+        "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ento' | v4 = 'ento'",
+        "accepted": false,
+        "rejection_reason": "Empeora la distancia metrica del verso 4."
+      },
+      {
+        "verse": "Florecen y luego se van, con tristeza en el viento",
+        "syllables": 15,
+        "final_word": "viento",
+        "final_word_matches_anchor": true,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": true,
+        "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ento' | v4 = 'ento'",
+        "accepted": false,
+        "rejection_reason": "Empeora la distancia metrica del verso 4."
+      },
+      {
+        "verse": "Florecen y luego se van, con tristeza en el frente",
+        "syllables": 15,
+        "final_word": "frente",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ento' | v4 = 'ente'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Florecen y luego se van, con tristeza en el fondo",
+        "syllables": 15,
+        "final_word": "fondo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ento' | v4 = 'ondo'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Florecen y luego se van, con tristeza en el entorno",
+        "syllables": 15,
+        "final_word": "entorno",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ento' | v4 = 'entorno'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige B sin empeorar metrica.",
+    "original_stanza": [
+      "Tiempo nos deja atrás, hojas en el viento",
+      "Recordemos que no nos olvidamos",
+      "En cada momento pierde algo lindo",
+      "Florecer y luego se van, con tristeza ene"
+    ],
+    "repaired_stanza": [
+      "Tiempo nos deja atrás, hojas en el viento",
+      "Recordemos que no nos olvidamos",
+      "En cada momento pierde algo lindo",
+      "Florecer y luego se van, con tristeza ene"
+    ],
+    "target_rhyme": "amos",
+    "current_rhyme": "indo",
+    "verse_2": {
+      "text": "Recordemos que no nos olvidamos",
+      "last_word": "olvidamos",
+      "rhyme": "amos"
+    },
+    "candidate_final_words": [
+      "olvidamos"
+    ],
+    "enforced_candidate_final_words": [],
+    "has_enforced_candidate_final_words": false,
+    "candidate_warning": "No hay palabras finales candidatas distintas de la palabra ancla para la rima B.",
+    "original_verse_3": "En cada momento pierde algo lindo",
+    "original_verse_3_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "En cada momento pierde algo fino",
+        "syllables": 11,
+        "final_word": "fino",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'amos' | v3 = 'ino'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "En cada momento se va algo suave",
+        "syllables": 11,
+        "final_word": "suave",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'amos' | v3 = 'ave'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "En cada momento se va algo dulce",
+        "syllables": 11,
+        "final_word": "dulce",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'amos' | v3 = 'ulce'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "En cada momento se va algo mudo",
+        "syllables": 11,
+        "final_word": "mudo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'amos' | v3 = 'udo'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "En cada momento se va algo lento",
+        "syllables": 11,
+        "final_word": "lento",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'amos' | v3 = 'ento'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_1": {
+      "text": "Tiempo nos deja atrás, hojas en el viento",
+      "last_word": "viento",
+      "rhyme": "ento"
+    },
+    "verse_4": {
+      "text": "Florecer y luego se van, con tristeza ene",
+      "last_word": "ene",
+      "rhyme": "e"
+    },
+    "target_rhyme": "ento",
+    "current_rhyme": "e",
+    "errors": [
+      "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ento', pero se obtuvo 'e'."
+    ],
+    "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ento') y reescribe el verso 4 para que termine con esa misma rima consonante."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_2": {
+      "text": "Recordemos que no nos olvidamos",
+      "last_word": "olvidamos",
+      "rhyme": "amos"
+    },
+    "verse_3": {
+      "text": "En cada momento pierde algo lindo",
+      "last_word": "lindo",
+      "rhyme": "indo"
+    },
+    "target_rhyme": "amos",
+    "current_rhyme": "indo",
+    "errors": [
+      "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'amos', pero se obtuvo 'indo'."
+    ],
+    "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('amos') y reescribe el verso 3 para que termine con esa misma rima consonante."
+  },
+  "generation_reasoning": "Mantiene la rima A en los versos 1 y 4, y la rima B en los versos 2 y 3. Corrige el verso 4 para tener 11 silabas."
+}

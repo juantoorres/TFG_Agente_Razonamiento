@@ -1,0 +1,337 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200
+  },
+  "stanza": [
+    "El tiempo pasa, corazón se rompe",
+    "En recuerdos que no llaman de nuevo",
+    "Y la tristeza, río sin fin, nos lleva",
+    "Del entonces y ahora, el recuerdo ompe"
+  ],
+  "score": 0.865349742184445,
+  "step_score": 0.9,
+  "score_history": [
+    0.8,
+    0.9,
+    0.9
+  ],
+  "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.",
+  "metrics": {
+    "score": 0.9,
+    "score_20": 18.0,
+    "verses": [
+      "El tiempo pasa, corazón se rompe",
+      "En recuerdos que no llaman de nuevo",
+      "Y la tristeza, río sin fin, nos lleva",
+      "Del entonces y ahora, el recuerdo ompe"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "correct_verses": 4,
+      "total_expected_verses": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "ompe",
+        "evo",
+        "eva",
+        "ompe"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "C",
+        "A"
+      ],
+      "correct_positions": 3,
+      "total_positions": 4,
+      "score": 0.75,
+      "errors": [
+        "Verso 3: rima C, pero se esperaba B."
+      ]
+    },
+    "errors": [
+      "Verso 3: rima C, pero se esperaba B."
+    ],
+    "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": false,
+    "original_stanza": [
+      "El tiempo pasa, corazón se rompe",
+      "En recuerdos que no llaman de nuevo",
+      "Y la tristeza, río sin fin, nos lleva",
+      "Del entonces y ahora, el recuerdo ompe"
+    ],
+    "repaired_stanza": [
+      "El tiempo pasa, corazón se rompe",
+      "En recuerdos que no llaman de nuevo",
+      "Y la tristeza, río sin fin, nos lleva",
+      "Del entonces y ahora, el recuerdo ompe"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "El tiempo pasa, corazón se rompe",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "En recuerdos que no llaman de nuevo",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "Y la tristeza, río sin fin, nos lleva",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "Del entonces y ahora, el recuerdo ompe",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": false,
+    "changed": false,
+    "reason": "La rima exterior AXYA ya es correcta.",
+    "original_stanza": [
+      "El tiempo pasa, corazón se rompe",
+      "En recuerdos que no llaman de nuevo",
+      "Y la tristeza, río sin fin, nos lleva",
+      "Del entonces y ahora, el recuerdo ompe"
+    ],
+    "repaired_stanza": [
+      "El tiempo pasa, corazón se rompe",
+      "En recuerdos que no llaman de nuevo",
+      "Y la tristeza, río sin fin, nos lleva",
+      "Del entonces y ahora, el recuerdo ompe"
+    ],
+    "target_rhyme": "ompe",
+    "current_rhyme": "ompe",
+    "verse_1": {
+      "text": "El tiempo pasa, corazón se rompe",
+      "last_word": "rompe",
+      "rhyme": "ompe"
+    },
+    "candidate_final_words": [],
+    "enforced_candidate_final_words": [],
+    "original_verse_4": "Del entonces y ahora, el recuerdo ompe",
+    "original_verse_4_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige B sin empeorar metrica.",
+    "original_stanza": [
+      "El tiempo pasa, corazón se rompe",
+      "En recuerdos que no llaman de nuevo",
+      "Y la tristeza, río sin fin, nos lleva",
+      "Del entonces y ahora, el recuerdo ompe"
+    ],
+    "repaired_stanza": [
+      "El tiempo pasa, corazón se rompe",
+      "En recuerdos que no llaman de nuevo",
+      "Y la tristeza, río sin fin, nos lleva",
+      "Del entonces y ahora, el recuerdo ompe"
+    ],
+    "target_rhyme": "evo",
+    "current_rhyme": "eva",
+    "verse_2": {
+      "text": "En recuerdos que no llaman de nuevo",
+      "last_word": "nuevo",
+      "rhyme": "evo"
+    },
+    "candidate_final_words": [
+      "nuevo"
+    ],
+    "enforced_candidate_final_words": [],
+    "has_enforced_candidate_final_words": false,
+    "candidate_warning": "No hay palabras finales candidatas distintas de la palabra ancla para la rima B.",
+    "original_verse_3": "Y la tristeza, río sin fin, nos lleva",
+    "original_verse_3_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "Y el tiempo, rastro sin fin, nos lleva",
+        "syllables": 11,
+        "final_word": "lleva",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'evo' | v3 = 'eva'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Y la nostalgia, río sin fin, nos lleva",
+        "syllables": 11,
+        "final_word": "lleva",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'evo' | v3 = 'eva'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Y la tristeza, fluyente sin fin, nos lleva",
+        "syllables": 13,
+        "final_word": "lleva",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'evo' | v3 = 'eva'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Y la melancolía, río sin fin, nos lleva",
+        "syllables": 12,
+        "final_word": "lleva",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'evo' | v3 = 'eva'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Y el recuerdo, rastro sin fin, nos lleva",
+        "syllables": 12,
+        "final_word": "lleva",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'evo' | v3 = 'eva'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": true,
+    "verse_1": {
+      "text": "El tiempo pasa, corazón se rompe",
+      "last_word": "rompe",
+      "rhyme": "ompe"
+    },
+    "verse_4": {
+      "text": "Del entonces y ahora, el recuerdo ompe",
+      "last_word": "ompe",
+      "rhyme": "ompe"
+    },
+    "target_rhyme": "ompe",
+    "current_rhyme": "ompe",
+    "errors": [],
+    "feedback": "La rima exterior AXYA es correcta: el verso 4 conserva la rima consonante del verso 1 ('ompe')."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_2": {
+      "text": "En recuerdos que no llaman de nuevo",
+      "last_word": "nuevo",
+      "rhyme": "evo"
+    },
+    "verse_3": {
+      "text": "Y la tristeza, río sin fin, nos lleva",
+      "last_word": "lleva",
+      "rhyme": "eva"
+    },
+    "target_rhyme": "evo",
+    "current_rhyme": "eva",
+    "errors": [
+      "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'evo', pero se obtuvo 'eva'."
+    ],
+    "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('evo') y reescribe el verso 3 para que termine con esa misma rima consonante."
+  },
+  "generation_reasoning": "Mantiene el verso 1 y el verso 4 intactos. Corrige el verso 3 cambiando la rima B por A."
+}

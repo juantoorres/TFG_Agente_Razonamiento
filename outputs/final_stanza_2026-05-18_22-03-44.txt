@@ -1,0 +1,48 @@
+ESTROFA FINAL
+
+Modelo: mistral:7b-instruct
+Temperatura: 0.3
+Num predict: 600
+k: 2
+max_steps: 3
+alpha: 1.0
+Tiempo total de ejecucion: 3460.18 segundos (57.67 minutos)
+Reparacion metrica activa: True
+Variantes por verso para reparacion metrica: 5
+Temperatura reparacion metrica: 0.4
+Num predict reparacion metrica: 200
+Reparacion rima A activa: True
+Variantes para reparacion rima A: 5
+Temperatura reparacion rima A: 0.3
+Num predict reparacion rima A: 200
+Reparacion rima B activa: True
+Variantes para reparacion rima B: 5
+Temperatura reparacion rima B: 0.3
+Num predict reparacion rima B: 200
+
+Score global: 0.531
+Historial de scores: [0.5, 0.5, 0.6]
+Resumen de metricas: versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20
+Resumen de reparacion metrica: reparación métrica = activa | intentos = 4 | mejoras = 4 | cambio = True
+Resumen reparacion rima A: reparacion rima A = activa | intento = True | cambio = False
+Resumen reparacion rima B: reparacion rima B = activa | intento = True | cambio = False
+Resumen rima exterior AXYA: rima AXYA = incorrecta | objetivo = 'ece' | v4 = 'ar'
+Resumen rima interior B: rima interior B = incorrecta | objetivo = 'o' | v3 = 'entos'
+
+Feedback final:
+Puntuacion formal total: 12.0/20.
+Revisa los siguientes aspectos formales antes de generar una nueva version:
+Numero de versos:
+- El numero de versos es correcto.
+Silabas metricas:
+- Verso 1: tiene 15 silabas, pero deberia tener 11.
+- Verso 3: tiene 14 silabas, pero deberia tener 11.
+Rima consonante:
+- Verso 3: rima C, pero se esperaba B.
+- Verso 4: rima D, pero se esperaba A.
+
+Estrofa completa:
+1. Sin piedad se va el tiempo, en sus manos se desvanece.
+2. Libros olvidados, recuerdos en vano.
+3. Arrastrado por el tiempo, dolor de aquellos momentos
+4. El tiempo ya no hay tiempo para atajar

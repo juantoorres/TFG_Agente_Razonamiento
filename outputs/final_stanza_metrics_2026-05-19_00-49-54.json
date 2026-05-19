@@ -1,0 +1,399 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200
+  },
+  "stanza": [
+    "El tiempo se marcha, y yo me siento",
+    "en un recuerdo que se pierde al viento",
+    "y mi corazón se llena de saña",
+    "por aquellos momentos perdidos sin fin"
+  ],
+  "score": 0.8,
+  "step_score": 0.8,
+  "score_history": [
+    0.8,
+    0.8,
+    0.8
+  ],
+  "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 2: rima A, pero se esperaba B.\n- Verso 4: rima C, pero se esperaba A.",
+  "metrics": {
+    "score": 0.8,
+    "score_20": 16.0,
+    "verses": [
+      "El tiempo se marcha, y yo me siento",
+      "en un recuerdo que se pierde al viento",
+      "y mi corazón se llena de saña",
+      "por aquellos momentos perdidos sin fin"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "correct_verses": 4,
+      "total_expected_verses": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "ento",
+        "ento",
+        "aña",
+        "in"
+      ],
+      "actual_scheme": [
+        "A",
+        "A",
+        "B",
+        "C"
+      ],
+      "correct_positions": 2,
+      "total_positions": 4,
+      "score": 0.5,
+      "errors": [
+        "Verso 2: rima A, pero se esperaba B.",
+        "Verso 4: rima C, pero se esperaba A."
+      ]
+    },
+    "errors": [
+      "Verso 2: rima A, pero se esperaba B.",
+      "Verso 4: rima C, pero se esperaba A."
+    ],
+    "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 2: rima A, pero se esperaba B.\n- Verso 4: rima C, pero se esperaba A."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": false,
+    "original_stanza": [
+      "El tiempo se marcha, y yo me siento",
+      "en un recuerdo que se pierde al viento",
+      "y mi corazón se llena de saña",
+      "por aquellos momentos perdidos sin fin"
+    ],
+    "repaired_stanza": [
+      "El tiempo se marcha, y yo me siento",
+      "en un recuerdo que se pierde al viento",
+      "y mi corazón se llena de saña",
+      "por aquellos momentos perdidos sin fin"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "El tiempo se marcha, y yo me siento",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "en un recuerdo que se pierde al viento",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "y mi corazón se llena de saña",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "por aquellos momentos perdidos sin fin",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+    "original_stanza": [
+      "El tiempo se marcha, y yo me siento",
+      "en un recuerdo que se pierde al viento",
+      "y mi corazón se llena de saña",
+      "por aquellos momentos perdidos sin fin"
+    ],
+    "repaired_stanza": [
+      "El tiempo se marcha, y yo me siento",
+      "en un recuerdo que se pierde al viento",
+      "y mi corazón se llena de saña",
+      "por aquellos momentos perdidos sin fin"
+    ],
+    "target_rhyme": "ento",
+    "current_rhyme": "in",
+    "verse_1": {
+      "text": "El tiempo se marcha, y yo me siento",
+      "last_word": "siento",
+      "rhyme": "ento"
+    },
+    "candidate_final_words": [
+      "siento"
+    ],
+    "enforced_candidate_final_words": [],
+    "original_verse_4": "por aquellos momentos perdidos sin fin",
+    "original_verse_4_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "perdidos en el tiempo sin fin",
+        "syllables": 9,
+        "final_word": "fin",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ento' | v4 = 'in'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "en aquellos momentos perdidos sin fin",
+        "syllables": 11,
+        "final_word": "fin",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ento' | v4 = 'in'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "por esos momentos perdidos sin fin",
+        "syllables": 10,
+        "final_word": "fin",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ento' | v4 = 'in'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "aquellos momentos perdidos sin fin entonados",
+        "syllables": 14,
+        "final_word": "entonados",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ento' | v4 = 'ados'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "en aquellos momentos perdidos sin fin ento",
+        "syllables": 13,
+        "final_word": "ento",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": true,
+        "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ento' | v4 = 'ento'",
+        "accepted": false,
+        "rejection_reason": "Empeora la distancia metrica del verso 4."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige B sin empeorar metrica.",
+    "original_stanza": [
+      "El tiempo se marcha, y yo me siento",
+      "en un recuerdo que se pierde al viento",
+      "y mi corazón se llena de saña",
+      "por aquellos momentos perdidos sin fin"
+    ],
+    "repaired_stanza": [
+      "El tiempo se marcha, y yo me siento",
+      "en un recuerdo que se pierde al viento",
+      "y mi corazón se llena de saña",
+      "por aquellos momentos perdidos sin fin"
+    ],
+    "target_rhyme": "ento",
+    "current_rhyme": "aña",
+    "verse_2": {
+      "text": "en un recuerdo que se pierde al viento",
+      "last_word": "viento",
+      "rhyme": "ento"
+    },
+    "candidate_final_words": [
+      "viento"
+    ],
+    "enforced_candidate_final_words": [],
+    "has_enforced_candidate_final_words": false,
+    "candidate_warning": "No hay palabras finales candidatas distintas de la palabra ancla para la rima B.",
+    "original_verse_3": "y mi corazón se llena de saña",
+    "original_verse_3_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "y mi corazón se llena de enojo",
+        "syllables": 10,
+        "final_word": "enojo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ento' | v3 = 'ojo'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "y mi corazón se llena de enfervor",
+        "syllables": 12,
+        "final_word": "enfervor",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ento' | v3 = 'or'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "y mi corazón se llena de envidia",
+        "syllables": 11,
+        "final_word": "envidia",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ento' | v3 = 'idia'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "y mi corazón se llena de entusiasmo",
+        "syllables": 12,
+        "final_word": "entusiasmo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ento' | v3 = 'asmo'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "y mi corazón se llena de emoción",
+        "syllables": 11,
+        "final_word": "emoción",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ento' | v3 = 'on'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_1": {
+      "text": "El tiempo se marcha, y yo me siento",
+      "last_word": "siento",
+      "rhyme": "ento"
+    },
+    "verse_4": {
+      "text": "por aquellos momentos perdidos sin fin",
+      "last_word": "fin",
+      "rhyme": "in"
+    },
+    "target_rhyme": "ento",
+    "current_rhyme": "in",
+    "errors": [
+      "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ento', pero se obtuvo 'in'."
+    ],
+    "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ento') y reescribe el verso 4 para que termine con esa misma rima consonante."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_2": {
+      "text": "en un recuerdo que se pierde al viento",
+      "last_word": "viento",
+      "rhyme": "ento"
+    },
+    "verse_3": {
+      "text": "y mi corazón se llena de saña",
+      "last_word": "saña",
+      "rhyme": "aña"
+    },
+    "target_rhyme": "ento",
+    "current_rhyme": "aña",
+    "errors": [
+      "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ento', pero se obtuvo 'aña'."
+    ],
+    "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ento') y reescribe el verso 3 para que termine con esa misma rima consonante."
+  },
+  "generation_reasoning": "Corregido el verso 4 para ajustar la rima A. El resto de los versos mantienen su forma original."
+}
