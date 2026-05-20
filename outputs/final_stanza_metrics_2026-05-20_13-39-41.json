@@ -1,0 +1,435 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200,
+    "inner_rhyme_repair_conditioned_by_candidate": true,
+    "inner_rhyme_repair_variants_per_candidate": 2,
+    "inner_rhyme_repair_max_candidate_words": 4
+  },
+  "stanza": [
+    "El pasado, un espejo que refleja",
+    "las sombras de un tiempo inmóvil y fijo",
+    "que no regresa más a nuestras vidas",
+    "y nos deja en el presente solo"
+  ],
+  "score": 0.6649399761150976,
+  "step_score": 0.7,
+  "score_history": [
+    0.6,
+    0.7,
+    0.7
+  ],
+  "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 4: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+  "metrics": {
+    "score": 0.7,
+    "score_20": 14.0,
+    "verses": [
+      "El pasado, un espejo que refleja",
+      "las sombras de un tiempo inmóvil y fijo",
+      "que no regresa más a nuestras vidas",
+      "y nos deja en el presente solo"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        10
+      ],
+      "correct_verses": 3,
+      "total_expected_verses": 4,
+      "score": 0.75,
+      "errors": [
+        "Verso 4: tiene 10 silabas, pero deberia tener 11."
+      ]
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "eja",
+        "ijo",
+        "idas",
+        "olo"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_positions": 2,
+      "total_positions": 4,
+      "score": 0.5,
+      "errors": [
+        "Verso 3: rima C, pero se esperaba B.",
+        "Verso 4: rima D, pero se esperaba A."
+      ]
+    },
+    "errors": [
+      "Verso 4: tiene 10 silabas, pero deberia tener 11.",
+      "Verso 3: rima C, pero se esperaba B.",
+      "Verso 4: rima D, pero se esperaba A."
+    ],
+    "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 4: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": false,
+    "original_stanza": [
+      "El pasado, un espejo que refleja",
+      "las sombras de un tiempo inmóvil y fijo",
+      "que no regresa más a nuestras vidas",
+      "y nos deja en el presente solo"
+    ],
+    "repaired_stanza": [
+      "El pasado, un espejo que refleja",
+      "las sombras de un tiempo inmóvil y fijo",
+      "que no regresa más a nuestras vidas",
+      "y nos deja en el presente solo"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "El pasado, un espejo que refleja",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "las sombras de un tiempo inmóvil y fijo",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "que no regresa más a nuestras vidas",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "y nos deja en el presente solo",
+        "original_syllables": 10,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "selected_distance": null,
+        "variants": [
+          {
+            "verse": "y nos deja en el presente solamente",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "y nos deja en el presente solo y aquí",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "y nos deja en el presente solo y ahora",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "y nos deja en el presente solo y acá",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "y nos deja en el presente solo y aquí mismo",
+            "syllables": 14,
+            "distance": 3
+          }
+        ],
+        "error": null
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+    "original_stanza": [
+      "El pasado, un espejo que refleja",
+      "las sombras de un tiempo inmóvil y fijo",
+      "que no regresa más a nuestras vidas",
+      "y nos deja en el presente solo"
+    ],
+    "repaired_stanza": [
+      "El pasado, un espejo que refleja",
+      "las sombras de un tiempo inmóvil y fijo",
+      "que no regresa más a nuestras vidas",
+      "y nos deja en el presente solo"
+    ],
+    "target_rhyme": "eja",
+    "current_rhyme": "olo",
+    "verse_1": {
+      "text": "El pasado, un espejo que refleja",
+      "last_word": "refleja",
+      "rhyme": "eja"
+    },
+    "candidate_final_words": [
+      "refleja"
+    ],
+    "enforced_candidate_final_words": [],
+    "original_verse_4": "y nos deja en el presente solo",
+    "original_verse_4_syllables": 10,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "y nos deja en el presente solo",
+        "syllables": 10,
+        "final_word": "solo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'eja' | v4 = 'olo'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "nos abandona al presente solo",
+        "syllables": 9,
+        "final_word": "solo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'eja' | v4 = 'olo'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "nos deja en el presente a solas",
+        "syllables": 9,
+        "final_word": "solas",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'eja' | v4 = 'olas'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "nos deja en el presente sin más",
+        "syllables": 10,
+        "final_word": "más",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'eja' | v4 = 'as'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "nos deja en el presente en paz",
+        "syllables": 9,
+        "final_word": "paz",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'eja' | v4 = 'az'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige B sin empeorar metrica.",
+    "original_stanza": [
+      "El pasado, un espejo que refleja",
+      "las sombras de un tiempo inmóvil y fijo",
+      "que no regresa más a nuestras vidas",
+      "y nos deja en el presente solo"
+    ],
+    "repaired_stanza": [
+      "El pasado, un espejo que refleja",
+      "las sombras de un tiempo inmóvil y fijo",
+      "que no regresa más a nuestras vidas",
+      "y nos deja en el presente solo"
+    ],
+    "target_rhyme": "ijo",
+    "current_rhyme": "idas",
+    "verse_2": {
+      "text": "las sombras de un tiempo inmóvil y fijo",
+      "last_word": "fijo",
+      "rhyme": "ijo"
+    },
+    "candidate_final_words": [
+      "fijo"
+    ],
+    "enforced_candidate_final_words": [],
+    "has_enforced_candidate_final_words": false,
+    "candidate_warning": "No hay palabras finales candidatas distintas de la palabra ancla para la rima B.",
+    "conditioned_by_candidate": false,
+    "conditioned_candidate_words": [],
+    "conditioned_generation_reports": [],
+    "original_verse_3": "que no regresa más a nuestras vidas",
+    "original_verse_3_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "que no vuelva más a nuestras vidas",
+        "syllables": 10,
+        "final_word": "vidas",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ijo' | v3 = 'idas'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "que no regresa nunca a nuestras vidas",
+        "syllables": 11,
+        "final_word": "vidas",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ijo' | v3 = 'idas'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "que no volverá más a nuestras vidas",
+        "syllables": 11,
+        "final_word": "vidas",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ijo' | v3 = 'idas'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "que ya no regresará a nuestras vidas",
+        "syllables": 11,
+        "final_word": "vidas",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ijo' | v3 = 'idas'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "que no se vuelve más a nuestras vidas",
+        "syllables": 11,
+        "final_word": "vidas",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ijo' | v3 = 'idas'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_1": {
+      "text": "El pasado, un espejo que refleja",
+      "last_word": "refleja",
+      "rhyme": "eja"
+    },
+    "verse_4": {
+      "text": "y nos deja en el presente solo",
+      "last_word": "solo",
+      "rhyme": "olo"
+    },
+    "target_rhyme": "eja",
+    "current_rhyme": "olo",
+    "errors": [
+      "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'eja', pero se obtuvo 'olo'."
+    ],
+    "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('eja') y reescribe el verso 4 para que termine con esa misma rima consonante."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_2": {
+      "text": "las sombras de un tiempo inmóvil y fijo",
+      "last_word": "fijo",
+      "rhyme": "ijo"
+    },
+    "verse_3": {
+      "text": "que no regresa más a nuestras vidas",
+      "last_word": "vidas",
+      "rhyme": "idas"
+    },
+    "target_rhyme": "ijo",
+    "current_rhyme": "idas",
+    "errors": [
+      "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ijo', pero se obtuvo 'idas'."
+    ],
+    "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ijo') y reescribe el verso 3 para que termine con esa misma rima consonante."
+  },
+  "generation_reasoning": "El verso 4 tiene 10 silabas, se acorto para tener 11."
+}

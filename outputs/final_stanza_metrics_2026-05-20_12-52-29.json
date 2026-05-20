@@ -1,0 +1,491 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200,
+    "inner_rhyme_repair_conditioned_by_candidate": true,
+    "inner_rhyme_repair_variants_per_candidate": 2,
+    "inner_rhyme_repair_max_candidate_words": 4
+  },
+  "stanza": [
+    "Pasa el tiempo, y el recuerdo dura",
+    "En mi corazón como un abrazo fuerte",
+    "Juventud se fue, pero el amor sigue aquí",
+    "Es una flor que nunca deja ternura"
+  ],
+  "score": 0.9,
+  "step_score": 0.9,
+  "score_history": [
+    0.9
+  ],
+  "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.",
+  "metrics": {
+    "score": 0.9,
+    "score_20": 18.0,
+    "verses": [
+      "Pasa el tiempo, y el recuerdo dura",
+      "En mi corazón como un abrazo fuerte",
+      "Juventud se fue, pero el amor sigue aquí",
+      "Es una flor que nunca deja ternura"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "correct_verses": 4,
+      "total_expected_verses": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "ura",
+        "erte",
+        "i",
+        "ura"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "C",
+        "A"
+      ],
+      "correct_positions": 3,
+      "total_positions": 4,
+      "score": 0.75,
+      "errors": [
+        "Verso 3: rima C, pero se esperaba B."
+      ]
+    },
+    "errors": [
+      "Verso 3: rima C, pero se esperaba B."
+    ],
+    "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": true,
+    "original_stanza": [
+      "El tiempo pasa, y el recuerdo dura",
+      "En mi corazón como un abrazo fuerte",
+      "Y la juventud se va, pero no el amor",
+      "Es una flor que nunca deja de florescer"
+    ],
+    "repaired_stanza": [
+      "Pasa el tiempo, y el recuerdo dura",
+      "En mi corazón como un abrazo fuerte",
+      "Juventud se fue, pero el amor sigue aquí",
+      "Es una flor que nunca deja florescer"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "El tiempo pasa, y el recuerdo dura",
+        "original_syllables": 12,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Pasa el tiempo, y el recuerdo dura",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "El tiempo se mueve, y el recuerdo dura",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "Pasa el tiempo, y el recuerdo dura",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Tiempo pasa, y el recuerdo endurece",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "Pasa el tiempo, y el recuerdo duro",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "El tiempo transcurre, y el recuerdo dura",
+            "syllables": 13,
+            "distance": 2
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "En mi corazón como un abrazo fuerte",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "Y la juventud se va, pero no el amor",
+        "original_syllables": 12,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Juventud se fue, pero el amor sigue aquí",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "Y la juventud se marcha, pero no el amor",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "La juventud se aleja, pero el amor persiste",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "Se va la juventud, pero el amor permanece",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "Juventud se fue, pero el amor sigue aquí",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Se va la juventud, pero el amor no desaparece",
+            "syllables": 14,
+            "distance": 3
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "Es una flor que nunca deja de florescer",
+        "original_syllables": 13,
+        "original_distance": 2,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Es una flor que nunca deja florescer",
+        "selected_syllables": 12,
+        "selected_distance": 1,
+        "variants": [
+          {
+            "verse": "Es una flor que nunca deja florescer",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "Flor que nunca deja florecer",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "Nunca deja flor dejar de florescer",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "Flor que no deja de florecer",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "Flor que nunca se detiene de florescer",
+            "syllables": 13,
+            "distance": 2
+          }
+        ],
+        "error": null
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": true,
+    "reason": "Se acepto una variante que corrige AXYA.",
+    "original_stanza": [
+      "Pasa el tiempo, y el recuerdo dura",
+      "En mi corazón como un abrazo fuerte",
+      "Juventud se fue, pero el amor sigue aquí",
+      "Es una flor que nunca deja florescer"
+    ],
+    "repaired_stanza": [
+      "Pasa el tiempo, y el recuerdo dura",
+      "En mi corazón como un abrazo fuerte",
+      "Juventud se fue, pero el amor sigue aquí",
+      "Es una flor que nunca deja ternura"
+    ],
+    "target_rhyme": "ura",
+    "current_rhyme": "er",
+    "verse_1": {
+      "text": "Pasa el tiempo, y el recuerdo dura",
+      "last_word": "dura",
+      "rhyme": "ura"
+    },
+    "candidate_final_words": [
+      "oscura",
+      "ternura",
+      "locura",
+      "altura",
+      "llanura",
+      "dura"
+    ],
+    "enforced_candidate_final_words": [
+      "oscura",
+      "ternura",
+      "locura",
+      "altura",
+      "llanura"
+    ],
+    "original_verse_4": "Es una flor que nunca deja florescer",
+    "original_verse_4_syllables": 12,
+    "selected_variant": "Es una flor que nunca deja ternura",
+    "selected_variant_syllables": 11,
+    "variants": [
+      {
+        "verse": "Es una flor que nunca deja oscura",
+        "syllables": 10,
+        "final_word": "oscura",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": true,
+        "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ura' | v4 = 'ura'",
+        "accepted": false,
+        "rejection_reason": null
+      },
+      {
+        "verse": "Es una flor que nunca deja ternura",
+        "syllables": 11,
+        "final_word": "ternura",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": true,
+        "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ura' | v4 = 'ura'",
+        "accepted": true,
+        "rejection_reason": null
+      },
+      {
+        "verse": "Es una flor que nunca deja locura",
+        "syllables": 11,
+        "final_word": "locura",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": true,
+        "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ura' | v4 = 'ura'",
+        "accepted": false,
+        "rejection_reason": null
+      },
+      {
+        "verse": "Es una flor que nunca deja altura",
+        "syllables": 10,
+        "final_word": "altura",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": true,
+        "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ura' | v4 = 'ura'",
+        "accepted": false,
+        "rejection_reason": null
+      },
+      {
+        "verse": "Es una flor que nunca deja llanura",
+        "syllables": 11,
+        "final_word": "llanura",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": true,
+        "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ura' | v4 = 'ura'",
+        "accepted": false,
+        "rejection_reason": null
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige B sin empeorar metrica.",
+    "original_stanza": [
+      "Pasa el tiempo, y el recuerdo dura",
+      "En mi corazón como un abrazo fuerte",
+      "Juventud se fue, pero el amor sigue aquí",
+      "Es una flor que nunca deja ternura"
+    ],
+    "repaired_stanza": [
+      "Pasa el tiempo, y el recuerdo dura",
+      "En mi corazón como un abrazo fuerte",
+      "Juventud se fue, pero el amor sigue aquí",
+      "Es una flor que nunca deja ternura"
+    ],
+    "target_rhyme": "erte",
+    "current_rhyme": "i",
+    "verse_2": {
+      "text": "En mi corazón como un abrazo fuerte",
+      "last_word": "fuerte",
+      "rhyme": "erte"
+    },
+    "candidate_final_words": [
+      "fuerte"
+    ],
+    "enforced_candidate_final_words": [],
+    "has_enforced_candidate_final_words": false,
+    "candidate_warning": "No hay palabras finales candidatas distintas de la palabra ancla para la rima B.",
+    "conditioned_by_candidate": false,
+    "conditioned_candidate_words": [],
+    "conditioned_generation_reports": [],
+    "original_verse_3": "Juventud se fue, pero el amor sigue aquí",
+    "original_verse_3_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "Juventud se fue, pero el amor sigue cerca",
+        "syllables": 12,
+        "final_word": "cerca",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'erte' | v3 = 'erca'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Juventud se fue, pero el amor sigue cercano",
+        "syllables": 12,
+        "final_word": "cercano",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'erte' | v3 = 'ercano'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Juventud se fue, pero el amor sigue allí",
+        "syllables": 11,
+        "final_word": "allí",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'erte' | v3 = 'i'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Juventud se fue, pero el amor sigue aquel lugar",
+        "syllables": 13,
+        "final_word": "lugar",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'erte' | v3 = 'ar'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Juventud se fue, pero el amor sigue en mi corazón",
+        "syllables": 15,
+        "final_word": "corazón",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'erte' | v3 = 'on'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": true,
+    "verse_1": {
+      "text": "Pasa el tiempo, y el recuerdo dura",
+      "last_word": "dura",
+      "rhyme": "ura"
+    },
+    "verse_4": {
+      "text": "Es una flor que nunca deja ternura",
+      "last_word": "ternura",
+      "rhyme": "ura"
+    },
+    "target_rhyme": "ura",
+    "current_rhyme": "ura",
+    "errors": [],
+    "feedback": "La rima exterior AXYA es correcta: el verso 4 conserva la rima consonante del verso 1 ('ura')."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_2": {
+      "text": "En mi corazón como un abrazo fuerte",
+      "last_word": "fuerte",
+      "rhyme": "erte"
+    },
+    "verse_3": {
+      "text": "Juventud se fue, pero el amor sigue aquí",
+      "last_word": "aquí",
+      "rhyme": "i"
+    },
+    "target_rhyme": "erte",
+    "current_rhyme": "i",
+    "errors": [
+      "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'erte', pero se obtuvo 'i'."
+    ],
+    "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('erte') y reescribe el verso 3 para que termine con esa misma rima consonante."
+  },
+  "generation_reasoning": "Versos que describen la nostalgia del paso del tiempo, con rima ABBA y versos endecasilabos."
+}

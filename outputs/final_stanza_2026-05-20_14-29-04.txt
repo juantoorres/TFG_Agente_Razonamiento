@@ -1,0 +1,49 @@
+ESTROFA FINAL
+
+Modelo: mistral:7b-instruct
+Temperatura: 0.3
+Num predict: 600
+k: 2
+max_steps: 3
+alpha: 1.0
+Tiempo total de ejecucion: 2607.08 segundos (43.45 minutos)
+Reparacion metrica activa: True
+Variantes por verso para reparacion metrica: 5
+Temperatura reparacion metrica: 0.4
+Num predict reparacion metrica: 200
+Reparacion rima A activa: True
+Variantes para reparacion rima A: 5
+Temperatura reparacion rima A: 0.3
+Num predict reparacion rima A: 200
+Reparacion rima B activa: True
+Variantes para reparacion rima B: 5
+Temperatura reparacion rima B: 0.3
+Num predict reparacion rima B: 200
+Reparacion rima B condicionada por candidata: True
+Variantes por candidata para reparacion rima B: 2
+Max candidatas usadas para reparacion rima B: 4
+
+Score global: 0.796
+Historial de scores: [0.7, 0.9, 0.8]
+Resumen de metricas: versos=4/4 | endecasilabos=3/4 | rima=3/4 | score=16.0/20
+Resumen de reparacion metrica: reparación métrica = activa | intentos = 3 | mejoras = 1 | cambio = True
+Resumen reparacion rima A: reparacion rima A = activa | intento = True | cambio = True
+Resumen reparacion rima B: reparacion rima B = activa | intento = True | cambio = False
+Resumen rima exterior AXYA: rima AXYA = correcta | v1 = 'ar' | v4 = 'ar'
+Resumen rima interior B: rima interior B = incorrecta | objetivo = 'erca' | v3 = 'enan'
+
+Feedback final:
+Puntuacion formal total: 16.0/20.
+Revisa los siguientes aspectos formales antes de generar una nueva version:
+Numero de versos:
+- El numero de versos es correcto.
+Silabas metricas:
+- Verso 3: tiene 12 silabas, pero deberia tener 11.
+Rima consonante:
+- Verso 3: rima C, pero se esperaba B.
+
+Estrofa completa:
+1. El tiempo, un río que fluye sin parar
+2. En cada instante, el recordado se acerca
+3. Y sus olas en mi alma distante resuenan
+4. Un río de tiempo que nunca soñar

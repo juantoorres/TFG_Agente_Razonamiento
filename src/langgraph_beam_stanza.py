@@ -57,6 +57,9 @@ ENABLE_INNER_RHYME_REPAIR = True
 INNER_RHYME_REPAIR_VARIANTS = 5
 INNER_RHYME_REPAIR_TEMPERATURE = 0.3
 INNER_RHYME_REPAIR_NUM_PREDICT = 200
+INNER_RHYME_REPAIR_CONDITIONED_BY_CANDIDATE = True
+INNER_RHYME_REPAIR_VARIANTS_PER_CANDIDATE = 2
+INNER_RHYME_REPAIR_MAX_CANDIDATE_WORDS = 4
 
 ENABLE_BEAM_ELITISM = True
 ELITE_BEAMS_TO_KEEP = 1
@@ -1404,6 +1407,173 @@ def generate_inner_rhyme_repair_variants_with_ollama(
     return parse_rhyme_repair_variants_response(raw_response, num_variants)
 
 
+def _build_inner_rhyme_repair_messages_for_final_word(
+    question: str,
+    stanza: list[str],
+    inner_rhyme_diagnosis: dict[str, Any],
+    required_final_word: str,
+    num_variants: int,
+) -> List[Dict[str, str]]:
+    """Construye el prompt B obligando una palabra final concreta."""
+    verse_2 = inner_rhyme_diagnosis.get("verse_2", {})
+    if not isinstance(verse_2, dict):
+        verse_2 = {}
+
+    verse_3 = inner_rhyme_diagnosis.get("verse_3", {})
+    if not isinstance(verse_3, dict):
+        verse_3 = {}
+
+    clean_required_final_word = str(required_final_word or "").strip()
+    derived_form_hint = ""
+    if clean_required_final_word.endswith(("ar", "er", "ir")):
+        verb_stem = clean_required_final_word[:-2]
+        derived_form = f"{verb_stem}a"
+        gerund_form = f"{verb_stem}ando"
+        derived_form_hint = (
+            f'- No uses "{derived_form}", "{gerund_form}" '
+            f'ni otra forma derivada de "{clean_required_final_word}".\n'
+        )
+
+    verse_2_text = verse_2.get("text", "")
+    verse_2_last_word = verse_2.get("last_word", "")
+    target_rhyme = inner_rhyme_diagnosis.get("target_rhyme", "")
+    current_rhyme = inner_rhyme_diagnosis.get("current_rhyme", "")
+    current_verse_3 = verse_3.get("text", stanza[2] if len(stanza) >= 3 else "")
+
+    system_prompt = (
+        "Eres un asistente de reparacion de rima consonante para poesia "
+        "espanola.\n"
+        "Tu tarea es proponer variantes de un unico verso: el verso 3.\n"
+        "No reescribas la estrofa completa.\n"
+        "No evalues belleza poetica ni expliques el resultado.\n"
+        "Devuelve solamente JSON valido.\n\n"
+        "FORMATO JSON OBLIGATORIO:\n"
+        "{\n"
+        '  "variants": [\n'
+        '    "nuevo verso 3",\n'
+        '    "nuevo verso 3 alternativo"\n'
+        "  ]\n"
+        "}\n"
+        "No incluyas texto antes ni despues del JSON."
+    )
+
+    user_prompt = (
+        f"Tarea original:\n{question}\n\n"
+        "Estrofa completa como contexto:\n"
+        f"{format_numbered_verses(stanza)}\n\n"
+        "Verso 2 como ancla:\n"
+        f"{verse_2_text}\n"
+        f"Palabra final del verso 2: {verse_2_last_word}\n"
+        f"Rima consonante objetivo del verso 2: {target_rhyme}\n\n"
+        "Verso 3 actual:\n"
+        f"{current_verse_3}\n"
+        f"Rima actual del verso 3: {current_rhyme}\n\n"
+        "Palabra final obligatoria para todas las variantes: "
+        f"{clean_required_final_word}\n\n"
+        f'Todas las variantes deben terminar exactamente en "{clean_required_final_word}".\n'
+        f'La ultima palabra debe ser exactamente "{clean_required_final_word}".\n'
+        f'No escribas nada despues de "{clean_required_final_word}".\n'
+        f"No uses una forma flexionada o derivada de "
+        f'"{clean_required_final_word}".\n\n'
+        f"Genera exactamente {num_variants} variantes para reescribir solo "
+        "el verso 3.\n"
+        "Restricciones:\n"
+        "- Reescribe solo el verso 3.\n"
+        "- No modifiques el verso 1.\n"
+        "- No modifiques el verso 2.\n"
+        "- No modifiques el verso 4.\n"
+        "- El nuevo verso 3 debe rimar consonantemente con el verso 2.\n"
+        f"- La palabra final obligatoria es: {clean_required_final_word}.\n"
+        f'- Todas las variantes deben terminar exactamente en "{clean_required_final_word}".\n'
+        "- No uses una forma flexionada o derivada de la palabra final obligatoria.\n"
+        f"{derived_form_hint}"
+        f'- No escribas nada despues de "{clean_required_final_word}".\n'
+        "- Intenta que el nuevo verso 3 tenga 11 silabas metricas.\n"
+        "- Devuelve solo variantes del verso 3, no la estrofa completa.\n"
+        "- No anadas titulo.\n"
+        "- No numeres las variantes.\n"
+        "- Responde solo con JSON valido."
+    )
+
+    return [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": user_prompt},
+    ]
+
+
+def generate_inner_rhyme_repair_variants_for_final_word_with_ollama(
+    question: str,
+    stanza: list[str],
+    inner_rhyme_diagnosis: dict[str, Any],
+    required_final_word: str,
+    num_variants: int = INNER_RHYME_REPAIR_VARIANTS_PER_CANDIDATE,
+) -> list[str]:
+    """Pide variantes del verso 3 terminando en una palabra concreta."""
+    messages = _build_inner_rhyme_repair_messages_for_final_word(
+        question=question,
+        stanza=stanza,
+        inner_rhyme_diagnosis=inner_rhyme_diagnosis,
+        required_final_word=required_final_word,
+        num_variants=num_variants,
+    )
+
+    raw_response = chat_ollama(
+        model=GENERATION_MODEL,
+        messages=messages,
+        temperature=INNER_RHYME_REPAIR_TEMPERATURE,
+        num_predict=INNER_RHYME_REPAIR_NUM_PREDICT,
+    )
+    return parse_rhyme_repair_variants_response(raw_response, num_variants)
+
+
+def generate_conditioned_inner_rhyme_repair_variants_with_ollama(
+    question: str,
+    stanza: list[str],
+    inner_rhyme_diagnosis: dict[str, Any],
+    enforced_candidate_final_words: list[str],
+) -> tuple[list[str], list[dict[str, Any]]]:
+    """Genera variantes B condicionadas por palabras finales concretas."""
+    candidate_words = [
+        str(word).strip()
+        for word in enforced_candidate_final_words[:INNER_RHYME_REPAIR_MAX_CANDIDATE_WORDS]
+        if str(word).strip()
+    ]
+    conditioned_generation_reports = []
+    variants = []
+    seen_variants = set()
+
+    for word in candidate_words:
+        generation_report = {
+            "required_final_word": word,
+            "attempted": True,
+            "variants": [],
+            "error": None,
+        }
+
+        try:
+            word_variants = generate_inner_rhyme_repair_variants_for_final_word_with_ollama(
+                question=question,
+                stanza=stanza,
+                inner_rhyme_diagnosis=inner_rhyme_diagnosis,
+                required_final_word=word,
+            )
+        except Exception as exc:
+            generation_report["error"] = str(exc)
+            conditioned_generation_reports.append(generation_report)
+            continue
+
+        generation_report["variants"] = word_variants
+        conditioned_generation_reports.append(generation_report)
+
+        for variant in word_variants:
+            if variant in seen_variants:
+                continue
+            seen_variants.add(variant)
+            variants.append(variant)
+
+    return variants, conditioned_generation_reports
+
+
 def build_inner_rhyme_repair_report(
     enabled: bool,
     stanza: list[str],
@@ -1423,6 +1593,9 @@ def build_inner_rhyme_repair_report(
         "enforced_candidate_final_words": [],
         "has_enforced_candidate_final_words": False,
         "candidate_warning": None,
+        "conditioned_by_candidate": False,
+        "conditioned_candidate_words": [],
+        "conditioned_generation_reports": [],
         "original_verse_3": None,
         "original_verse_3_syllables": None,
         "selected_variant": None,
@@ -1492,16 +1665,48 @@ def repair_stanza_inner_rhyme_with_ollama(
 
     report["attempted"] = True
 
-    try:
-        variants = generate_inner_rhyme_repair_variants_with_ollama(
-            question=question,
-            stanza=stanza,
-            inner_rhyme_diagnosis=inner_rhyme_diagnosis,
+    if (
+        INNER_RHYME_REPAIR_CONDITIONED_BY_CANDIDATE
+        and enforced_candidate_final_words
+    ):
+        conditioned_candidate_words = enforced_candidate_final_words[
+            :INNER_RHYME_REPAIR_MAX_CANDIDATE_WORDS
+        ]
+        variants, conditioned_generation_reports = (
+            generate_conditioned_inner_rhyme_repair_variants_with_ollama(
+                question=question,
+                stanza=stanza,
+                inner_rhyme_diagnosis=inner_rhyme_diagnosis,
+                enforced_candidate_final_words=enforced_candidate_final_words,
+            )
         )
-    except Exception as exc:
-        report["error"] = str(exc)
+        report["conditioned_by_candidate"] = True
+        report["conditioned_candidate_words"] = conditioned_candidate_words
+        report["conditioned_generation_reports"] = conditioned_generation_reports
+
+        if not variants:
+            report["reason"] = (
+                "No se generaron variantes condicionadas validas para la "
+                "rima interior B."
+            )
+            report["repaired_stanza"] = repaired_stanza.copy()
+            return repaired_stanza, report
+    else:
+        try:
+            variants = generate_inner_rhyme_repair_variants_with_ollama(
+                question=question,
+                stanza=stanza,
+                inner_rhyme_diagnosis=inner_rhyme_diagnosis,
+            )
+        except Exception as exc:
+            report["error"] = str(exc)
+            report["reason"] = "Fallo generando variantes de rima interior B."
+            print(f"[WARN] Fallo reparando rima interior B: {exc}")
+            return repaired_stanza, report
+
+    if not variants:
         report["reason"] = "Fallo generando variantes de rima interior B."
-        print(f"[WARN] Fallo reparando rima interior B: {exc}")
+        report["repaired_stanza"] = repaired_stanza.copy()
         return repaired_stanza, report
 
     acceptable_variants = []
@@ -2292,6 +2497,18 @@ def save_final_result(
             "Num predict reparacion rima B: "
             f"{run_parameters.get('inner_rhyme_repair_num_predict')}"
         ),
+        (
+            "Reparacion rima B condicionada por candidata: "
+            f"{run_parameters.get('inner_rhyme_repair_conditioned_by_candidate')}"
+        ),
+        (
+            "Variantes por candidata para reparacion rima B: "
+            f"{run_parameters.get('inner_rhyme_repair_variants_per_candidate')}"
+        ),
+        (
+            "Max candidatas usadas para reparacion rima B: "
+            f"{run_parameters.get('inner_rhyme_repair_max_candidate_words')}"
+        ),
         "",
         f"Score global: {float(best_beam.get('score', 0.0)):.3f}",
         f"Historial de scores: {[round(float(score), 3) for score in score_history]}",
@@ -2437,6 +2654,15 @@ def main() -> None:
         "inner_rhyme_repair_variants": INNER_RHYME_REPAIR_VARIANTS,
         "inner_rhyme_repair_temperature": INNER_RHYME_REPAIR_TEMPERATURE,
         "inner_rhyme_repair_num_predict": INNER_RHYME_REPAIR_NUM_PREDICT,
+        "inner_rhyme_repair_conditioned_by_candidate": (
+            INNER_RHYME_REPAIR_CONDITIONED_BY_CANDIDATE
+        ),
+        "inner_rhyme_repair_variants_per_candidate": (
+            INNER_RHYME_REPAIR_VARIANTS_PER_CANDIDATE
+        ),
+        "inner_rhyme_repair_max_candidate_words": (
+            INNER_RHYME_REPAIR_MAX_CANDIDATE_WORDS
+        ),
     }
 
     execution_start = perf_counter()

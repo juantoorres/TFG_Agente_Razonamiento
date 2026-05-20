@@ -1,0 +1,572 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200,
+    "inner_rhyme_repair_conditioned_by_candidate": true,
+    "inner_rhyme_repair_variants_per_candidate": 2,
+    "inner_rhyme_repair_max_candidate_words": 4
+  },
+  "stanza": [
+    "Pasa el tiempo como un río en verano largo",
+    "Dejan atrás recuerdos sin reanudar",
+    "Mi alma llora, con amargura pasar",
+    "Los días felices que no volverán"
+  ],
+  "score": 0.8485281374238571,
+  "step_score": 0.9,
+  "score_history": [
+    0.8,
+    0.9
+  ],
+  "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 4: rima C, pero se esperaba A.",
+  "metrics": {
+    "score": 0.9,
+    "score_20": 18.0,
+    "verses": [
+      "Pasa el tiempo como un río en verano largo",
+      "Dejan atrás recuerdos sin reanudar",
+      "Mi alma llora, con amargura pasar",
+      "Los días felices que no volverán"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "correct_verses": 4,
+      "total_expected_verses": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "argo",
+        "ar",
+        "ar",
+        "an"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "B",
+        "C"
+      ],
+      "correct_positions": 3,
+      "total_positions": 4,
+      "score": 0.75,
+      "errors": [
+        "Verso 4: rima C, pero se esperaba A."
+      ]
+    },
+    "errors": [
+      "Verso 4: rima C, pero se esperaba A."
+    ],
+    "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 4: rima C, pero se esperaba A."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": true,
+    "original_stanza": [
+      "Pasa el tiempo como un río en verano",
+      "Deja atrás recuerdos sin retorno",
+      "Mi corazón llora, con amargura",
+      "Los días felices que no volverán"
+    ],
+    "repaired_stanza": [
+      "Pasa el tiempo como un río en verano largo",
+      "Dejan atrás recuerdos sin reanudar",
+      "Mi corazón llora, con amargura",
+      "Los días felices que no volverán"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "Pasa el tiempo como un río en verano",
+        "original_syllables": 9,
+        "original_distance": 2,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Pasa el tiempo como un río en verano largo",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "Pasa el tiempo como un río en verano largo",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Pasa el tiempo como un río de verano antojo",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "Pasa el tiempo como un río de verano ardiente",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "Pasa el tiempo como un río de verano profundo",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "Pasa el tiempo como un río de verano cálido",
+            "syllables": 12,
+            "distance": 1
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "Deja atrás recuerdos sin retorno",
+        "original_syllables": 8,
+        "original_distance": 3,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Dejan atrás recuerdos sin reanudar",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "Dejan atrás recuerdos sin regreso",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "Dejan atrás recuerdos sin reencuentro",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "Dejan atrás recuerdos sin retorno posible",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "Dejan atrás recuerdos sin reanudar",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Dejan atrás recuerdos sin reaparición",
+            "syllables": 12,
+            "distance": 1
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "Mi corazón llora, con amargura",
+        "original_syllables": 10,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "selected_distance": null,
+        "variants": [
+          {
+            "verse": "Mi corazón llora, con amargura y dolor",
+            "syllables": 14,
+            "distance": 3
+          },
+          {
+            "verse": "Mi corazón llora, con amargura y tristeza",
+            "syllables": 14,
+            "distance": 3
+          },
+          {
+            "verse": "Mi corazón llora, con amargura y soledad",
+            "syllables": 15,
+            "distance": 4
+          },
+          {
+            "verse": "Mi corazón llora, con amargura y nostalgia",
+            "syllables": 14,
+            "distance": 3
+          },
+          {
+            "verse": "Mi corazón llora, con amargura y melancolía",
+            "syllables": 16,
+            "distance": 5
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "Los días felices que no volverán",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+    "original_stanza": [
+      "Pasa el tiempo como un río en verano largo",
+      "Dejan atrás recuerdos sin reanudar",
+      "Mi corazón llora, con amargura",
+      "Los días felices que no volverán"
+    ],
+    "repaired_stanza": [
+      "Pasa el tiempo como un río en verano largo",
+      "Dejan atrás recuerdos sin reanudar",
+      "Mi corazón llora, con amargura",
+      "Los días felices que no volverán"
+    ],
+    "target_rhyme": "argo",
+    "current_rhyme": "an",
+    "verse_1": {
+      "text": "Pasa el tiempo como un río en verano largo",
+      "last_word": "largo",
+      "rhyme": "argo"
+    },
+    "candidate_final_words": [
+      "amargo",
+      "largo"
+    ],
+    "enforced_candidate_final_words": [
+      "amargo"
+    ],
+    "original_verse_4": "Los días felices que no volverán",
+    "original_verse_4_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "Los días felices que ya no regresan",
+        "syllables": 11,
+        "final_word": "regresan",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'argo' | v4 = 'esan'",
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 1."
+      },
+      {
+        "verse": "Los días felices que jamás volverán",
+        "syllables": 12,
+        "final_word": "volverán",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'argo' | v4 = 'an'",
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 1."
+      },
+      {
+        "verse": "Los días felices que nunca más aparecerán",
+        "syllables": 14,
+        "final_word": "aparecerán",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'argo' | v4 = 'an'",
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 1."
+      },
+      {
+        "verse": "Los días felices que ahora ya no vuelven",
+        "syllables": 11,
+        "final_word": "vuelven",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'argo' | v4 = 'elven'",
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 1."
+      },
+      {
+        "verse": "Los días felices que ya no volverán en este mundo",
+        "syllables": 16,
+        "final_word": "mundo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'argo' | v4 = 'undo'",
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 1."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": true,
+    "reason": "Se acepto una variante que corrige la rima interior B.",
+    "original_stanza": [
+      "Pasa el tiempo como un río en verano largo",
+      "Dejan atrás recuerdos sin reanudar",
+      "Mi corazón llora, con amargura",
+      "Los días felices que no volverán"
+    ],
+    "repaired_stanza": [
+      "Pasa el tiempo como un río en verano largo",
+      "Dejan atrás recuerdos sin reanudar",
+      "Mi alma llora, con amargura pasar",
+      "Los días felices que no volverán"
+    ],
+    "target_rhyme": "ar",
+    "current_rhyme": "ura",
+    "verse_2": {
+      "text": "Dejan atrás recuerdos sin reanudar",
+      "last_word": "reanudar",
+      "rhyme": "ar"
+    },
+    "candidate_final_words": [
+      "llorar",
+      "pasar",
+      "mirar",
+      "soñar",
+      "callar",
+      "recordar",
+      "reanudar"
+    ],
+    "enforced_candidate_final_words": [
+      "llorar",
+      "pasar",
+      "mirar",
+      "soñar",
+      "callar",
+      "recordar"
+    ],
+    "has_enforced_candidate_final_words": true,
+    "candidate_warning": null,
+    "conditioned_by_candidate": true,
+    "conditioned_candidate_words": [
+      "llorar",
+      "pasar",
+      "mirar",
+      "soñar"
+    ],
+    "conditioned_generation_reports": [
+      {
+        "required_final_word": "llorar",
+        "attempted": true,
+        "variants": [
+          "Mi alma llora, con amargura y pena",
+          "Mi corazón lamenta, con tristeza"
+        ],
+        "error": null
+      },
+      {
+        "required_final_word": "pasar",
+        "attempted": true,
+        "variants": [
+          "Mi alma llora, con amargura pasar",
+          "Corazón llorando, amargo el pasar"
+        ],
+        "error": null
+      },
+      {
+        "required_final_word": "mirar",
+        "attempted": true,
+        "variants": [
+          "Mi alma llora, con amargura y tristeza",
+          "Mi corazón lleno de nostalgia se queja"
+        ],
+        "error": null
+      },
+      {
+        "required_final_word": "soñar",
+        "attempted": true,
+        "variants": [
+          "Mi alma llora, con amargura y soñar",
+          "Mi corazón sufre, con tristeza soñar"
+        ],
+        "error": null
+      }
+    ],
+    "original_verse_3": "Mi corazón llora, con amargura",
+    "original_verse_3_syllables": 10,
+    "selected_variant": "Mi alma llora, con amargura pasar",
+    "selected_variant_syllables": 11,
+    "variants": [
+      {
+        "verse": "Mi alma llora, con amargura y pena",
+        "syllables": 11,
+        "final_word": "pena",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ar' | v3 = 'ena'",
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 2."
+      },
+      {
+        "verse": "Mi corazón lamenta, con tristeza",
+        "syllables": 11,
+        "final_word": "tristeza",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ar' | v3 = 'eza'",
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 2."
+      },
+      {
+        "verse": "Mi alma llora, con amargura pasar",
+        "syllables": 11,
+        "final_word": "pasar",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'ar' | v3 = 'ar'",
+        "accepted": true,
+        "rejection_reason": null
+      },
+      {
+        "verse": "Corazón llorando, amargo el pasar",
+        "syllables": 10,
+        "final_word": "pasar",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'ar' | v3 = 'ar'",
+        "accepted": false,
+        "rejection_reason": null
+      },
+      {
+        "verse": "Mi alma llora, con amargura y tristeza",
+        "syllables": 12,
+        "final_word": "tristeza",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ar' | v3 = 'eza'",
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 2."
+      },
+      {
+        "verse": "Mi corazón lleno de nostalgia se queja",
+        "syllables": 12,
+        "final_word": "queja",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ar' | v3 = 'eja'",
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 2."
+      },
+      {
+        "verse": "Mi alma llora, con amargura y soñar",
+        "syllables": 12,
+        "final_word": "soñar",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'ar' | v3 = 'ar'",
+        "accepted": false,
+        "rejection_reason": null
+      },
+      {
+        "verse": "Mi corazón sufre, con tristeza soñar",
+        "syllables": 13,
+        "final_word": "soñar",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'ar' | v3 = 'ar'",
+        "accepted": false,
+        "rejection_reason": "Empeora la distancia metrica del verso 3."
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_1": {
+      "text": "Pasa el tiempo como un río en verano largo",
+      "last_word": "largo",
+      "rhyme": "argo"
+    },
+    "verse_4": {
+      "text": "Los días felices que no volverán",
+      "last_word": "volverán",
+      "rhyme": "an"
+    },
+    "target_rhyme": "argo",
+    "current_rhyme": "an",
+    "errors": [
+      "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'argo', pero se obtuvo 'an'."
+    ],
+    "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('argo') y reescribe el verso 4 para que termine con esa misma rima consonante."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": true,
+    "verse_2": {
+      "text": "Dejan atrás recuerdos sin reanudar",
+      "last_word": "reanudar",
+      "rhyme": "ar"
+    },
+    "verse_3": {
+      "text": "Mi alma llora, con amargura pasar",
+      "last_word": "pasar",
+      "rhyme": "ar"
+    },
+    "target_rhyme": "ar",
+    "current_rhyme": "ar",
+    "errors": [],
+    "feedback": "La rima interior B es correcta: el verso 3 conserva la rima consonante del verso 2 ('ar')."
+  },
+  "generation_reasoning": "Corregido el verso 1 para ajustar la rima A, y el verso 4 para cambiar la palabra final para respetar la rima A."
+}
