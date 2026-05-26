@@ -1,0 +1,715 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_post_a_rhyme_meter_repair": true,
+    "post_a_rhyme_meter_repair_variants": 5,
+    "post_a_rhyme_meter_repair_temperature": 0.4,
+    "post_a_rhyme_meter_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200,
+    "inner_rhyme_repair_conditioned_by_candidate": true,
+    "inner_rhyme_repair_variants_per_candidate": 2,
+    "inner_rhyme_repair_max_candidate_words": 4,
+    "enable_post_b_rhyme_meter_repair": true,
+    "post_b_rhyme_meter_repair_variants": 5,
+    "post_b_rhyme_meter_repair_temperature": 0.4,
+    "post_b_rhyme_meter_repair_num_predict": 200
+  },
+  "stanza": [
+    "Tiempo, río que fluye sin cesar, largo",
+    "En cada instante, un recuerdo amargo y tierno",
+    "Recuerdo amargo, algo antiguo y lleno",
+    "Tiempo pasado, que a veces siento amargo"
+  ],
+  "score": 0.723042679252569,
+  "step_score": 0.9,
+  "score_history": [
+    0.7,
+    0.6,
+    0.9
+  ],
+  "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 3: tiene 9 silabas, pero deberia tener 11.\nRima consonante:\n- El esquema de rima coincide con ABBA.",
+  "metrics": {
+    "score": 0.9,
+    "score_20": 18.0,
+    "verses": [
+      "Tiempo, río que fluye sin cesar, largo",
+      "En cada instante, un recuerdo amargo y tierno",
+      "Recuerdo amargo, algo antiguo y lleno",
+      "Tiempo pasado, que a veces siento amargo"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        9,
+        11
+      ],
+      "correct_verses": 3,
+      "total_expected_verses": 4,
+      "score": 0.75,
+      "errors": [
+        "Verso 3: tiene 9 silabas, pero deberia tener 11."
+      ]
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "argo",
+        "o",
+        "o",
+        "argo"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "correct_positions": 4,
+      "total_positions": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "errors": [
+      "Verso 3: tiene 9 silabas, pero deberia tener 11."
+    ],
+    "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 3: tiene 9 silabas, pero deberia tener 11.\nRima consonante:\n- El esquema de rima coincide con ABBA."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": true,
+    "original_stanza": [
+      "Tiempo, río que fluye sin cesar, largo",
+      "En cada instante, un recuerdo amargo y duro",
+      "Recuerdo amargo, que a veces me hace sentir un poco antiguo",
+      "Pasado de tiempo, que a veces me hace sentir un poco mudo"
+    ],
+    "repaired_stanza": [
+      "Tiempo, río que fluye sin cesar, largo",
+      "En cada instante, un recuerdo amargo y tierno",
+      "Recuerdo amargo que a veces me hace sintir algo antiguo",
+      "Pasado de tiempo, que a veces me hace sintir mudo"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "Tiempo, río que fluye sin cesar, largo",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "En cada instante, un recuerdo amargo y duro",
+        "original_syllables": 12,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "En cada instante, un recuerdo amargo y tierno",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "En cada momento, un recuerdo amargo y duro",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "En cada instante, un recordado amargo y fuerte",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "En cada momento, un recuerdo amargo y fuerte",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "En cada instante, un recuerdo amargo y tierno",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "En cada momento, un recordado amargo",
+            "syllables": 11,
+            "distance": 0
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "Recuerdo amargo, que a veces me hace sentir un poco antiguo",
+        "original_syllables": 16,
+        "original_distance": 5,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Recuerdo amargo que a veces me hace sintir algo antiguo",
+        "selected_syllables": 14,
+        "selected_distance": 3,
+        "variants": [
+          {
+            "verse": "Recuerdo amargo que a veces me hace sintir un poco antiguo",
+            "syllables": 15,
+            "distance": 4
+          },
+          {
+            "verse": "Recuerdo amargo que a veces me hace sentir un poco viejo",
+            "syllables": 16,
+            "distance": 5
+          },
+          {
+            "verse": "Recuerdo amargo que a veces me hace sentir algo antiguo",
+            "syllables": 15,
+            "distance": 4
+          },
+          {
+            "verse": "Recuerdo amargo que a veces me hace sintir algo antiguo",
+            "syllables": 14,
+            "distance": 3
+          },
+          {
+            "verse": "Recuerdo amargo que a veces me siente un poco antiguo",
+            "syllables": 14,
+            "distance": 3
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "Pasado de tiempo, que a veces me hace sentir un poco mudo",
+        "original_syllables": 18,
+        "original_distance": 7,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Pasado de tiempo, que a veces me hace sintir mudo",
+        "selected_syllables": 14,
+        "selected_distance": 3,
+        "variants": [
+          {
+            "verse": "Pasado de tiempo, que a veces me hace sintir mudo",
+            "syllables": 14,
+            "distance": 3
+          },
+          {
+            "verse": "Tiempo pasado, que a veces me hace sentir muda",
+            "syllables": 14,
+            "distance": 3
+          },
+          {
+            "verse": "En el tiempo pasado, que a veces me hace sentir muda",
+            "syllables": 16,
+            "distance": 5
+          },
+          {
+            "verse": "Mi pasado, que a veces me hace sentir un poco muda",
+            "syllables": 16,
+            "distance": 5
+          },
+          {
+            "verse": "Pasado de tiempo, que a veces me silencia un poco",
+            "syllables": 15,
+            "distance": 4
+          }
+        ],
+        "error": null
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": true,
+    "reason": "Se acepto una variante que corrige AXYA.",
+    "original_stanza": [
+      "Tiempo, río que fluye sin cesar, largo",
+      "En cada instante, un recuerdo amargo y tierno",
+      "Recuerdo amargo que a veces me hace sintir algo antiguo",
+      "Pasado de tiempo, que a veces me hace sintir mudo"
+    ],
+    "repaired_stanza": [
+      "Tiempo, río que fluye sin cesar, largo",
+      "En cada instante, un recuerdo amargo y tierno",
+      "Recuerdo amargo que a veces me hace sintir algo antiguo",
+      "Tiempo pasado, que a veces siento amargo"
+    ],
+    "target_rhyme": "argo",
+    "current_rhyme": "udo",
+    "verse_1": {
+      "text": "Tiempo, río que fluye sin cesar, largo",
+      "last_word": "largo",
+      "rhyme": "argo"
+    },
+    "candidate_final_words": [
+      "amargo",
+      "largo"
+    ],
+    "enforced_candidate_final_words": [
+      "amargo"
+    ],
+    "post_a_meter_repair_enabled": true,
+    "post_a_meter_repair_attempts": 1,
+    "post_a_meter_repair_successes": 1,
+    "original_verse_4": "Pasado de tiempo, que a veces me hace sintir mudo",
+    "original_verse_4_syllables": 14,
+    "selected_variant": "Tiempo pasado, que a veces siento amargo",
+    "selected_variant_syllables": 11,
+    "variants": [
+      {
+        "verse": "Pasado de tiempo, que a veces me hace sentir amargo",
+        "syllables": 15,
+        "final_word": "amargo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": true,
+        "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'argo' | v4 = 'argo'",
+        "post_a_meter_repair_attempted": true,
+        "post_a_meter_repair_report": {
+          "enabled": true,
+          "repair_label": "post_a",
+          "attempted": true,
+          "changed": true,
+          "reason": "Se reparo la metrica conservando la palabra final obligatoria.",
+          "original_stanza": [
+            "Tiempo, río que fluye sin cesar, largo",
+            "En cada instante, un recuerdo amargo y tierno",
+            "Recuerdo amargo que a veces me hace sintir algo antiguo",
+            "Pasado de tiempo, que a veces me hace sentir amargo"
+          ],
+          "repaired_stanza": [
+            "Tiempo, río que fluye sin cesar, largo",
+            "En cada instante, un recuerdo amargo y tierno",
+            "Recuerdo amargo que a veces me hace sintir algo antiguo",
+            "Tiempo pasado, que a veces siento amargo"
+          ],
+          "verse_number": 4,
+          "required_final_word": "amargo",
+          "original_verse": "Pasado de tiempo, que a veces me hace sentir amargo",
+          "original_syllables": 15,
+          "original_distance": 4,
+          "selected_variant": "Tiempo pasado, que a veces siento amargo",
+          "selected_syllables": 11,
+          "selected_distance": 0,
+          "variants": [
+            {
+              "verse": "Pasado que me hace sentir amargo",
+              "syllables": 10,
+              "distance": 1,
+              "final_word": "amargo",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Tiempo pasado, que a veces siento amargo",
+              "syllables": 11,
+              "distance": 0,
+              "final_word": "amargo",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": true,
+              "rejection_reason": null
+            },
+            {
+              "verse": "El tiempo pasado, en mi siento amargo",
+              "syllables": 10,
+              "distance": 1,
+              "final_word": "amargo",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            },
+            {
+              "verse": "En el tiempo pasado, siento amargo",
+              "syllables": 10,
+              "distance": 1,
+              "final_word": "amargo",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Siento amargo el tiempo pasado",
+              "syllables": 8,
+              "distance": 3,
+              "final_word": "pasado",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            }
+          ],
+          "error": null
+        },
+        "post_a_meter_repaired_verse": "Tiempo pasado, que a veces siento amargo",
+        "post_a_meter_repaired_syllables": 11,
+        "post_a_meter_repaired_distance": 0,
+        "post_a_meter_repair_accepted": true,
+        "accepted": true,
+        "rejection_reason": null
+      },
+      {
+        "verse": "Pasado de tiempo, que a veces me hace sintir amargura",
+        "syllables": 15,
+        "final_word": "amargura",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'argo' | v4 = 'ura'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 1."
+      },
+      {
+        "verse": "Pasado de tiempo, que a veces me hace sentir amargo y tierno",
+        "syllables": 17,
+        "final_word": "tierno",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'argo' | v4 = 'o'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 1."
+      },
+      {
+        "verse": "Pasado de tiempo, que a veces me hace sentir amargo y triste",
+        "syllables": 18,
+        "final_word": "triste",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'argo' | v4 = 'iste'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 1."
+      },
+      {
+        "verse": "Pasado de tiempo, que a veces me hace sintir amargura y triste",
+        "syllables": 18,
+        "final_word": "triste",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'argo' | v4 = 'iste'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 1."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": true,
+    "reason": "Se acepto una variante que corrige la rima interior B.",
+    "original_stanza": [
+      "Tiempo, río que fluye sin cesar, largo",
+      "En cada instante, un recuerdo amargo y tierno",
+      "Recuerdo amargo que a veces me hace sintir algo antiguo",
+      "Tiempo pasado, que a veces siento amargo"
+    ],
+    "repaired_stanza": [
+      "Tiempo, río que fluye sin cesar, largo",
+      "En cada instante, un recuerdo amargo y tierno",
+      "Recuerdo amargo, algo antiguo y lleno",
+      "Tiempo pasado, que a veces siento amargo"
+    ],
+    "target_rhyme": "o",
+    "current_rhyme": "iguo",
+    "verse_2": {
+      "text": "En cada instante, un recuerdo amargo y tierno",
+      "last_word": "tierno",
+      "rhyme": "o"
+    },
+    "candidate_final_words": [
+      "tierno"
+    ],
+    "enforced_candidate_final_words": [],
+    "has_enforced_candidate_final_words": false,
+    "candidate_warning": "No hay palabras finales candidatas distintas de la palabra ancla para la rima B.",
+    "conditioned_by_candidate": false,
+    "conditioned_candidate_words": [],
+    "conditioned_generation_reports": [],
+    "post_b_meter_repair_enabled": true,
+    "post_b_meter_repair_attempts": 1,
+    "post_b_meter_repair_successes": 1,
+    "original_verse_3": "Recuerdo amargo que a veces me hace sintir algo antiguo",
+    "original_verse_3_syllables": 14,
+    "selected_variant": "Recuerdo amargo, algo antiguo y lleno",
+    "selected_variant_syllables": 9,
+    "variants": [
+      {
+        "verse": "Recuerdo amargo que a veces me hace sentir algo antiguo y lento",
+        "syllables": 18,
+        "final_word": "lento",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'o' | v3 = 'ento'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Recuerdo amargo que a veces me hace sintir algo antiguo y mudo",
+        "syllables": 17,
+        "final_word": "mudo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'o' | v3 = 'udo'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Recuerdo amargo que a veces me hace sentir algo antiguo y duro",
+        "syllables": 18,
+        "final_word": "duro",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'o' | v3 = 'uro'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Recuerdo amargo que a veces me hace sentir algo antiguo y lleno",
+        "syllables": 17,
+        "final_word": "lleno",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'o' | v3 = 'o'",
+        "post_b_meter_repair_attempted": true,
+        "post_b_meter_repair_report": {
+          "enabled": true,
+          "repair_label": "post_b",
+          "attempted": true,
+          "changed": true,
+          "reason": "Se reparo la metrica conservando la palabra final obligatoria.",
+          "original_stanza": [
+            "Tiempo, río que fluye sin cesar, largo",
+            "En cada instante, un recuerdo amargo y tierno",
+            "Recuerdo amargo que a veces me hace sentir algo antiguo y lleno",
+            "Tiempo pasado, que a veces siento amargo"
+          ],
+          "repaired_stanza": [
+            "Tiempo, río que fluye sin cesar, largo",
+            "En cada instante, un recuerdo amargo y tierno",
+            "Recuerdo amargo, algo antiguo y lleno",
+            "Tiempo pasado, que a veces siento amargo"
+          ],
+          "verse_number": 3,
+          "required_final_word": "lleno",
+          "original_verse": "Recuerdo amargo que a veces me hace sentir algo antiguo y lleno",
+          "original_syllables": 17,
+          "original_distance": 6,
+          "selected_variant": "Recuerdo amargo, algo antiguo y lleno",
+          "selected_syllables": 9,
+          "selected_distance": 2,
+          "variants": [
+            {
+              "verse": "Recuerdo amargo que a veces me hace sentir algo antiguo",
+              "syllables": 15,
+              "distance": 4,
+              "final_word": "antiguo",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Recuerdo amargo que a veces me siente antiguo",
+              "syllables": 12,
+              "distance": 1,
+              "final_word": "antiguo",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Recuerdo amargo, algo antiguo y lleno",
+              "syllables": 9,
+              "distance": 2,
+              "final_word": "lleno",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": true,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Recuerdo amargo, antiguo y lleno en mí",
+              "syllables": 10,
+              "distance": 1,
+              "final_word": "mí",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Recuerdo amargo, sentimiento antiguo",
+              "syllables": 10,
+              "distance": 1,
+              "final_word": "antiguo",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            }
+          ],
+          "error": null
+        },
+        "post_b_meter_repaired_verse": "Recuerdo amargo, algo antiguo y lleno",
+        "post_b_meter_repaired_syllables": 9,
+        "post_b_meter_repaired_distance": 2,
+        "post_b_meter_repair_accepted": true,
+        "accepted": true,
+        "rejection_reason": null
+      },
+      {
+        "verse": "Recuerdo amargo que a veces me hace sintir algo antiguo y muerto",
+        "syllables": 17,
+        "final_word": "muerto",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'o' | v3 = 'erto'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": true,
+    "verse_1": {
+      "text": "Tiempo, río que fluye sin cesar, largo",
+      "last_word": "largo",
+      "rhyme": "argo"
+    },
+    "verse_4": {
+      "text": "Tiempo pasado, que a veces siento amargo",
+      "last_word": "amargo",
+      "rhyme": "argo"
+    },
+    "target_rhyme": "argo",
+    "current_rhyme": "argo",
+    "errors": [],
+    "feedback": "La rima exterior AXYA es correcta: el verso 4 conserva la rima consonante del verso 1 ('argo')."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": true,
+    "verse_2": {
+      "text": "En cada instante, un recuerdo amargo y tierno",
+      "last_word": "tierno",
+      "rhyme": "o"
+    },
+    "verse_3": {
+      "text": "Recuerdo amargo, algo antiguo y lleno",
+      "last_word": "lleno",
+      "rhyme": "o"
+    },
+    "target_rhyme": "o",
+    "current_rhyme": "o",
+    "errors": [],
+    "feedback": "La rima interior B es correcta: el verso 3 conserva la rima consonante del verso 2 ('o')."
+  },
+  "generation_reasoning": "Verso 4 acortado y cambiada la rima para cumplir con las restricciones. Verso 2 mantenido."
+}

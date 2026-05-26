@@ -1,0 +1,506 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_post_a_rhyme_meter_repair": true,
+    "post_a_rhyme_meter_repair_variants": 5,
+    "post_a_rhyme_meter_repair_temperature": 0.4,
+    "post_a_rhyme_meter_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200,
+    "inner_rhyme_repair_conditioned_by_candidate": true,
+    "inner_rhyme_repair_variants_per_candidate": 2,
+    "inner_rhyme_repair_max_candidate_words": 4,
+    "enable_post_b_rhyme_meter_repair": true,
+    "post_b_rhyme_meter_repair_variants": 5,
+    "post_b_rhyme_meter_repair_temperature": 0.4,
+    "post_b_rhyme_meter_repair_num_predict": 200
+  },
+  "stanza": [
+    "Tiempo sin piedad, en memoria guardan",
+    "Rincones de juventud, allí se esconden",
+    "Aún oigo risas, calor sol antiguo",
+    "¿Qué hizo el tiempo con mi corazón, arde?"
+  ],
+  "score": 0.7651724731089556,
+  "step_score": 0.8,
+  "score_history": [
+    0.7,
+    0.8,
+    0.8
+  ],
+  "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+  "metrics": {
+    "score": 0.8,
+    "score_20": 16.0,
+    "verses": [
+      "Tiempo sin piedad, en memoria guardan",
+      "Rincones de juventud, allí se esconden",
+      "Aún oigo risas, calor sol antiguo",
+      "¿Qué hizo el tiempo con mi corazón, arde?"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "correct_verses": 4,
+      "total_expected_verses": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "ardan",
+        "onden",
+        "iguo",
+        "arde"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_positions": 2,
+      "total_positions": 4,
+      "score": 0.5,
+      "errors": [
+        "Verso 3: rima C, pero se esperaba B.",
+        "Verso 4: rima D, pero se esperaba A."
+      ]
+    },
+    "errors": [
+      "Verso 3: rima C, pero se esperaba B.",
+      "Verso 4: rima D, pero se esperaba A."
+    ],
+    "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": true,
+    "original_stanza": [
+      "Tiempo sin piedad, en memoria se guarda",
+      "Rincones de juventud, allí se esconden",
+      "Aún oigo risas, calor sol antiguo",
+      "¿Qué hizo el tiempo con mi corazón, arde?"
+    ],
+    "repaired_stanza": [
+      "Tiempo sin piedad, en memoria guardan",
+      "Rincones de juventud, allí se esconden",
+      "Aún oigo risas, calor sol antiguo",
+      "¿Qué hizo el tiempo con mi corazón, arde?"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "Tiempo sin piedad, en memoria se guarda",
+        "original_syllables": 12,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Tiempo sin piedad, en memoria guardan",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "Tiempo sin piedad, en memoria se cuida",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "Tiempo sin piedad, en memoria guardan",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Tiempo sin piedad, en memoria guarde",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Tiempo sin piedad, en memoria guido",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Tiempo sin piedad, en memoria guíe",
+            "syllables": 11,
+            "distance": 0
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "Rincones de juventud, allí se esconden",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "Aún oigo risas, calor sol antiguo",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "¿Qué hizo el tiempo con mi corazón, arde?",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+    "original_stanza": [
+      "Tiempo sin piedad, en memoria guardan",
+      "Rincones de juventud, allí se esconden",
+      "Aún oigo risas, calor sol antiguo",
+      "¿Qué hizo el tiempo con mi corazón, arde?"
+    ],
+    "repaired_stanza": [
+      "Tiempo sin piedad, en memoria guardan",
+      "Rincones de juventud, allí se esconden",
+      "Aún oigo risas, calor sol antiguo",
+      "¿Qué hizo el tiempo con mi corazón, arde?"
+    ],
+    "target_rhyme": "ardan",
+    "current_rhyme": "arde",
+    "verse_1": {
+      "text": "Tiempo sin piedad, en memoria guardan",
+      "last_word": "guardan",
+      "rhyme": "ardan"
+    },
+    "candidate_final_words": [
+      "guardan"
+    ],
+    "enforced_candidate_final_words": [],
+    "post_a_meter_repair_enabled": true,
+    "post_a_meter_repair_attempts": 0,
+    "post_a_meter_repair_successes": 0,
+    "original_verse_4": "¿Qué hizo el tiempo con mi corazón, arde?",
+    "original_verse_4_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "¿Qué hizo el tiempo con mi alma, ardiente?",
+        "syllables": 9,
+        "final_word": "ardiente",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ardan' | v4 = 'ente'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "¿Qué hizo el tiempo con mi corazón, ardiendo?",
+        "syllables": 12,
+        "final_word": "ardiendo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ardan' | v4 = 'endo'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "¿Qué hizo el tiempo con mi corazón, ardida?",
+        "syllables": 12,
+        "final_word": "ardida",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ardan' | v4 = 'ida'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "¿Qué hizo el tiempo con mi corazón, ardida es?",
+        "syllables": 12,
+        "final_word": "es",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ardan' | v4 = 'es'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "¿Qué hizo el tiempo con mi corazón, ardía?",
+        "syllables": 12,
+        "final_word": "ardía",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ardan' | v4 = 'ia'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige B sin empeorar metrica.",
+    "original_stanza": [
+      "Tiempo sin piedad, en memoria guardan",
+      "Rincones de juventud, allí se esconden",
+      "Aún oigo risas, calor sol antiguo",
+      "¿Qué hizo el tiempo con mi corazón, arde?"
+    ],
+    "repaired_stanza": [
+      "Tiempo sin piedad, en memoria guardan",
+      "Rincones de juventud, allí se esconden",
+      "Aún oigo risas, calor sol antiguo",
+      "¿Qué hizo el tiempo con mi corazón, arde?"
+    ],
+    "target_rhyme": "onden",
+    "current_rhyme": "iguo",
+    "verse_2": {
+      "text": "Rincones de juventud, allí se esconden",
+      "last_word": "esconden",
+      "rhyme": "onden"
+    },
+    "candidate_final_words": [
+      "esconden"
+    ],
+    "enforced_candidate_final_words": [],
+    "has_enforced_candidate_final_words": false,
+    "candidate_warning": "No hay palabras finales candidatas distintas de la palabra ancla para la rima B.",
+    "conditioned_by_candidate": false,
+    "conditioned_candidate_words": [],
+    "conditioned_generation_reports": [],
+    "post_b_meter_repair_enabled": true,
+    "post_b_meter_repair_attempts": 0,
+    "post_b_meter_repair_successes": 0,
+    "original_verse_3": "Aún oigo risas, calor sol antiguo",
+    "original_verse_3_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "Aún oigo gritos, calor sol antiguo",
+        "syllables": 11,
+        "final_word": "antiguo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'onden' | v3 = 'iguo'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Aún oigo cantos, calor sol antiguo",
+        "syllables": 11,
+        "final_word": "antiguo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'onden' | v3 = 'iguo'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Aún oigo rezos, calor sol antiguo",
+        "syllables": 11,
+        "final_word": "antiguo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'onden' | v3 = 'iguo'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Aún oigo llantos, calor sol antiguo",
+        "syllables": 11,
+        "final_word": "antiguo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'onden' | v3 = 'iguo'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Aún oigo gritos, calor sol antojo",
+        "syllables": 11,
+        "final_word": "antojo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'onden' | v3 = 'ojo'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_1": {
+      "text": "Tiempo sin piedad, en memoria guardan",
+      "last_word": "guardan",
+      "rhyme": "ardan"
+    },
+    "verse_4": {
+      "text": "¿Qué hizo el tiempo con mi corazón, arde?",
+      "last_word": "arde",
+      "rhyme": "arde"
+    },
+    "target_rhyme": "ardan",
+    "current_rhyme": "arde",
+    "errors": [
+      "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ardan', pero se obtuvo 'arde'."
+    ],
+    "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ardan') y reescribe el verso 4 para que termine con esa misma rima consonante."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_2": {
+      "text": "Rincones de juventud, allí se esconden",
+      "last_word": "esconden",
+      "rhyme": "onden"
+    },
+    "verse_3": {
+      "text": "Aún oigo risas, calor sol antiguo",
+      "last_word": "antiguo",
+      "rhyme": "iguo"
+    },
+    "target_rhyme": "onden",
+    "current_rhyme": "iguo",
+    "errors": [
+      "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'onden', pero se obtuvo 'iguo'."
+    ],
+    "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('onden') y reescribe el verso 3 para que termine con esa misma rima consonante."
+  },
+  "generation_reasoning": "Mantiene la rima exterior A y conserva los versos 1 y 4. Corrige la longitud del verso 3 para tener 11 silabas metricas."
+}

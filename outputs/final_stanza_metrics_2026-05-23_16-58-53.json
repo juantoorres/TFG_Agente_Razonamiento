@@ -1,0 +1,414 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_post_a_rhyme_meter_repair": true,
+    "post_a_rhyme_meter_repair_variants": 5,
+    "post_a_rhyme_meter_repair_temperature": 0.4,
+    "post_a_rhyme_meter_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200,
+    "inner_rhyme_repair_conditioned_by_candidate": true,
+    "inner_rhyme_repair_variants_per_candidate": 2,
+    "inner_rhyme_repair_max_candidate_words": 4,
+    "enable_post_b_rhyme_meter_repair": true,
+    "post_b_rhyme_meter_repair_variants": 5,
+    "post_b_rhyme_meter_repair_temperature": 0.4,
+    "post_b_rhyme_meter_repair_num_predict": 200
+  },
+  "stanza": [
+    "El tiempo, como un río, nos lleva lejos",
+    "Deja una tristeza en su desfiladero",
+    "Nuestro corazón se derrama entero",
+    "Como la sombra de un verano que se fue"
+  ],
+  "score": 0.9,
+  "step_score": 0.9,
+  "score_history": [
+    0.9,
+    0.9,
+    0.9
+  ],
+  "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 4: rima C, pero se esperaba A.",
+  "metrics": {
+    "score": 0.9,
+    "score_20": 18.0,
+    "verses": [
+      "El tiempo, como un río, nos lleva lejos",
+      "Deja una tristeza en su desfiladero",
+      "Nuestro corazón se derrama entero",
+      "Como la sombra de un verano que se fue"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "correct_verses": 4,
+      "total_expected_verses": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "ejos",
+        "ero",
+        "ero",
+        "e"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "B",
+        "C"
+      ],
+      "correct_positions": 3,
+      "total_positions": 4,
+      "score": 0.75,
+      "errors": [
+        "Verso 4: rima C, pero se esperaba A."
+      ]
+    },
+    "errors": [
+      "Verso 4: rima C, pero se esperaba A."
+    ],
+    "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 4: rima C, pero se esperaba A."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": true,
+    "original_stanza": [
+      "El tiempo, como un río, nos lleva lejos",
+      "Deja una tristeza en su desfiladero",
+      "Nuestro corazón se derrama entero",
+      "Como la sombra de un verano que se ha ido"
+    ],
+    "repaired_stanza": [
+      "El tiempo, como un río, nos lleva lejos",
+      "Deja una tristeza en su desfiladero",
+      "Nuestro corazón se derrama entero",
+      "Como la sombra de un verano que se fue"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "El tiempo, como un río, nos lleva lejos",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "Deja una tristeza en su desfiladero",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "Nuestro corazón se derrama entero",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "Como la sombra de un verano que se ha ido",
+        "original_syllables": 10,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Como la sombra de un verano que se fue",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "Como la sombra de un verano que se fue",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Como la sombra de un verano que se fue lejos",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "Como la sombra de un verano que se ha ido lejana",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "Como la sombra de un verano que se ha ido muy lejos",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "Como la sombra de un verano que se ha ido muy lejos y se fue",
+            "syllables": 16,
+            "distance": 5
+          }
+        ],
+        "error": null
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+    "original_stanza": [
+      "El tiempo, como un río, nos lleva lejos",
+      "Deja una tristeza en su desfiladero",
+      "Nuestro corazón se derrama entero",
+      "Como la sombra de un verano que se fue"
+    ],
+    "repaired_stanza": [
+      "El tiempo, como un río, nos lleva lejos",
+      "Deja una tristeza en su desfiladero",
+      "Nuestro corazón se derrama entero",
+      "Como la sombra de un verano que se fue"
+    ],
+    "target_rhyme": "ejos",
+    "current_rhyme": "e",
+    "verse_1": {
+      "text": "El tiempo, como un río, nos lleva lejos",
+      "last_word": "lejos",
+      "rhyme": "ejos"
+    },
+    "candidate_final_words": [
+      "lejos"
+    ],
+    "enforced_candidate_final_words": [],
+    "post_a_meter_repair_enabled": true,
+    "post_a_meter_repair_attempts": 0,
+    "post_a_meter_repair_successes": 0,
+    "original_verse_4": "Como la sombra de un verano que se fue",
+    "original_verse_4_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "Como el eco de un verano que se fue",
+        "syllables": 9,
+        "final_word": "fue",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ejos' | v4 = 'e'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Como la sombra de un invierno que llegó",
+        "syllables": 12,
+        "final_word": "llegó",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ejos' | v4 = 'o'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Como la huella de un verano que pasó",
+        "syllables": 11,
+        "final_word": "pasó",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ejos' | v4 = 'o'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Como el recuerdo de un verano que se fue",
+        "syllables": 11,
+        "final_word": "fue",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ejos' | v4 = 'e'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Como la tristeza de un verano que se fue",
+        "syllables": 12,
+        "final_word": "fue",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ejos' | v4 = 'e'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": false,
+    "changed": false,
+    "reason": "La rima interior B ya es correcta.",
+    "original_stanza": [
+      "El tiempo, como un río, nos lleva lejos",
+      "Deja una tristeza en su desfiladero",
+      "Nuestro corazón se derrama entero",
+      "Como la sombra de un verano que se fue"
+    ],
+    "repaired_stanza": [
+      "El tiempo, como un río, nos lleva lejos",
+      "Deja una tristeza en su desfiladero",
+      "Nuestro corazón se derrama entero",
+      "Como la sombra de un verano que se fue"
+    ],
+    "target_rhyme": "ero",
+    "current_rhyme": "ero",
+    "verse_2": {
+      "text": "Deja una tristeza en su desfiladero",
+      "last_word": "desfiladero",
+      "rhyme": "ero"
+    },
+    "candidate_final_words": [],
+    "enforced_candidate_final_words": [],
+    "has_enforced_candidate_final_words": false,
+    "candidate_warning": null,
+    "conditioned_by_candidate": false,
+    "conditioned_candidate_words": [],
+    "conditioned_generation_reports": [],
+    "post_b_meter_repair_enabled": true,
+    "post_b_meter_repair_attempts": 0,
+    "post_b_meter_repair_successes": 0,
+    "original_verse_3": "Nuestro corazón se derrama entero",
+    "original_verse_3_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_1": {
+      "text": "El tiempo, como un río, nos lleva lejos",
+      "last_word": "lejos",
+      "rhyme": "ejos"
+    },
+    "verse_4": {
+      "text": "Como la sombra de un verano que se fue",
+      "last_word": "fue",
+      "rhyme": "e"
+    },
+    "target_rhyme": "ejos",
+    "current_rhyme": "e",
+    "errors": [
+      "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ejos', pero se obtuvo 'e'."
+    ],
+    "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ejos') y reescribe el verso 4 para que termine con esa misma rima consonante."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": true,
+    "verse_2": {
+      "text": "Deja una tristeza en su desfiladero",
+      "last_word": "desfiladero",
+      "rhyme": "ero"
+    },
+    "verse_3": {
+      "text": "Nuestro corazón se derrama entero",
+      "last_word": "entero",
+      "rhyme": "ero"
+    },
+    "target_rhyme": "ero",
+    "current_rhyme": "ero",
+    "errors": [],
+    "feedback": "La rima interior B es correcta: el verso 3 conserva la rima consonante del verso 2 ('ero')."
+  },
+  "generation_reasoning": "Corregido el rima A del verso 4 para satisfacer las restricciones formales."
+}

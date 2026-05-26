@@ -1,0 +1,723 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_post_a_rhyme_meter_repair": true,
+    "post_a_rhyme_meter_repair_variants": 5,
+    "post_a_rhyme_meter_repair_temperature": 0.4,
+    "post_a_rhyme_meter_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200,
+    "inner_rhyme_repair_conditioned_by_candidate": true,
+    "inner_rhyme_repair_variants_per_candidate": 2,
+    "inner_rhyme_repair_max_candidate_words": 4,
+    "enable_post_b_rhyme_meter_repair": true,
+    "post_b_rhyme_meter_repair_variants": 5,
+    "post_b_rhyme_meter_repair_temperature": 0.4,
+    "post_b_rhyme_meter_repair_num_predict": 200
+  },
+  "stanza": [
+    "El tiempo pasa, yo me quedo atrás y veo",
+    "Recuerdos lejanos atrás en memoria",
+    "Oigo eco de mi pasado, suena en gloria",
+    "En mi corazón, se mantienen como"
+  ],
+  "score": 0.7937253933193772,
+  "step_score": 0.9,
+  "score_history": [
+    0.7,
+    0.9
+  ],
+  "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 4: rima C, pero se esperaba A.",
+  "metrics": {
+    "score": 0.9,
+    "score_20": 18.0,
+    "verses": [
+      "El tiempo pasa, yo me quedo atrás y veo",
+      "Recuerdos lejanos atrás en memoria",
+      "Oigo eco de mi pasado, suena en gloria",
+      "En mi corazón, se mantienen como"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "correct_verses": 4,
+      "total_expected_verses": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "o",
+        "oria",
+        "oria",
+        "omo"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "B",
+        "C"
+      ],
+      "correct_positions": 3,
+      "total_positions": 4,
+      "score": 0.75,
+      "errors": [
+        "Verso 4: rima C, pero se esperaba A."
+      ]
+    },
+    "errors": [
+      "Verso 4: rima C, pero se esperaba A."
+    ],
+    "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 4: rima C, pero se esperaba A."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": true,
+    "original_stanza": [
+      "El tiempo pasa, yo me quedo atrás y veo",
+      "Recuerdos inalcanzables atrasados en la memoria",
+      "Oigo el eco de mi pasado, que suena aquí y allá",
+      "Que en mi corazón siempre se mantengan, como un recuerdo eterno"
+    ],
+    "repaired_stanza": [
+      "El tiempo pasa, yo me quedo atrás y veo",
+      "Recuerdos lejanos atrás en memoria",
+      "Oigo eco de mi pasado, que suena",
+      "En mi corazón, se mantienen como"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "El tiempo pasa, yo me quedo atrás y veo",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "Recuerdos inalcanzables atrasados en la memoria",
+        "original_syllables": 15,
+        "original_distance": 4,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Recuerdos lejanos atrás en memoria",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "Recuerdos lejanos atrás en memoria",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Recuerdos alejados en la memoria",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Recordatorios inalcanzables atrás",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Recuerdos inalcanzables en memoria",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Recuerdos atrás y lejanos en memoria",
+            "syllables": 12,
+            "distance": 1
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "Oigo el eco de mi pasado, que suena aquí y allá",
+        "original_syllables": 14,
+        "original_distance": 3,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Oigo eco de mi pasado, que suena",
+        "selected_syllables": 10,
+        "selected_distance": 1,
+        "variants": [
+          {
+            "verse": "Oigo eco de mi pasado, que suena",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "Eco de mi pasado oigo aquí y allá",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "Mi pasado oigo en eco aquí y allá",
+            "syllables": 9,
+            "distance": 2
+          },
+          {
+            "verse": "Sueno el eco de mi pasado aquí y allá",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "Oigo eco de mi pasado, suena",
+            "syllables": 9,
+            "distance": 2
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "Que en mi corazón siempre se mantengan, como un recuerdo eterno",
+        "original_syllables": 16,
+        "original_distance": 5,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "En mi corazón, se mantienen como",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "Que en mi corazón se mantengan",
+            "syllables": 9,
+            "distance": 2
+          },
+          {
+            "verse": "Mantengan siempre en mi corazón",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "En mi corazón, se mantienen como",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Siempre en mi corazón se mantenga",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "Corazón, donde se mantengan siempre",
+            "syllables": 11,
+            "distance": 0
+          }
+        ],
+        "error": null
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+    "original_stanza": [
+      "El tiempo pasa, yo me quedo atrás y veo",
+      "Recuerdos lejanos atrás en memoria",
+      "Oigo eco de mi pasado, que suena",
+      "En mi corazón, se mantienen como"
+    ],
+    "repaired_stanza": [
+      "El tiempo pasa, yo me quedo atrás y veo",
+      "Recuerdos lejanos atrás en memoria",
+      "Oigo eco de mi pasado, que suena",
+      "En mi corazón, se mantienen como"
+    ],
+    "target_rhyme": "o",
+    "current_rhyme": "omo",
+    "verse_1": {
+      "text": "El tiempo pasa, yo me quedo atrás y veo",
+      "last_word": "veo",
+      "rhyme": "o"
+    },
+    "candidate_final_words": [
+      "veo"
+    ],
+    "enforced_candidate_final_words": [],
+    "post_a_meter_repair_enabled": true,
+    "post_a_meter_repair_attempts": 0,
+    "post_a_meter_repair_successes": 0,
+    "original_verse_4": "En mi corazón, se mantienen como",
+    "original_verse_4_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "En mi alma, se mantienen como",
+        "syllables": 9,
+        "final_word": "como",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'o' | v4 = 'omo'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "En mi corazón, se sienten como",
+        "syllables": 10,
+        "final_word": "como",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'o' | v4 = 'omo'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "En mi pecho, se mantienen como",
+        "syllables": 10,
+        "final_word": "como",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'o' | v4 = 'omo'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "En mi alma, se quedan como",
+        "syllables": 8,
+        "final_word": "como",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'o' | v4 = 'omo'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "En mi corazón, se guardan como",
+        "syllables": 10,
+        "final_word": "como",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'o' | v4 = 'omo'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": true,
+    "reason": "Se acepto una variante que corrige la rima interior B.",
+    "original_stanza": [
+      "El tiempo pasa, yo me quedo atrás y veo",
+      "Recuerdos lejanos atrás en memoria",
+      "Oigo eco de mi pasado, que suena",
+      "En mi corazón, se mantienen como"
+    ],
+    "repaired_stanza": [
+      "El tiempo pasa, yo me quedo atrás y veo",
+      "Recuerdos lejanos atrás en memoria",
+      "Oigo eco de mi pasado, suena en gloria",
+      "En mi corazón, se mantienen como"
+    ],
+    "target_rhyme": "oria",
+    "current_rhyme": "ena",
+    "verse_2": {
+      "text": "Recuerdos lejanos atrás en memoria",
+      "last_word": "memoria",
+      "rhyme": "oria"
+    },
+    "candidate_final_words": [
+      "memoria",
+      "historia",
+      "gloria"
+    ],
+    "enforced_candidate_final_words": [
+      "historia",
+      "gloria"
+    ],
+    "has_enforced_candidate_final_words": true,
+    "candidate_warning": null,
+    "conditioned_by_candidate": true,
+    "conditioned_candidate_words": [
+      "historia",
+      "gloria"
+    ],
+    "conditioned_generation_reports": [
+      {
+        "required_final_word": "historia",
+        "attempted": true,
+        "variants": [
+          "Oigo eco de mi pasado, que se entrelaza",
+          "Oigo eco de mi vida, que se despliega"
+        ],
+        "error": null
+      },
+      {
+        "required_final_word": "gloria",
+        "attempted": true,
+        "variants": [
+          "Oigo eco de mi pasado, que suena y llora gloria",
+          "Eco de mi pasado suena, en memoria gloria"
+        ],
+        "error": null
+      }
+    ],
+    "post_b_meter_repair_enabled": true,
+    "post_b_meter_repair_attempts": 2,
+    "post_b_meter_repair_successes": 1,
+    "original_verse_3": "Oigo eco de mi pasado, que suena",
+    "original_verse_3_syllables": 10,
+    "selected_variant": "Oigo eco de mi pasado, suena en gloria",
+    "selected_variant_syllables": 11,
+    "variants": [
+      {
+        "verse": "Oigo eco de mi pasado, que se entrelaza",
+        "syllables": 12,
+        "final_word": "entrelaza",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'oria' | v3 = 'aza'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 2."
+      },
+      {
+        "verse": "Oigo eco de mi vida, que se despliega",
+        "syllables": 11,
+        "final_word": "despliega",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'oria' | v3 = 'ega'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 2."
+      },
+      {
+        "verse": "Oigo eco de mi pasado, que suena y llora gloria",
+        "syllables": 15,
+        "final_word": "gloria",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'oria' | v3 = 'oria'",
+        "post_b_meter_repair_attempted": true,
+        "post_b_meter_repair_report": {
+          "enabled": true,
+          "repair_label": "post_b",
+          "attempted": true,
+          "changed": true,
+          "reason": "Se reparo la metrica conservando la palabra final obligatoria.",
+          "original_stanza": [
+            "El tiempo pasa, yo me quedo atrás y veo",
+            "Recuerdos lejanos atrás en memoria",
+            "Oigo eco de mi pasado, que suena y llora gloria",
+            "En mi corazón, se mantienen como"
+          ],
+          "repaired_stanza": [
+            "El tiempo pasa, yo me quedo atrás y veo",
+            "Recuerdos lejanos atrás en memoria",
+            "Oigo eco de mi pasado, suena en gloria",
+            "En mi corazón, se mantienen como"
+          ],
+          "verse_number": 3,
+          "required_final_word": "gloria",
+          "original_verse": "Oigo eco de mi pasado, que suena y llora gloria",
+          "original_syllables": 15,
+          "original_distance": 4,
+          "selected_variant": "Oigo eco de mi pasado, suena en gloria",
+          "selected_syllables": 11,
+          "selected_distance": 0,
+          "variants": [
+            {
+              "verse": "Oigo eco de mi pasado que suena en gloria",
+              "syllables": 12,
+              "distance": 1,
+              "final_word": "gloria",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Oigo eco de mi pasado, suena en gloria",
+              "syllables": 11,
+              "distance": 0,
+              "final_word": "gloria",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": true,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Sueno eco de mi pasado, oigo en gloria",
+              "syllables": 9,
+              "distance": 2,
+              "final_word": "gloria",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Eco de mi pasado suena en la gloria",
+              "syllables": 11,
+              "distance": 0,
+              "final_word": "gloria",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Oigo eco de mi pasado que suena y es gloria",
+              "syllables": 14,
+              "distance": 3,
+              "final_word": "gloria",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            }
+          ],
+          "error": null
+        },
+        "post_b_meter_repaired_verse": "Oigo eco de mi pasado, suena en gloria",
+        "post_b_meter_repaired_syllables": 11,
+        "post_b_meter_repaired_distance": 0,
+        "post_b_meter_repair_accepted": true,
+        "accepted": true,
+        "rejection_reason": null
+      },
+      {
+        "verse": "Eco de mi pasado suena, en memoria gloria",
+        "syllables": 13,
+        "final_word": "gloria",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'oria' | v3 = 'oria'",
+        "post_b_meter_repair_attempted": true,
+        "post_b_meter_repair_report": {
+          "enabled": true,
+          "repair_label": "post_b",
+          "attempted": true,
+          "changed": false,
+          "reason": "Ninguna variante conserva la palabra final y mejora la metrica.",
+          "original_stanza": [
+            "El tiempo pasa, yo me quedo atrás y veo",
+            "Recuerdos lejanos atrás en memoria",
+            "Eco de mi pasado suena, en memoria gloria",
+            "En mi corazón, se mantienen como"
+          ],
+          "repaired_stanza": [
+            "El tiempo pasa, yo me quedo atrás y veo",
+            "Recuerdos lejanos atrás en memoria",
+            "Eco de mi pasado suena, en memoria gloria",
+            "En mi corazón, se mantienen como"
+          ],
+          "verse_number": 3,
+          "required_final_word": "gloria",
+          "original_verse": "Eco de mi pasado suena, en memoria gloria",
+          "original_syllables": 13,
+          "original_distance": 2,
+          "selected_variant": null,
+          "selected_syllables": null,
+          "selected_distance": null,
+          "variants": [
+            {
+              "verse": "Eco de mi pasado suena, en memoria llena",
+              "syllables": 13,
+              "distance": 2,
+              "final_word": "llena",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Sueno de mi pasado eco, en memoria llena",
+              "syllables": 11,
+              "distance": 0,
+              "final_word": "llena",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Eco de mi gloria suena, en memoria cercana",
+              "syllables": 13,
+              "distance": 2,
+              "final_word": "cercana",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Eco de mi pasado suena, en memoria cerca",
+              "syllables": 13,
+              "distance": 2,
+              "final_word": "cerca",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Eco de mi gloria suena, en memoria cerca",
+              "syllables": 12,
+              "distance": 1,
+              "final_word": "cerca",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            }
+          ],
+          "error": null
+        },
+        "post_b_meter_repaired_verse": "Eco de mi pasado suena, en memoria gloria",
+        "post_b_meter_repaired_syllables": 13,
+        "post_b_meter_repaired_distance": 2,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "Corrige B, pero la reparacion metrica posterior no consigue una variante aceptable."
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_1": {
+      "text": "El tiempo pasa, yo me quedo atrás y veo",
+      "last_word": "veo",
+      "rhyme": "o"
+    },
+    "verse_4": {
+      "text": "En mi corazón, se mantienen como",
+      "last_word": "como",
+      "rhyme": "omo"
+    },
+    "target_rhyme": "o",
+    "current_rhyme": "omo",
+    "errors": [
+      "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'o', pero se obtuvo 'omo'."
+    ],
+    "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('o') y reescribe el verso 4 para que termine con esa misma rima consonante."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": true,
+    "verse_2": {
+      "text": "Recuerdos lejanos atrás en memoria",
+      "last_word": "memoria",
+      "rhyme": "oria"
+    },
+    "verse_3": {
+      "text": "Oigo eco de mi pasado, suena en gloria",
+      "last_word": "gloria",
+      "rhyme": "oria"
+    },
+    "target_rhyme": "oria",
+    "current_rhyme": "oria",
+    "errors": [],
+    "feedback": "La rima interior B es correcta: el verso 3 conserva la rima consonante del verso 2 ('oria')."
+  },
+  "generation_reasoning": "Corregido la longitud de los versos y asegurado la rima consonante ABBA."
+}

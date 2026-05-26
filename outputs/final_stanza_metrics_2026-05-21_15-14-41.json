@@ -1,0 +1,442 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200,
+    "inner_rhyme_repair_conditioned_by_candidate": true,
+    "inner_rhyme_repair_variants_per_candidate": 2,
+    "inner_rhyme_repair_max_candidate_words": 4,
+    "enable_post_b_rhyme_meter_repair": true,
+    "post_b_rhyme_meter_repair_variants": 5,
+    "post_b_rhyme_meter_repair_temperature": 0.4,
+    "post_b_rhyme_meter_repair_num_predict": 200
+  },
+  "stanza": [
+    "El tiempo, como un río en su largo curso,",
+    "Deja atrás recuerdos que no valen nada,",
+    "Siente el corazón vacío y sin voz,",
+    "En la tristeza de lo que fue y yo."
+  ],
+  "score": 0.7268482371328558,
+  "step_score": 0.8,
+  "score_history": [
+    0.6,
+    0.8,
+    0.8
+  ],
+  "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+  "metrics": {
+    "score": 0.8,
+    "score_20": 16.0,
+    "verses": [
+      "El tiempo, como un río en su largo curso,",
+      "Deja atrás recuerdos que no valen nada,",
+      "Siente el corazón vacío y sin voz,",
+      "En la tristeza de lo que fue y yo."
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "correct_verses": 4,
+      "total_expected_verses": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "urso",
+        "ada",
+        "oz",
+        "o"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_positions": 2,
+      "total_positions": 4,
+      "score": 0.5,
+      "errors": [
+        "Verso 3: rima C, pero se esperaba B.",
+        "Verso 4: rima D, pero se esperaba A."
+      ]
+    },
+    "errors": [
+      "Verso 3: rima C, pero se esperaba B.",
+      "Verso 4: rima D, pero se esperaba A."
+    ],
+    "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": false,
+    "original_stanza": [
+      "El tiempo, como un río en su largo curso,",
+      "Deja atrás recuerdos que no valen nada,",
+      "Siente el corazón vacío y sin voz,",
+      "En la tristeza de lo que fue y yo."
+    ],
+    "repaired_stanza": [
+      "El tiempo, como un río en su largo curso,",
+      "Deja atrás recuerdos que no valen nada,",
+      "Siente el corazón vacío y sin voz,",
+      "En la tristeza de lo que fue y yo."
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "El tiempo, como un río en su largo curso,",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "Deja atrás recuerdos que no valen nada,",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "Siente el corazón vacío y sin voz,",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "En la tristeza de lo que fue y yo.",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+    "original_stanza": [
+      "El tiempo, como un río en su largo curso,",
+      "Deja atrás recuerdos que no valen nada,",
+      "Siente el corazón vacío y sin voz,",
+      "En la tristeza de lo que fue y yo."
+    ],
+    "repaired_stanza": [
+      "El tiempo, como un río en su largo curso,",
+      "Deja atrás recuerdos que no valen nada,",
+      "Siente el corazón vacío y sin voz,",
+      "En la tristeza de lo que fue y yo."
+    ],
+    "target_rhyme": "urso",
+    "current_rhyme": "o",
+    "verse_1": {
+      "text": "El tiempo, como un río en su largo curso,",
+      "last_word": "curso",
+      "rhyme": "urso"
+    },
+    "candidate_final_words": [
+      "curso"
+    ],
+    "enforced_candidate_final_words": [],
+    "original_verse_4": "En la tristeza de lo que fue y yo.",
+    "original_verse_4_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "En la tristeza de lo que fue y yo, el corazón desdobla su urso",
+        "syllables": 19,
+        "final_word": "urso",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": true,
+        "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'urso' | v4 = 'urso'",
+        "accepted": false,
+        "rejection_reason": "Empeora la distancia metrica del verso 4."
+      },
+      {
+        "verse": "En la tristeza de lo que fue y yo, el tiempo se acerca a su urso",
+        "syllables": 17,
+        "final_word": "urso",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": true,
+        "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'urso' | v4 = 'urso'",
+        "accepted": false,
+        "rejection_reason": "Empeora la distancia metrica del verso 4."
+      },
+      {
+        "verse": "En la tristeza de lo que fue y yo, el recuerdo se cierra en su urso",
+        "syllables": 19,
+        "final_word": "urso",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": true,
+        "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'urso' | v4 = 'urso'",
+        "accepted": false,
+        "rejection_reason": "Empeora la distancia metrica del verso 4."
+      },
+      {
+        "verse": "En la tristeza de lo que fue y yo, el corazón se vacía como un urso",
+        "syllables": 21,
+        "final_word": "urso",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": true,
+        "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'urso' | v4 = 'urso'",
+        "accepted": false,
+        "rejection_reason": "Empeora la distancia metrica del verso 4."
+      },
+      {
+        "verse": "En la tristeza de lo que fue y yo, el tiempo arrastra su urso",
+        "syllables": 16,
+        "final_word": "urso",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": true,
+        "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'urso' | v4 = 'urso'",
+        "accepted": false,
+        "rejection_reason": "Empeora la distancia metrica del verso 4."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige B sin empeorar metrica.",
+    "original_stanza": [
+      "El tiempo, como un río en su largo curso,",
+      "Deja atrás recuerdos que no valen nada,",
+      "Siente el corazón vacío y sin voz,",
+      "En la tristeza de lo que fue y yo."
+    ],
+    "repaired_stanza": [
+      "El tiempo, como un río en su largo curso,",
+      "Deja atrás recuerdos que no valen nada,",
+      "Siente el corazón vacío y sin voz,",
+      "En la tristeza de lo que fue y yo."
+    ],
+    "target_rhyme": "ada",
+    "current_rhyme": "oz",
+    "verse_2": {
+      "text": "Deja atrás recuerdos que no valen nada,",
+      "last_word": "nada",
+      "rhyme": "ada"
+    },
+    "candidate_final_words": [
+      "nada"
+    ],
+    "enforced_candidate_final_words": [],
+    "has_enforced_candidate_final_words": false,
+    "candidate_warning": "No hay palabras finales candidatas distintas de la palabra ancla para la rima B.",
+    "conditioned_by_candidate": false,
+    "conditioned_candidate_words": [],
+    "conditioned_generation_reports": [],
+    "post_b_meter_repair_enabled": true,
+    "post_b_meter_repair_attempts": 0,
+    "post_b_meter_repair_successes": 0,
+    "original_verse_3": "Siente el corazón vacío y sin voz,",
+    "original_verse_3_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "Siente el corazón vacío y sin grito",
+        "syllables": 11,
+        "final_word": "grito",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ada' | v3 = 'ito'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Siente el corazón vacío y sin gloria",
+        "syllables": 11,
+        "final_word": "gloria",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ada' | v3 = 'oria'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Siente el corazón vacío y sin gente",
+        "syllables": 11,
+        "final_word": "gente",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ada' | v3 = 'ente'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Siente el corazón vacío y sin glosa",
+        "syllables": 11,
+        "final_word": "glosa",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ada' | v3 = 'osa'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Siente el corazón vacío y sin grasa",
+        "syllables": 11,
+        "final_word": "grasa",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ada' | v3 = 'asa'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_1": {
+      "text": "El tiempo, como un río en su largo curso,",
+      "last_word": "curso",
+      "rhyme": "urso"
+    },
+    "verse_4": {
+      "text": "En la tristeza de lo que fue y yo.",
+      "last_word": "yo",
+      "rhyme": "o"
+    },
+    "target_rhyme": "urso",
+    "current_rhyme": "o",
+    "errors": [
+      "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'urso', pero se obtuvo 'o'."
+    ],
+    "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('urso') y reescribe el verso 4 para que termine con esa misma rima consonante."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_2": {
+      "text": "Deja atrás recuerdos que no valen nada,",
+      "last_word": "nada",
+      "rhyme": "ada"
+    },
+    "verse_3": {
+      "text": "Siente el corazón vacío y sin voz,",
+      "last_word": "voz",
+      "rhyme": "oz"
+    },
+    "target_rhyme": "ada",
+    "current_rhyme": "oz",
+    "errors": [
+      "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ada', pero se obtuvo 'oz'."
+    ],
+    "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ada') y reescribe el verso 3 para que termine con esa misma rima consonante."
+  },
+  "generation_reasoning": "Mantiene la misma estructura y rima ABBA. Los versos 3 y 4 se alargaron ligeramente para cumplir con el requisito de 11 silabas."
+}

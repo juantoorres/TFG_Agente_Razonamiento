@@ -1,0 +1,57 @@
+ESTROFA FINAL
+
+Modelo: mistral:7b-instruct
+Temperatura: 0.3
+Num predict: 600
+k: 2
+max_steps: 3
+alpha: 1.0
+Tiempo total de ejecucion: 3096.12 segundos (51.60 minutos)
+Reparacion metrica activa: True
+Variantes por verso para reparacion metrica: 5
+Temperatura reparacion metrica: 0.4
+Num predict reparacion metrica: 200
+Reparacion rima A activa: True
+Variantes para reparacion rima A: 5
+Temperatura reparacion rima A: 0.3
+Num predict reparacion rima A: 200
+Reparacion metrica posterior a rima A activa: True
+Variantes para reparacion metrica posterior a rima A: 5
+Temperatura reparacion metrica posterior a rima A: 0.4
+Num predict reparacion metrica posterior a rima A: 200
+Reparacion rima B activa: True
+Variantes para reparacion rima B: 5
+Temperatura reparacion rima B: 0.3
+Num predict reparacion rima B: 200
+Reparacion rima B condicionada por candidata: True
+Variantes por candidata para reparacion rima B: 2
+Max candidatas usadas para reparacion rima B: 4
+Reparacion metrica posterior a rima B activa: True
+Variantes para reparacion metrica posterior a rima B: 5
+Temperatura reparacion metrica posterior a rima B: 0.4
+Num predict reparacion metrica posterior a rima B: 200
+
+Score global: 0.723
+Historial de scores: [0.7, 0.6, 0.9]
+Resumen de metricas: versos=4/4 | endecasilabos=3/4 | rima=4/4 | score=18.0/20
+Resumen de reparacion metrica: reparación métrica = activa | intentos = 3 | mejoras = 3 | cambio = True
+Resumen reparacion rima A: reparacion rima A = activa | intento = True | cambio = True | post-metrica A = 1/1
+Resumen reparacion rima B: reparacion rima B = activa | intento = True | cambio = True | post-metrica B = 1/1
+Resumen rima exterior AXYA: rima AXYA = correcta | v1 = 'argo' | v4 = 'argo'
+Resumen rima interior B: rima interior B = correcta | v2 = 'o' | v3 = 'o'
+
+Feedback final:
+Puntuacion formal total: 18.0/20.
+Revisa los siguientes aspectos formales antes de generar una nueva version:
+Numero de versos:
+- El numero de versos es correcto.
+Silabas metricas:
+- Verso 3: tiene 9 silabas, pero deberia tener 11.
+Rima consonante:
+- El esquema de rima coincide con ABBA.
+
+Estrofa completa:
+1. Tiempo, río que fluye sin cesar, largo
+2. En cada instante, un recuerdo amargo y tierno
+3. Recuerdo amargo, algo antiguo y lleno
+4. Tiempo pasado, que a veces siento amargo

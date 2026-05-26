@@ -1,0 +1,377 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_post_a_rhyme_meter_repair": true,
+    "post_a_rhyme_meter_repair_variants": 5,
+    "post_a_rhyme_meter_repair_temperature": 0.4,
+    "post_a_rhyme_meter_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200,
+    "inner_rhyme_repair_conditioned_by_candidate": true,
+    "inner_rhyme_repair_variants_per_candidate": 2,
+    "inner_rhyme_repair_max_candidate_words": 4,
+    "enable_post_b_rhyme_meter_repair": true,
+    "post_b_rhyme_meter_repair_variants": 5,
+    "post_b_rhyme_meter_repair_temperature": 0.4,
+    "post_b_rhyme_meter_repair_num_predict": 200
+  },
+  "stanza": [
+    "El tiempo avanza y ansiando el pasado",
+    "En mi pecho guardan amargos recuerdos",
+    "No me dejan ir, de aquellos amargos recuerdos",
+    "El tiempo es inexorable: ya no era como amado"
+  ],
+  "score": 0.8485281374238571,
+  "step_score": 0.9,
+  "score_history": [
+    0.8,
+    0.9
+  ],
+  "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 3: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- El esquema de rima coincide con ABBA.",
+  "metrics": {
+    "score": 0.9,
+    "score_20": 18.0,
+    "verses": [
+      "El tiempo avanza y ansiando el pasado",
+      "En mi pecho guardan amargos recuerdos",
+      "No me dejan ir, de aquellos amargos recuerdos",
+      "El tiempo es inexorable: ya no era como amado"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        12,
+        11
+      ],
+      "correct_verses": 3,
+      "total_expected_verses": 4,
+      "score": 0.75,
+      "errors": [
+        "Verso 3: tiene 12 silabas, pero deberia tener 11."
+      ]
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "ado",
+        "erdos",
+        "erdos",
+        "ado"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "correct_positions": 4,
+      "total_positions": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "errors": [
+      "Verso 3: tiene 12 silabas, pero deberia tener 11."
+    ],
+    "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 3: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- El esquema de rima coincide con ABBA."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": true,
+    "original_stanza": [
+      "El tiempo avanza, ansiando el pasado",
+      "En mi pecho se guardan recuerdos amargos",
+      "No me dejan ir, de aquellos amargos recuerdos",
+      "El tiempo es inexorable: ya no era como amado"
+    ],
+    "repaired_stanza": [
+      "El tiempo avanza y ansiando el pasado",
+      "En mi pecho guardan amargos recuerdos",
+      "No me dejan ir, de aquellos amargos recuerdos",
+      "El tiempo es inexorable: ya no era como amado"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "El tiempo avanza, ansiando el pasado",
+        "original_syllables": 9,
+        "original_distance": 2,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "El tiempo avanza y ansiando el pasado",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "El tiempo avanza y ansiando el pasado",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "El tiempo avanza, ansiando el pasado rápido",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "El tiempo avanza, ansiando el pasado aún",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "El tiempo avanza con ansiando el pasado",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "El tiempo avanza y siempre ansiando el pasado",
+            "syllables": 12,
+            "distance": 1
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "En mi pecho se guardan recuerdos amargos",
+        "original_syllables": 12,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "En mi pecho guardan amargos recuerdos",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "En mi pecho guardan amargos recuerdos",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "En pecho se guardan amargos recuerdos",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Mi pecho guarda amargos recuerdos",
+            "syllables": 9,
+            "distance": 2
+          },
+          {
+            "verse": "En mi pecho guardan recuerdos amargo",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "En pecho guardan recuerdos amargo",
+            "syllables": 10,
+            "distance": 1
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "No me dejan ir, de aquellos amargos recuerdos",
+        "original_syllables": 12,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "selected_distance": null,
+        "variants": [
+          {
+            "verse": "No me dejan irse de aquellos amargos recuerdos",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "No me dejan ir más de aquellos amargos recuerdos",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "No me dejan partir de aquellos amargos recuerdos",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "No me dejan apartir de aquellos amargos recuerdos",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "No me dejan alejarme de aquellos amargos recuerdos",
+            "syllables": 14,
+            "distance": 3
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "El tiempo es inexorable: ya no era como amado",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": false,
+    "changed": false,
+    "reason": "La rima exterior AXYA ya es correcta.",
+    "original_stanza": [
+      "El tiempo avanza y ansiando el pasado",
+      "En mi pecho guardan amargos recuerdos",
+      "No me dejan ir, de aquellos amargos recuerdos",
+      "El tiempo es inexorable: ya no era como amado"
+    ],
+    "repaired_stanza": [
+      "El tiempo avanza y ansiando el pasado",
+      "En mi pecho guardan amargos recuerdos",
+      "No me dejan ir, de aquellos amargos recuerdos",
+      "El tiempo es inexorable: ya no era como amado"
+    ],
+    "target_rhyme": "ado",
+    "current_rhyme": "ado",
+    "verse_1": {
+      "text": "El tiempo avanza y ansiando el pasado",
+      "last_word": "pasado",
+      "rhyme": "ado"
+    },
+    "candidate_final_words": [],
+    "enforced_candidate_final_words": [],
+    "post_a_meter_repair_enabled": true,
+    "post_a_meter_repair_attempts": 0,
+    "post_a_meter_repair_successes": 0,
+    "original_verse_4": "El tiempo es inexorable: ya no era como amado",
+    "original_verse_4_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": false,
+    "changed": false,
+    "reason": "La rima interior B ya es correcta.",
+    "original_stanza": [
+      "El tiempo avanza y ansiando el pasado",
+      "En mi pecho guardan amargos recuerdos",
+      "No me dejan ir, de aquellos amargos recuerdos",
+      "El tiempo es inexorable: ya no era como amado"
+    ],
+    "repaired_stanza": [
+      "El tiempo avanza y ansiando el pasado",
+      "En mi pecho guardan amargos recuerdos",
+      "No me dejan ir, de aquellos amargos recuerdos",
+      "El tiempo es inexorable: ya no era como amado"
+    ],
+    "target_rhyme": "erdos",
+    "current_rhyme": "erdos",
+    "verse_2": {
+      "text": "En mi pecho guardan amargos recuerdos",
+      "last_word": "recuerdos",
+      "rhyme": "erdos"
+    },
+    "candidate_final_words": [],
+    "enforced_candidate_final_words": [],
+    "has_enforced_candidate_final_words": false,
+    "candidate_warning": null,
+    "conditioned_by_candidate": false,
+    "conditioned_candidate_words": [],
+    "conditioned_generation_reports": [],
+    "post_b_meter_repair_enabled": true,
+    "post_b_meter_repair_attempts": 0,
+    "post_b_meter_repair_successes": 0,
+    "original_verse_3": "No me dejan ir, de aquellos amargos recuerdos",
+    "original_verse_3_syllables": 12,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": true,
+    "verse_1": {
+      "text": "El tiempo avanza y ansiando el pasado",
+      "last_word": "pasado",
+      "rhyme": "ado"
+    },
+    "verse_4": {
+      "text": "El tiempo es inexorable: ya no era como amado",
+      "last_word": "amado",
+      "rhyme": "ado"
+    },
+    "target_rhyme": "ado",
+    "current_rhyme": "ado",
+    "errors": [],
+    "feedback": "La rima exterior AXYA es correcta: el verso 4 conserva la rima consonante del verso 1 ('ado')."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": true,
+    "verse_2": {
+      "text": "En mi pecho guardan amargos recuerdos",
+      "last_word": "recuerdos",
+      "rhyme": "erdos"
+    },
+    "verse_3": {
+      "text": "No me dejan ir, de aquellos amargos recuerdos",
+      "last_word": "recuerdos",
+      "rhyme": "erdos"
+    },
+    "target_rhyme": "erdos",
+    "current_rhyme": "erdos",
+    "errors": [],
+    "feedback": "La rima interior B es correcta: el verso 3 conserva la rima consonante del verso 2 ('erdos')."
+  },
+  "generation_reasoning": "Verso 2 y 3 ajustados para tener 11 silabas metricas."
+}

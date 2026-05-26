@@ -1,0 +1,724 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_post_a_rhyme_meter_repair": true,
+    "post_a_rhyme_meter_repair_variants": 5,
+    "post_a_rhyme_meter_repair_temperature": 0.4,
+    "post_a_rhyme_meter_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200,
+    "inner_rhyme_repair_conditioned_by_candidate": true,
+    "inner_rhyme_repair_variants_per_candidate": 2,
+    "inner_rhyme_repair_max_candidate_words": 4,
+    "enable_post_b_rhyme_meter_repair": true,
+    "post_b_rhyme_meter_repair_variants": 5,
+    "post_b_rhyme_meter_repair_temperature": 0.4,
+    "post_b_rhyme_meter_repair_num_predict": 200
+  },
+  "stanza": [
+    "El tiempo, un río de continua corriente",
+    "Deja en mi corazón tristezas amargas.",
+    "Largo y triste el viento con sus grietas",
+    "Narrando la historia, llega al presente."
+  ],
+  "score": 0.7937253933193772,
+  "step_score": 0.9,
+  "score_history": [
+    0.7,
+    0.9
+  ],
+  "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.",
+  "metrics": {
+    "score": 0.9,
+    "score_20": 18.0,
+    "verses": [
+      "El tiempo, un río de continua corriente",
+      "Deja en mi corazón tristezas amargas.",
+      "Largo y triste el viento con sus grietas",
+      "Narrando la historia, llega al presente."
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "correct_verses": 4,
+      "total_expected_verses": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "ente",
+        "argas",
+        "etas",
+        "ente"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "C",
+        "A"
+      ],
+      "correct_positions": 3,
+      "total_positions": 4,
+      "score": 0.75,
+      "errors": [
+        "Verso 3: rima C, pero se esperaba B."
+      ]
+    },
+    "errors": [
+      "Verso 3: rima C, pero se esperaba B."
+    ],
+    "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": true,
+    "original_stanza": [
+      "El tiempo, un río que siempre fluye,",
+      "Deja en mi corazón tristezas amargas.",
+      "Y el viento, con sus tristes grietas largos,",
+      "Susurra la historia de mis años perdidos."
+    ],
+    "repaired_stanza": [
+      "El tiempo, un río de continua corriente",
+      "Deja en mi corazón tristezas amargas.",
+      "Largo y triste el viento con sus grietas",
+      "Susurra la historia de mis años perdidos."
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "El tiempo, un río que siempre fluye,",
+        "original_syllables": 9,
+        "original_distance": 2,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "El tiempo, un río de continua corriente",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "El tiempo, un río que siempre fluye en su curso",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "El tiempo, un río de continua corriente",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "El tiempo, un río que siempre en su camino fluye",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "El tiempo, un río que siempre en su curso fluye",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "El tiempo, un río que siempre en su recorrido fluye",
+            "syllables": 14,
+            "distance": 3
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "Deja en mi corazón tristezas amargas.",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "Y el viento, con sus tristes grietas largos,",
+        "original_syllables": 12,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Largo y triste el viento con sus grietas",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "Y el viento, triste y largo sus grietas",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "El viento, largos sus grietas tristes",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "Triste y largo son los grietas del viento",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "Largo y triste el viento con sus grietas",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Sus grietas largas el viento triste",
+            "syllables": 10,
+            "distance": 1
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "Susurra la historia de mis años perdidos.",
+        "original_syllables": 12,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "selected_distance": null,
+        "variants": [
+          {
+            "verse": "Susurra la historia de mis años pasados",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "Susurra la historia de mis años recientes",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "Susurra la historia de mis años transcurridos",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "Susurra la historia de mis años perdidos rápidos",
+            "syllables": 14,
+            "distance": 3
+          },
+          {
+            "verse": "Susurra la historia de mis años perdidos ayer",
+            "syllables": 14,
+            "distance": 3
+          }
+        ],
+        "error": null
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": true,
+    "reason": "Se acepto una variante que corrige AXYA.",
+    "original_stanza": [
+      "El tiempo, un río de continua corriente",
+      "Deja en mi corazón tristezas amargas.",
+      "Largo y triste el viento con sus grietas",
+      "Susurra la historia de mis años perdidos."
+    ],
+    "repaired_stanza": [
+      "El tiempo, un río de continua corriente",
+      "Deja en mi corazón tristezas amargas.",
+      "Largo y triste el viento con sus grietas",
+      "Narrando la historia, llega al presente."
+    ],
+    "target_rhyme": "ente",
+    "current_rhyme": "idos",
+    "verse_1": {
+      "text": "El tiempo, un río de continua corriente",
+      "last_word": "corriente",
+      "rhyme": "ente"
+    },
+    "candidate_final_words": [
+      "presente",
+      "ausente",
+      "siente",
+      "puente",
+      "frente",
+      "corriente"
+    ],
+    "enforced_candidate_final_words": [
+      "presente",
+      "ausente",
+      "siente",
+      "puente",
+      "frente"
+    ],
+    "post_a_meter_repair_enabled": true,
+    "post_a_meter_repair_attempts": 2,
+    "post_a_meter_repair_successes": 1,
+    "original_verse_4": "Susurra la historia de mis años perdidos.",
+    "original_verse_4_syllables": 12,
+    "selected_variant": "Narrando la historia, llega al presente.",
+    "selected_variant_syllables": 11,
+    "variants": [
+      {
+        "verse": "Susurra la historia de mis años en el presente.",
+        "syllables": 14,
+        "final_word": "presente",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": true,
+        "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ente' | v4 = 'ente'",
+        "post_a_meter_repair_attempted": true,
+        "post_a_meter_repair_report": {
+          "enabled": true,
+          "repair_label": "post_a",
+          "attempted": true,
+          "changed": true,
+          "reason": "Se reparo la metrica conservando la palabra final obligatoria.",
+          "original_stanza": [
+            "El tiempo, un río de continua corriente",
+            "Deja en mi corazón tristezas amargas.",
+            "Largo y triste el viento con sus grietas",
+            "Susurra la historia de mis años en el presente."
+          ],
+          "repaired_stanza": [
+            "El tiempo, un río de continua corriente",
+            "Deja en mi corazón tristezas amargas.",
+            "Largo y triste el viento con sus grietas",
+            "Narrando la historia, llega al presente."
+          ],
+          "verse_number": 4,
+          "required_final_word": "presente",
+          "original_verse": "Susurra la historia de mis años en el presente.",
+          "original_syllables": 14,
+          "original_distance": 3,
+          "selected_variant": "Narrando la historia, llega al presente.",
+          "selected_syllables": 11,
+          "selected_distance": 0,
+          "variants": [
+            {
+              "verse": "Susurra mi historia en el momento actual.",
+              "syllables": 12,
+              "distance": 1,
+              "final_word": "actual",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Relata la historia de mis años en este instante.",
+              "syllables": 14,
+              "distance": 3,
+              "final_word": "instante",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Narrando la historia, llega al presente.",
+              "syllables": 11,
+              "distance": 0,
+              "final_word": "presente",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": true,
+              "rejection_reason": null
+            },
+            {
+              "verse": "En este momento, cuenta la historia de mis años.",
+              "syllables": 14,
+              "distance": 3,
+              "final_word": "años",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Presente es donde se narra la historia de mis años.",
+              "syllables": 14,
+              "distance": 3,
+              "final_word": "años",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            }
+          ],
+          "error": null
+        },
+        "post_a_meter_repaired_verse": "Narrando la historia, llega al presente.",
+        "post_a_meter_repaired_syllables": 11,
+        "post_a_meter_repaired_distance": 0,
+        "post_a_meter_repair_accepted": true,
+        "accepted": true,
+        "rejection_reason": null
+      },
+      {
+        "verse": "Susurra la historia de mis años ausentes.",
+        "syllables": 12,
+        "final_word": "ausentes",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ente' | v4 = 'entes'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 1."
+      },
+      {
+        "verse": "Susurra la historia de mis años que siente.",
+        "syllables": 12,
+        "final_word": "siente",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": true,
+        "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ente' | v4 = 'ente'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": null
+      },
+      {
+        "verse": "Susurra la historia de mis años atravesados por un puente.",
+        "syllables": 17,
+        "final_word": "puente",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": true,
+        "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ente' | v4 = 'ente'",
+        "post_a_meter_repair_attempted": true,
+        "post_a_meter_repair_report": {
+          "enabled": true,
+          "repair_label": "post_a",
+          "attempted": true,
+          "changed": true,
+          "reason": "Se reparo la metrica conservando la palabra final obligatoria.",
+          "original_stanza": [
+            "El tiempo, un río de continua corriente",
+            "Deja en mi corazón tristezas amargas.",
+            "Largo y triste el viento con sus grietas",
+            "Susurra la historia de mis años atravesados por un puente."
+          ],
+          "repaired_stanza": [
+            "El tiempo, un río de continua corriente",
+            "Deja en mi corazón tristezas amargas.",
+            "Largo y triste el viento con sus grietas",
+            "Mi pasado atraviesa el tiempo en un lento puente"
+          ],
+          "verse_number": 4,
+          "required_final_word": "puente",
+          "original_verse": "Susurra la historia de mis años atravesados por un puente.",
+          "original_syllables": 17,
+          "original_distance": 6,
+          "selected_variant": "Mi pasado atraviesa el tiempo en un lento puente",
+          "selected_syllables": 13,
+          "selected_distance": 2,
+          "variants": [
+            {
+              "verse": "Susurra la historia, mi pasado atravesado en un puente",
+              "syllables": 16,
+              "distance": 5,
+              "final_word": "puente",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            },
+            {
+              "verse": "El pasado atraviesa el tiempo en un silencioso puente",
+              "syllables": 15,
+              "distance": 4,
+              "final_word": "puente",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            },
+            {
+              "verse": "En un puente, el pasado susurra su triste historia",
+              "syllables": 15,
+              "distance": 4,
+              "final_word": "historia",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "El tiempo lleva a mi pasado en un silencioso puente",
+              "syllables": 16,
+              "distance": 5,
+              "final_word": "puente",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Mi pasado atraviesa el tiempo en un lento puente",
+              "syllables": 13,
+              "distance": 2,
+              "final_word": "puente",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": true,
+              "rejection_reason": null
+            }
+          ],
+          "error": null
+        },
+        "post_a_meter_repaired_verse": "Mi pasado atraviesa el tiempo en un lento puente",
+        "post_a_meter_repaired_syllables": 13,
+        "post_a_meter_repaired_distance": 2,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "Corrige A, pero la reparacion metrica posterior no consigue una variante aceptable."
+      },
+      {
+        "verse": "Susurra la historia de mis años enfrentando el tiempo.",
+        "syllables": 15,
+        "final_word": "tiempo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ente' | v4 = 'empo'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 1."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige B sin empeorar metrica.",
+    "original_stanza": [
+      "El tiempo, un río de continua corriente",
+      "Deja en mi corazón tristezas amargas.",
+      "Largo y triste el viento con sus grietas",
+      "Narrando la historia, llega al presente."
+    ],
+    "repaired_stanza": [
+      "El tiempo, un río de continua corriente",
+      "Deja en mi corazón tristezas amargas.",
+      "Largo y triste el viento con sus grietas",
+      "Narrando la historia, llega al presente."
+    ],
+    "target_rhyme": "argas",
+    "current_rhyme": "etas",
+    "verse_2": {
+      "text": "Deja en mi corazón tristezas amargas.",
+      "last_word": "amargas",
+      "rhyme": "argas"
+    },
+    "candidate_final_words": [
+      "amargas"
+    ],
+    "enforced_candidate_final_words": [],
+    "has_enforced_candidate_final_words": false,
+    "candidate_warning": "No hay palabras finales candidatas distintas de la palabra ancla para la rima B.",
+    "conditioned_by_candidate": false,
+    "conditioned_candidate_words": [],
+    "conditioned_generation_reports": [],
+    "post_b_meter_repair_enabled": true,
+    "post_b_meter_repair_attempts": 0,
+    "post_b_meter_repair_successes": 0,
+    "original_verse_3": "Largo y triste el viento con sus grietas",
+    "original_verse_3_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "Largo y triste el viento con sus grilletas",
+        "syllables": 12,
+        "final_word": "grilletas",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'argas' | v3 = 'etas'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Largo y triste el viento con sus heridas",
+        "syllables": 12,
+        "final_word": "heridas",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'argas' | v3 = 'idas'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Largo y triste el viento con sus huellas",
+        "syllables": 11,
+        "final_word": "huellas",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'argas' | v3 = 'ellas'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Largo y triste el viento con sus secretas",
+        "syllables": 12,
+        "final_word": "secretas",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'argas' | v3 = 'etas'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Largo y triste el viento con sus siete",
+        "syllables": 11,
+        "final_word": "siete",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'argas' | v3 = 'ete'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": true,
+    "verse_1": {
+      "text": "El tiempo, un río de continua corriente",
+      "last_word": "corriente",
+      "rhyme": "ente"
+    },
+    "verse_4": {
+      "text": "Narrando la historia, llega al presente.",
+      "last_word": "presente",
+      "rhyme": "ente"
+    },
+    "target_rhyme": "ente",
+    "current_rhyme": "ente",
+    "errors": [],
+    "feedback": "La rima exterior AXYA es correcta: el verso 4 conserva la rima consonante del verso 1 ('ente')."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_2": {
+      "text": "Deja en mi corazón tristezas amargas.",
+      "last_word": "amargas",
+      "rhyme": "argas"
+    },
+    "verse_3": {
+      "text": "Largo y triste el viento con sus grietas",
+      "last_word": "grietas",
+      "rhyme": "etas"
+    },
+    "target_rhyme": "argas",
+    "current_rhyme": "etas",
+    "errors": [
+      "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'argas', pero se obtuvo 'etas'."
+    ],
+    "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('argas') y reescribe el verso 3 para que termine con esa misma rima consonante."
+  },
+  "generation_reasoning": "Corregido: mantenido el verso 2 y el verso 3, y acortado el verso 4 para tener 11 silabas metricas. La rima A se mantiene en los versos 1 y 4."
+}

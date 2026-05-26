@@ -1,0 +1,557 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200,
+    "inner_rhyme_repair_conditioned_by_candidate": true,
+    "inner_rhyme_repair_variants_per_candidate": 2,
+    "inner_rhyme_repair_max_candidate_words": 4,
+    "enable_post_b_rhyme_meter_repair": true,
+    "post_b_rhyme_meter_repair_variants": 5,
+    "post_b_rhyme_meter_repair_temperature": 0.4,
+    "post_b_rhyme_meter_repair_num_predict": 200
+  },
+  "stanza": [
+    "El tiempo avanza, y en mi corazón",
+    "De nostalgia que me hace vacío y llano",
+    "En mi alma siente un llanto suave y oleo",
+    "En la melancolía de lo que ya fue on"
+  ],
+  "score": 0.7368062997280773,
+  "step_score": 1.0,
+  "score_history": [
+    0.5,
+    0.8,
+    1.0
+  ],
+  "feedback": "Puntuacion formal total: 20.0/20.\nLa estrofa cumple las restricciones formales evaluadas: 4 versos, computo silabico objetivo y esquema de rima ABBA.",
+  "metrics": {
+    "score": 1.0,
+    "score_20": 20.0,
+    "verses": [
+      "El tiempo avanza, y en mi corazón",
+      "De nostalgia que me hace vacío y llano",
+      "En mi alma siente un llanto suave y oleo",
+      "En la melancolía de lo que ya fue on"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "correct_verses": 4,
+      "total_expected_verses": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "on",
+        "o",
+        "o",
+        "on"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "correct_positions": 4,
+      "total_positions": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "errors": [],
+    "feedback": "Puntuacion formal total: 20.0/20.\nLa estrofa cumple las restricciones formales evaluadas: 4 versos, computo silabico objetivo y esquema de rima ABBA."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": true,
+    "original_stanza": [
+      "El tiempo avanza, y en mi corazón",
+      "De nostalgia que me hace sentir vacío",
+      "Y en mi alma se siente un llanto suave",
+      "En la melancolía de lo que ya fue on"
+    ],
+    "repaired_stanza": [
+      "El tiempo avanza, y en mi corazón",
+      "De nostalgia que me hace vacío y llano",
+      "Y en mi alma se siente un llanto suave",
+      "En la melancolía de lo que ya fue on"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "El tiempo avanza, y en mi corazón",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "De nostalgia que me hace sentir vacío",
+        "original_syllables": 12,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "De nostalgia que me hace vacío y llano",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "De nostalgia que me hace vacío y llano",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "De nostalgia que me hace sentir vacía y llanura",
+            "syllables": 15,
+            "distance": 4
+          },
+          {
+            "verse": "De nostalgia que me hace vacío, llano y triste",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "De nostalgia que me hace vacío, llana y triste",
+            "syllables": 14,
+            "distance": 3
+          },
+          {
+            "verse": "De nostalgia que me hace vacío, llano, y tristemente",
+            "syllables": 15,
+            "distance": 4
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "Y en mi alma se siente un llanto suave",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "En la melancolía de lo que ya fue on",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": false,
+    "changed": false,
+    "reason": "La rima exterior AXYA ya es correcta.",
+    "original_stanza": [
+      "El tiempo avanza, y en mi corazón",
+      "De nostalgia que me hace vacío y llano",
+      "Y en mi alma se siente un llanto suave",
+      "En la melancolía de lo que ya fue on"
+    ],
+    "repaired_stanza": [
+      "El tiempo avanza, y en mi corazón",
+      "De nostalgia que me hace vacío y llano",
+      "Y en mi alma se siente un llanto suave",
+      "En la melancolía de lo que ya fue on"
+    ],
+    "target_rhyme": "on",
+    "current_rhyme": "on",
+    "verse_1": {
+      "text": "El tiempo avanza, y en mi corazón",
+      "last_word": "corazón",
+      "rhyme": "on"
+    },
+    "candidate_final_words": [],
+    "enforced_candidate_final_words": [],
+    "original_verse_4": "En la melancolía de lo que ya fue on",
+    "original_verse_4_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": true,
+    "reason": "Se acepto una variante que corrige la rima interior B.",
+    "original_stanza": [
+      "El tiempo avanza, y en mi corazón",
+      "De nostalgia que me hace vacío y llano",
+      "Y en mi alma se siente un llanto suave",
+      "En la melancolía de lo que ya fue on"
+    ],
+    "repaired_stanza": [
+      "El tiempo avanza, y en mi corazón",
+      "De nostalgia que me hace vacío y llano",
+      "En mi alma siente un llanto suave y oleo",
+      "En la melancolía de lo que ya fue on"
+    ],
+    "target_rhyme": "o",
+    "current_rhyme": "ave",
+    "verse_2": {
+      "text": "De nostalgia que me hace vacío y llano",
+      "last_word": "llano",
+      "rhyme": "o"
+    },
+    "candidate_final_words": [
+      "llano"
+    ],
+    "enforced_candidate_final_words": [],
+    "has_enforced_candidate_final_words": false,
+    "candidate_warning": "No hay palabras finales candidatas distintas de la palabra ancla para la rima B.",
+    "conditioned_by_candidate": false,
+    "conditioned_candidate_words": [],
+    "conditioned_generation_reports": [],
+    "post_b_meter_repair_enabled": true,
+    "post_b_meter_repair_attempts": 2,
+    "post_b_meter_repair_successes": 1,
+    "original_verse_3": "Y en mi alma se siente un llanto suave",
+    "original_verse_3_syllables": 11,
+    "selected_variant": "En mi alma siente un llanto suave y oleo",
+    "selected_variant_syllables": 11,
+    "variants": [
+      {
+        "verse": "Y en mi alma se siente un llanto suave y otoño",
+        "syllables": 14,
+        "final_word": "otoño",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'o' | v3 = 'oño'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Y en mi alma se siente un llanto suave y olvido",
+        "syllables": 15,
+        "final_word": "olvido",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'o' | v3 = 'ido'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Y en mi alma se siente un llanto suave y olor",
+        "syllables": 14,
+        "final_word": "olor",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'o' | v3 = 'or'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Y en mi alma se siente un llanto suave y ojo",
+        "syllables": 13,
+        "final_word": "ojo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'o' | v3 = 'o'",
+        "post_b_meter_repair_attempted": true,
+        "post_b_meter_repair_report": {
+          "enabled": true,
+          "attempted": true,
+          "changed": false,
+          "reason": "Ninguna variante conserva la palabra final y mejora la metrica.",
+          "original_stanza": [
+            "El tiempo avanza, y en mi corazón",
+            "De nostalgia que me hace vacío y llano",
+            "Y en mi alma se siente un llanto suave y ojo",
+            "En la melancolía de lo que ya fue on"
+          ],
+          "repaired_stanza": [
+            "El tiempo avanza, y en mi corazón",
+            "De nostalgia que me hace vacío y llano",
+            "Y en mi alma se siente un llanto suave y ojo",
+            "En la melancolía de lo que ya fue on"
+          ],
+          "verse_number": 3,
+          "required_final_word": "ojo",
+          "original_verse": "Y en mi alma se siente un llanto suave y ojo",
+          "original_syllables": 13,
+          "original_distance": 2,
+          "selected_variant": null,
+          "selected_syllables": null,
+          "selected_distance": null,
+          "variants": [
+            {
+              "verse": "Y en mi alma se siente llanto suave y ojo",
+              "syllables": 13,
+              "distance": 2,
+              "final_word": "ojo",
+              "preserves_final_word": true,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No mejora la distancia metrica del verso."
+            },
+            {
+              "verse": "En mi alma, un llanto suave y ojo se siente",
+              "syllables": 12,
+              "distance": 1,
+              "final_word": "siente",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Siente llanto suave y ojo en mi alma",
+              "syllables": 10,
+              "distance": 1,
+              "final_word": "alma",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Llanto suave y ojo se sienten en mi alma",
+              "syllables": 12,
+              "distance": 1,
+              "final_word": "alma",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Un suave llanto y ojo en mi alma se siente",
+              "syllables": 12,
+              "distance": 1,
+              "final_word": "siente",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            }
+          ],
+          "error": null
+        },
+        "post_b_meter_repaired_verse": "Y en mi alma se siente un llanto suave y ojo",
+        "post_b_meter_repaired_syllables": 13,
+        "post_b_meter_repaired_distance": 2,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "Corrige B, pero la reparacion metrica posterior no consigue una variante aceptable."
+      },
+      {
+        "verse": "Y en mi alma se siente un llanto suave y oleo",
+        "syllables": 13,
+        "final_word": "oleo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'o' | v3 = 'o'",
+        "post_b_meter_repair_attempted": true,
+        "post_b_meter_repair_report": {
+          "enabled": true,
+          "attempted": true,
+          "changed": true,
+          "reason": "Se reparo la metrica conservando la palabra final obligatoria.",
+          "original_stanza": [
+            "El tiempo avanza, y en mi corazón",
+            "De nostalgia que me hace vacío y llano",
+            "Y en mi alma se siente un llanto suave y oleo",
+            "En la melancolía de lo que ya fue on"
+          ],
+          "repaired_stanza": [
+            "El tiempo avanza, y en mi corazón",
+            "De nostalgia que me hace vacío y llano",
+            "En mi alma siente un llanto suave y oleo",
+            "En la melancolía de lo que ya fue on"
+          ],
+          "verse_number": 3,
+          "required_final_word": "oleo",
+          "original_verse": "Y en mi alma se siente un llanto suave y oleo",
+          "original_syllables": 13,
+          "original_distance": 2,
+          "selected_variant": "En mi alma siente un llanto suave y oleo",
+          "selected_syllables": 11,
+          "selected_distance": 0,
+          "variants": [
+            {
+              "verse": "Y en mi alma se siente un llanto suave y suelo",
+              "syllables": 14,
+              "distance": 3,
+              "final_word": "suelo",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "En mi alma siente un llanto suave y oleo",
+              "syllables": 11,
+              "distance": 0,
+              "final_word": "oleo",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": true,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Siente un llanto suave en mi alma, oleo",
+              "syllables": 8,
+              "distance": 3,
+              "final_word": "oleo",
+              "preserves_final_word": true,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No mejora la distancia metrica del verso."
+            },
+            {
+              "verse": "Un llanto suave siente mi alma, oleo",
+              "syllables": 9,
+              "distance": 2,
+              "final_word": "oleo",
+              "preserves_final_word": true,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No mejora la distancia metrica del verso."
+            },
+            {
+              "verse": "Mi alma siente un llanto suave y oleo",
+              "syllables": 10,
+              "distance": 1,
+              "final_word": "oleo",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            }
+          ],
+          "error": null
+        },
+        "post_b_meter_repaired_verse": "En mi alma siente un llanto suave y oleo",
+        "post_b_meter_repaired_syllables": 11,
+        "post_b_meter_repaired_distance": 0,
+        "post_b_meter_repair_accepted": true,
+        "accepted": true,
+        "rejection_reason": null
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": true,
+    "verse_1": {
+      "text": "El tiempo avanza, y en mi corazón",
+      "last_word": "corazón",
+      "rhyme": "on"
+    },
+    "verse_4": {
+      "text": "En la melancolía de lo que ya fue on",
+      "last_word": "on",
+      "rhyme": "on"
+    },
+    "target_rhyme": "on",
+    "current_rhyme": "on",
+    "errors": [],
+    "feedback": "La rima exterior AXYA es correcta: el verso 4 conserva la rima consonante del verso 1 ('on')."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": true,
+    "verse_2": {
+      "text": "De nostalgia que me hace vacío y llano",
+      "last_word": "llano",
+      "rhyme": "o"
+    },
+    "verse_3": {
+      "text": "En mi alma siente un llanto suave y oleo",
+      "last_word": "oleo",
+      "rhyme": "o"
+    },
+    "target_rhyme": "o",
+    "current_rhyme": "o",
+    "errors": [],
+    "feedback": "La rima interior B es correcta: el verso 3 conserva la rima consonante del verso 2 ('o')."
+  },
+  "generation_reasoning": "Corregido el verso 2 para tener 11 silabas."
+}

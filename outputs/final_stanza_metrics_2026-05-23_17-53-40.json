@@ -1,0 +1,716 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_post_a_rhyme_meter_repair": true,
+    "post_a_rhyme_meter_repair_variants": 5,
+    "post_a_rhyme_meter_repair_temperature": 0.4,
+    "post_a_rhyme_meter_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200,
+    "inner_rhyme_repair_conditioned_by_candidate": true,
+    "inner_rhyme_repair_variants_per_candidate": 2,
+    "inner_rhyme_repair_max_candidate_words": 4,
+    "enable_post_b_rhyme_meter_repair": true,
+    "post_b_rhyme_meter_repair_variants": 5,
+    "post_b_rhyme_meter_repair_temperature": 0.4,
+    "post_b_rhyme_meter_repair_num_predict": 200
+  },
+  "stanza": [
+    "Tiempo, río que siempre fluye, Recuerdos, olvidarlo",
+    "Arraiga en años fuertes el tiempo",
+    "Implacable maestro, sin cesar detiene, Olmo viejo avanza, empo.",
+    "Generación tras generación, arlo."
+  ],
+  "score": 0.5517848352762241,
+  "step_score": 0.7,
+  "score_history": [
+    0.4,
+    0.6,
+    0.7
+  ],
+  "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 15 silabas, pero deberia tener 11.\n- Verso 2: tiene 8 silabas, pero deberia tener 11.\n- Verso 3: tiene 18 silabas, pero deberia tener 11.\nRima consonante:\n- El esquema de rima coincide con ABBA.",
+  "metrics": {
+    "score": 0.7,
+    "score_20": 14.0,
+    "verses": [
+      "Tiempo, río que siempre fluye, Recuerdos, olvidarlo",
+      "Arraiga en años fuertes el tiempo",
+      "Implacable maestro, sin cesar detiene, Olmo viejo avanza, empo.",
+      "Generación tras generación, arlo."
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        15,
+        8,
+        18,
+        11
+      ],
+      "correct_verses": 1,
+      "total_expected_verses": 4,
+      "score": 0.25,
+      "errors": [
+        "Verso 1: tiene 15 silabas, pero deberia tener 11.",
+        "Verso 2: tiene 8 silabas, pero deberia tener 11.",
+        "Verso 3: tiene 18 silabas, pero deberia tener 11."
+      ]
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "arlo",
+        "empo",
+        "empo",
+        "arlo"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "correct_positions": 4,
+      "total_positions": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "errors": [
+      "Verso 1: tiene 15 silabas, pero deberia tener 11.",
+      "Verso 2: tiene 8 silabas, pero deberia tener 11.",
+      "Verso 3: tiene 18 silabas, pero deberia tener 11."
+    ],
+    "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 15 silabas, pero deberia tener 11.\n- Verso 2: tiene 8 silabas, pero deberia tener 11.\n- Verso 3: tiene 18 silabas, pero deberia tener 11.\nRima consonante:\n- El esquema de rima coincide con ABBA."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": true,
+    "original_stanza": [
+      "Tiempo, río que siempre pasa, Recordar días, olvidar el tiempo.",
+      "Arraiga el tiempo en años fuertes, Dejan huellas que no se olvidan.",
+      "Implacable maestro, sin cesar detiene, Yo como un olmo viejo, avanzo.",
+      "Generación tras generación, tiempo."
+    ],
+    "repaired_stanza": [
+      "Tiempo, río que siempre fluye, Recuerdos, olvidarlo",
+      "Arraiga en años fuertes el tiempo",
+      "Implacable maestro, sin cesar detiene, Avanza un olmo viejo yo.",
+      "Generación tras generación, tiempo."
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "Tiempo, río que siempre pasa, Recordar días, olvidar el tiempo.",
+        "original_syllables": 18,
+        "original_distance": 7,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Tiempo, río que siempre fluye, Recuerdos, olvidarlo",
+        "selected_syllables": 15,
+        "selected_distance": 4,
+        "variants": [
+          {
+            "verse": "Tiempo, río que siempre fluye, Recuerdos, olvidar el tiempo",
+            "syllables": 17,
+            "distance": 6
+          },
+          {
+            "verse": "Tiempo, río que pasa siempre, Recordar días, olvidarlo",
+            "syllables": 16,
+            "distance": 5
+          },
+          {
+            "verse": "Tiempo, río que siempre vuelce, Recuerdo, olvidar el tiempo",
+            "syllables": 16,
+            "distance": 5
+          },
+          {
+            "verse": "Tiempo, río que siempre corre, Recordar días, olvidarlos",
+            "syllables": 16,
+            "distance": 5
+          },
+          {
+            "verse": "Tiempo, río que siempre fluye, Recuerdos, olvidarlo",
+            "syllables": 15,
+            "distance": 4
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "Arraiga el tiempo en años fuertes, Dejan huellas que no se olvidan.",
+        "original_syllables": 16,
+        "original_distance": 5,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Arraiga en años fuertes el tiempo",
+        "selected_syllables": 8,
+        "selected_distance": 3,
+        "variants": [
+          {
+            "verse": "Arraiga en años fuertes el tiempo",
+            "syllables": 8,
+            "distance": 3
+          },
+          {
+            "verse": "En años fuertes arraiga el tiempo",
+            "syllables": 8,
+            "distance": 3
+          },
+          {
+            "verse": "El tiempo arraiga en años fuertes",
+            "syllables": 7,
+            "distance": 4
+          },
+          {
+            "verse": "Tiempo en años fuertes arraiga",
+            "syllables": 7,
+            "distance": 4
+          },
+          {
+            "verse": "Arraiga en fuertes años el tiempo",
+            "syllables": 8,
+            "distance": 3
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "Implacable maestro, sin cesar detiene, Yo como un olmo viejo, avanzo.",
+        "original_syllables": 21,
+        "original_distance": 10,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Implacable maestro, sin cesar detiene, Avanza un olmo viejo yo.",
+        "selected_syllables": 19,
+        "selected_distance": 8,
+        "variants": [
+          {
+            "verse": "Implacable maestro, sin cesar detiene, Yo como un olmo viejo avanza.",
+            "syllables": 21,
+            "distance": 10
+          },
+          {
+            "verse": "Implacable maestro, sin cesar detiene, Avanzo yo como un olmo viejo.",
+            "syllables": 21,
+            "distance": 10
+          },
+          {
+            "verse": "Implacable maestro, sin cesar detiene, Yo avanzo como un olmo viejo.",
+            "syllables": 21,
+            "distance": 10
+          },
+          {
+            "verse": "Implacable maestro, sin cesar detiene, Avanza yo como un olmo viejo.",
+            "syllables": 21,
+            "distance": 10
+          },
+          {
+            "verse": "Implacable maestro, sin cesar detiene, Avanza un olmo viejo yo.",
+            "syllables": 19,
+            "distance": 8
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "Generación tras generación, tiempo.",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": true,
+    "reason": "Se acepto una variante que corrige AXYA.",
+    "original_stanza": [
+      "Tiempo, río que siempre fluye, Recuerdos, olvidarlo",
+      "Arraiga en años fuertes el tiempo",
+      "Implacable maestro, sin cesar detiene, Avanza un olmo viejo yo.",
+      "Generación tras generación, tiempo."
+    ],
+    "repaired_stanza": [
+      "Tiempo, río que siempre fluye, Recuerdos, olvidarlo",
+      "Arraiga en años fuertes el tiempo",
+      "Implacable maestro, sin cesar detiene, Avanza un olmo viejo yo.",
+      "Generación tras generación, arlo."
+    ],
+    "target_rhyme": "arlo",
+    "current_rhyme": "empo",
+    "verse_1": {
+      "text": "Tiempo, río que siempre fluye, Recuerdos, olvidarlo",
+      "last_word": "olvidarlo",
+      "rhyme": "arlo"
+    },
+    "candidate_final_words": [
+      "olvidarlo"
+    ],
+    "enforced_candidate_final_words": [],
+    "post_a_meter_repair_enabled": true,
+    "post_a_meter_repair_attempts": 0,
+    "post_a_meter_repair_successes": 0,
+    "original_verse_4": "Generación tras generación, tiempo.",
+    "original_verse_4_syllables": 11,
+    "selected_variant": "Generación tras generación, arlo.",
+    "selected_variant_syllables": 11,
+    "variants": [
+      {
+        "verse": "Generación tras generación, arlo.",
+        "syllables": 11,
+        "final_word": "arlo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": true,
+        "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'arlo' | v4 = 'arlo'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": true,
+        "rejection_reason": null
+      },
+      {
+        "verse": "Generación tras generación, arlequin.",
+        "syllables": 12,
+        "final_word": "arlequin",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'arlo' | v4 = 'equin'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Generación tras generación, arló.",
+        "syllables": 12,
+        "final_word": "arló",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'arlo' | v4 = 'o'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Generación tras generación, arloquín.",
+        "syllables": 13,
+        "final_word": "arloquín",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'arlo' | v4 = 'in'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Generación tras generación, arlón.",
+        "syllables": 12,
+        "final_word": "arlón",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'arlo' | v4 = 'on'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": true,
+    "reason": "Se acepto una variante que corrige la rima interior B.",
+    "original_stanza": [
+      "Tiempo, río que siempre fluye, Recuerdos, olvidarlo",
+      "Arraiga en años fuertes el tiempo",
+      "Implacable maestro, sin cesar detiene, Avanza un olmo viejo yo.",
+      "Generación tras generación, arlo."
+    ],
+    "repaired_stanza": [
+      "Tiempo, río que siempre fluye, Recuerdos, olvidarlo",
+      "Arraiga en años fuertes el tiempo",
+      "Implacable maestro, sin cesar detiene, Olmo viejo avanza, empo.",
+      "Generación tras generación, arlo."
+    ],
+    "target_rhyme": "empo",
+    "current_rhyme": "o",
+    "verse_2": {
+      "text": "Arraiga en años fuertes el tiempo",
+      "last_word": "tiempo",
+      "rhyme": "empo"
+    },
+    "candidate_final_words": [
+      "tiempo"
+    ],
+    "enforced_candidate_final_words": [],
+    "has_enforced_candidate_final_words": false,
+    "candidate_warning": "No hay palabras finales candidatas distintas de la palabra ancla para la rima B.",
+    "conditioned_by_candidate": false,
+    "conditioned_candidate_words": [],
+    "conditioned_generation_reports": [],
+    "post_b_meter_repair_enabled": true,
+    "post_b_meter_repair_attempts": 2,
+    "post_b_meter_repair_successes": 2,
+    "original_verse_3": "Implacable maestro, sin cesar detiene, Avanza un olmo viejo yo.",
+    "original_verse_3_syllables": 19,
+    "selected_variant": "Implacable maestro, sin cesar detiene, Olmo viejo avanza, empo.",
+    "selected_variant_syllables": 18,
+    "variants": [
+      {
+        "verse": "Implacable maestro, sin cesar detiene, Avanza un olmo viejo y empo.",
+        "syllables": 21,
+        "final_word": "empo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'empo' | v3 = 'empo'",
+        "post_b_meter_repair_attempted": true,
+        "post_b_meter_repair_report": {
+          "enabled": true,
+          "repair_label": "post_b",
+          "attempted": true,
+          "changed": true,
+          "reason": "Se reparo la metrica conservando la palabra final obligatoria.",
+          "original_stanza": [
+            "Tiempo, río que siempre fluye, Recuerdos, olvidarlo",
+            "Arraiga en años fuertes el tiempo",
+            "Implacable maestro, sin cesar detiene, Avanza un olmo viejo y empo.",
+            "Generación tras generación, arlo."
+          ],
+          "repaired_stanza": [
+            "Tiempo, río que siempre fluye, Recuerdos, olvidarlo",
+            "Arraiga en años fuertes el tiempo",
+            "Implacable maestro, sin cesar detiene, Olmo viejo avanza, empo.",
+            "Generación tras generación, arlo."
+          ],
+          "verse_number": 3,
+          "required_final_word": "empo",
+          "original_verse": "Implacable maestro, sin cesar detiene, Avanza un olmo viejo y empo.",
+          "original_syllables": 21,
+          "original_distance": 10,
+          "selected_variant": "Implacable maestro, sin cesar detiene, Olmo viejo avanza, empo.",
+          "selected_syllables": 18,
+          "selected_distance": 7,
+          "variants": [
+            {
+              "verse": "Implacable maestro, sin cesar detiene, Avanza un olmo viejo.",
+              "syllables": 18,
+              "distance": 7,
+              "final_word": "viejo",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Implacable maestro, sin cesar detiene, Un olmo viejo avanza empo.",
+              "syllables": 19,
+              "distance": 8,
+              "final_word": "empo",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Implacable maestro, sin cesar detiene, Olmo viejo avanza, empo.",
+              "syllables": 18,
+              "distance": 7,
+              "final_word": "empo",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": true,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Implacable maestro, sin cesar detiene, Avanza olmo viejo, empo.",
+              "syllables": 18,
+              "distance": 7,
+              "final_word": "empo",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Implacable maestro, sin cesar detiene, Olmo viejo y empo avanza.",
+              "syllables": 20,
+              "distance": 9,
+              "final_word": "avanza",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            }
+          ],
+          "error": null
+        },
+        "post_b_meter_repaired_verse": "Implacable maestro, sin cesar detiene, Olmo viejo avanza, empo.",
+        "post_b_meter_repaired_syllables": 18,
+        "post_b_meter_repaired_distance": 7,
+        "post_b_meter_repair_accepted": true,
+        "accepted": true,
+        "rejection_reason": null
+      },
+      {
+        "verse": "Implacable maestro, sin cesar detiene, Avanza un olmo viejo en empo.",
+        "syllables": 20,
+        "final_word": "empo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'empo' | v3 = 'empo'",
+        "post_b_meter_repair_attempted": true,
+        "post_b_meter_repair_report": {
+          "enabled": true,
+          "repair_label": "post_b",
+          "attempted": true,
+          "changed": true,
+          "reason": "Se reparo la metrica conservando la palabra final obligatoria.",
+          "original_stanza": [
+            "Tiempo, río que siempre fluye, Recuerdos, olvidarlo",
+            "Arraiga en años fuertes el tiempo",
+            "Implacable maestro, sin cesar detiene, Avanza un olmo viejo en empo.",
+            "Generación tras generación, arlo."
+          ],
+          "repaired_stanza": [
+            "Tiempo, río que siempre fluye, Recuerdos, olvidarlo",
+            "Arraiga en años fuertes el tiempo",
+            "Implacable maestro, sin cesar detiene, Avanza olmo viejo en empo.",
+            "Generación tras generación, arlo."
+          ],
+          "verse_number": 3,
+          "required_final_word": "empo",
+          "original_verse": "Implacable maestro, sin cesar detiene, Avanza un olmo viejo en empo.",
+          "original_syllables": 20,
+          "original_distance": 9,
+          "selected_variant": "Implacable maestro, sin cesar detiene, Avanza olmo viejo en empo.",
+          "selected_syllables": 19,
+          "selected_distance": 8,
+          "variants": [
+            {
+              "verse": "Implacable maestro, sin cesar detiene, Avanza un olmo viejo en tiempo.",
+              "syllables": 20,
+              "distance": 9,
+              "final_word": "tiempo",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Implacable maestro, sin cesar detiene, Un olmo viejo avanza en empo.",
+              "syllables": 20,
+              "distance": 9,
+              "final_word": "empo",
+              "preserves_final_word": true,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No mejora la distancia metrica del verso."
+            },
+            {
+              "verse": "Implacable maestro, sin cesar detiene, Olmo viejo avanza en el empo.",
+              "syllables": 20,
+              "distance": 9,
+              "final_word": "empo",
+              "preserves_final_word": true,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No mejora la distancia metrica del verso."
+            },
+            {
+              "verse": "Implacable maestro, sin cesar detiene, Olmo viejo avanza en tiempo empo.",
+              "syllables": 20,
+              "distance": 9,
+              "final_word": "empo",
+              "preserves_final_word": true,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No mejora la distancia metrica del verso."
+            },
+            {
+              "verse": "Implacable maestro, sin cesar detiene, Avanza olmo viejo en empo.",
+              "syllables": 19,
+              "distance": 8,
+              "final_word": "empo",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": true,
+              "rejection_reason": null
+            }
+          ],
+          "error": null
+        },
+        "post_b_meter_repaired_verse": "Implacable maestro, sin cesar detiene, Avanza olmo viejo en empo.",
+        "post_b_meter_repaired_syllables": 19,
+        "post_b_meter_repaired_distance": 8,
+        "post_b_meter_repair_accepted": true,
+        "accepted": false,
+        "rejection_reason": null
+      },
+      {
+        "verse": "Implacable maestro, sin cesar detiene, Avanza un olmo viejo, empo.",
+        "syllables": 19,
+        "final_word": "empo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'empo' | v3 = 'empo'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": null
+      },
+      {
+        "verse": "Implacable maestro, sin cesar detiene, Avanza un olmo viejo y empuja.",
+        "syllables": 22,
+        "final_word": "empuja",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'empo' | v3 = 'uja'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Implacable maestro, sin cesar detiene, Avanza un olmo viejo en empuje.",
+        "syllables": 21,
+        "final_word": "empuje",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'empo' | v3 = 'uje'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": true,
+    "verse_1": {
+      "text": "Tiempo, río que siempre fluye, Recuerdos, olvidarlo",
+      "last_word": "olvidarlo",
+      "rhyme": "arlo"
+    },
+    "verse_4": {
+      "text": "Generación tras generación, arlo.",
+      "last_word": "arlo",
+      "rhyme": "arlo"
+    },
+    "target_rhyme": "arlo",
+    "current_rhyme": "arlo",
+    "errors": [],
+    "feedback": "La rima exterior AXYA es correcta: el verso 4 conserva la rima consonante del verso 1 ('arlo')."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": true,
+    "verse_2": {
+      "text": "Arraiga en años fuertes el tiempo",
+      "last_word": "tiempo",
+      "rhyme": "empo"
+    },
+    "verse_3": {
+      "text": "Implacable maestro, sin cesar detiene, Olmo viejo avanza, empo.",
+      "last_word": "empo",
+      "rhyme": "empo"
+    },
+    "target_rhyme": "empo",
+    "current_rhyme": "empo",
+    "errors": [],
+    "feedback": "La rima interior B es correcta: el verso 3 conserva la rima consonante del verso 2 ('empo')."
+  },
+  "generation_reasoning": "Verso 1 y 4 conservados. Versos 2 y 3 corregidos para cumplir con las reglas de rima ABBA y silabas metricas."
+}

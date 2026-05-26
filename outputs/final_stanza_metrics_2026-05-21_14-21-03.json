@@ -1,0 +1,730 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200,
+    "inner_rhyme_repair_conditioned_by_candidate": true,
+    "inner_rhyme_repair_variants_per_candidate": 2,
+    "inner_rhyme_repair_max_candidate_words": 4,
+    "enable_post_b_rhyme_meter_repair": true,
+    "post_b_rhyme_meter_repair_variants": 5,
+    "post_b_rhyme_meter_repair_temperature": 0.4,
+    "post_b_rhyme_meter_repair_num_predict": 200
+  },
+  "stanza": [
+    "El tiempo en su curso como un río largo",
+    "Deja huella que no nos deja olvidar.",
+    "Arrastra recordaciones, que ya llora",
+    "En su corriente se lleva a nuestro amargo"
+  ],
+  "score": 0.7611662611020245,
+  "step_score": 0.9,
+  "score_history": [
+    0.7,
+    0.7,
+    0.9
+  ],
+  "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.",
+  "metrics": {
+    "score": 0.9,
+    "score_20": 18.0,
+    "verses": [
+      "El tiempo en su curso como un río largo",
+      "Deja huella que no nos deja olvidar.",
+      "Arrastra recordaciones, que ya llora",
+      "En su corriente se lleva a nuestro amargo"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "correct_verses": 4,
+      "total_expected_verses": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "argo",
+        "ar",
+        "ora",
+        "argo"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "C",
+        "A"
+      ],
+      "correct_positions": 3,
+      "total_positions": 4,
+      "score": 0.75,
+      "errors": [
+        "Verso 3: rima C, pero se esperaba B."
+      ]
+    },
+    "errors": [
+      "Verso 3: rima C, pero se esperaba B."
+    ],
+    "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": true,
+    "original_stanza": [
+      "El tiempo, en su curso como un río",
+      "Deja huella que no nos deja olvidar.",
+      "Arrastra recordaciones, que ya llora",
+      "Y nos deja llevar en su corriente."
+    ],
+    "repaired_stanza": [
+      "El tiempo en su curso como un río largo",
+      "Deja huella que no nos deja olvidar.",
+      "Arrastra recordaciones, que ya llora",
+      "Y nos deja llevar en su corriente."
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "El tiempo, en su curso como un río",
+        "original_syllables": 10,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "El tiempo en su curso como un río largo",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "El tiempo en su curso como un río largo",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "El tiempo en su camino como un río ancho",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "El tiempo en su flujo como un río profundo",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "El tiempo en su marcha como un río caudaloso",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "El tiempo en su tránsito como un río férreo",
+            "syllables": 12,
+            "distance": 1
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "Deja huella que no nos deja olvidar.",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "Arrastra recordaciones, que ya llora",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "Y nos deja llevar en su corriente.",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": true,
+    "reason": "Se acepto una variante que corrige AXYA.",
+    "original_stanza": [
+      "El tiempo en su curso como un río largo",
+      "Deja huella que no nos deja olvidar.",
+      "Arrastra recordaciones, que ya llora",
+      "Y nos deja llevar en su corriente."
+    ],
+    "repaired_stanza": [
+      "El tiempo en su curso como un río largo",
+      "Deja huella que no nos deja olvidar.",
+      "Arrastra recordaciones, que ya llora",
+      "En su corriente se lleva a nuestro amargo"
+    ],
+    "target_rhyme": "argo",
+    "current_rhyme": "ente",
+    "verse_1": {
+      "text": "El tiempo en su curso como un río largo",
+      "last_word": "largo",
+      "rhyme": "argo"
+    },
+    "candidate_final_words": [
+      "amargo",
+      "largo"
+    ],
+    "enforced_candidate_final_words": [
+      "amargo"
+    ],
+    "original_verse_4": "Y nos deja llevar en su corriente.",
+    "original_verse_4_syllables": 11,
+    "selected_variant": "En su corriente se lleva a nuestro amargo",
+    "selected_variant_syllables": 11,
+    "variants": [
+      {
+        "verse": "Y nos deja ir en su corriente amargo",
+        "syllables": 10,
+        "final_word": "amargo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": true,
+        "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'argo' | v4 = 'argo'",
+        "accepted": false,
+        "rejection_reason": "Empeora la distancia metrica del verso 4."
+      },
+      {
+        "verse": "En su corriente se lleva a nuestro amargo",
+        "syllables": 11,
+        "final_word": "amargo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": true,
+        "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'argo' | v4 = 'argo'",
+        "accepted": true,
+        "rejection_reason": null
+      },
+      {
+        "verse": "Sus aguas amargas nos arrastran en su curso",
+        "syllables": 11,
+        "final_word": "curso",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'argo' | v4 = 'urso'",
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 1."
+      },
+      {
+        "verse": "Nos deja ir en su corriente, amargo es el río",
+        "syllables": 12,
+        "final_word": "río",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'argo' | v4 = 'io'",
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 1."
+      },
+      {
+        "verse": "Y sus aguas amargas nos dejan llevar en su curso",
+        "syllables": 14,
+        "final_word": "curso",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'argo' | v4 = 'urso'",
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 1."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige B sin empeorar metrica.",
+    "original_stanza": [
+      "El tiempo en su curso como un río largo",
+      "Deja huella que no nos deja olvidar.",
+      "Arrastra recordaciones, que ya llora",
+      "En su corriente se lleva a nuestro amargo"
+    ],
+    "repaired_stanza": [
+      "El tiempo en su curso como un río largo",
+      "Deja huella que no nos deja olvidar.",
+      "Arrastra recordaciones, que ya llora",
+      "En su corriente se lleva a nuestro amargo"
+    ],
+    "target_rhyme": "ar",
+    "current_rhyme": "ora",
+    "verse_2": {
+      "text": "Deja huella que no nos deja olvidar.",
+      "last_word": "olvidar",
+      "rhyme": "ar"
+    },
+    "candidate_final_words": [
+      "llorar",
+      "pasar",
+      "mirar",
+      "soñar",
+      "callar",
+      "recordar",
+      "olvidar"
+    ],
+    "enforced_candidate_final_words": [
+      "llorar",
+      "pasar",
+      "mirar",
+      "soñar",
+      "callar",
+      "recordar"
+    ],
+    "has_enforced_candidate_final_words": true,
+    "candidate_warning": null,
+    "conditioned_by_candidate": true,
+    "conditioned_candidate_words": [
+      "llorar",
+      "pasar",
+      "mirar",
+      "soñar"
+    ],
+    "conditioned_generation_reports": [
+      {
+        "required_final_word": "llorar",
+        "attempted": true,
+        "variants": [
+          "Arrastra recuerdos, que ya se desbordan en llorar",
+          "Arrastra reminiscencias, que ya se derraman en llorar"
+        ],
+        "error": null
+      },
+      {
+        "required_final_word": "pasar",
+        "attempted": true,
+        "variants": [
+          "Arrastra recuerdos, que ya se desvanecen",
+          "Arrastra tristezas, que ya se apagan"
+        ],
+        "error": null
+      },
+      {
+        "required_final_word": "mirar",
+        "attempted": true,
+        "variants": [
+          "Arrastra recuerdos, que ya se mira",
+          "Arrastra tristezas, que ya se mira"
+        ],
+        "error": null
+      },
+      {
+        "required_final_word": "soñar",
+        "attempted": true,
+        "variants": [
+          "Arrastra recuerdos, que ya soñan en el arco",
+          "Arrastra reminiscencias, que ya soñan en el alba"
+        ],
+        "error": null
+      }
+    ],
+    "post_b_meter_repair_enabled": true,
+    "post_b_meter_repair_attempts": 2,
+    "post_b_meter_repair_successes": 0,
+    "original_verse_3": "Arrastra recordaciones, que ya llora",
+    "original_verse_3_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "Arrastra recuerdos, que ya se desbordan en llorar",
+        "syllables": 15,
+        "final_word": "llorar",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'ar' | v3 = 'ar'",
+        "post_b_meter_repair_attempted": true,
+        "post_b_meter_repair_report": {
+          "enabled": true,
+          "attempted": true,
+          "changed": false,
+          "reason": "Ninguna variante conserva la palabra final y mejora la metrica.",
+          "original_stanza": [
+            "El tiempo en su curso como un río largo",
+            "Deja huella que no nos deja olvidar.",
+            "Arrastra recuerdos, que ya se desbordan en llorar",
+            "En su corriente se lleva a nuestro amargo"
+          ],
+          "repaired_stanza": [
+            "El tiempo en su curso como un río largo",
+            "Deja huella que no nos deja olvidar.",
+            "Arrastra recuerdos, que ya se desbordan en llorar",
+            "En su corriente se lleva a nuestro amargo"
+          ],
+          "verse_number": 3,
+          "required_final_word": "llorar",
+          "original_verse": "Arrastra recuerdos, que ya se desbordan en llorar",
+          "original_syllables": 15,
+          "original_distance": 4,
+          "selected_variant": null,
+          "selected_syllables": null,
+          "selected_distance": null,
+          "variants": [
+            {
+              "verse": "Arrastra recordos, que ya se desbordan en llanto",
+              "syllables": 14,
+              "distance": 3,
+              "final_word": "llanto",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Arrastra recuerdos, que ya se desbordan al llorar",
+              "syllables": 15,
+              "distance": 4,
+              "final_word": "llorar",
+              "preserves_final_word": true,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No mejora la distancia metrica del verso."
+            },
+            {
+              "verse": "Arrastra recuerdos, que ya se desbordan a llora",
+              "syllables": 14,
+              "distance": 3,
+              "final_word": "llora",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Arrastra recordos, que ya se desbordan en llora",
+              "syllables": 14,
+              "distance": 3,
+              "final_word": "llora",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Arrastra recuerdos, que ya se desbordan al llorá",
+              "syllables": 15,
+              "distance": 4,
+              "final_word": "llorá",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            }
+          ],
+          "error": null
+        },
+        "post_b_meter_repaired_verse": "Arrastra recuerdos, que ya se desbordan en llorar",
+        "post_b_meter_repaired_syllables": 15,
+        "post_b_meter_repaired_distance": 4,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "Corrige B, pero la reparacion metrica posterior no consigue una variante aceptable."
+      },
+      {
+        "verse": "Arrastra reminiscencias, que ya se derraman en llorar",
+        "syllables": 17,
+        "final_word": "llorar",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'ar' | v3 = 'ar'",
+        "post_b_meter_repair_attempted": true,
+        "post_b_meter_repair_report": {
+          "enabled": true,
+          "attempted": true,
+          "changed": false,
+          "reason": "Ninguna variante conserva la palabra final y mejora la metrica.",
+          "original_stanza": [
+            "El tiempo en su curso como un río largo",
+            "Deja huella que no nos deja olvidar.",
+            "Arrastra reminiscencias, que ya se derraman en llorar",
+            "En su corriente se lleva a nuestro amargo"
+          ],
+          "repaired_stanza": [
+            "El tiempo en su curso como un río largo",
+            "Deja huella que no nos deja olvidar.",
+            "Arrastra reminiscencias, que ya se derraman en llorar",
+            "En su corriente se lleva a nuestro amargo"
+          ],
+          "verse_number": 3,
+          "required_final_word": "llorar",
+          "original_verse": "Arrastra reminiscencias, que ya se derraman en llorar",
+          "original_syllables": 17,
+          "original_distance": 6,
+          "selected_variant": null,
+          "selected_syllables": null,
+          "selected_distance": null,
+          "variants": [
+            {
+              "verse": "Arrastra recuerdos, que ya se derraman en llanto",
+              "syllables": 14,
+              "distance": 3,
+              "final_word": "llanto",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Reminiscencias arrastran, que ya se desbordan en llorar",
+              "syllables": 17,
+              "distance": 6,
+              "final_word": "llorar",
+              "preserves_final_word": true,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No mejora la distancia metrica del verso."
+            },
+            {
+              "verse": "Arrastran reminiscencias, llanto es su destino",
+              "syllables": 12,
+              "distance": 1,
+              "final_word": "destino",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Arrastran reminiscencias, lloro en el corriente",
+              "syllables": 13,
+              "distance": 2,
+              "final_word": "corriente",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Las reminiscencias arrastran, en llorar se derraman",
+              "syllables": 15,
+              "distance": 4,
+              "final_word": "derraman",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            }
+          ],
+          "error": null
+        },
+        "post_b_meter_repaired_verse": "Arrastra reminiscencias, que ya se derraman en llorar",
+        "post_b_meter_repaired_syllables": 17,
+        "post_b_meter_repaired_distance": 6,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "Corrige B, pero la reparacion metrica posterior no consigue una variante aceptable."
+      },
+      {
+        "verse": "Arrastra recuerdos, que ya se desvanecen",
+        "syllables": 12,
+        "final_word": "desvanecen",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ar' | v3 = 'ecen'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 2."
+      },
+      {
+        "verse": "Arrastra tristezas, que ya se apagan",
+        "syllables": 9,
+        "final_word": "apagan",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ar' | v3 = 'agan'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 2."
+      },
+      {
+        "verse": "Arrastra recuerdos, que ya se mira",
+        "syllables": 10,
+        "final_word": "mira",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ar' | v3 = 'ira'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 2."
+      },
+      {
+        "verse": "Arrastra tristezas, que ya se mira",
+        "syllables": 10,
+        "final_word": "mira",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ar' | v3 = 'ira'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 2."
+      },
+      {
+        "verse": "Arrastra recuerdos, que ya soñan en el arco",
+        "syllables": 13,
+        "final_word": "arco",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ar' | v3 = 'arco'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 2."
+      },
+      {
+        "verse": "Arrastra reminiscencias, que ya soñan en el alba",
+        "syllables": 15,
+        "final_word": "alba",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ar' | v3 = 'alba'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 2."
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": true,
+    "verse_1": {
+      "text": "El tiempo en su curso como un río largo",
+      "last_word": "largo",
+      "rhyme": "argo"
+    },
+    "verse_4": {
+      "text": "En su corriente se lleva a nuestro amargo",
+      "last_word": "amargo",
+      "rhyme": "argo"
+    },
+    "target_rhyme": "argo",
+    "current_rhyme": "argo",
+    "errors": [],
+    "feedback": "La rima exterior AXYA es correcta: el verso 4 conserva la rima consonante del verso 1 ('argo')."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_2": {
+      "text": "Deja huella que no nos deja olvidar.",
+      "last_word": "olvidar",
+      "rhyme": "ar"
+    },
+    "verse_3": {
+      "text": "Arrastra recordaciones, que ya llora",
+      "last_word": "llora",
+      "rhyme": "ora"
+    },
+    "target_rhyme": "ar",
+    "current_rhyme": "ora",
+    "errors": [
+      "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ar', pero se obtuvo 'ora'."
+    ],
+    "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ar') y reescribe el verso 3 para que termine con esa misma rima consonante."
+  },
+  "generation_reasoning": "Se han agregado una silaba a cada verso para cumplir con la longitud deseada. Las rimas se mantienen y el tema de nostalgia del paso del tiempo se conserva."
+}

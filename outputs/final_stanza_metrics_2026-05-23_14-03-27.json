@@ -1,0 +1,479 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_post_a_rhyme_meter_repair": true,
+    "post_a_rhyme_meter_repair_variants": 5,
+    "post_a_rhyme_meter_repair_temperature": 0.4,
+    "post_a_rhyme_meter_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200,
+    "inner_rhyme_repair_conditioned_by_candidate": true,
+    "inner_rhyme_repair_variants_per_candidate": 2,
+    "inner_rhyme_repair_max_candidate_words": 4,
+    "enable_post_b_rhyme_meter_repair": true,
+    "post_b_rhyme_meter_repair_variants": 5,
+    "post_b_rhyme_meter_repair_temperature": 0.4,
+    "post_b_rhyme_meter_repair_num_predict": 200
+  },
+  "stanza": [
+    "El pasado, un río que ya no transborda",
+    "Deja en mi pecho una tristeza profunda",
+    "Recuerdos de amor y gloria, en mar indundan",
+    "Perdido me hacen sentir como náufrago"
+  ],
+  "score": 0.7268482371328558,
+  "step_score": 0.8,
+  "score_history": [
+    0.6,
+    0.8,
+    0.8
+  ],
+  "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+  "metrics": {
+    "score": 0.8,
+    "score_20": 16.0,
+    "verses": [
+      "El pasado, un río que ya no transborda",
+      "Deja en mi pecho una tristeza profunda",
+      "Recuerdos de amor y gloria, en mar indundan",
+      "Perdido me hacen sentir como náufrago"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "correct_verses": 4,
+      "total_expected_verses": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "orda",
+        "unda",
+        "undan",
+        "aufrago"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_positions": 2,
+      "total_positions": 4,
+      "score": 0.5,
+      "errors": [
+        "Verso 3: rima C, pero se esperaba B.",
+        "Verso 4: rima D, pero se esperaba A."
+      ]
+    },
+    "errors": [
+      "Verso 3: rima C, pero se esperaba B.",
+      "Verso 4: rima D, pero se esperaba A."
+    ],
+    "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": false,
+    "original_stanza": [
+      "El pasado, un río que ya no transborda",
+      "Deja en mi pecho una tristeza profunda",
+      "Recuerdos de amor y gloria, en mar indundan",
+      "Perdido me hacen sentir como náufrago"
+    ],
+    "repaired_stanza": [
+      "El pasado, un río que ya no transborda",
+      "Deja en mi pecho una tristeza profunda",
+      "Recuerdos de amor y gloria, en mar indundan",
+      "Perdido me hacen sentir como náufrago"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "El pasado, un río que ya no transborda",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "Deja en mi pecho una tristeza profunda",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "Recuerdos de amor y gloria, en mar indundan",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "Perdido me hacen sentir como náufrago",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+    "original_stanza": [
+      "El pasado, un río que ya no transborda",
+      "Deja en mi pecho una tristeza profunda",
+      "Recuerdos de amor y gloria, en mar indundan",
+      "Perdido me hacen sentir como náufrago"
+    ],
+    "repaired_stanza": [
+      "El pasado, un río que ya no transborda",
+      "Deja en mi pecho una tristeza profunda",
+      "Recuerdos de amor y gloria, en mar indundan",
+      "Perdido me hacen sentir como náufrago"
+    ],
+    "target_rhyme": "orda",
+    "current_rhyme": "aufrago",
+    "verse_1": {
+      "text": "El pasado, un río que ya no transborda",
+      "last_word": "transborda",
+      "rhyme": "orda"
+    },
+    "candidate_final_words": [
+      "transborda"
+    ],
+    "enforced_candidate_final_words": [],
+    "post_a_meter_repair_enabled": true,
+    "post_a_meter_repair_attempts": 0,
+    "post_a_meter_repair_successes": 0,
+    "original_verse_4": "Perdido me hacen sentir como náufrago",
+    "original_verse_4_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "Perdido me hacen sentir como desarraigo",
+        "syllables": 12,
+        "final_word": "desarraigo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orda' | v4 = 'aigo'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Perdido me hacen sentir como errante",
+        "syllables": 10,
+        "final_word": "errante",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orda' | v4 = 'ante'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Perdido me hacen sentir como derrotado",
+        "syllables": 13,
+        "final_word": "derrotado",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orda' | v4 = 'ado'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Perdido me hacen sentir como perdido",
+        "syllables": 12,
+        "final_word": "perdido",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orda' | v4 = 'ido'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Perdido me hacen sentir como desordenado",
+        "syllables": 14,
+        "final_word": "desordenado",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'orda' | v4 = 'ado'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige B sin empeorar metrica.",
+    "original_stanza": [
+      "El pasado, un río que ya no transborda",
+      "Deja en mi pecho una tristeza profunda",
+      "Recuerdos de amor y gloria, en mar indundan",
+      "Perdido me hacen sentir como náufrago"
+    ],
+    "repaired_stanza": [
+      "El pasado, un río que ya no transborda",
+      "Deja en mi pecho una tristeza profunda",
+      "Recuerdos de amor y gloria, en mar indundan",
+      "Perdido me hacen sentir como náufrago"
+    ],
+    "target_rhyme": "unda",
+    "current_rhyme": "undan",
+    "verse_2": {
+      "text": "Deja en mi pecho una tristeza profunda",
+      "last_word": "profunda",
+      "rhyme": "unda"
+    },
+    "candidate_final_words": [
+      "profunda"
+    ],
+    "enforced_candidate_final_words": [],
+    "has_enforced_candidate_final_words": false,
+    "candidate_warning": "No hay palabras finales candidatas distintas de la palabra ancla para la rima B.",
+    "conditioned_by_candidate": false,
+    "conditioned_candidate_words": [],
+    "conditioned_generation_reports": [],
+    "post_b_meter_repair_enabled": true,
+    "post_b_meter_repair_attempts": 0,
+    "post_b_meter_repair_successes": 0,
+    "original_verse_3": "Recuerdos de amor y gloria, en mar indundan",
+    "original_verse_3_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "Recuerdos de amor y gloria, en mar agitan",
+        "syllables": 10,
+        "final_word": "agitan",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'unda' | v3 = 'agitan'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Recuerdos de amor y gloria, en mar agudan",
+        "syllables": 10,
+        "final_word": "agudan",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'unda' | v3 = 'agudan'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Recuerdos de amor y gloria, en mar agudan el mar",
+        "syllables": 13,
+        "final_word": "mar",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'unda' | v3 = 'ar'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Recuerdos de amor y gloria, en mar agitan el mar",
+        "syllables": 13,
+        "final_word": "mar",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'unda' | v3 = 'ar'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Recuerdos de amor y gloria, en mar agitan las olas",
+        "syllables": 12,
+        "final_word": "olas",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'unda' | v3 = 'as'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_1": {
+      "text": "El pasado, un río que ya no transborda",
+      "last_word": "transborda",
+      "rhyme": "orda"
+    },
+    "verse_4": {
+      "text": "Perdido me hacen sentir como náufrago",
+      "last_word": "náufrago",
+      "rhyme": "aufrago"
+    },
+    "target_rhyme": "orda",
+    "current_rhyme": "aufrago",
+    "errors": [
+      "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'orda', pero se obtuvo 'aufrago'."
+    ],
+    "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('orda') y reescribe el verso 4 para que termine con esa misma rima consonante."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_2": {
+      "text": "Deja en mi pecho una tristeza profunda",
+      "last_word": "profunda",
+      "rhyme": "unda"
+    },
+    "verse_3": {
+      "text": "Recuerdos de amor y gloria, en mar indundan",
+      "last_word": "indundan",
+      "rhyme": "undan"
+    },
+    "target_rhyme": "unda",
+    "current_rhyme": "undan",
+    "errors": [
+      "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'unda', pero se obtuvo 'undan'."
+    ],
+    "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('unda') y reescribe el verso 3 para que termine con esa misma rima consonante."
+  },
+  "generation_reasoning": "El verso 1 no cambia ya que cumple la rima A con el verso 4. El verso 2 y 3 se corrigen para cumplir la rima B, y el verso 4 se modifica ligeramente para cumplir la rima A."
+}

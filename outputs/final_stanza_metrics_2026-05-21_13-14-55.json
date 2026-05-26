@@ -1,0 +1,469 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200,
+    "inner_rhyme_repair_conditioned_by_candidate": true,
+    "inner_rhyme_repair_variants_per_candidate": 2,
+    "inner_rhyme_repair_max_candidate_words": 4,
+    "enable_post_b_rhyme_meter_repair": true,
+    "post_b_rhyme_meter_repair_variants": 5,
+    "post_b_rhyme_meter_repair_temperature": 0.4,
+    "post_b_rhyme_meter_repair_num_predict": 200
+  },
+  "stanza": [
+    "El tiempo, como un viento frío y mudo,",
+    "con corazón herida y asombrosa",
+    "Nos arrastran las hojas de joven edad",
+    "y dejamos recuerdos sin hallar."
+  ],
+  "score": 0.8,
+  "step_score": 0.8,
+  "score_history": [
+    0.8,
+    0.8,
+    0.8
+  ],
+  "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+  "metrics": {
+    "score": 0.8,
+    "score_20": 16.0,
+    "verses": [
+      "El tiempo, como un viento frío y mudo,",
+      "con corazón herida y asombrosa",
+      "Nos arrastran las hojas de joven edad",
+      "y dejamos recuerdos sin hallar."
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "correct_verses": 4,
+      "total_expected_verses": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "udo",
+        "osa",
+        "ad",
+        "ar"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_positions": 2,
+      "total_positions": 4,
+      "score": 0.5,
+      "errors": [
+        "Verso 3: rima C, pero se esperaba B.",
+        "Verso 4: rima D, pero se esperaba A."
+      ]
+    },
+    "errors": [
+      "Verso 3: rima C, pero se esperaba B.",
+      "Verso 4: rima D, pero se esperaba A."
+    ],
+    "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": true,
+    "original_stanza": [
+      "El tiempo, como un viento frío y mudo,",
+      "con corazón herido, nos asombra.",
+      "Nos arrastran las hojas de joven edad",
+      "y dejamos recuerdos sin hallar."
+    ],
+    "repaired_stanza": [
+      "El tiempo, como un viento frío y mudo,",
+      "con corazón herida y asombrosa",
+      "Nos arrastran las hojas de joven edad",
+      "y dejamos recuerdos sin hallar."
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "El tiempo, como un viento frío y mudo,",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "con corazón herido, nos asombra.",
+        "original_syllables": 10,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "con corazón herida y asombrosa",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "con corazón herida y asombrosa",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "con corazón herido y asombrado",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "con corazón herido, aún asombra",
+            "syllables": 9,
+            "distance": 2
+          },
+          {
+            "verse": "con corazón herido, nos asombra ya",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "con corazón herido, nos asombra siempre",
+            "syllables": 12,
+            "distance": 1
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "Nos arrastran las hojas de joven edad",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "y dejamos recuerdos sin hallar.",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+    "original_stanza": [
+      "El tiempo, como un viento frío y mudo,",
+      "con corazón herida y asombrosa",
+      "Nos arrastran las hojas de joven edad",
+      "y dejamos recuerdos sin hallar."
+    ],
+    "repaired_stanza": [
+      "El tiempo, como un viento frío y mudo,",
+      "con corazón herida y asombrosa",
+      "Nos arrastran las hojas de joven edad",
+      "y dejamos recuerdos sin hallar."
+    ],
+    "target_rhyme": "udo",
+    "current_rhyme": "ar",
+    "verse_1": {
+      "text": "El tiempo, como un viento frío y mudo,",
+      "last_word": "mudo",
+      "rhyme": "udo"
+    },
+    "candidate_final_words": [
+      "mudo"
+    ],
+    "enforced_candidate_final_words": [],
+    "original_verse_4": "y dejamos recuerdos sin hallar.",
+    "original_verse_4_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "y dejamos rastros sin encontrar",
+        "syllables": 11,
+        "final_word": "encontrar",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'udo' | v4 = 'ar'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "y dejamos huellas sin descubrir",
+        "syllables": 11,
+        "final_word": "descubrir",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'udo' | v4 = 'ir'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "y dejamos recuerdos sin perder",
+        "syllables": 11,
+        "final_word": "perder",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'udo' | v4 = 'er'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "y dejamos vestigios sin hallar",
+        "syllables": 11,
+        "final_word": "hallar",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'udo' | v4 = 'ar'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "y dejamos huellas en el paso",
+        "syllables": 10,
+        "final_word": "paso",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'udo' | v4 = 'aso'",
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige B sin empeorar metrica.",
+    "original_stanza": [
+      "El tiempo, como un viento frío y mudo,",
+      "con corazón herida y asombrosa",
+      "Nos arrastran las hojas de joven edad",
+      "y dejamos recuerdos sin hallar."
+    ],
+    "repaired_stanza": [
+      "El tiempo, como un viento frío y mudo,",
+      "con corazón herida y asombrosa",
+      "Nos arrastran las hojas de joven edad",
+      "y dejamos recuerdos sin hallar."
+    ],
+    "target_rhyme": "osa",
+    "current_rhyme": "ad",
+    "verse_2": {
+      "text": "con corazón herida y asombrosa",
+      "last_word": "asombrosa",
+      "rhyme": "osa"
+    },
+    "candidate_final_words": [
+      "asombrosa"
+    ],
+    "enforced_candidate_final_words": [],
+    "has_enforced_candidate_final_words": false,
+    "candidate_warning": "No hay palabras finales candidatas distintas de la palabra ancla para la rima B.",
+    "conditioned_by_candidate": false,
+    "conditioned_candidate_words": [],
+    "conditioned_generation_reports": [],
+    "post_b_meter_repair_enabled": true,
+    "post_b_meter_repair_attempts": 0,
+    "post_b_meter_repair_successes": 0,
+    "original_verse_3": "Nos arrastran las hojas de joven edad",
+    "original_verse_3_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "nos arrastran las hojas de la edad joven",
+        "syllables": 10,
+        "final_word": "joven",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'osa' | v3 = 'oven'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "con nosotros arrastran las hojas de la juventud",
+        "syllables": 15,
+        "final_word": "juventud",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'osa' | v3 = 'ud'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "arrastran las hojas de nuestra edad joven",
+        "syllables": 10,
+        "final_word": "joven",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'osa' | v3 = 'oven'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "nos arrastran las hojas de la edad pasada",
+        "syllables": 11,
+        "final_word": "pasada",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'osa' | v3 = 'ada'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "arrastran las hojas de la juventud pasada",
+        "syllables": 13,
+        "final_word": "pasada",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'osa' | v3 = 'ada'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_1": {
+      "text": "El tiempo, como un viento frío y mudo,",
+      "last_word": "mudo",
+      "rhyme": "udo"
+    },
+    "verse_4": {
+      "text": "y dejamos recuerdos sin hallar.",
+      "last_word": "hallar",
+      "rhyme": "ar"
+    },
+    "target_rhyme": "udo",
+    "current_rhyme": "ar",
+    "errors": [
+      "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'udo', pero se obtuvo 'ar'."
+    ],
+    "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('udo') y reescribe el verso 4 para que termine con esa misma rima consonante."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_2": {
+      "text": "con corazón herida y asombrosa",
+      "last_word": "asombrosa",
+      "rhyme": "osa"
+    },
+    "verse_3": {
+      "text": "Nos arrastran las hojas de joven edad",
+      "last_word": "edad",
+      "rhyme": "ad"
+    },
+    "target_rhyme": "osa",
+    "current_rhyme": "ad",
+    "errors": [
+      "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'osa', pero se obtuvo 'ad'."
+    ],
+    "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('osa') y reescribe el verso 3 para que termine con esa misma rima consonante."
+  },
+  "generation_reasoning": "Corregimos la rima del verso 3 y alargamos ligeramente el verso 4 para mejorar la estrofa original."
+}

@@ -51,6 +51,12 @@ OUTER_RHYME_REPAIR_VARIANTS = 5
 OUTER_RHYME_REPAIR_TEMPERATURE = 0.3
 OUTER_RHYME_REPAIR_NUM_PREDICT = 200
 
+# Segunda oportunidad metrica tras una variante que ya corrige la rima A.
+ENABLE_POST_A_RHYME_METER_REPAIR = True
+POST_A_RHYME_METER_REPAIR_VARIANTS = 5
+POST_A_RHYME_METER_REPAIR_TEMPERATURE = 0.4
+POST_A_RHYME_METER_REPAIR_NUM_PREDICT = 200
+
 # Fase experimental opcional: si la rima interior B falla, intenta
 # reescribir solo el verso 3 para que rime con el verso 2.
 ENABLE_INNER_RHYME_REPAIR = True
@@ -60,6 +66,12 @@ INNER_RHYME_REPAIR_NUM_PREDICT = 200
 INNER_RHYME_REPAIR_CONDITIONED_BY_CANDIDATE = True
 INNER_RHYME_REPAIR_VARIANTS_PER_CANDIDATE = 2
 INNER_RHYME_REPAIR_MAX_CANDIDATE_WORDS = 4
+
+# Segunda oportunidad metrica tras una variante que ya corrige la rima B.
+ENABLE_POST_B_RHYME_METER_REPAIR = True
+POST_B_RHYME_METER_REPAIR_VARIANTS = 5
+POST_B_RHYME_METER_REPAIR_TEMPERATURE = 0.4
+POST_B_RHYME_METER_REPAIR_NUM_PREDICT = 200
 
 ENABLE_BEAM_ELITISM = True
 ELITE_BEAMS_TO_KEEP = 1
@@ -669,6 +681,103 @@ def generate_meter_repair_variants_with_ollama(
     return parse_meter_repair_variants_response(raw_response, num_variants)
 
 
+def _build_meter_repair_messages_preserving_final_word(
+    question: str,
+    stanza: list[str],
+    verse_index: int,
+    original_syllables: int,
+    required_final_word: str,
+    num_variants: int,
+) -> List[Dict[str, str]]:
+    """Construye el prompt metrico conservando una palabra final exacta."""
+    verse_number = verse_index + 1
+    original_verse = stanza[verse_index]
+    target = TARGET_SYLLABLES_PER_VERSE
+    direction = (
+        "acortarlo"
+        if original_syllables > target
+        else "alargarlo ligeramente"
+    )
+
+    system_prompt = (
+        "Eres un asistente de reparacion metrica para poesia espanola.\n"
+        "Tu tarea es proponer variantes de un unico verso.\n"
+        "Debes centrarte solo en aproximar el verso a 11 silabas metricas.\n"
+        "Debes conservar exactamente la palabra final obligatoria.\n"
+        "No evalues belleza poetica ni expliques el resultado.\n"
+        "Devuelve solamente JSON valido.\n\n"
+        "FORMATO JSON OBLIGATORIO:\n"
+        "{\n"
+        '  "variants": [\n'
+        '    "variante 1",\n'
+        '    "variante 2"\n'
+        "  ]\n"
+        "}\n"
+        "No incluyas texto antes ni despues del JSON."
+    )
+
+    user_prompt = (
+        f"Tarea original:\n{question}\n\n"
+        "Estrofa completa como contexto:\n"
+        f"{format_numbered_verses(stanza)}\n\n"
+        f"Verso que hay que reparar: {verse_number}\n"
+        f"Verso original: {original_verse}\n"
+        f"Conteo metrico aproximado actual: {original_syllables}\n"
+        f"Objetivo: {target} silabas metricas.\n"
+        f"La palabra final obligatoria es: {required_final_word}\n\n"
+        f"Genera exactamente {num_variants} variantes del mismo verso para "
+        f"{direction} y acercarlo a {target} silabas metricas.\n"
+        "Condiciones:\n"
+        "- Reescribe solo el verso indicado.\n"
+        "- Devuelve solo variantes de ese verso, no la estrofa completa.\n"
+        "- No modifiques ningun otro verso.\n"
+        "- No numeres las variantes.\n"
+        "- No anadas titulo.\n"
+        "- Manten el sentido general del verso.\n"
+        f"- Todas las variantes deben terminar exactamente en {required_final_word}.\n"
+        "- No uses una forma derivada, flexionada o parecida de "
+        f"{required_final_word}.\n"
+        f"- No escribas ninguna palabra despues de {required_final_word}.\n"
+        "- No cambies la palabra final aunque eso limite la calidad poetica.\n"
+        "- Responde solo con JSON valido."
+    )
+
+    return [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": user_prompt},
+    ]
+
+
+def generate_meter_repair_variants_preserving_final_word_with_ollama(
+    question: str,
+    stanza: list[str],
+    verse_index: int,
+    original_syllables: int,
+    required_final_word: str,
+    num_variants: int = POST_B_RHYME_METER_REPAIR_VARIANTS,
+    temperature: float = POST_B_RHYME_METER_REPAIR_TEMPERATURE,
+    num_predict: int = POST_B_RHYME_METER_REPAIR_NUM_PREDICT,
+) -> list[str]:
+    """Pide variantes metricas conservando una palabra final exacta."""
+    raw_response = ""
+    messages = _build_meter_repair_messages_preserving_final_word(
+        question=question,
+        stanza=stanza,
+        verse_index=verse_index,
+        original_syllables=original_syllables,
+        required_final_word=required_final_word,
+        num_variants=num_variants,
+    )
+
+    raw_response = chat_ollama(
+        model=GENERATION_MODEL,
+        messages=messages,
+        temperature=temperature,
+        num_predict=num_predict,
+    )
+    return parse_meter_repair_variants_response(raw_response, num_variants)
+
+
 def build_meter_repair_report(enabled: bool, stanza: list[str]) -> dict[str, Any]:
     """Crea la estructura base del informe de reparacion metrica."""
     return {
@@ -678,6 +787,164 @@ def build_meter_repair_report(enabled: bool, stanza: list[str]) -> dict[str, Any
         "repaired_stanza": stanza.copy(),
         "verse_repairs": [],
     }
+
+
+def build_post_rhyme_meter_repair_report(
+    enabled: bool,
+    stanza: list[str],
+    verse_index: int,
+    required_final_word: str,
+    repair_label: str,
+) -> dict[str, Any]:
+    """Crea la estructura base de una post-reparacion metrica de rima."""
+    original_verse = (
+        stanza[verse_index]
+        if 0 <= verse_index < len(stanza)
+        else None
+    )
+
+    return {
+        "enabled": enabled,
+        "repair_label": repair_label,
+        "attempted": False,
+        "changed": False,
+        "reason": None,
+        "original_stanza": stanza.copy(),
+        "repaired_stanza": stanza.copy(),
+        "verse_number": verse_index + 1,
+        "required_final_word": required_final_word,
+        "original_verse": original_verse,
+        "original_syllables": None,
+        "original_distance": None,
+        "selected_variant": None,
+        "selected_syllables": None,
+        "selected_distance": None,
+        "variants": [],
+        "error": None,
+    }
+
+
+def repair_verse_meter_preserving_final_word_with_ollama(
+    question: str,
+    stanza: list[str],
+    verse_index: int,
+    required_final_word: str,
+    enabled: bool,
+    num_variants: int,
+    temperature: float,
+    num_predict: int,
+    repair_label: str,
+) -> tuple[list[str], dict[str, Any]]:
+    """Repara la metrica de un verso sin cambiar su palabra final."""
+    report = build_post_rhyme_meter_repair_report(
+        enabled=enabled,
+        stanza=stanza,
+        verse_index=verse_index,
+        required_final_word=required_final_word,
+        repair_label=repair_label,
+    )
+    repaired_stanza = stanza.copy()
+
+    if not enabled:
+        report["reason"] = "Reparacion metrica posterior a rima desactivada."
+        return repaired_stanza, report
+
+    if not 0 <= verse_index < len(stanza):
+        report["reason"] = "La estrofa no contiene el verso indicado."
+        return repaired_stanza, report
+
+    original_verse = stanza[verse_index]
+    original_syllables = count_verse_syllables(original_verse)
+    original_distance = syllable_distance_to_target(original_syllables)
+    report["original_syllables"] = original_syllables
+    report["original_distance"] = original_distance
+
+    if original_distance == 0:
+        report["reason"] = "El verso ya tiene 11 silabas metricas."
+        report["repaired_stanza"] = repaired_stanza.copy()
+        return repaired_stanza, report
+
+    report["attempted"] = True
+
+    try:
+        variants = generate_meter_repair_variants_preserving_final_word_with_ollama(
+            question=question,
+            stanza=stanza,
+            verse_index=verse_index,
+            original_syllables=original_syllables,
+            required_final_word=required_final_word,
+            num_variants=num_variants,
+            temperature=temperature,
+            num_predict=num_predict,
+        )
+    except Exception as exc:
+        report["error"] = str(exc)
+        report["reason"] = (
+            "Fallo generando variantes metricas posteriores a la rima."
+        )
+        return repaired_stanza, report
+
+    best_variant = None
+    best_syllables = original_syllables
+    best_distance = original_distance
+
+    for variant in variants:
+        variant_syllables = count_verse_syllables(variant)
+        variant_distance = syllable_distance_to_target(variant_syllables)
+        variant_final_word = get_last_word(variant)
+        preserves_final_word = variant_final_word == required_final_word
+        improved = preserves_final_word and variant_distance < original_distance
+
+        variant_info = {
+            "verse": variant,
+            "syllables": variant_syllables,
+            "distance": variant_distance,
+            "final_word": variant_final_word,
+            "preserves_final_word": preserves_final_word,
+            "improved": improved,
+            "accepted": False,
+            "rejection_reason": None,
+        }
+
+        if not preserves_final_word:
+            variant_info["rejection_reason"] = (
+                "No conserva exactamente la palabra final obligatoria."
+            )
+        elif not improved:
+            variant_info["rejection_reason"] = (
+                "No mejora la distancia metrica del verso."
+            )
+        elif variant_distance < best_distance:
+            best_variant = variant
+            best_syllables = variant_syllables
+            best_distance = variant_distance
+
+        report["variants"].append(variant_info)
+
+    if best_variant is None:
+        report["reason"] = (
+            "Ninguna variante conserva la palabra final y mejora la metrica."
+        )
+        report["repaired_stanza"] = repaired_stanza.copy()
+        return repaired_stanza, report
+
+    repaired_stanza[verse_index] = best_variant
+    report["changed"] = True
+    report["reason"] = (
+        "Se reparo la metrica conservando la palabra final obligatoria."
+    )
+    report["selected_variant"] = best_variant
+    report["selected_syllables"] = best_syllables
+    report["selected_distance"] = best_distance
+    report["repaired_stanza"] = repaired_stanza.copy()
+
+    for variant_info in report["variants"]:
+        if variant_info["verse"] == best_variant:
+            variant_info["accepted"] = True
+            variant_info["rejection_reason"] = None
+            break
+
+    return repaired_stanza, report
 
 
 def repair_stanza_meter_with_ollama(
@@ -1101,6 +1368,9 @@ def build_outer_rhyme_repair_report(
         "verse_1": None,
         "candidate_final_words": [],
         "enforced_candidate_final_words": [],
+        "post_a_meter_repair_enabled": ENABLE_POST_A_RHYME_METER_REPAIR,
+        "post_a_meter_repair_attempts": 0,
+        "post_a_meter_repair_successes": 0,
         "original_verse_4": None,
         "original_verse_4_syllables": None,
         "selected_variant": None,
@@ -1207,6 +1477,12 @@ def repair_stanza_outer_rhyme_with_ollama(
             "outer_rhyme_summary": summarize_outer_rhyme_diagnosis(
                 variant_diagnosis
             ),
+            "post_a_meter_repair_attempted": False,
+            "post_a_meter_repair_report": None,
+            "post_a_meter_repaired_verse": None,
+            "post_a_meter_repaired_syllables": None,
+            "post_a_meter_repaired_distance": None,
+            "post_a_meter_repair_accepted": False,
             "accepted": False,
             "rejection_reason": None,
         }
@@ -1222,6 +1498,79 @@ def repair_stanza_outer_rhyme_with_ollama(
                     "variant_info": variant_info,
                 }
             )
+        elif (
+            outer_rhyme_valid
+            and uses_candidate_final_word
+            and not metric_not_worse
+            and ENABLE_POST_A_RHYME_METER_REPAIR
+        ):
+            report["post_a_meter_repair_attempts"] += 1
+            variant_info["post_a_meter_repair_attempted"] = True
+
+            candidate_stanza_for_meter = stanza.copy()
+            candidate_stanza_for_meter[3] = variant
+            post_meter_stanza, post_meter_report = (
+                repair_verse_meter_preserving_final_word_with_ollama(
+                    question=question,
+                    stanza=candidate_stanza_for_meter,
+                    verse_index=3,
+                    required_final_word=variant_final_word,
+                    enabled=ENABLE_POST_A_RHYME_METER_REPAIR,
+                    num_variants=POST_A_RHYME_METER_REPAIR_VARIANTS,
+                    temperature=POST_A_RHYME_METER_REPAIR_TEMPERATURE,
+                    num_predict=POST_A_RHYME_METER_REPAIR_NUM_PREDICT,
+                    repair_label="post_a",
+                )
+            )
+            variant_info["post_a_meter_repair_report"] = post_meter_report
+
+            post_meter_verse = post_meter_stanza[3]
+            post_meter_syllables = count_verse_syllables(post_meter_verse)
+            post_meter_distance = syllable_distance_to_target(
+                post_meter_syllables
+            )
+            post_meter_final_word = get_last_word(post_meter_verse)
+            post_meter_diagnosis = diagnose_stanza_outer_rhyme(post_meter_stanza)
+            post_meter_outer_rhyme_valid = bool(
+                post_meter_diagnosis.get("is_valid", False)
+            )
+            post_meter_preserves_final_word = (
+                post_meter_final_word == variant_final_word
+            )
+            post_meter_metric_not_worse = post_meter_distance <= original_distance
+            post_meter_is_acceptable = (
+                post_meter_outer_rhyme_valid
+                and post_meter_preserves_final_word
+                and post_meter_metric_not_worse
+                and uses_candidate_final_word
+            )
+
+            variant_info["post_a_meter_repaired_verse"] = post_meter_verse
+            variant_info["post_a_meter_repaired_syllables"] = (
+                post_meter_syllables
+            )
+            variant_info["post_a_meter_repaired_distance"] = (
+                post_meter_distance
+            )
+
+            if post_meter_is_acceptable:
+                variant_info["post_a_meter_repair_accepted"] = True
+                report["post_a_meter_repair_successes"] += 1
+                acceptable_variants.append(
+                    {
+                        "index": variant_index,
+                        "verse": post_meter_verse,
+                        "syllables": post_meter_syllables,
+                        "distance": post_meter_distance,
+                        "final_word_matches_anchor": final_word_matches_anchor,
+                        "variant_info": variant_info,
+                    }
+                )
+            else:
+                variant_info["rejection_reason"] = (
+                    "Corrige A, pero la reparacion metrica posterior no "
+                    "consigue una variante aceptable."
+                )
         elif not uses_candidate_final_word:
             variant_info["rejection_reason"] = (
                 "No termina en una palabra final candidata distinta del verso 1."
@@ -1596,6 +1945,9 @@ def build_inner_rhyme_repair_report(
         "conditioned_by_candidate": False,
         "conditioned_candidate_words": [],
         "conditioned_generation_reports": [],
+        "post_b_meter_repair_enabled": ENABLE_POST_B_RHYME_METER_REPAIR,
+        "post_b_meter_repair_attempts": 0,
+        "post_b_meter_repair_successes": 0,
         "original_verse_3": None,
         "original_verse_3_syllables": None,
         "selected_variant": None,
@@ -1744,6 +2096,12 @@ def repair_stanza_inner_rhyme_with_ollama(
             "inner_rhyme_summary": summarize_inner_rhyme_diagnosis(
                 variant_diagnosis
             ),
+            "post_b_meter_repair_attempted": False,
+            "post_b_meter_repair_report": None,
+            "post_b_meter_repaired_verse": None,
+            "post_b_meter_repaired_syllables": None,
+            "post_b_meter_repaired_distance": None,
+            "post_b_meter_repair_accepted": False,
             "accepted": False,
             "rejection_reason": None,
         }
@@ -1759,6 +2117,79 @@ def repair_stanza_inner_rhyme_with_ollama(
                     "variant_info": variant_info,
                 }
             )
+        elif (
+            inner_rhyme_valid
+            and uses_candidate_final_word
+            and not metric_not_worse
+            and ENABLE_POST_B_RHYME_METER_REPAIR
+        ):
+            report["post_b_meter_repair_attempts"] += 1
+            variant_info["post_b_meter_repair_attempted"] = True
+
+            candidate_stanza_for_meter = stanza.copy()
+            candidate_stanza_for_meter[2] = variant
+            post_meter_stanza, post_meter_report = (
+                repair_verse_meter_preserving_final_word_with_ollama(
+                    question=question,
+                    stanza=candidate_stanza_for_meter,
+                    verse_index=2,
+                    required_final_word=variant_final_word,
+                    enabled=ENABLE_POST_B_RHYME_METER_REPAIR,
+                    num_variants=POST_B_RHYME_METER_REPAIR_VARIANTS,
+                    temperature=POST_B_RHYME_METER_REPAIR_TEMPERATURE,
+                    num_predict=POST_B_RHYME_METER_REPAIR_NUM_PREDICT,
+                    repair_label="post_b",
+                )
+            )
+            variant_info["post_b_meter_repair_report"] = post_meter_report
+
+            post_meter_verse = post_meter_stanza[2]
+            post_meter_syllables = count_verse_syllables(post_meter_verse)
+            post_meter_distance = syllable_distance_to_target(
+                post_meter_syllables
+            )
+            post_meter_final_word = get_last_word(post_meter_verse)
+            post_meter_diagnosis = diagnose_stanza_inner_rhyme(post_meter_stanza)
+            post_meter_inner_rhyme_valid = bool(
+                post_meter_diagnosis.get("is_valid", False)
+            )
+            post_meter_preserves_final_word = (
+                post_meter_final_word == variant_final_word
+            )
+            post_meter_metric_not_worse = post_meter_distance <= original_distance
+            post_meter_is_acceptable = (
+                post_meter_inner_rhyme_valid
+                and post_meter_preserves_final_word
+                and post_meter_metric_not_worse
+                and uses_candidate_final_word
+            )
+
+            variant_info["post_b_meter_repaired_verse"] = post_meter_verse
+            variant_info["post_b_meter_repaired_syllables"] = (
+                post_meter_syllables
+            )
+            variant_info["post_b_meter_repaired_distance"] = (
+                post_meter_distance
+            )
+
+            if post_meter_is_acceptable:
+                variant_info["post_b_meter_repair_accepted"] = True
+                report["post_b_meter_repair_successes"] += 1
+                acceptable_variants.append(
+                    {
+                        "index": variant_index,
+                        "verse": post_meter_verse,
+                        "syllables": post_meter_syllables,
+                        "distance": post_meter_distance,
+                        "final_word_matches_anchor": final_word_matches_anchor,
+                        "variant_info": variant_info,
+                    }
+                )
+            else:
+                variant_info["rejection_reason"] = (
+                    "Corrige B, pero la reparacion metrica posterior no "
+                    "consigue una variante aceptable."
+                )
         elif not uses_candidate_final_word:
             variant_info["rejection_reason"] = (
                 "No termina en una palabra final candidata distinta del verso 2."
@@ -1871,7 +2302,12 @@ def summarize_outer_rhyme_repair_report(report: dict[str, Any]) -> str:
         return "reparacion rima A = no necesaria"
 
     changed = bool(report.get("changed", False))
-    return f"reparacion rima A = activa | intento = True | cambio = {changed}"
+    post_a_attempts = report.get("post_a_meter_repair_attempts", 0)
+    post_a_successes = report.get("post_a_meter_repair_successes", 0)
+    return (
+        f"reparacion rima A = activa | intento = True | cambio = {changed} | "
+        f"post-metrica A = {post_a_attempts}/{post_a_successes}"
+    )
 
 
 def summarize_inner_rhyme_repair_report(report: dict[str, Any]) -> str:
@@ -1886,7 +2322,12 @@ def summarize_inner_rhyme_repair_report(report: dict[str, Any]) -> str:
         return "reparacion rima B = no necesaria"
 
     changed = bool(report.get("changed", False))
-    return f"reparacion rima B = activa | intento = True | cambio = {changed}"
+    post_b_attempts = report.get("post_b_meter_repair_attempts", 0)
+    post_b_successes = report.get("post_b_meter_repair_successes", 0)
+    return (
+        f"reparacion rima B = activa | intento = True | cambio = {changed} | "
+        f"post-metrica B = {post_b_attempts}/{post_b_successes}"
+    )
 
 
 def summarize_outer_rhyme_diagnosis(diagnosis: dict[str, Any]) -> str:
@@ -2484,6 +2925,22 @@ def save_final_result(
             "Num predict reparacion rima A: "
             f"{run_parameters.get('outer_rhyme_repair_num_predict')}"
         ),
+        (
+            "Reparacion metrica posterior a rima A activa: "
+            f"{run_parameters.get('enable_post_a_rhyme_meter_repair')}"
+        ),
+        (
+            "Variantes para reparacion metrica posterior a rima A: "
+            f"{run_parameters.get('post_a_rhyme_meter_repair_variants')}"
+        ),
+        (
+            "Temperatura reparacion metrica posterior a rima A: "
+            f"{run_parameters.get('post_a_rhyme_meter_repair_temperature')}"
+        ),
+        (
+            "Num predict reparacion metrica posterior a rima A: "
+            f"{run_parameters.get('post_a_rhyme_meter_repair_num_predict')}"
+        ),
         f"Reparacion rima B activa: {run_parameters.get('enable_inner_rhyme_repair')}",
         (
             "Variantes para reparacion rima B: "
@@ -2508,6 +2965,22 @@ def save_final_result(
         (
             "Max candidatas usadas para reparacion rima B: "
             f"{run_parameters.get('inner_rhyme_repair_max_candidate_words')}"
+        ),
+        (
+            "Reparacion metrica posterior a rima B activa: "
+            f"{run_parameters.get('enable_post_b_rhyme_meter_repair')}"
+        ),
+        (
+            "Variantes para reparacion metrica posterior a rima B: "
+            f"{run_parameters.get('post_b_rhyme_meter_repair_variants')}"
+        ),
+        (
+            "Temperatura reparacion metrica posterior a rima B: "
+            f"{run_parameters.get('post_b_rhyme_meter_repair_temperature')}"
+        ),
+        (
+            "Num predict reparacion metrica posterior a rima B: "
+            f"{run_parameters.get('post_b_rhyme_meter_repair_num_predict')}"
         ),
         "",
         f"Score global: {float(best_beam.get('score', 0.0)):.3f}",
@@ -2650,6 +3123,16 @@ def main() -> None:
         "outer_rhyme_repair_variants": OUTER_RHYME_REPAIR_VARIANTS,
         "outer_rhyme_repair_temperature": OUTER_RHYME_REPAIR_TEMPERATURE,
         "outer_rhyme_repair_num_predict": OUTER_RHYME_REPAIR_NUM_PREDICT,
+        "enable_post_a_rhyme_meter_repair": ENABLE_POST_A_RHYME_METER_REPAIR,
+        "post_a_rhyme_meter_repair_variants": (
+            POST_A_RHYME_METER_REPAIR_VARIANTS
+        ),
+        "post_a_rhyme_meter_repair_temperature": (
+            POST_A_RHYME_METER_REPAIR_TEMPERATURE
+        ),
+        "post_a_rhyme_meter_repair_num_predict": (
+            POST_A_RHYME_METER_REPAIR_NUM_PREDICT
+        ),
         "enable_inner_rhyme_repair": ENABLE_INNER_RHYME_REPAIR,
         "inner_rhyme_repair_variants": INNER_RHYME_REPAIR_VARIANTS,
         "inner_rhyme_repair_temperature": INNER_RHYME_REPAIR_TEMPERATURE,
@@ -2662,6 +3145,16 @@ def main() -> None:
         ),
         "inner_rhyme_repair_max_candidate_words": (
             INNER_RHYME_REPAIR_MAX_CANDIDATE_WORDS
+        ),
+        "enable_post_b_rhyme_meter_repair": ENABLE_POST_B_RHYME_METER_REPAIR,
+        "post_b_rhyme_meter_repair_variants": (
+            POST_B_RHYME_METER_REPAIR_VARIANTS
+        ),
+        "post_b_rhyme_meter_repair_temperature": (
+            POST_B_RHYME_METER_REPAIR_TEMPERATURE
+        ),
+        "post_b_rhyme_meter_repair_num_predict": (
+            POST_B_RHYME_METER_REPAIR_NUM_PREDICT
         ),
     }
 

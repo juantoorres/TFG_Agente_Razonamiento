@@ -56,8 +56,10 @@ Implementa:
 - reparacion local de metrica;
 - diagnostico y reparacion de rima exterior A;
 - diagnostico y reparacion de rima interior B;
+- reparacion metrica posterior a la reparacion de rima A;
 - reparacion metrica posterior a la reparacion de rima B;
 - proteccion de mejores beams;
+- medicion de tiempo;
 - exportacion de resultados y trazas.
 
 ## Flujo general
@@ -76,9 +78,10 @@ Implementa:
 ```text
 1. Reparacion metrica local.
 2. Diagnostico y reparacion de rima exterior A.
-3. Diagnostico y reparacion de rima interior B.
-4. Reparacion metrica posterior a B, solo si una variante ya corrigio la rima B pero fallo por metrica.
-5. Evaluacion final ABBA.
+3. Reparacion metrica posterior a A, solo si una variante ya corrigio la rima A pero fallo por metrica.
+4. Diagnostico y reparacion de rima interior B.
+5. Reparacion metrica posterior a B, solo si una variante ya corrigio la rima B pero fallo por metrica.
+6. Evaluacion final ABBA.
 ```
 
 4. `prune_node(...)` selecciona los mejores beams.
@@ -90,7 +93,7 @@ Implementa:
    - `final_stanza_metrics_*.json`
    - `final_stanza_trace_*.json`
 
-## Reparacion metrica
+## Reparacion metrica inicial
 
 Controlada por:
 
@@ -104,7 +107,7 @@ Funcion principal:
 repair_stanza_meter_with_ollama(...)
 ```
 
-La reparacion metrica:
+La reparacion metrica inicial:
 
 - revisa versos que no tienen 11 silabas;
 - pide variantes del verso concreto al LLM;
@@ -134,10 +137,12 @@ Estrategia:
 - El verso 1 no se modifica.
 - Se usan palabras finales candidatas mediante `RHYME_HINT_EXAMPLES`.
 - Se evita repetir exactamente la palabra final del verso 1 cuando hay alternativas.
-- Se acepta una variante solo si:
+- Se acepta directamente una variante solo si:
   - corrige la rima A;
   - no empeora la distancia metrica del verso 4;
   - respeta la palabra final candidata cuando existe lista forzable.
+
+Si una variante corrige la rima A y termina en palabra candidata, pero falla por metrica, puede activarse una reparacion metrica posterior. Esta segunda reparacion intenta ajustar solo el verso 4 conservando exactamente la palabra final que habia conseguido la rima.
 
 ## Rima interior B
 
@@ -156,7 +161,7 @@ Funciones principales:
 - `_build_inner_rhyme_repair_messages_for_final_word(...)`
 - `generate_conditioned_inner_rhyme_repair_variants_with_ollama(...)`
 
-Estrategia actual:
+Estrategia:
 
 - Si la rima B ya es correcta, no se repara.
 - Si falla, se reescribe solo el verso 3.
@@ -164,40 +169,62 @@ Estrategia actual:
 - Si hay palabras finales candidatas, la generacion puede condicionarse por candidata concreta.
 - Ejemplo: generar variantes terminadas exactamente en `llorar`, luego en `pasar`, etc.
 - Si no hay candidatas forzables, se usa el metodo anterior basado en una lista general.
-- Se acepta una variante solo si:
+- Se acepta directamente una variante solo si:
   - corrige la rima B;
   - no empeora la distancia metrica del verso 3;
   - termina en palabra candidata cuando hay lista forzable.
 
-Ademas, si una variante corrige la rima B y termina en palabra candidata, pero falla por metrica, puede activarse una reparacion metrica posterior. Esta segunda reparacion intenta ajustar solo el verso 3 conservando exactamente la palabra final que habia conseguido la rima.
+Si una variante corrige la rima B y termina en palabra candidata, pero falla por metrica, puede activarse una reparacion metrica posterior. Esta segunda reparacion intenta ajustar solo el verso 3 conservando exactamente la palabra final que habia conseguido la rima.
 
-La reparacion B y su post-reparacion metrica siguen siendo la parte mas reciente y estan en evaluacion experimental.
+## Reparacion metrica posterior a rima
 
-## Reparacion metrica posterior a B
+La reparacion metrica posterior a rima se aplica ahora a ambas parejas:
 
-Controlada por:
-
-```python
-ENABLE_POST_B_RHYME_METER_REPAIR = True
+```text
+A: verso 1 con verso 4
+B: verso 2 con verso 3
 ```
 
-Funciones principales:
+Funciones principales compartidas:
 
 - `_build_meter_repair_messages_preserving_final_word(...)`
 - `generate_meter_repair_variants_preserving_final_word_with_ollama(...)`
+- `build_post_rhyme_meter_repair_report(...)`
 - `repair_verse_meter_preserving_final_word_with_ollama(...)`
 
-Estrategia:
+Idea central:
 
-- Solo se intenta dentro de la reparacion de rima B.
-- Solo se activa si una variante del verso 3:
+```text
+1. Primero se consigue una palabra final que rime.
+2. Despues se repara la metrica sin cambiar esa palabra final.
+```
+
+Para la rima A:
+
+- se activa desde `repair_stanza_outer_rhyme_with_ollama(...)`;
+- solo se intenta si una variante del verso 4:
+  - corrige la rima con el verso 1;
+  - termina en una palabra final candidata valida;
+  - falla por metrica;
+- reescribe solo el verso 4;
+- no modifica los versos 1, 2 ni 3;
+- conserva exactamente la palabra final del verso 4;
+- la variante final solo se acepta si:
+  - mantiene la rima A;
+  - conserva la palabra final;
+  - no empeora la distancia metrica frente al verso 4 original.
+
+Para la rima B:
+
+- se activa desde `repair_stanza_inner_rhyme_with_ollama(...)`;
+- solo se intenta si una variante del verso 3:
   - corrige la rima con el verso 2;
   - termina en una palabra final candidata valida;
-  - falla por metrica.
-- Reescribe solo el verso 3.
-- No modifica los versos 1, 2 ni 4.
-- Debe conservar exactamente la palabra final del verso 3.
-- La variante final solo se acepta si:
+  - falla por metrica;
+- reescribe solo el verso 3;
+- no modifica los versos 1, 2 ni 4;
+- conserva exactamente la palabra final del verso 3;
+- la variante final solo se acepta si:
   - mantiene la rima B;
   - conserva la palabra final;
   - no empeora la distancia metrica frente al verso 3 original.
@@ -291,7 +318,7 @@ k = 2
 max_steps = 3
 ```
 
-Reparacion metrica:
+Reparacion metrica inicial:
 
 ```python
 METER_REPAIR_VARIANTS_PER_VERSE = 5
@@ -305,6 +332,15 @@ Reparacion rima A:
 OUTER_RHYME_REPAIR_VARIANTS = 5
 OUTER_RHYME_REPAIR_TEMPERATURE = 0.3
 OUTER_RHYME_REPAIR_NUM_PREDICT = 200
+```
+
+Reparacion metrica posterior a A:
+
+```python
+ENABLE_POST_A_RHYME_METER_REPAIR = True
+POST_A_RHYME_METER_REPAIR_VARIANTS = 5
+POST_A_RHYME_METER_REPAIR_TEMPERATURE = 0.4
+POST_A_RHYME_METER_REPAIR_NUM_PREDICT = 200
 ```
 
 Reparacion rima B:
@@ -337,6 +373,7 @@ Cada ejecucion crea archivos con timestamp en `outputs/`:
   - tiempo total;
   - score;
   - diagnosticos;
+  - resumen de reparaciones;
   - estrofa final.
 
 - `final_stanza_metrics_*.json`
@@ -349,46 +386,73 @@ Cada ejecucion crea archivos con timestamp en `outputs/`:
   - beams generados y seleccionados;
   - reportes intermedios.
 
+Los reportes relevantes incluyen:
+
+- `outer_rhyme_repair_report`
+  - `post_a_meter_repair_attempts`
+  - `post_a_meter_repair_successes`
+
+- `inner_rhyme_repair_report`
+  - `conditioned_by_candidate`
+  - `conditioned_generation_reports`
+  - `post_b_meter_repair_attempts`
+  - `post_b_meter_repair_successes`
+
 ## Estado actual
 
 Funciona razonablemente bien:
 
 - generacion de estrofas ABBA;
 - evaluacion formal objetiva;
-- reparacion metrica;
+- reparacion metrica inicial;
 - diagnostico de rima A y B;
 - reparacion de rima A;
+- reparacion de rima B;
+- reparacion metrica posterior a A cuando una variante ya corrige rima;
+- reparacion metrica posterior a B cuando una variante ya corrige rima;
 - preservacion de beams buenos;
 - medicion de tiempo;
 - trazas para analisis experimental.
-- reparacion metrica posterior a B cuando una variante ya corrige rima.
 
 En evaluacion:
 
-- reparacion de rima interior B;
-- efecto real de la reparacion metrica posterior a B.
+- efecto real de la reparacion metrica posterior a ambas rimas;
+- coste temporal de anadir llamadas extra a Ollama;
+- estabilidad de la rima B, que sigue siendo mas dificil que la rima A.
 
 Problemas observados:
 
 - La rima B mejora en algunos casos, pero no siempre.
 - A veces el LLM no respeta la palabra final candidata.
 - A veces corrige la rima pero empeora la metrica.
-- La reparacion metrica posterior a B puede aumentar el coste temporal porque anade llamadas a Ollama.
+- Las reparaciones metricas post-rima pueden aumentar el coste temporal porque anaden llamadas a Ollama.
 
 ## Posibles siguientes pasos
 
-1. Ejecutar varias pruebas con la reparacion B condicionada por palabra candidata y la post-reparacion metrica B.
+1. Ejecutar varias pruebas con reparacion completa:
+   - metrica inicial;
+   - rima A;
+   - post-metrica A;
+   - rima B;
+   - post-metrica B.
+
 2. Analizar en los JSON:
+   - `outer_rhyme_repair_report.changed`;
+   - `post_a_meter_repair_attempts`;
+   - `post_a_meter_repair_successes`;
    - `inner_rhyme_repair_report.changed`;
    - `conditioned_by_candidate`;
    - `conditioned_generation_reports`;
    - `post_b_meter_repair_attempts`;
    - `post_b_meter_repair_successes`;
    - motivos de rechazo por variante.
+
 3. Comparar experimentalmente:
    - sin reparaciones;
    - solo metrica;
    - metrica + rima A;
-   - metrica + rima A + rima B.
-   - metrica + rima A + rima B + post-metrica B.
+   - metrica + rima A + post-metrica A;
+   - metrica + rima A + rima B;
+   - metrica + rima A + post-metrica A + rima B + post-metrica B.
+
 4. Documentar tiempos y resultados para la memoria del TFG.

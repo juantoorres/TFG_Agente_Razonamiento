@@ -1,0 +1,58 @@
+ESTROFA FINAL
+
+Modelo: mistral:7b-instruct
+Temperatura: 0.3
+Num predict: 600
+k: 2
+max_steps: 3
+alpha: 1.0
+Tiempo total de ejecucion: 2987.88 segundos (49.80 minutos)
+Reparacion metrica activa: True
+Variantes por verso para reparacion metrica: 5
+Temperatura reparacion metrica: 0.4
+Num predict reparacion metrica: 200
+Reparacion rima A activa: True
+Variantes para reparacion rima A: 5
+Temperatura reparacion rima A: 0.3
+Num predict reparacion rima A: 200
+Reparacion metrica posterior a rima A activa: True
+Variantes para reparacion metrica posterior a rima A: 5
+Temperatura reparacion metrica posterior a rima A: 0.4
+Num predict reparacion metrica posterior a rima A: 200
+Reparacion rima B activa: True
+Variantes para reparacion rima B: 5
+Temperatura reparacion rima B: 0.3
+Num predict reparacion rima B: 200
+Reparacion rima B condicionada por candidata: True
+Variantes por candidata para reparacion rima B: 2
+Max candidatas usadas para reparacion rima B: 4
+Reparacion metrica posterior a rima B activa: True
+Variantes para reparacion metrica posterior a rima B: 5
+Temperatura reparacion metrica posterior a rima B: 0.4
+Num predict reparacion metrica posterior a rima B: 200
+
+Score global: 0.727
+Historial de scores: [0.6, 0.8, 0.8]
+Resumen de metricas: versos=4/4 | endecasilabos=4/4 | rima=2/4 | score=16.0/20
+Resumen de reparacion metrica: reparación métrica = activa | intentos = 0 | mejoras = 0 | cambio = False
+Resumen reparacion rima A: reparacion rima A = activa | intento = True | cambio = False | post-metrica A = 0/0
+Resumen reparacion rima B: reparacion rima B = activa | intento = True | cambio = False | post-metrica B = 0/0
+Resumen rima exterior AXYA: rima AXYA = incorrecta | objetivo = 'oche' | v4 = 'o'
+Resumen rima interior B: rima interior B = incorrecta | objetivo = 'argas' | v3 = 'idas'
+
+Feedback final:
+Puntuacion formal total: 16.0/20.
+Revisa los siguientes aspectos formales antes de generar una nueva version:
+Numero de versos:
+- El numero de versos es correcto.
+Silabas metricas:
+- Todos los versos evaluados tienen 11 silabas.
+Rima consonante:
+- Verso 3: rima C, pero se esperaba B.
+- Verso 4: rima D, pero se esperaba A.
+
+Estrofa completa:
+1. El tiempo pasa sin cesar, río en noche.
+2. Deja huellas que se no borren, pero amargas
+3. Son dulces o amargas, pero siempre heridas
+4. En el silencio solo un eco quedó.

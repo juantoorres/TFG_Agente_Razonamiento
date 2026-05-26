@@ -768,7 +768,7 @@ En este sentido, resulta especialmente ilustrativo considerar un esquema en el q
 respuesta definitiva. Este proceso puede modelarse mediante un grafo en el que cada nodo representa una fase diferencia del comportamiento del agente.
 
 En una primera etapa el sistema procesa la entrada del usuario y genera una interpretación inicial del problema. A partir de esta información, el agente puede decidir si dispone de suficiente conocimiento
-para responder directamente o si, por el contrario, necesita apoyarse en alguna herramienta externa, como una función de Python o una consulta a una API.
+para responder directamente o si, por el contrario, necesita apoyarse en alguna herramienta externa, como una función de \emph{Python} o una consulta a una API.
 
 Esta decisión se traduce en una transición condicional dentro del grafo. Si el agente determina que no es necesaria ninguna acción adicional, el flujo de ejecución finaliza y se devuelve una respuesta. En
 caso contrario, el sistema transita hacia un nodo encargado de ejecutar la acción correspondiente, obteniendo nueva información que se incorpora al estado.
@@ -1009,17 +1009,21 @@ representativa del uso de grafos que un ejemplo puramente lineal, al tiempo que 
 \chapter{Implementación, Experimentación y Refinamiento del Agente}
 
 
-%────────────────────── Diseño Estructual del Grafo de Razonamiento ──────────────────────────
-\section{Diseño Estructual del Grafo de Razonamiento}
+%────────────────────── Diseño Estructural del Grafo de Razonamiento ──────────────────────────
+\section{Diseño Estructural del Grafo de Razonamiento}
 
-El sistema propuesto se basa en la construcción de un grafo de razonamiento iterativo utilizando la librería \emph{LangGraph}. Este grafo implementa un mecanismo inspirado en el algoritmo de \emph{Beam Search},
-permitiendo explorar múltiples trayectorias de razonamiento en paralelo y seleccionar dinámicamente las más prometedoras.
+El sistema propuesto se basa en la construcción de un grafo iterativo utilizando la librería \emph{LangGraph}. Este grafo implementa un mecanismo inspirado en el algoritmo de \emph{Beam Search}, permitiendo generar, evaluar y
+seleccionar múltiples estrofas candidatas a lo largo de varias iteraciones.
 
-A diferencia de enfoques tradicionales basados en una única cadena de pensamiento (\emph{Chain-of-Thought}), el sistema introduce un proceso explícito de exploración y poda de hipótesis.
+A diferencia de una aproximación directa, en la que se solicitaría al modelo una única estrofa final, el sistema introduce un proceso explícito de exploración y poda de alternativas. De este modo, el agente no depende únicamente
+de la primera salida generada por el modelo, sino que mantiene varias hipótesis en paralelo y conserva aquellas que presentan un mejor cumplimiento de las restricciones formales.
+
+En el contexto de este trabajo, cada trayectoria o \emph{beam} representa una posible estrofa de cuatro versos. La calidad de cada estrofa se determina a partir de criterios objetivos relacionados con el número de versos, la
+métrica endecasílaba y el esquema de rima consonante ABBA.
 
 \subsection{Arquitectura General del Grafo}
 
-La figura~\ref{fig:procesoRazonamiento} muestra la estructura general del grafo de razonamiento implementado.
+La figura~\ref{fig:procesoRazonamiento} muestra la estructura general del grafo implementado. El flujo se organiza como un ciclo compuesto por tres fases principales: generación, evaluación y selección.
 
 \begin{figure}[h]
     \centering
@@ -1028,19 +1032,19 @@ La figura~\ref{fig:procesoRazonamiento} muestra la estructura general del grafo 
     \label{fig:procesoRazonamiento}
 \end{figure}
 
-El sistema se organiza como un ciclo iterativo compuesto por tres nodos principales:
+El sistema se organiza mediante tres nodos principales:
 
 \begin{itemize}
-\item \textbf{Nodo Generador (\emph{Expand})}: genera múltiples posibles continuaciones de cada trayectoria.
-\item \textbf{Nodo Evaluador (\emph{Score})}: asigna una puntuación a cada candidato.
-\item \textbf{Nodo Selector (\emph{Prune})}: selecciona las $k$ mejores trayectorias.
+\item \textbf{Nodo Generador (\emph{Expand})}: se encarga de generar nuevas estrofas candidatas. En la primera iteración, produce estrofas desde cero a partir de la instrucción inicial. En iteraciones posteriores, genera variantes o correcciones de estrofas ya existentes.
+\item \textbf{Nodo Evaluador (\emph{Score})}: analiza cada estrofa candidata mediante un proceso de evaluación formal. En esta fase se comprueba el número de versos, la aproximación métrica al endecasílabo y el cumplimiento del esquema de rima ABBA. Además, se aplican las fases de reparación local cuando procede.
+\item \textbf{Nodo Selector (\emph{Prune})}: ordena las estrofas candidatas según su puntuación y conserva únicamente las mejores $k$ alternativas. Esta operación permite limitar el crecimiento del espacio de búsqueda y continuar el proceso solo con las soluciones más prometedoras.
 \end{itemize}
 
-Este ciclo se repite hasta alcanzar un número máximo de iteraciones.
+Este ciclo se repite hasta alcanzar el número máximo de iteraciones definido en la configuración del experimento.
 
 \subsection{Implementación del Grafo en LangGraph}
 
-La definición del grafo se realiza mediante la clase \texttt{StateGraph}, donde se especifican los nodos y las transiciones entre ellos:
+La definición del grafo se realiza mediante la clase \texttt{StateGraph}. En ella se especifican los nodos que componen el flujo de ejecución y las transiciones entre ellos. El siguiente fragmento muestra una versión simplificada de la construcción del grafo:
 
 \begin{lstlisting}[language=Python, caption={Definición del grafo de razonamiento con LangGraph}]
 builder = StateGraph(BeamSearchState)
@@ -1052,6 +1056,7 @@ builder.add_node("prune", prune_node)
 builder.set_entry_point("expand")
 
 builder.add_edge("expand", "score")
+
 builder.add_edge("score", "prune")
 
 builder.add_conditional_edges(
@@ -1064,83 +1069,106 @@ builder.add_conditional_edges(
 )
 \end{lstlisting}
 
-Este fragmento refleja la estructura cíclica del sistema, donde las fases de generación, evaluación y selección se repiten iterativamente.
+Este fragmento refleja la estructura cíclica del sistema. Tras la generación de candidatos en el nodo \texttt{expand}, estos son evaluados en el nodo \texttt{score}. Posteriormente, el nodo \texttt{prune} selecciona las mejores estrofas y decide si el proceso debe continuar o finalizar.
+
+La transición condicional situada después de \texttt{prune} permite implementar la lógica iterativa del agente. Si todavía no se ha alcanzado la condición de parada, el flujo vuelve al nodo \texttt{expand}. En caso contrario, la ejecución finaliza y se conserva la mejor estrofa encontrada.
+
 
 
 \subsection{Representación del Estado}
 
-El estado del grafo encapsula toda la información necesaria para el proceso de razonamiento. Se define mediante una estructura tipada que permite almacenar múltiples trayectorias en paralelo:
+El estado del grafo encapsula toda la información necesaria para mantener el proceso de búsqueda. Esta estructura permite almacenar varias estrofas candidatas en paralelo, junto con sus puntuaciones, trazas de ejecución y parámetros de control.
 
 \begin{lstlisting}[language=Python, caption={Estructura del estado del grafo}]
 class BeamSearchState(TypedDict):
     question: str
     beams: List[Dict[str, Any]]
     candidates: List[Dict[str, Any]]
+    trace: List[Dict[str, Any]]
     step: int
     max_steps: int
     k: int
 \end{lstlisting}
 
-Cada trayectoria (\emph{beam}) contiene la secuencia de pasos generados, su puntuación acumulada y el historial de evaluaciones.
+El campo \texttt{beams} almacena las mejores estrofas disponibles en cada iteración, mientras que \texttt{candidates} contiene las nuevas variantes generadas antes de aplicar la poda. Por otro lado, \texttt{trace} registra información relevante del proceso, lo que permite analizar posteriormente cómo ha evolucionado la búsqueda.
+
+Los campos \texttt{step}, \texttt{max\_steps} y \texttt{k} controlan respectivamente la iteración actual, el número máximo de iteraciones y el número de alternativas que se conservan tras cada fase de selección.
+
 
 \subsection{Flujo de Ejecución}
 
-El flujo de ejecución del sistema sigue el siguiente esquema:
+El flujo de ejecución del sistema puede resumirse en los siguientes pasos:
 
 \begin{enumerate}
-\item El nodo generador produce nuevas extensiones de cada trayectoria.
-\item El nodo evaluador asigna una puntuación a cada candidato.
-\item El nodo selector ordena y conserva las mejores trayectorias.
-\item El proceso se repite hasta alcanzar la condición de parada.
+    \item El nodo \texttt{expand} genera nuevas estrofas candidatas a partir del estado actual.
+    \item El nodo \texttt{score} evalúa formalmente cada candidata y aplica las reparaciones locales disponibles.
+    \item El nodo \texttt{prune} ordena las candidatas según su puntuación y conserva las mejores $k$.
+    \item El sistema comprueba la condición de parada.
+    \item Si no se ha alcanzado el límite de iteraciones, el proceso vuelve al nodo \texttt{expand}.
 \end{enumerate}
 
-Este diseño permite simular un proceso deliberativo en el que el sistema explora diferentes alternativas antes de converger hacia una solución final.
+Este diseño permite que el agente explore diferentes alternativas antes de seleccionar una solución final. Además, al conservar varias estrofas candidatas en paralelo, se reduce la dependencia de una única generación del modelo y se facilita la recuperación ante salidas parciales o formalmente incorrectas.
 
 \subsection{Ventajas del Enfoque}
 
-La estructura basada en grafo permite separar claramente generación, evaluación y selección. Además, permite mantener múltiples hipótesis simultáneamente, para posteriormente analizar el proceso de razonamiento paso a paso.
-En conjunto, esta arquitectura constituye la base del agente de razonamiento implementado.
+La arquitectura basada en grafo presenta varias ventajas. En primer lugar, permite separar de forma clara las responsabilidades de generación, evaluación y selección. Esta separación facilita la modificación independiente de cada fase del sistema, por ejemplo, cambiando la estrategia de prompting sin alterar la función de evaluación,
+o ajustando el criterio de poda sin modificar el nodo generador.
+
+En segundo lugar, el uso de \emph{Beam Search} permite mantener varias hipótesis activas durante el proceso. Esto resulta especialmente útil en tareas de generación poética con restricciones formales, donde una estrofa puede ser prometedora en términos de rima pero presentar errores métricos, o viceversa.
+
+Por último, la estructura del grafo facilita el registro de trazas intermedias. Estas trazas permiten estudiar qué candidatos se generaron, qué puntuaciones recibieron, qué reparaciones se aplicaron y por qué determinadas estrofas fueron descartadas. Esta información resulta fundamental para la fase experimental y para el análisis
+de errores desarrollado en apartados posteriores.
+
+
 
 %────────────────────── Implementación de la Lógica de los Nodos y Prompting ──────────────────────────
 \section{Implementación de la Lógica de los Nodos y Prompting}
 
-Una vez definida la arquitectura del grafo de razonamiento, el siguiente paso consiste en la implementación de la lógica interna de cada nodo, así como en el diseño de las estrategias de \emph{prompting} utilizadas
-para interactuar con los modelos de lenguaje.
+Una vez definida la estructura general del grafo de razonamiento, el siguiente paso consiste en concretar la lógica interna de cada uno de sus nodos. Aunque la arquitectura global puede resumirse como un ciclo de generación, evaluación y selección, el
+comportamiento real del sistema depende de cómo se implementa cada fase y de cómo se comunica el agente con el modelo de lenguaje local.
 
-En este sistema, los modelos no se utilizan únicamente para generar texto final, sino como componentes activos dentro de un proceso iterativo de razonamiento. Esto requiere un control preciso tanto de las entradas como
-de las salidas, así como del formato en el que se intercambia la información.
+En este trabajo, la generación de texto se realiza mediante un modelo ejecutado localmente con \emph{Ollama}. Esta decisión permite mantener todo el proceso de inferencia en el equipo de desarrollo, sin depender de servicios externos.
+El modelo se utiliza principalmente como generador de estrofas y como mecanismo de reparación lingüística, mientras que la evaluación formal de las salidas se realiza mediante funciones objetivas implementadas en \emph{Python}.
 
+La unidad de trabajo del sistema no es un verso aislado ni un soneto completo, sino una estrofa de cuatro versos. Cada estrofa candidata debe cumplir tres restricciones principales: estar formada por exactamente cuatro versos, aproximarse al patrón
+endecasílabo y respetar una rima consonante ABBA. Por tanto, los prompts diseñados para el modelo no solo deben pedir una salida poética, sino también imponer un formato controlado y restricciones formales explícitas.
 
 \subsection{Integración con \emph{Ollama}}
 
-La comunicación con los modelos de lenguaje se realiza mediante \emph{Ollama}, que permite ejecutar modelos de forma local a través de una \emph{API REST}. Esto proporciona control total sobre los parámetros de generación
-y elimina la dependencia de servicios externos.
+La integración con Ollama se realiza mediante llamadas locales al modelo de lenguaje configurado para la generación. En la versión actual del sistema, el modelo utilizado es \texttt{mistral:7b-instruct}, ejecutado de forma local.
+Esta configuración permite realizar múltiples llamadas durante una misma ejecución del grafo, tanto para generar estrofas iniciales como para producir variantes o reparar errores detectados posteriormente.
 
-El siguiente fragmento muestra la función general utilizada para realizar llamadas al modelo:
+El uso de Ollama introduce una separación clara entre dos responsabilidades. Por un lado, el modelo de lenguaje se encarga de producir contenido textual: estrofas completas, variantes corregidas o versos alternativos.
+Por otro lado, el sistema implementado en \emph{Python} se encarga de validar objetivamente si esas salidas cumplen las restricciones exigidas. Esta separación resulta importante, ya que evita confiar exclusivamente en la capacidad del modelo para juzgar sus propias respuestas.
+
+En otras palabras, el modelo no actúa como evaluador principal del sistema. Su papel se centra en la generación y reformulación de texto. La comprobación de la calidad formal se delega en funciones específicas de evaluación, capaces de medir el número de versos,
+estimar la métrica y comprobar el esquema de rima. De este modo, el sistema combina la flexibilidad generativa del LLM con un mecanismo de control externo más determinista.
+
+Además, las llamadas a Ollama se configuran mediante parámetros como la temperatura y el número máximo de tokens generados. La temperatura controla el grado de variabilidad de las respuestas. Una temperatura baja favorece salidas más estables y conservadoras,
+mientras que una temperatura mayor incrementa la diversidad de las variantes generadas. En el contexto de este trabajo, este parámetro resulta especialmente relevante, ya que el sistema necesita explorar alternativas, pero sin perder por completo el control sobre la forma de la estrofa.
+
+El siguiente fragmento muestra una versión simplificada de la función encargada de realizar la llamada al modelo:
 
 \begin{lstlisting}[language=Python, caption={Función de comunicación con Ollama}]
 def chat_ollama(
     model: str,
     messages: List[Dict[str, str]],
-    temperature: float = 0.2,
-    num_predict: int = 300,
-    response_format: str | None = "json",
+    temperature: float = TEMPERATURE,
+    num_predict: int = NUM_PREDICT,
 ) -> str:
-
+    """Llama a Ollama por HTTP y fuerza una respuesta JSON."""
     payload = {
         "model": model,
         "messages": messages,
         "stream": False,
+        "format": "json",
         "options": {
             "temperature": temperature,
             "num_predict": num_predict,
         },
     }
 
-    if response_format is not None:
-        payload["format"] = response_format
-
-    response = requests.post("http://localhost:11434/api/chat", json=payload, timeout=90)
+    response = requests.post(f"{BASE_URL}/api/chat", json=payload, timeout=240)
     response.raise_for_status()
 
     data = response.json()
@@ -1148,283 +1176,521 @@ def chat_ollama(
 
 \end{lstlisting}
 
-Esta función permite parametrizar aspectos clave como la temperatura o la longitud de la respuesta, además de forzar la salida en formato JSON cuando es necesario.
+Esta función recibe una lista de mensajes en formato conversacional y devuelve el contenido textual generado por el modelo. A partir de esta función básica se construyen las distintas operaciones de generación y reparación utilizadas por el agente.
 
-La Figura~\ref{fig:pipeline-llm} muestra el flujo completo de interacción entre el sistema y el modelo de lenguaje, incluyendo la generación de salidas estructuradas en formato JSON y su posterior integración en el estado del grafo.
+La Figura~\ref{fig:LogicaNodosyPrompting} resume el proceso de interacción entre los prompts generados por el sistema y el modelo local ejecutado mediante Ollama.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.9\textwidth]{images/pipeline-llm.png}
-    \caption{Flujo de interacción entre el sistema y el modelo de lenguaje con salidas estructuradas en JSON. Fuente: elaboración propia}
-    \label{fig:pipeline-llm}
+    \includegraphics[width=0.5\textwidth]{images/LogicaNodosyPrompting.png}
+    \caption{Flujo de interacción entre el sistema y el modelo local ejecutado mediante Ollama. Fuente: elaboración propia.}
+    \label{fig:LogicaNodosyPrompting}
 \end{figure}
+
+
+% ==================================================================================================================================
+
+
+\subsection{Lógica del Nodo Generador}
+
+El nodo generador, denominado \texttt{expand}, es el encargado de producir nuevas estrofas candidatas. Su comportamiento varía en función de la iteración en la que se encuentre el grafo.
+
+En la primera iteración, el sistema todavía no dispone de estrofas previas. Por ello, el nodo generador solicita al modelo que produzca una o varias estrofas desde cero.
+El prompt inicial describe de forma explícita la tarea: generar una estrofa de cuatro versos en español, con versos endecasílabos y rima consonante ABBA. La salida generada se considera una propuesta candidata, no una solución final garantizada.
+
+En iteraciones posteriores, el comportamiento del nodo cambia. En lugar de solicitar una estrofa completamente nueva sin contexto, el sistema proporciona al modelo una estrofa previa y le pide que genere una variante corregida o mejorada.
+De esta forma, el proceso se vuelve iterativo: cada nueva generación parte de una hipótesis anterior y trata de mejorarla.
+
+Este diseño permite que el agente no dependa únicamente de la primera respuesta del modelo. Si una estrofa initial presenta errores de métrica o de rima, puede seguir siendo útil como punto de partida para generar una versión posterior más adecuada.
+Por tanto, el nodo generador cumple una doble función: exploración inicial del espacio de soluciones y refinamiento progresivo de las mejores trayectorias encontradas.
+
+La lógica del nodo puede resumirse de la siguiente forma:
+
+\begin{itemize}
+    \item Si no existen estrofas previas, se generan candidatos iniciales desde cero.
+    \item Si ya existen \emph{beams}, se generan nuevas variantes a partir de las estrofas mejor valoradas.
+    \item Cada estrofa generada se almacena como candidata para su posterior evaluación.
+    \item Las candidatas no se aceptan directamente como solución final, sino que pasan al nodo evaluador.
+\end{itemize}
+
+Esta distinción entre generación inicial y generación condicionada es fundamental para el funcionamiento del sistema. En una aproximación directa, el modelo solo tendría una oportunidad para satisfacer todas las restricciones.
+En cambio, con esta arquitectura, cada iteración permite corregir errores, conservar avances parciales y explorar diferentes alternativas.
 
 
 \subsection{Estrategias de Prompting}
 
-El comportamiento del sistema depende en gran medida de cómo se instruye al modelo en cada nodo. En lugar de utilizar prompts genéricos, se diseñan instrucciones específicas adaptadas al rol de cada componente del grafo.
+El diseño de los prompts tiene un papel central en el comportamiento del sistema. Dado que los modelos de lenguaje no siempre respetan instrucciones formales de manera estricta, los prompts deben formularse de forma clara, restrictiva y orientada a producir salidas fácilmente procesables por el programa.
 
-\subsubsection{Prompt del Nodo Generador}
+En el sistema se emplean diferentes tipos de prompts según la fase del proceso. No se utiliza un único prompt general para toda la ejecución, sino varios prompts especializados en función de la tarea concreta que debe realizar el modelo.
 
-El nodo generador tiene como objetivo producir posibles pasos intermedios de razonamiento. Para ello, se utiliza un prompt que:
+En primer lugar, se encuentra el prompt de generación inicial. Este prompt solicita una estrofa completa de cuatro versos y especifica las restricciones principales de la tarea. Su objetivo es obtener una primera propuesta que, idealmente, cumpla desde el inicio el número de versos, la métrica y la rima.
+Sin embargo, debido a las limitaciones del modelo, esta salida se trata únicamente como una candidata que debe ser evaluada después.
 
-\begin{itemize}
-\item Prohíbe explícitamente la generación del resultado final.
-\item Obliga a producir decisiones concretas de planificación.
-\item Limita la longitud y el formato de la respuesta.
-\end{itemize}
+En segundo lugar, se utilizan prompts de corrección o refinamiento. Estos prompts se aplican cuando el sistema ya dispone de una estrofa previa. En este caso, el modelo recibe información sobre la estrofa anterior y se le pide que genere una versión mejorada.
+La finalidad no es producir una estrofa completamente distinta, sino corregir los aspectos que impiden cumplir las restricciones formales.
 
-Un ejemplo simplificado del prompt utilizado es el siguiente:
+En tercer lugar, existen prompts de reparación local. Estos prompts se centran en una parte concreta de la estrofa, como un verso que no alcanza las once sílabas métricas o una pareja de versos que no cumple la rima esperada.
+Esta estrategia reduce la libertad del modelo y evita que modifique partes de la estrofa que ya eran válidas.
 
-AQUÍ TENGO QUE METER FRAGMENTO DE CÓDIGO DEL PROMPT DEL NODO GENERADOR, PERO COMO ES POSIBLE QUE LO VAYA CAMBIANDO, MEJOR LO METO AL FINAL.
+El uso de prompts especializados permite adaptar el comportamiento del modelo a cada fase del proceso. Por ejemplo, cuando el problema detectado es métrico, el prompt puede pedir variantes de un verso concreto intentando acercarlo a once sílabas.
+Cuando el problema está en la rima, el prompt puede pedir que se conserve un verso ancla y se modifique únicamente el verso reparable.
 
-Este diseño permite transformar el modelo en un generador de acciones estructuradas en lugar de texto libre.
+Esta estrategia es especialmente útil en tareas poéticas con restricciones formales. Si se permite al modelo reescribir toda la estrofa en cada intento, es frecuente que corrija un error pero introduzca otros nuevos.
+Por ejemplo, puede mejorar la rima exterior pero estropear la métrica de un verso que ya era correcto. Por ello, el sistema tiende a aplicar correcciones locales siempre que es posible.
 
+La Figura~\ref{fig:EstrategiasPromptingAgente} resume las principales estrategias de \emph{prompting} utilizadas por el sistema. Como puede observarse, no se emplea una única instrucción general para todo el proceso, sino diferentes prompts especializados según la fase de ejecución:
+generación inicial, corrección iterativa y reparación local. Esta separación permite adaptar la interacción con el modelo a cada tipo de tarea y reducir la probabilidad de modificar partes de la estrofa que ya cumplen las restricciones formales.
 
-\subsubsection{Prompt del Nodo Evaluador}
-
-El nodo evaluador adopta el rol de crítico, valorando la calidad de cada trayectoria de razonamiento. Para ello, se instruye al modelo para que actúe como un evaluador estricto:
-
-\begin{itemize}
-\item Analiza coherencia, progreso y utilidad.
-\item Penaliza redundancia y pasos triviales.
-\item Devuelve una puntuación numérica continua.
-\end{itemize}
-
-Ejemplo de prompt:
-
-AQUÍ TENGO QUE METER FRAGMENTO DE CÓDIGO DEL PROMPT DEL NODO EVALUADOR, PERO COMO ES POSIBLE QUE LO VAYA CAMBIANDO, MEJOR LO METO AL FINAL.
-
-Este enfoque se enmarca dentro del paradigma conocido como \emph{LLM-as-a-judge}, en el que un modelo de lenguaje se utiliza para evaluar la calidad de las salidas generadas por otro.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.85\textwidth]{images/EstrategiasPromptingAgente.png}
+    \caption{Estrategias de prompting utilizadas por el agente durante el proceso de generación y refinamiento de estrofas. Fuente: elaboración propia}
+    \label{fig:EstrategiasPromptingAgente}
+\end{figure}
 
 
-\subsection{Representación y Manejo del Estado en \emph{LangGraph}}
 
-no de los aspectos más relevantes del sistema es la capacidad de mantener múltiples trayectorias de razonamiento en paralelo sin interferencias.
+\subsection{Formato de Salida y Control de Respuestas}
 
-Cada trayectoria se almacena como una estructura independiente dentro del estado global, lo que permite:
+Otro aspecto importante del prompting es el formato de salida. Para que el sistema pueda procesar automáticamente las respuestas del modelo, es necesario que estas sean lo más limpias y estructuradas posible.
+En este trabajo se evita que el modelo devuelva explicaciones extensas, comentarios adicionales o análisis literarios mezclados con la estrofa.
 
-\begin{itemize}
-\item Evaluar candidatos de forma aislada.
-\item Mantener historiales de puntuación independientes.
-\item Evitar colisiones entre diferentes hipótesis.
-\end{itemize}
+Por esta razón, los prompts insisten en que la salida debe contener únicamente la estrofa o el verso solicitado, según corresponda. Esta restricción facilita el procesamiento posterior, ya que el sistema puede limpiar la respuesta, separar los versos y enviarlos a las funciones de evaluación.
 
-Conceptualmente, el estado puede interpretarse como una colección de árboles de razonamiento que evolucionan simultáneamente.
+A pesar de estas instrucciones, los modelos de lenguaje pueden producir salidas con elementos no deseados, como numeraciones, comillas, títulos o frases introductorias.
+Por ello, el sistema incluye pasos de limpieza y normalización antes de evaluar cada candidata. Estos pasos permiten reducir el impacto de pequeñas desviaciones de formato y mejorar la robustez general del proceso.
 
-
-\subsection{Uso de JSON como Interfaz Estructurada}
-
-Para garantizar la robustez del sistema, todas las interacciones con el modelo se realizan mediante salidas estructuradas en formato JSON.
-
-Esto permite:
-
-\begin{itemize}
-\item Parsear automáticamente las respuestas del modelo.
-\item Detectar errores de formato y aplicar mecanismos de reintento.
-\item Integrar fácilmente los resultados en el flujo del grafo.
-\end{itemize}
-
-Además, se implementan funciones auxiliares de validación y parseo que aseguran la consistencia de los datos intercambiados.
+El control del formato de salida cumple, por tanto, una doble función. Por un lado, facilita la integración técnica entre el modelo y el código \emph{Python}. Por otro lado, reduce la probabilidad de que errores superficiales de formato afecten negativamente a la evaluación formal de una estrofa.
 
 
-\subsection{Ventajas del Enfoque Implementado}
+\subsection{Lógica del Nodo Evaluador}
 
-El diseño conjunto de prompting estructurado, uso de JSON y gestión explícita del estado permite transformar un modelo de lenguaje general en un componente controlado dentro de un sistema de razonamiento más amplio.
+El nodo evaluador, denominado \texttt{score}, recibe las estrofas candidatas generadas por el nodo anterior y les asigna una puntuación. Aunque el desarrollo detallado de la función de puntuación se presenta en el apartado siguiente, resulta conveniente introducir aquí su papel dentro del flujo del grafo.
 
-En particular, este enfoque:
+La función del nodo evaluador no se limita a calcular una puntuación final. En la versión actual del sistema, este nodo también aplica un conjunto de reparaciones locales antes de obtener la evaluación definitiva.
+Esto significa que una estrofa candidata puede ser modificada durante la fase de evaluación si se detectan errores corregibles.
 
-\begin{itemize}
-\item Reduce la ambigüedad en las salidas del modelo.
-\item Facilita la integración con algoritmos de búsqueda.
-\item Permite reutilizar el mismo modelo en distintos roles (generador y evaluador).
-\end{itemize}
+El proceso general seguido por este nodo puede resumirse en varias fases. En primer lugar, se analiza la estructura básica de la estrofa, comprobando si contiene el número esperado de versos.
+A continuación, se evalúa la métrica de cada verso y, si procede, se intentan reparaciones locales para acercar los versos al patrón endecasílabo. Después, se diagnostica la rima exterior A, correspondiente a los versos primero y cuarto, y la rima interior B,
+correspondiente a los versos segundo y tercero. En caso de fallo, se pueden activar reparaciones específicas para cada pareja de rima.
 
-Este nivel de control resulta fundamental para implementar comportamientos deliberativos en agentes basados en modelos de lenguaje.
+Esta lógica convierte el nodo evaluador en una fase de validación y refinamiento. No se limita a descartar salidas incorrectas, sino que intenta aprovechar aquellas candidatas que contienen partes útiles.
+Por ejemplo, una estrofa puede presentar una buena rima exterior pero fallar en la rima interior, o puede tener una estructura correcta pero algunos versos con errores métricos. En esos casos, las reparaciones locales permiten intentar mejorar la candidata sin reiniciar completamente el proceso.
+
+Una característica importante de esta fase es que las reparaciones se aplican de forma controlada. Cuando se repara la rima exterior, el sistema conserva el primer verso como ancla y modifica únicamente el cuarto.
+De forma análoga, cuando se repara la rima interior, se conserva el segundo verso y se modifica el tercero. Esta estrategia reduce el riesgo de perder partes válidas de la estrofa y permite que las mejoras sean acumulativas.
+
+
+\subsection{Lógica del Nodo Selector}
+
+El nodo selector, denominado \texttt{prune}, se encarga de aplicar la poda propia de Beam Search. Una vez que las candidatas han sido evaluadas, el sistema ordena las estrofas según su puntuación y conserva únicamente las mejores $k$ alternativas.
+
+Esta fase es necesaria porque el número de candidatas puede crecer rápidamente a medida que avanzan las iteraciones. Si cada beam genera varias variantes, el espacio de búsqueda aumenta de forma exponencial.
+La poda permite limitar este crecimiento y mantener el proceso dentro de un coste computacional asumible.
+
+El valor de $k$ representa el ancho del haz o \emph{beam width}. Un valor pequeño reduce el tiempo de ejecución, pero también limita la exploración del espacio de soluciones.
+Un valor mayor permite conservar más alternativas, aunque incrementa el número de llamadas al modelo y el coste total del proceso. Por tanto, este parámetro introduce un compromiso directo entre calidad potencial y coste computacional.
+
+Además de seleccionar las mejores estrofas, el nodo selector actualiza el estado del grafo para preparar la siguiente iteración. Las candidatas seleccionadas pasan a convertirse en los nuevos \emph{beams},
+mientras que el contador de iteraciones avanza. A partir de ese momento, el nodo generador podrá producir nuevas variantes tomando como referencia las mejores estrofas conservadas.
+
+
+%\subsection{Gestión del Estado entre Nodos}
+
+%La gestión del estado es uno de los aspectos más importantes de la implementación. En LangGraph, los nodos no trabajan de forma aislada, sino que reciben y devuelven un objeto de estado compartido. Este objeto contiene toda la información necesaria para que el proceso pueda avanzar de una fase a otra sin perder el contexto.
+
+%En este sistema, el estado almacena principalmente las estrofas activas, las candidatas generadas, la traza de ejecución y los parámetros de control del algoritmo. Gracias a esta estructura, el grafo puede mantener varias trayectorias en paralelo sin que se mezclen entre sí.
+
+%Cada beam representa una posible solución parcial o candidata final. Para cada uno de ellos se puede almacenar la estrofa asociada, su puntuación, su historial de puntuaciones y la información de diagnóstico generada durante la evaluación. Esta representación permite comparar diferentes alternativas de forma ordenada y conservar información útil para el análisis experimental posterior.
+
+%El uso de una estructura de estado explícita presenta varias ventajas. En primer lugar, permite que cada nodo tenga una responsabilidad clara. El nodo generador lee los beams actuales y escribe nuevas candidatas. El nodo evaluador lee las candidatas y les añade puntuaciones y diagnósticos. El nodo selector ordena esas candidatas y actualiza la lista de beams. En segundo lugar, facilita la depuración del sistema, ya que la traza permite reconstruir qué ocurrió en cada iteración.
+
+%Además, la gestión del estado resulta esencial para evitar colisiones entre trayectorias. Si varias estrofas se exploran en paralelo, cada una debe conservar su propia información. De lo contrario, una reparación aplicada a una candidata podría afectar indebidamente a otra. Por ello, cada trayectoria se trata como una entidad independiente dentro de la lista de beams.
+
+
+\subsection{Trazabilidad del Proceso} % Archivos de salida generados en la carpeta /outputs
+
+Una de las ventajas de implementar el agente mediante un grafo explícito es la posibilidad de registrar información intermedia durante la ejecución. El sistema no solo produce una estrofa final, sino que también genera trazas que permiten analizar cómo se ha llegado a ella.
+
+Estas trazas incluyen información sobre las fases de expansión, evaluación y poda. Por ejemplo, permiten saber qué candidatas se generaron en una iteración, qué puntuación obtuvo cada una, qué reparaciones se aplicaron y cuáles fueron finalmente seleccionadas para continuar.
+Esta información resulta especialmente útil para el análisis de errores y para la comparación entre distintas configuraciones experimentales.
+
+Desde el punto de vista de la memoria del proyecto, la trazabilidad cumple un papel fundamental. No basta con mostrar la estrofa final generada por el sistema; también interesa estudiar el comportamiento del agente durante el proceso.
+Las trazas permiten justificar por qué una determinada configuración funciona mejor que otra, detectar patrones de fallo y observar el efecto real de las reparaciones introducidas.
+
+Por ejemplo, si una estrofa final no cumple correctamente la rima ABBA, la traza puede ayudar a determinar si el fallo procede de la generación inicial, de una reparación de rima fallida o de una poda que descartó una alternativa mejor. Del mismo modo, si el tiempo de ejecución aumenta considerablemente,
+las trazas pueden mostrar si el incremento se debe a un mayor número de variantes, a reparaciones adicionales o a un ancho de haz demasiado elevado.
+
+\subsection{Relación entre Prompting, Estado y Beam Search}
+
+La lógica de prompting, la gestión del estado y el algoritmo Beam Search no son componentes independientes, sino partes conectadas del mismo proceso. Los prompts determinan qué tipo de variantes genera el modelo. El estado permite conservar varias de esas variantes en paralelo.
+Finalmente, \emph{Beam Search} decide cuáles merecen continuar en la siguiente iteración.
+
+Esta relación puede interpretarse como un ciclo de refinamiento progresivo. El modelo propone soluciones, el sistema las evalúa de forma objetiva y el grafo conserva las alternativas más prometedoras. En cada iteración, las mejores estrofas sirven como punto de partida para nuevas generaciones.
+De este modo, el sistema combina exploración y explotación: explora distintas posibilidades generadas por el modelo, pero concentra progresivamente la búsqueda en aquellas que presentan mejores resultados formales.
+
+Este enfoque resulta adecuado para la generación de estrofas con restricciones, ya que el cumplimiento de la tarea no depende únicamente de la creatividad del modelo. La arquitectura fuerza un proceso de revisión, comparación y selección que permite corregir errores frecuentes en las salidas de los LLMs,
+como el incumplimiento del número de versos, desviaciones métricas o rimas incorrectas.
+
+En resumen, la implementación de los nodos no se limita a conectar llamadas a un modelo de lenguaje. El sistema construye un flujo de trabajo controlado en el que cada nodo cumple una función concreta: generar alternativas, evaluarlas, repararlas cuando es posible y seleccionar las más adecuadas para continuar.
+Esta organización modular facilita la experimentación posterior y permite introducir mejoras de forma progresiva, como se analizará en los siguientes apartados.
+
+
 
 %────────────────────── Desarrollo de la Función de Puntuación (Scoring) ──────────────────────────
-\section{Desarrollo de la Función de Puntuación (\emph{Scoring})}
 
-El proceso de puntuación constituye el núcleo del algoritmo de \emph{Beam Search} aplicado al razonamiento con modelos de lenguaje. Mientras que el nodo generador se encarga de proponer posibles continuaciones,
-es el mecanismo de evaluación el que determina cuáles de dichas trayectorias deben ser exploradas en iteraciones posteriores.
+\section{Desarrollo de la Función de Puntuación \emph{(Scoring)}}
 
-En este trabajo, la evaluación de las trayectorias no se basa en métricas tradicionales, sino en el uso de un modelo de lenguaje que actúa como juez, siguiendo el paradigma conocido como \emph{LLM-as-a-judge}.
+La función de puntuación constituye uno de los elementos centrales del sistema, ya que determina qué estrofas candidatas deben conservarse y cuáles deben descartarse durante el proceso de búsqueda.
+En una arquitectura basada en \emph{Beam Search}, no basta con generar múltiples alternativas: es necesario disponer de un criterio que permita compararlas entre sí de forma consistente.
 
+En este trabajo, la puntuación no se basa en una valoración subjetiva del modelo de lenguaje, sino en una evaluación formal objetiva. Aunque inicialmente se contempló la posibilidad de utilizar un enfoque de tipo \emph{LLM-as-a-judge},
+en el que un modelo actuase como evaluador de las respuestas generadas, finalmente se optó por una estrategia más controlada y reproducible. Esta decisión resulta especialmente adecuada para el problema planteado, ya que las restricciones principales de la tarea pueden medirse de forma explícita:
+número de versos, métrica aproximada y rima consonante ABBA.
 
-\subsection{Evaluación Mediante Modelos de Lenguaje}
+De esta forma, el modelo de lenguaje se utiliza principalmente como generador y reparador de texto, mientras que la valoración de cada estrofa se realiza mediante funciones programadas en Python. Esta separación permite reducir la dependencia de juicios ambiguos del propio modelo y facilita
+la comparación entre diferentes configuraciones experimentales.
 
-En lugar de definir una función de puntuación explícita basada en reglas, se utiliza un modelo de lenguaje independiente para evaluar la calidad de cada trayectoria de razonamiento.
+% -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Este modelo recibe como entrada la tarea original y la trayectoria completa de razonamiento candidata. A partir de esta información, genera una puntuación continua en el rango $[0,1]$, junto con una justificación textual breve.
+\subsection{Criterios de Evaluación Formal}
 
-Este enfoque permite capturar criterios complejos difíciles de formalizar, como la coherencia, la utilidad o la calidad semántica del razonamiento.
-
-
-\subsection{Criterios de Evaluación}
-
-Para guiar el comportamiento del evaluador, se definen explícitamente los siguientes criterios en el prompt:
+La unidad evaluada por el sistema es siempre una estrofa completa de cuatro versos. Cada candidata se analiza teniendo en cuenta tres criterios principales:
 
 \begin{itemize}
-\item \textbf{Progreso}: Cada paso debe suponer un avance real hacia la solución.
-\item \textbf{Especificidad}: Se favorecen pasos concretos frente a formulaciones vagas.
-\item \textbf{No redundancia}: Se penalizan repeticiones o reformulaciones innecesarias.
-\item \textbf{Utilidad}: La trayectoria debe contribuir de forma efectiva a la resolución del problema.
+    \item \textbf{Número de versos}: la estrofa debe contener exactamente cuatro versos.
+    \item \textbf{Métrica}: cada verso debe aproximarse al patrón endecasílabo, es decir, tener once sílabas métricas.
+    \item \textbf{Rima consonante}: la estrofa debe seguir el esquema ABBA, donde el primer verso rima con el cuarto y el segundo verso rima con el tercero.
 \end{itemize}
 
-En el caso particular de tareas de generación poética, se introducen además criterios adicionales relacionados con la calidad estética, como la coherencia del tono o la adecuación del léxico.
+Estos criterios permiten transformar una tarea aparentemente creativa en un problema evaluable de forma automática. La calidad de una estrofa no se mide únicamente por su fluidez literaria, sino por su grado de cumplimiento de unas restricciones formales previamente definidas.
 
+El primer criterio comprueba la estructura básica de la salida. Esta comprobación es necesaria porque los modelos de lenguaje pueden generar respuestas con un número incorrecto de versos, añadir explicaciones o dividir el texto de forma inesperada.
+Una estrofa que no contiene exactamente cuatro versos no puede considerarse válida dentro del marco definido para este proyecto.
 
-\subsection{Agregación de Puntuaciones}
+El segundo criterio evalúa la métrica de cada verso. Para ello, el sistema emplea una estimación automática del número de sílabas métricas. Esta estimación tiene en cuenta aspectos como la separación silábica, la palabra final del verso y una aproximación básica a la sinalefa.
+Aunque la métrica poética en español puede presentar fenómenos complejos, esta aproximación resulta suficiente para establecer un criterio operativo de comparación entre candidatas.
 
-Dado que cada trayectoria se construye de forma incremental, es necesario combinar las puntuaciones obtenidas en cada paso para obtener una medida global de su calidad.
+El tercer criterio analiza la rima consonante. En el esquema ABBA, los versos primero y cuarto deben compartir rima, mientras que los versos segundo y tercero deben rimar entre sí. Para comprobarlo, el sistema extrae la terminación rimática de la última palabra de cada verso,
+tomando como referencia la vocal tónica estimada. Posteriormente, compara las terminaciones correspondientes para determinar si se cumple el patrón esperado.
 
-Para ello, se utiliza una media geométrica normalizada, definida como:
+% -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-\[
-S = \left( \prod_{i=1}^{T} s_i \right)^{\frac{1}{T^\alpha}}
-\]
+\subsection{Evaluación Objetiva frente a \emph{LLM-as-a-Judge}}
 
-donde $s_i$ representa la puntuación del paso $i$, $T$ es la longitud de la trayectoria y $\alpha$ es un parámetro que controla la penalización asociada a trayectorias más largas.
+El uso de un evaluador basado en \emph{LLM} podría resultar atractivo en tareas abiertas, especialmente cuando se desea valorar aspectos difíciles de formalizar, como la coherencia semántica, la originalidad o la calidad literaria. Sin embargo, en este proyecto la mayor parte de los
+requisitos principales son verificables mediante reglas concretas.
 
-Este tipo de agregación presenta varias ventajas, como la fuerte pensalización de trayectorias con pasos de baja calidad. Además, evita que puntuaciones altas compensen errores graves en otros pasos,
-introduciendo de esta forma un control explícito sobre la profundidad del razonamiento.
+Por este motivo, se decidió no utilizar el modelo como juez principal del proceso. Delegar la evaluación formal en el propio \emph{LLM} podría introducir inconsistencias, ya que el modelo puede interpretar de forma variable las instrucciones,
+equivocarse al contar sílabas o aceptar rimas incorrectas como válidas. En cambio, una función de evaluación programada permite aplicar siempre los mismos criterios sobre todas las candidatas.
 
+Esta decisión aporta varias ventajas. En primer lugar, mejora la reproducibilidad de los experimentos, ya que dos estrofas iguales reciben la misma puntuación independientemente del momento de la ejecución. En segundo lugar, facilita el análisis de errores,
+puesto que el sistema puede indicar qué restricción concreta se incumple. Por último, permite comparar de manera más clara distintas configuraciones del agente, como cambios en los prompts, en el ancho del haz (\emph{beam width}) o en los parámetros de generación.
 
-\subsection{Implementación de la Función de Agregación}
+No obstante, esta elección también implica ciertas limitaciones. La evaluación objetiva se centra en aspectos formales y no captura completamente la calidad estética o semántica de la estrofa. Una estrofa puede cumplir la métrica y la rima, pero resultar poco natural o tener un significado débil.
+Esta limitación se asume como parte del alcance del trabajo, ya que el objetivo principal del sistema es estudiar el razonamiento iterativo y la satisfacción de restricciones formales mediante un agente basado en \emph{LangGraph} y \emph{Beam Search}.
 
-La implementación de esta función en el sistema se realiza de la siguiente forma:
+% -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-\begin{lstlisting}[language=Python, caption={Función de agregación de puntuaciones}]
-def aggregate_scores(score_history: List[float], alpha: float = 1.0) -> float:
+\subsection{Cálculo de la Puntuación}
 
-    if not score_history:
-        return 0.0
+La puntuación de cada estrofa se obtiene mediante una función específica de evaluación. Esta función analiza la candidata y devuelve un resultado estructurado con la puntuación global, una puntuación normalizada sobre veinte, los errores detectados y un mensaje de retroalimentación formal.
 
-    product = 1.0
-    for s in score_history:
-        safe_s = max(s, 1e-6)
-        product *= safe_s
+El proceso de evaluación puede resumirse en las siguientes fases:
 
-    T = len(score_history)
-    return product ** (1.0 / (T ** alpha))
+\begin{enumerate}
+    \item Limpieza y normalización de la estrofa generada.
+    \item Separación del texto en versos.
+    \item Comprobación del número de versos.
+    \item Estimación de las sílabas métricas de cada verso.
+    \item Extracción de la rima de la última palabra de cada verso.
+    \item Verificación del esquema ABBA.
+    \item Cálculo de una puntuación global.
+    \item Generación de feedback formal para orientar posibles correcciones.
+\end{enumerate}
+
+El Listado~\ref{lst:evaluateStanzaAbba} muestra un fragmento simplificado de la función encargada de evaluar una estrofa candidata. Esta función centraliza la comprobación de las restricciones formales y devuelve una estructura con la puntuación y los errores detectados.
+
+\begin{lstlisting}[language=Python, caption={Fragmento simplificado de la evaluación formal de una estrofa ABBA}, label={lst:evaluateStanzaAbba}]
+
+def evaluate_stanza_abba(stanza: str | list[str]) -> dict[str, object]:
+ 
+    verses = normalize_verses_input(stanza)
+    verse_count_evaluation = evaluate_stanza_verse_count(verses)
+    syllable_evaluation = evaluate_stanza_syllable_count(verses)
+    rhyme_evaluation = evaluate_stanza_rhyme_scheme(verses)
+
+    raw_score = (
+        float(verse_count_evaluation["score"]) * VERSE_COUNT_WEIGHT
+        + float(syllable_evaluation["score"]) * SYLLABLE_WEIGHT
+        + float(rhyme_evaluation["score"]) * RHYME_WEIGHT
+    )
+
+    score = round(_clamp_score(raw_score), 4)
 
 \end{lstlisting}
 
-El uso de un valor mínimo ($\epsilon$) evita problemas numéricos en caso de puntuaciones nulas.
+El resultado de esta evaluación permite comparar estrofas que pueden fallar de formas distintas. Por ejemplo, una candidata puede tener cuatro versos y buena rima, pero presentar errores métricos. Otra puede tener versos endecasílabos, pero no cumplir el esquema ABBA.
+La puntuación global permite ordenar ambas alternativas y decidir cuál resulta más prometedora para continuar el proceso.
 
+En la implementación actual, la evaluación formal no se utiliza únicamente al final de la ejecución. Por el contrario, se aplica en cada iteración del grafo. Esto permite que el sistema tome decisiones intermedias informadas y no espere hasta el final para detectar errores graves.
+Así, el \emph{Beam Search} puede dirigir la búsqueda hacia las estrofas que muestran un mayor cumplimiento de las restricciones.
 
-\subsection{Selección de las Mejores Trayectorias}
+% -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Una vez calculada la puntuación global de cada candidato, el nodo selector ordena las trayectorias y conserva únicamente las $k$ mejores:
+\subsection{Feedback Formal y Reparación de Candidatas}
 
-\begin{lstlisting}[language=Python, caption={Selección de las k mejores trayectorias}]
+Además de asignar una puntuación, la función de evaluación produce información diagnóstica sobre los errores encontrados. Esta información resulta fundamental para las fases de reparación, ya que permite saber qué aspecto concreto de la estrofa debe modificarse.
+
+Por ejemplo, si un verso no tiene once sílabas métricas, el sistema puede activar una reparación local centrada únicamente en ese verso. Si la rima exterior A falla, se conserva el primer verso como ancla y se intenta reescribir el cuarto.
+De forma similar, si falla la rima interior B, se conserva el segundo verso y se intenta modificar el tercero.
+
+Este enfoque convierte la función de puntuación en algo más que un mecanismo de ordenación. La evaluación actúa también como una fuente de información para guiar el refinamiento de las candidatas. En lugar de descartar directamente una estrofa parcialmente incorrecta,
+el sistema puede intentar repararla si contiene elementos aprovechables.
+
+La retroalimentación formal generada por el evaluador permite, por tanto, cerrar el ciclo entre evaluación y generación. El modelo propone una estrofa, el sistema detecta sus errores y, si procede, se construyen nuevas instrucciones para corregirlos.
+Este comportamiento resulta especialmente relevante en tareas con restricciones formales, donde una solución puede estar cerca de ser válida aunque todavía incumpla uno de los requisitos.
+
+% -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+\subsection{Puntuación y Beam Search}
+
+Dentro del algoritmo de \emph{Beam Search}, la puntuación cumple la función de guiar la exploración. Tras cada fase de generación y evaluación, el sistema dispone de un conjunto de candidatas con diferentes niveles de calidad formal. El nodo selector ordena estas candidatas según su puntuación
+y conserva únicamente las mejores $k$.
+
+Este mecanismo permite limitar el crecimiento del espacio de búsqueda. Si todas las variantes generadas se mantuvieran activas, el número de trayectorias aumentaría rápidamente en cada iteración. La poda basada en puntuación permite concentrar los recursos computacionales en
+las estrofas más prometedoras.
+
+El valor de $k$ determina cuántas alternativas se conservan en cada iteración. Si $k$ es demasiado pequeño, el sistema puede descartar pronto una estrofa que, aunque inicialmente no sea la mejor, podría haber mejorado en iteraciones posteriores. Si $k$ es demasiado grande,
+el sistema explora más alternativas, pero aumenta el número de llamadas al modelo y, por tanto, el tiempo total de ejecución.
+
+La función de puntuación es, por tanto, el criterio que conecta la evaluación formal con la estrategia de búsqueda. Una puntuación adecuada permite que el sistema avance hacia soluciones cada vez más cercanas al objetivo, mientras que una puntuación mal diseñada podría
+favorecer candidatas que no conduzcan a una estrofa válida.
+
+La Figura~\ref{fig:ScoringBeamSearch} muestra el papel de la función de puntuación dentro del proceso de \emph{Beam Search}. Cada estrofa candidata es evaluada mediante criterios formales y, a partir de esa puntuación, el sistema decide qué trayectorias continúan activas en la siguiente iteración.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.85\textwidth]{images/ScoringBeamSearch.png}
+    \caption{Papel de la función de puntuación en la selección de las mejores estrofas candidatas. Fuente: elaboración propia}
+    \label{fig:ScoringBeamSearch}
+\end{figure}
+
+% -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+\subsection{Ordenación y Selección de las Mejores Candidatas}
+
+Una vez evaluadas todas las candidatas, el sistema procede a ordenarlas de mayor a menor puntuación. Las mejores alternativas se conservan como nuevos \emph{beams}, mientras que el resto se descarta. Esta operación constituye la fase de poda del algoritmo.
+
+Conceptualmente, el proceso puede representarse de la siguiente forma:
+
+\begin{lstlisting}[language=Python, caption={Esquema simplificado de selección de las mejores candidatas}]
+scored_candidates = evaluate_candidates(candidates)
+
 sorted_candidates = sorted(
-        state["candidates"],
+        selection_pool,
         key=lambda beam: beam["score"],
         reverse=True,
     )
 
-    top_k = sorted_candidates[: state["k"]]
+top_k = sorted_candidates[: state["k"]]
 \end{lstlisting}
 
-Este mecanismo implementa directamente la estrategia de poda característica del algoritmo de \textit{Beam Search}.
+El fragmento anterior muestra una versión simplificada del mecanismo de selección. En la implementación completa, cada candidata puede contener más información además de la puntuación, como la estrofa generada, el historial de puntuaciones, los diagnósticos formales y los reportes de reparación.
+Sin embargo, la idea central es la misma: ordenar las alternativas evaluadas y conservar solo las más prometedoras.
 
+Esta selección se realiza en cada iteración del grafo. Por tanto, una estrofa no necesita ser perfecta desde el primer momento para sobrevivir, pero sí debe obtener una puntuación suficientemente alta como para mantenerse dentro de las mejores alternativas.
+Esto permite que el sistema combine exploración y refinamiento progresivo.
 
-\subsection{Ventajas del Enfoque de Evaluación}
+\subsection{Protección de Beams Prometedores}
 
-El uso combinado de un evaluador basado en modelos de lenguaje y una función de agregación adecuada permite:
+Durante el desarrollo del sistema se observó que algunas estrofas parcialmente buenas podían perderse tras una iteración de generación o reparación. Esto ocurría cuando una estrofa con buena puntuación generaba variantes peores, provocando que la trayectoria original desapareciera del conjunto de
+beams activos.
 
-\begin{itemize}
-\item Capturar criterios complejos de calidad difíciles de formalizar.
-\item Penalizar trayectorias inconsistentes de forma acumulativa.
-\item Mantener un equilibrio entre exploración y explotación en el proceso de búsqueda.
-\end{itemize}
+Para evitar este problema, se introdujo una estrategia de preservación de beams prometedores. La idea consiste en conservar ciertas estrofas de alta calidad aunque sus descendientes inmediatos no mejoren el resultado. Esta técnica se puede interpretar como una forma de elitismo
+dentro del proceso de búsqueda.
 
-En conjunto, este diseño convierte el proceso de puntuación en un componente fundamental para guiar el razonamiento del sistema hacia soluciones de mayor calidad.
+El elitismo resulta útil porque las llamadas al modelo no garantizan una mejora monotónica. Una variante generada a partir de una buena estrofa puede corregir un aspecto, pero empeorar otro. Por ejemplo, puede mejorar una rima pero alterar la métrica, o mantener la métrica pero cambiar
+una palabra final que era importante para el esquema ABBA. En estos casos, conservar el beam original evita perder una solución que todavía puede ser competitiva.
+
+Esta protección también contribuye a estabilizar el comportamiento del sistema. En tareas de generación con LLMs, las salidas pueden variar incluso bajo instrucciones similares. Mantener los mejores beams encontrados permite que el proceso no dependa exclusivamente de la última
+generación producida por el modelo.
+
+\subsection{Interpretación de la Puntuación}
+
+La puntuación obtenida por una estrofa debe interpretarse como una medida de cumplimiento formal, no como una valoración literaria completa. Una puntuación alta indica que la candidata se aproxima bien a los requisitos definidos: cuatro versos, métrica endecasílaba y rima ABBA.
+Sin embargo, no garantiza necesariamente que la estrofa sea estética, profunda o semánticamente perfecta.
+
+Esta distinción es importante para delimitar correctamente el alcance del sistema. El objetivo del agente no es sustituir el juicio literario humano, sino estudiar cómo un modelo de lenguaje puede ser guiado mediante un proceso iterativo de generación, evaluación y selección.
+En este contexto, la puntuación formal proporciona una señal clara y automatizable para dirigir el \emph{Beam Search}.
+
+En consecuencia, los resultados experimentales deben analizarse teniendo en cuenta esta perspectiva. Una mejora en la puntuación media de las estrofas indica que el sistema cumple mejor las restricciones formales, pero no implica necesariamente una mejora equivalente en calidad poética.
+Esta limitación abre la puerta a posibles extensiones futuras, como incorporar métricas semánticas o una valoración humana complementaria.
+
+\subsection{Importancia del Scoring en el Sistema}
+
+El desarrollo de la función de puntuación permite transformar la generación poética en un proceso de búsqueda guiada. Sin este componente, el sistema se limitaría a solicitar respuestas al modelo y aceptar la salida obtenida. En cambio, al disponer de una señal de evaluación,
+el agente puede comparar alternativas, conservar las mejores y orientar las iteraciones posteriores.
+
+El scoring actúa como punto de conexión entre las restricciones formales del problema y la arquitectura de razonamiento implementada en LangGraph. Los prompts generan diversidad, el estado mantiene varias trayectorias activas y la puntuación decide cuáles de ellas merecen continuar.
+Por ello, la calidad de la función de puntuación influye directamente en el comportamiento global del agente.
+
+En resumen, la función de puntuación no solo sirve para medir el resultado final, sino que participa activamente en el proceso de razonamiento. Evalúa cada candidata, aporta feedback para las reparaciones, permite ordenar las trayectorias y guía la poda del \emph{Beam Search}.
+Gracias a este componente, el sistema puede avanzar de manera iterativa hacia estrofas que cumplen cada vez mejor las restricciones formales definidas.
+
 
 %────────────────────── Configuración del Entorno Experimental y Datasets ──────────────────────────
-\section{Configuración del Entorno Experimental y Datasets}
 
-En este apartado se describe el entorno de ejecución utilizado para el desarrollo y evaluación del agente de razonamiento, así como la naturaleza de los problemas seleccionados para su validación experimental.
+\section{Configuración del Entorno Experimental y Problema de Prueba}
+
+Una vez definida la arquitectura del agente y la función de puntuación, es necesario describir el entorno en el que se ejecutan los experimentos y el tipo de problema utilizado para evaluar el sistema. En este trabajo se opta por una ejecución local del modelo de lenguaje,
+utilizando \emph{Ollama} como herramienta para lanzar las inferencias desde el propio equipo de desarrollo.
+
+% -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 \subsection{Entorno de Ejecución}
 
-El sistema ha sido desarrollado y ejecutado en un entorno local, utilizando la herramienta \emph{Ollama} para la ejecución de modelos de lenguaje sin necesidad de conexión a servicios externos.
-El uso de un entorno local presenta varias ventajas relevantes, como el control total sobre los modelos y sus parámetros, la reducción de latencia en las llamadas al modelo y la independencia de servicios
-en la nube.
+La Tabla~\ref{tab:entornoExperimental} resume las principales características del entorno utilizado durante la ejecución de los experimentos.
 
-El entorno hardware utilizado para la ejecución del sistema es el siguiente:
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Elemento} & \textbf{Configuración} \\
+        \hline
+        Sistema operativo & Windows 11 Home \\
+        \hline
+        Procesador & Intel Core Ultra 9 185H \\
+        \hline
+        Memoria RAM & 16 GB \\
+        \hline
+        GPU & Intel Arc Graphics \\
+        \hline
+        Entorno de desarrollo & Visual Studio Code \\
+        \hline
+        Lenguaje & Python \\
+        \hline
+        Modelo local & \texttt{mistral:7b-instruct} con Ollama \\
+        \hline
+    \end{tabular}
+    \caption{Configuración del entorno experimental utilizado para ejecutar el agente. Fuente: elaboración propia}
+    \label{tab:entornoExperimental}
+\end{table}
+
+El uso de un modelo local condiciona directamente el diseño experimental. A diferencia de una API externa, la ejecución en local permite un mayor control sobre el entorno y evita depender de servicios de terceros, pero también introduce limitaciones de tiempo y recursos.
+Cada llamada al modelo tiene un coste computacional apreciable, especialmente cuando el sistema genera varias variantes por iteración o activa fases adicionales de reparación.
+
+Por este motivo, los experimentos deben equilibrar la calidad de las soluciones generadas con el tiempo total de ejecución. Parámetros como el ancho del haz $k$, el número máximo de iteraciones o el número de variantes solicitadas en cada reparación influyen directamente en dicho coste.
+
+% -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+\subsection{Configuración del Agente}
+
+La configuración experimental del agente se basa en un conjunto de parámetros que controlan tanto la generación como la búsqueda. En las pruebas principales se utiliza un ancho de haz reducido, con el objetivo de mantener el coste computacional dentro de unos límites razonables.
+
+La Tabla~\ref{tab:configuracionAgente} resume los principales parámetros utilizados durante la ejecución del sistema.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Parámetro} & \textbf{Valor utilizado} \\
+        \hline
+        Modelo generador & \texttt{mistral:7b-instruct} \\
+        \hline
+        Temperatura de generación & 0.3 \\
+        \hline
+        Número máximo de tokens & 600 \\
+        \hline
+        Ancho del haz & $k = 2$ \\
+        \hline
+        Número máximo de iteraciones & 3 \\
+        \hline
+        Reparación métrica inicial & Activada \\
+        \hline
+        Reparación de rima exterior A & Activada \\
+        \hline
+        Reparación métrica posterior a rima A & Activada \\
+        \hline
+        Reparación de rima interior B & Activada \\
+        \hline
+        Reparación métrica posterior a rima B & Activada \\
+        \hline
+    \end{tabular}
+    \caption{Configuración principal del agente durante la fase experimental. Fuente: elaboración propia}
+    \label{tab:configuracionAgente}
+\end{table}
+
+Además de estos parámetros generales, el sistema incorpora configuraciones específicas para las fases de reparación métrica y de rima. Estas fases pueden generar varias variantes de un verso concreto y aceptar únicamente aquellas que mejoran o mantienen el cumplimiento formal de la estrofa.
+Esta configuración permite estudiar no solo la capacidad de generación inicial del modelo, sino también el efecto de los mecanismos de refinamiento introducidos en el agente.
+
+% --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+\subsection{Problema de Prueba: Generación de una Estrofa ABBA}
+
+El problema seleccionado para evaluar el agente es la generación automática de una estrofa clásica en español formada por cuatro versos. La estrofa debe cumplir las siguientes restricciones:
 
 \begin{itemize}
-\item \textbf{Procesador (CPU)}: Intel Core Ultra 9 185H (2.50 GHz)
-\item \textbf{Memoria RAM}: 16 GB
-\item \textbf{GPU}: Intel Arc Graphics (integrada)
-\item \textbf{Sistema operativo}: Windows 11 Home (versión 25H2, 64 bits)
+    \item contener exactamente cuatro versos;
+    \item aproximarse al patrón endecasílabo;
+    \item seguir un esquema de rima consonante ABBA.
 \end{itemize}
 
-El uso de modelos de tamaño reducido (en torno a 7B parámetros) permite la ejecución del sistema en hardware de consumo sin necesidad de recursos especializados, como GPUs de alto rendimiento.
-No obstante, el coste computacional del sistema crece con el número de trayectorias exploradas y el número de iteraciones del algoritmo, ya que cada paso implica múltiples llamadas al modelo de lenguaje.
+Aunque en una fase inicial del proyecto se planteó la generación de un soneto completo, el desarrollo experimental se centra finalmente en la primera estrofa, con esquema de rima ABBA. Esta decisión no implica un cambio en la naturaleza del problema, sino una reducción controlada de su alcance.
+En lugar de abordar directamente la generación completa de catorce versos, se estudia con mayor profundidad una unidad poética más pequeña, pero suficientemente representativa de las dificultades principales: control del número de versos, métrica endecasílaba y rima consonante.
 
-En este sentido, el uso de un modelo evaluador más ligero resulta clave para mantener tiempos de ejecución razonables dentro de un entorno local.
+Este enfoque permite analizar de forma más precisa el comportamiento del agente. Al trabajar con una única estrofa, resulta más sencillo identificar en qué punto aparecen los errores, qué efecto tienen las reparaciones locales y cómo influye el proceso de selección mediante \emph{Beam Search}.
+De este modo, el sistema puede evaluarse sobre una tarea acotada, pero no trivial.
 
-\subsection{Modelos Utilizados}
+Además, el método propuesto es extensible a la generación de un soneto completo. Una vez resuelta la generación de una estrofa ABBA, el mismo esquema podría aplicarse a la segunda estrofa del soneto, también con rimas fijadas. Posteriormente, sería posible adaptar la lógica de evaluación y
+reparación a los tercetos finales, cuyo esquema de rima puede adoptar patrones como CDC. Por tanto, la generación de la primera estrofa se plantea como una prueba representativa del método, no como una limitación conceptual del sistema.
 
-El sistema emplea dos modelos diferenciados, cada uno especializado en una función concreta dentro del proceso de razonamiento:
+La elección de este problema resulta adecuada para evaluar un sistema de razonamiento multietapa por varias razones. En primer lugar, no basta con generar texto gramaticalmente correcto: la salida debe satisfacer restricciones formales verificables. En segundo lugar, los errores
+pueden aparecer en distintos niveles, como el número de versos, la métrica de un verso aislado o la rima entre dos versos concretos. Por último, una estrofa parcialmente incorrecta puede seguir siendo útil si contiene elementos aprovechables que puedan repararse posteriormente.
 
-\begin{itemize}
-\item \textbf{Modelo generador}: \texttt{mistral:7b-instruct}, encargado de producir los pasos de razonamiento intermedios.
-\item \textbf{Modelo evaluador}: \texttt{phi3}, responsable de asignar puntuaciones a las trayectorias generadas.
-\end{itemize}
+\subsection{Justificación Experimental}
 
-La elección de estos modelos responde a un compromiso entre capacidad de razonamiento y eficiencia computacional. El modelo generador, de mayor tamaño, permite producir trayectorias más ricas y
-variadas, mientras que el modelo evaluador, más ligero, facilita una evaluación rápida de múltiples candidatos en cada iteración del algoritmo.
+La generación de estrofas con restricciones constituye un caso de prueba interesante para el agente porque obliga a combinar creatividad lingüística y control formal. El modelo de lenguaje aporta capacidad generativa, mientras que el grafo de razonamiento introduce mecanismos de evaluación,
+selección y reparación.
 
-Esta combinación resulta especialmente adecuada en el contexto de \emph{Beam Search}, donde el número de evaluaciones crece de forma proporcional al número de trayectorias exploradas.
+Este planteamiento permite observar si el proceso iterativo mejora realmente los resultados frente a una generación directa. En lugar de aceptar la primera salida del modelo, el sistema genera varias alternativas, las evalúa, conserva las más prometedoras y aplica reparaciones locales cuando
+detecta errores. Por tanto, el problema permite estudiar el valor añadido de la arquitectura propuesta.
 
-
-\subsection{Parámetros de Configuración}
-
-Durante la experimentación, se han ajustado diversos hiperparámetros que influyen directamente en el comportamiento del sistema:
-
-\begin{itemize}
-\item \textbf{Temperatura}: Controla el grado de aleatoriedad en la generación.
-\item \textbf{Número máximo de tokens}: Limita la longitud de las respuestas.
-\item \textbf{Ancho del haz ($k$)}: Determina cuántas trayectorias se mantienen en cada iteración.
-\item \textbf{Número de iteraciones}: Define la profundidad máxima del razonamiento.
-\end{itemize}
-
-El ajuste de estos parámetros resulta fundamental para equilibrar la exploración del espacio de soluciones y el coste computacional.
+Además, el uso de trazas y métricas estructuradas permite comparar distintas configuraciones del sistema. Por ejemplo, se puede analizar el efecto de activar o desactivar la reparación métrica, añadir reparación de rima, modificar el ancho del haz o cambiar el número de iteraciones.
+Estas comparaciones se desarrollan en los apartados posteriores, donde se estudia la evolución del agente a través de diferentes ciclos de experimentación.
 
 
-\subsection{Selección de Tareas}
-
-Para la evaluación del sistema se han seleccionado problemas de carácter lingüístico, concretamente la planificación y generación de un soneto en español.
-
-A diferencia de tareas puramente matemáticas o deterministas, este tipo de problemas presenta varias características relevantes, como el requirimiento de un razonamiento
-multietapa (planificación, estructura, desarrollo). Además, al no existir una única solución correcta, permite evaluar aspectos cualitativos como coherencia y creatividad.
-
-Estas propiedades lo convierten en un escenario adecuado para evaluar sistemas basados en exploración de múltiples trayectorias de razonamiento.
 
 
-\subsection{Justificación del Enfoque Experimental}
-
-La elección de tareas de generación poética no es arbitraria, sino que responde a la necesidad de evaluar el comportamiento del sistema en contextos donde la calidad de la solución depende de múltiples
-factores no triviales y es necesario mantener coherencia a lo largo de varias etapas. En dichos contextos, es correcto afirmar que el proceso de razonamiento es tan importante como el resultado final.
-
-En este sentido, la generación de un soneto permite poner a prueba tanto la capacidad de planificación del sistema como la efectividad del mecanismo de evaluación implementado.
 
 
-\subsection{Limitaciones del Entorno}
 
-A pesar de sus ventajas, el uso de modelos locales también introduce ciertas limitaciones:
 
-\begin{itemize}
-\item Menor capacidad de razonamiento en comparación con modelos de mayor tamaño.
-\item Sensibilidad a errores de formato en las salidas.
-\item Mayor necesidad de control mediante prompting estructurado.
-\end{itemize}
 
-No obstante, estas limitaciones han sido tenidas en cuenta durante el diseño del sistema, incorporando mecanismos de validación y reintento para mejorar la robustez.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 %────────────────────── Ciclo 1: Aproximación Inicial y Resultados Base ──────────────────────────
 \section{Ciclo 1: Aproximación Inicial y Resultados Base}

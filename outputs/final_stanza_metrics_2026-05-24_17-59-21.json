@@ -1,0 +1,1266 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_post_a_rhyme_meter_repair": true,
+    "post_a_rhyme_meter_repair_variants": 5,
+    "post_a_rhyme_meter_repair_temperature": 0.4,
+    "post_a_rhyme_meter_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200,
+    "inner_rhyme_repair_conditioned_by_candidate": true,
+    "inner_rhyme_repair_variants_per_candidate": 2,
+    "inner_rhyme_repair_max_candidate_words": 4,
+    "enable_post_b_rhyme_meter_repair": true,
+    "post_b_rhyme_meter_repair_variants": 5,
+    "post_b_rhyme_meter_repair_temperature": 0.4,
+    "post_b_rhyme_meter_repair_num_predict": 200
+  },
+  "stanza": [
+    "El tiempo, un corredor sin freno ni llanto,",
+    "Misterio y hermosura, al pasado me lleva.",
+    "En mi pecho siente una nostalgia nueva",
+    "Que juventud nunca lo volverá"
+  ],
+  "score": 0.8,
+  "step_score": 0.8,
+  "score_history": [
+    0.8,
+    0.8,
+    0.8
+  ],
+  "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 14 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 4: rima C, pero se esperaba A.",
+  "metrics": {
+    "score": 0.8,
+    "score_20": 16.0,
+    "verses": [
+      "El tiempo, un corredor sin freno ni llanto,",
+      "Misterio y hermosura, al pasado me lleva.",
+      "En mi pecho siente una nostalgia nueva",
+      "Que juventud nunca lo volverá"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        14,
+        11,
+        11
+      ],
+      "correct_verses": 3,
+      "total_expected_verses": 4,
+      "score": 0.75,
+      "errors": [
+        "Verso 2: tiene 14 silabas, pero deberia tener 11."
+      ]
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "anto",
+        "eva",
+        "eva",
+        "a"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "B",
+        "C"
+      ],
+      "correct_positions": 3,
+      "total_positions": 4,
+      "score": 0.75,
+      "errors": [
+        "Verso 4: rima C, pero se esperaba A."
+      ]
+    },
+    "errors": [
+      "Verso 2: tiene 14 silabas, pero deberia tener 11.",
+      "Verso 4: rima C, pero se esperaba A."
+    ],
+    "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 14 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 4: rima C, pero se esperaba A."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": true,
+    "original_stanza": [
+      "El tiempo, un corredor sin freno ni llanto,",
+      "Me lleva al pasado, trono misterioso y hermoso.",
+      "En mi pecho siente una nostalgia fuerte",
+      "Que la juventud nunca volverá a verlo."
+    ],
+    "repaired_stanza": [
+      "El tiempo, un corredor sin freno ni llanto,",
+      "Misterio y hermosura, al pasado me lleva.",
+      "En mi pecho siente una nostalgia fuerte",
+      "Que juventud nunca lo volverá"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "El tiempo, un corredor sin freno ni llanto,",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "Me lleva al pasado, trono misterioso y hermoso.",
+        "original_syllables": 15,
+        "original_distance": 4,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Misterio y hermosura, al pasado me lleva.",
+        "selected_syllables": 14,
+        "selected_distance": 3,
+        "variants": [
+          {
+            "verse": "Me lleva al pasado, trono misterioso y hermoso.",
+            "syllables": 15,
+            "distance": 4
+          },
+          {
+            "verse": "Al pasado me lleva su misterio y belleza.",
+            "syllables": 15,
+            "distance": 4
+          },
+          {
+            "verse": "Lleva a través del pasado, misterio y hermosura.",
+            "syllables": 16,
+            "distance": 5
+          },
+          {
+            "verse": "Misterio y hermosura, al pasado me lleva.",
+            "syllables": 14,
+            "distance": 3
+          },
+          {
+            "verse": "Pasado misterioso y hermoso, me lleva él.",
+            "syllables": 15,
+            "distance": 4
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "En mi pecho siente una nostalgia fuerte",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "Que la juventud nunca volverá a verlo.",
+        "original_syllables": 12,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Que juventud nunca lo volverá",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "Que juventud nunca lo volverá",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Juventud nunca lo volverá jamás",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "Nunca la juventud volverá al ver",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Nunca volverá la juventud a verlo",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "La juventud nunca volverá al verle",
+            "syllables": 11,
+            "distance": 0
+          }
+        ],
+        "error": null
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+    "original_stanza": [
+      "El tiempo, un corredor sin freno ni llanto,",
+      "Misterio y hermosura, al pasado me lleva.",
+      "En mi pecho siente una nostalgia fuerte",
+      "Que juventud nunca lo volverá"
+    ],
+    "repaired_stanza": [
+      "El tiempo, un corredor sin freno ni llanto,",
+      "Misterio y hermosura, al pasado me lleva.",
+      "En mi pecho siente una nostalgia fuerte",
+      "Que juventud nunca lo volverá"
+    ],
+    "target_rhyme": "anto",
+    "current_rhyme": "a",
+    "verse_1": {
+      "text": "El tiempo, un corredor sin freno ni llanto,",
+      "last_word": "llanto",
+      "rhyme": "anto"
+    },
+    "candidate_final_words": [
+      "llanto"
+    ],
+    "enforced_candidate_final_words": [],
+    "post_a_meter_repair_enabled": true,
+    "post_a_meter_repair_attempts": 0,
+    "post_a_meter_repair_successes": 0,
+    "original_verse_4": "Que juventud nunca lo volverá",
+    "original_verse_4_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "Que el tiempo nunca lo volverá",
+        "syllables": 10,
+        "final_word": "volverá",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'anto' | v4 = 'a'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "El pasado nunca lo podrá devolver",
+        "syllables": 13,
+        "final_word": "devolver",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'anto' | v4 = 'er'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "La juventud nunca la podemos retraer",
+        "syllables": 13,
+        "final_word": "retraer",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'anto' | v4 = 'er'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Nunca más el tiempo lo podremos reverter",
+        "syllables": 14,
+        "final_word": "reverter",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'anto' | v4 = 'er'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "El tiempo nunca volverá a ser nuestro",
+        "syllables": 11,
+        "final_word": "nuestro",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'anto' | v4 = 'estro'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": true,
+    "reason": "Se acepto una variante que corrige la rima interior B.",
+    "original_stanza": [
+      "El tiempo, un corredor sin freno ni llanto,",
+      "Misterio y hermosura, al pasado me lleva.",
+      "En mi pecho siente una nostalgia fuerte",
+      "Que juventud nunca lo volverá"
+    ],
+    "repaired_stanza": [
+      "El tiempo, un corredor sin freno ni llanto,",
+      "Misterio y hermosura, al pasado me lleva.",
+      "En mi pecho siente una nostalgia nueva",
+      "Que juventud nunca lo volverá"
+    ],
+    "target_rhyme": "eva",
+    "current_rhyme": "erte",
+    "verse_2": {
+      "text": "Misterio y hermosura, al pasado me lleva.",
+      "last_word": "lleva",
+      "rhyme": "eva"
+    },
+    "candidate_final_words": [
+      "lleva",
+      "nueva",
+      "eleva",
+      "conlleva",
+      "nieva"
+    ],
+    "enforced_candidate_final_words": [
+      "nueva",
+      "eleva",
+      "conlleva",
+      "nieva"
+    ],
+    "has_enforced_candidate_final_words": true,
+    "candidate_warning": null,
+    "conditioned_by_candidate": true,
+    "conditioned_candidate_words": [
+      "nueva",
+      "eleva",
+      "conlleva",
+      "nieva"
+    ],
+    "conditioned_generation_reports": [
+      {
+        "required_final_word": "nueva",
+        "attempted": true,
+        "variants": [
+          "En mi corazón siente una nostalgia nueva",
+          "En mis recuerdos siente una nostalgia nueva"
+        ],
+        "error": null
+      },
+      {
+        "required_final_word": "eleva",
+        "attempted": true,
+        "variants": [
+          "En mi corazón siente una nostalgia fuerte eleva",
+          "En el alma, una nostalgia fuerte eleva"
+        ],
+        "error": null
+      },
+      {
+        "required_final_word": "conlleva",
+        "attempted": true,
+        "variants": [
+          "En mi alma siente una nostalgia profunda que conlleva",
+          "En mi corazón siente una nostalgia fuerte que conlleva"
+        ],
+        "error": null
+      },
+      {
+        "required_final_word": "nieva",
+        "attempted": true,
+        "variants": [
+          "En mi corazón siente una nostalgia profunda que nieva",
+          "En el fondo de mi pecho, una nostalgia fuerte nieva"
+        ],
+        "error": null
+      }
+    ],
+    "post_b_meter_repair_enabled": true,
+    "post_b_meter_repair_attempts": 8,
+    "post_b_meter_repair_successes": 3,
+    "original_verse_3": "En mi pecho siente una nostalgia fuerte",
+    "original_verse_3_syllables": 11,
+    "selected_variant": "En mi pecho siente una nostalgia nueva",
+    "selected_variant_syllables": 11,
+    "variants": [
+      {
+        "verse": "En mi corazón siente una nostalgia nueva",
+        "syllables": 12,
+        "final_word": "nueva",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'eva' | v3 = 'eva'",
+        "post_b_meter_repair_attempted": true,
+        "post_b_meter_repair_report": {
+          "enabled": true,
+          "repair_label": "post_b",
+          "attempted": true,
+          "changed": true,
+          "reason": "Se reparo la metrica conservando la palabra final obligatoria.",
+          "original_stanza": [
+            "El tiempo, un corredor sin freno ni llanto,",
+            "Misterio y hermosura, al pasado me lleva.",
+            "En mi corazón siente una nostalgia nueva",
+            "Que juventud nunca lo volverá"
+          ],
+          "repaired_stanza": [
+            "El tiempo, un corredor sin freno ni llanto,",
+            "Misterio y hermosura, al pasado me lleva.",
+            "En mi pecho siente una nostalgia nueva",
+            "Que juventud nunca lo volverá"
+          ],
+          "verse_number": 3,
+          "required_final_word": "nueva",
+          "original_verse": "En mi corazón siente una nostalgia nueva",
+          "original_syllables": 12,
+          "original_distance": 1,
+          "selected_variant": "En mi pecho siente una nostalgia nueva",
+          "selected_syllables": 11,
+          "selected_distance": 0,
+          "variants": [
+            {
+              "verse": "En mi pecho siente una nostalgia nueva",
+              "syllables": 11,
+              "distance": 0,
+              "final_word": "nueva",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": true,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Siente en mi corazón nueva nostalgia",
+              "syllables": 11,
+              "distance": 0,
+              "final_word": "nostalgia",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Corazón mío siente nueva nostalgia",
+              "syllables": 11,
+              "distance": 0,
+              "final_word": "nostalgia",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Nueva nostalgia en mi corazón siente",
+              "syllables": 11,
+              "distance": 0,
+              "final_word": "siente",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "En mi corazón nace nueva nostalgia",
+              "syllables": 12,
+              "distance": 1,
+              "final_word": "nostalgia",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            }
+          ],
+          "error": null
+        },
+        "post_b_meter_repaired_verse": "En mi pecho siente una nostalgia nueva",
+        "post_b_meter_repaired_syllables": 11,
+        "post_b_meter_repaired_distance": 0,
+        "post_b_meter_repair_accepted": true,
+        "accepted": true,
+        "rejection_reason": null
+      },
+      {
+        "verse": "En mis recuerdos siente una nostalgia nueva",
+        "syllables": 12,
+        "final_word": "nueva",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'eva' | v3 = 'eva'",
+        "post_b_meter_repair_attempted": true,
+        "post_b_meter_repair_report": {
+          "enabled": true,
+          "repair_label": "post_b",
+          "attempted": true,
+          "changed": false,
+          "reason": "Ninguna variante conserva la palabra final y mejora la metrica.",
+          "original_stanza": [
+            "El tiempo, un corredor sin freno ni llanto,",
+            "Misterio y hermosura, al pasado me lleva.",
+            "En mis recuerdos siente una nostalgia nueva",
+            "Que juventud nunca lo volverá"
+          ],
+          "repaired_stanza": [
+            "El tiempo, un corredor sin freno ni llanto,",
+            "Misterio y hermosura, al pasado me lleva.",
+            "En mis recuerdos siente una nostalgia nueva",
+            "Que juventud nunca lo volverá"
+          ],
+          "verse_number": 3,
+          "required_final_word": "nueva",
+          "original_verse": "En mis recuerdos siente una nostalgia nueva",
+          "original_syllables": 12,
+          "original_distance": 1,
+          "selected_variant": null,
+          "selected_syllables": null,
+          "selected_distance": null,
+          "variants": [
+            {
+              "verse": "En los recuerdos siente una nostalgia nueva",
+              "syllables": 12,
+              "distance": 1,
+              "final_word": "nueva",
+              "preserves_final_word": true,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No mejora la distancia metrica del verso."
+            },
+            {
+              "verse": "Siente en mis recordatorios una nostalgia nueva",
+              "syllables": 14,
+              "distance": 3,
+              "final_word": "nueva",
+              "preserves_final_word": true,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No mejora la distancia metrica del verso."
+            },
+            {
+              "verse": "Nuestros recuerdos sienten una nostalgia nueva",
+              "syllables": 13,
+              "distance": 2,
+              "final_word": "nueva",
+              "preserves_final_word": true,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No mejora la distancia metrica del verso."
+            },
+            {
+              "verse": "En mi reminiscencia siente una nostalgia nueva",
+              "syllables": 14,
+              "distance": 3,
+              "final_word": "nueva",
+              "preserves_final_word": true,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No mejora la distancia metrica del verso."
+            },
+            {
+              "verse": "En mis recuerdos, siente nueva nostalgia",
+              "syllables": 12,
+              "distance": 1,
+              "final_word": "nostalgia",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            }
+          ],
+          "error": null
+        },
+        "post_b_meter_repaired_verse": "En mis recuerdos siente una nostalgia nueva",
+        "post_b_meter_repaired_syllables": 12,
+        "post_b_meter_repaired_distance": 1,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "Corrige B, pero la reparacion metrica posterior no consigue una variante aceptable."
+      },
+      {
+        "verse": "En mi corazón siente una nostalgia fuerte eleva",
+        "syllables": 13,
+        "final_word": "eleva",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'eva' | v3 = 'eva'",
+        "post_b_meter_repair_attempted": true,
+        "post_b_meter_repair_report": {
+          "enabled": true,
+          "repair_label": "post_b",
+          "attempted": true,
+          "changed": true,
+          "reason": "Se reparo la metrica conservando la palabra final obligatoria.",
+          "original_stanza": [
+            "El tiempo, un corredor sin freno ni llanto,",
+            "Misterio y hermosura, al pasado me lleva.",
+            "En mi corazón siente una nostalgia fuerte eleva",
+            "Que juventud nunca lo volverá"
+          ],
+          "repaired_stanza": [
+            "El tiempo, un corredor sin freno ni llanto,",
+            "Misterio y hermosura, al pasado me lleva.",
+            "Corazón siente una nostalgia fuerte eleva",
+            "Que juventud nunca lo volverá"
+          ],
+          "verse_number": 3,
+          "required_final_word": "eleva",
+          "original_verse": "En mi corazón siente una nostalgia fuerte eleva",
+          "original_syllables": 13,
+          "original_distance": 2,
+          "selected_variant": "Corazón siente una nostalgia fuerte eleva",
+          "selected_syllables": 11,
+          "selected_distance": 0,
+          "variants": [
+            {
+              "verse": "En mi pecho siente una nostalgia fuerte",
+              "syllables": 11,
+              "distance": 0,
+              "final_word": "fuerte",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Corazón siente una nostalgia fuerte eleva",
+              "syllables": 11,
+              "distance": 0,
+              "final_word": "eleva",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": true,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Nostalgia fuerte en mi corazón eleva",
+              "syllables": 11,
+              "distance": 0,
+              "final_word": "eleva",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Siente en mi corazón una nostalgia fuerte",
+              "syllables": 12,
+              "distance": 1,
+              "final_word": "fuerte",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "En mi pecho una nostalgia fuerte eleva",
+              "syllables": 10,
+              "distance": 1,
+              "final_word": "eleva",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            }
+          ],
+          "error": null
+        },
+        "post_b_meter_repaired_verse": "Corazón siente una nostalgia fuerte eleva",
+        "post_b_meter_repaired_syllables": 11,
+        "post_b_meter_repaired_distance": 0,
+        "post_b_meter_repair_accepted": true,
+        "accepted": false,
+        "rejection_reason": null
+      },
+      {
+        "verse": "En el alma, una nostalgia fuerte eleva",
+        "syllables": 10,
+        "final_word": "eleva",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'eva' | v3 = 'eva'",
+        "post_b_meter_repair_attempted": true,
+        "post_b_meter_repair_report": {
+          "enabled": true,
+          "repair_label": "post_b",
+          "attempted": true,
+          "changed": false,
+          "reason": "Ninguna variante conserva la palabra final y mejora la metrica.",
+          "original_stanza": [
+            "El tiempo, un corredor sin freno ni llanto,",
+            "Misterio y hermosura, al pasado me lleva.",
+            "En el alma, una nostalgia fuerte eleva",
+            "Que juventud nunca lo volverá"
+          ],
+          "repaired_stanza": [
+            "El tiempo, un corredor sin freno ni llanto,",
+            "Misterio y hermosura, al pasado me lleva.",
+            "En el alma, una nostalgia fuerte eleva",
+            "Que juventud nunca lo volverá"
+          ],
+          "verse_number": 3,
+          "required_final_word": "eleva",
+          "original_verse": "En el alma, una nostalgia fuerte eleva",
+          "original_syllables": 10,
+          "original_distance": 1,
+          "selected_variant": null,
+          "selected_syllables": null,
+          "selected_distance": null,
+          "variants": [
+            {
+              "verse": "En el alma, una fuerte nostalgia levanta",
+              "syllables": 12,
+              "distance": 1,
+              "final_word": "levanta",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "En el alma, una nostalgia fuerte se levanta",
+              "syllables": 13,
+              "distance": 2,
+              "final_word": "levanta",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "En el alma, eleva una nostalgia fuerte",
+              "syllables": 10,
+              "distance": 1,
+              "final_word": "fuerte",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "En el alma, una nostalgia fuerte se erige",
+              "syllables": 11,
+              "distance": 0,
+              "final_word": "erige",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "En el alma, una nostalgia fuerte sube eleva",
+              "syllables": 12,
+              "distance": 1,
+              "final_word": "eleva",
+              "preserves_final_word": true,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No mejora la distancia metrica del verso."
+            }
+          ],
+          "error": null
+        },
+        "post_b_meter_repaired_verse": "En el alma, una nostalgia fuerte eleva",
+        "post_b_meter_repaired_syllables": 10,
+        "post_b_meter_repaired_distance": 1,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "Corrige B, pero la reparacion metrica posterior no consigue una variante aceptable."
+      },
+      {
+        "verse": "En mi alma siente una nostalgia profunda que conlleva",
+        "syllables": 15,
+        "final_word": "conlleva",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'eva' | v3 = 'eva'",
+        "post_b_meter_repair_attempted": true,
+        "post_b_meter_repair_report": {
+          "enabled": true,
+          "repair_label": "post_b",
+          "attempted": true,
+          "changed": true,
+          "reason": "Se reparo la metrica conservando la palabra final obligatoria.",
+          "original_stanza": [
+            "El tiempo, un corredor sin freno ni llanto,",
+            "Misterio y hermosura, al pasado me lleva.",
+            "En mi alma siente una nostalgia profunda que conlleva",
+            "Que juventud nunca lo volverá"
+          ],
+          "repaired_stanza": [
+            "El tiempo, un corredor sin freno ni llanto,",
+            "Misterio y hermosura, al pasado me lleva.",
+            "En mi alma siente profunda una nostalgia conlleva",
+            "Que juventud nunca lo volverá"
+          ],
+          "verse_number": 3,
+          "required_final_word": "conlleva",
+          "original_verse": "En mi alma siente una nostalgia profunda que conlleva",
+          "original_syllables": 15,
+          "original_distance": 4,
+          "selected_variant": "En mi alma siente profunda una nostalgia conlleva",
+          "selected_syllables": 14,
+          "selected_distance": 3,
+          "variants": [
+            {
+              "verse": "En mi alma siente profunda una nostalgia conlleva",
+              "syllables": 14,
+              "distance": 3,
+              "final_word": "conlleva",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": true,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Siente en mi alma profunda nostalgia que conlleva",
+              "syllables": 14,
+              "distance": 3,
+              "final_word": "conlleva",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Profunda en mi alma siente nostalgia que conlleva",
+              "syllables": 14,
+              "distance": 3,
+              "final_word": "conlleva",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Nostalgia profunda en mi alma que conlleva siente",
+              "syllables": 14,
+              "distance": 3,
+              "final_word": "siente",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "En mi alma, siente profundamente la nostalgia conlleva",
+              "syllables": 17,
+              "distance": 6,
+              "final_word": "conlleva",
+              "preserves_final_word": true,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No mejora la distancia metrica del verso."
+            }
+          ],
+          "error": null
+        },
+        "post_b_meter_repaired_verse": "En mi alma siente profunda una nostalgia conlleva",
+        "post_b_meter_repaired_syllables": 14,
+        "post_b_meter_repaired_distance": 3,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "Corrige B, pero la reparacion metrica posterior no consigue una variante aceptable."
+      },
+      {
+        "verse": "En mi corazón siente una nostalgia fuerte que conlleva",
+        "syllables": 16,
+        "final_word": "conlleva",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'eva' | v3 = 'eva'",
+        "post_b_meter_repair_attempted": true,
+        "post_b_meter_repair_report": {
+          "enabled": true,
+          "repair_label": "post_b",
+          "attempted": true,
+          "changed": true,
+          "reason": "Se reparo la metrica conservando la palabra final obligatoria.",
+          "original_stanza": [
+            "El tiempo, un corredor sin freno ni llanto,",
+            "Misterio y hermosura, al pasado me lleva.",
+            "En mi corazón siente una nostalgia fuerte que conlleva",
+            "Que juventud nunca lo volverá"
+          ],
+          "repaired_stanza": [
+            "El tiempo, un corredor sin freno ni llanto,",
+            "Misterio y hermosura, al pasado me lleva.",
+            "Mi corazón siente una nostalgia fuerte, que conlleva",
+            "Que juventud nunca lo volverá"
+          ],
+          "verse_number": 3,
+          "required_final_word": "conlleva",
+          "original_verse": "En mi corazón siente una nostalgia fuerte que conlleva",
+          "original_syllables": 16,
+          "original_distance": 5,
+          "selected_variant": "Mi corazón siente una nostalgia fuerte, que conlleva",
+          "selected_syllables": 15,
+          "selected_distance": 4,
+          "variants": [
+            {
+              "verse": "Mi corazón siente una nostalgia fuerte, que conlleva",
+              "syllables": 15,
+              "distance": 4,
+              "final_word": "conlleva",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": true,
+              "rejection_reason": null
+            },
+            {
+              "verse": "En mi corazón siente una fuerte nostalgia, que conlleva",
+              "syllables": 16,
+              "distance": 5,
+              "final_word": "conlleva",
+              "preserves_final_word": true,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No mejora la distancia metrica del verso."
+            },
+            {
+              "verse": "Siente en mi corazón una nostalgia fuerte, que conlleva",
+              "syllables": 16,
+              "distance": 5,
+              "final_word": "conlleva",
+              "preserves_final_word": true,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No mejora la distancia metrica del verso."
+            },
+            {
+              "verse": "Nostalgia fuerte en mi corazón siente, que conlleva",
+              "syllables": 15,
+              "distance": 4,
+              "final_word": "conlleva",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Siente en el corazón una fuerte nostalgia, que conlleva",
+              "syllables": 16,
+              "distance": 5,
+              "final_word": "conlleva",
+              "preserves_final_word": true,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No mejora la distancia metrica del verso."
+            }
+          ],
+          "error": null
+        },
+        "post_b_meter_repaired_verse": "Mi corazón siente una nostalgia fuerte, que conlleva",
+        "post_b_meter_repaired_syllables": 15,
+        "post_b_meter_repaired_distance": 4,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "Corrige B, pero la reparacion metrica posterior no consigue una variante aceptable."
+      },
+      {
+        "verse": "En mi corazón siente una nostalgia profunda que nieva",
+        "syllables": 16,
+        "final_word": "nieva",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'eva' | v3 = 'eva'",
+        "post_b_meter_repair_attempted": true,
+        "post_b_meter_repair_report": {
+          "enabled": true,
+          "repair_label": "post_b",
+          "attempted": true,
+          "changed": true,
+          "reason": "Se reparo la metrica conservando la palabra final obligatoria.",
+          "original_stanza": [
+            "El tiempo, un corredor sin freno ni llanto,",
+            "Misterio y hermosura, al pasado me lleva.",
+            "En mi corazón siente una nostalgia profunda que nieva",
+            "Que juventud nunca lo volverá"
+          ],
+          "repaired_stanza": [
+            "El tiempo, un corredor sin freno ni llanto,",
+            "Misterio y hermosura, al pasado me lleva.",
+            "Nostalgia profunda en mi corazón se nieva",
+            "Que juventud nunca lo volverá"
+          ],
+          "verse_number": 3,
+          "required_final_word": "nieva",
+          "original_verse": "En mi corazón siente una nostalgia profunda que nieva",
+          "original_syllables": 16,
+          "original_distance": 5,
+          "selected_variant": "Nostalgia profunda en mi corazón se nieva",
+          "selected_syllables": 13,
+          "selected_distance": 2,
+          "variants": [
+            {
+              "verse": "En mi pecho siente una nostalgia profunda que nieve",
+              "syllables": 15,
+              "distance": 4,
+              "final_word": "nieve",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Mi corazón siente una nostalgia profunda que nieve",
+              "syllables": 15,
+              "distance": 4,
+              "final_word": "nieve",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Siente en mi corazón una nostalgia profunda que nieve",
+              "syllables": 16,
+              "distance": 5,
+              "final_word": "nieve",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Nostalgia profunda en mi corazón se nieva",
+              "syllables": 13,
+              "distance": 2,
+              "final_word": "nieva",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": true,
+              "rejection_reason": null
+            },
+            {
+              "verse": "En mi seno siente una nostalgia profunda que nieve",
+              "syllables": 14,
+              "distance": 3,
+              "final_word": "nieve",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            }
+          ],
+          "error": null
+        },
+        "post_b_meter_repaired_verse": "Nostalgia profunda en mi corazón se nieva",
+        "post_b_meter_repaired_syllables": 13,
+        "post_b_meter_repaired_distance": 2,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "Corrige B, pero la reparacion metrica posterior no consigue una variante aceptable."
+      },
+      {
+        "verse": "En el fondo de mi pecho, una nostalgia fuerte nieva",
+        "syllables": 15,
+        "final_word": "nieva",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'eva' | v3 = 'eva'",
+        "post_b_meter_repair_attempted": true,
+        "post_b_meter_repair_report": {
+          "enabled": true,
+          "repair_label": "post_b",
+          "attempted": true,
+          "changed": true,
+          "reason": "Se reparo la metrica conservando la palabra final obligatoria.",
+          "original_stanza": [
+            "El tiempo, un corredor sin freno ni llanto,",
+            "Misterio y hermosura, al pasado me lleva.",
+            "En el fondo de mi pecho, una nostalgia fuerte nieva",
+            "Que juventud nunca lo volverá"
+          ],
+          "repaired_stanza": [
+            "El tiempo, un corredor sin freno ni llanto,",
+            "Misterio y hermosura, al pasado me lleva.",
+            "En mi pecho, una nostalgia fuerte nieva",
+            "Que juventud nunca lo volverá"
+          ],
+          "verse_number": 3,
+          "required_final_word": "nieva",
+          "original_verse": "En el fondo de mi pecho, una nostalgia fuerte nieva",
+          "original_syllables": 15,
+          "original_distance": 4,
+          "selected_variant": "En mi pecho, una nostalgia fuerte nieva",
+          "selected_syllables": 11,
+          "selected_distance": 0,
+          "variants": [
+            {
+              "verse": "En mi pecho, una nostalgia fuerte nieva",
+              "syllables": 11,
+              "distance": 0,
+              "final_word": "nieva",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": true,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Nieva en el fondo un fuerte sentimiento",
+              "syllables": 11,
+              "distance": 0,
+              "final_word": "sentimiento",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Fuerte nieva en el alma un recuerdo",
+              "syllables": 10,
+              "distance": 1,
+              "final_word": "recuerdo",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Un fuerte recuerdo de la juventud nieva",
+              "syllables": 13,
+              "distance": 2,
+              "final_word": "nieva",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            },
+            {
+              "verse": "En mi pecho, una nostalgia profunda nieva",
+              "syllables": 12,
+              "distance": 1,
+              "final_word": "nieva",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            }
+          ],
+          "error": null
+        },
+        "post_b_meter_repaired_verse": "En mi pecho, una nostalgia fuerte nieva",
+        "post_b_meter_repaired_syllables": 11,
+        "post_b_meter_repaired_distance": 0,
+        "post_b_meter_repair_accepted": true,
+        "accepted": false,
+        "rejection_reason": null
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_1": {
+      "text": "El tiempo, un corredor sin freno ni llanto,",
+      "last_word": "llanto",
+      "rhyme": "anto"
+    },
+    "verse_4": {
+      "text": "Que juventud nunca lo volverá",
+      "last_word": "volverá",
+      "rhyme": "a"
+    },
+    "target_rhyme": "anto",
+    "current_rhyme": "a",
+    "errors": [
+      "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'anto', pero se obtuvo 'a'."
+    ],
+    "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('anto') y reescribe el verso 4 para que termine con esa misma rima consonante."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": true,
+    "verse_2": {
+      "text": "Misterio y hermosura, al pasado me lleva.",
+      "last_word": "lleva",
+      "rhyme": "eva"
+    },
+    "verse_3": {
+      "text": "En mi pecho siente una nostalgia nueva",
+      "last_word": "nueva",
+      "rhyme": "eva"
+    },
+    "target_rhyme": "eva",
+    "current_rhyme": "eva",
+    "errors": [],
+    "feedback": "La rima interior B es correcta: el verso 3 conserva la rima consonante del verso 2 ('eva')."
+  },
+  "generation_reasoning": "Corregido el error de rima en versos 3 y 4, alargando ligeramente el verso 3 para mantener la metrica y la rima."
+}
