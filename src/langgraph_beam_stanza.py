@@ -32,7 +32,7 @@ GENERATION_MODEL = "mistral:7b-instruct"
 # Hiperparametros principales del experimento. Estan concentrados aqui para
 # poder documentarlos y cambiarlos de forma sencilla en pruebas posteriores.
 TEMPERATURE = 0.3
-RETRY_TEMPERATURE = 0.1
+RETRY_TEMPERATURE = 0.1 # Que en el segundo intento, el modelo no sea tan 'creativo' y se ciña más al formato estricto.
 NUM_PREDICT = 600
 ALPHA = 1.0
 EPSILON = 1e-6
@@ -2505,7 +2505,7 @@ def deduplicate_beams_by_stanza(
 
 
 # =========================
-# 8. Nodos de LangGraph
+# 11. Nodos de LangGraph
 # =========================
 
 def expand_node(state: BeamSearchState) -> dict:
@@ -2772,7 +2772,7 @@ def prune_node(state: BeamSearchState) -> dict:
 
 
 # =========================
-# 9. Agregacion de puntuaciones
+# 12. Agregacion de puntuaciones
 # =========================
 
 def aggregate_scores(score_history: list[float], alpha: float = ALPHA) -> float:
@@ -2790,7 +2790,7 @@ def aggregate_scores(score_history: list[float], alpha: float = ALPHA) -> float:
 
 
 # =========================
-# 10. Decision de continuacion
+# 13. Decision de continuacion
 # =========================
 
 def should_continue(state: BeamSearchState) -> str:
@@ -2819,7 +2819,7 @@ def should_continue(state: BeamSearchState) -> str:
 
 
 # =========================
-# 11. Guardado de resultados
+# 14. Guardado de resultados
 # =========================
 
 def format_execution_time(seconds: float | None) -> str:
@@ -3053,7 +3053,7 @@ def save_final_result(
 
 
 # =========================
-# 12. Main
+# 15. Main
 # =========================
 
 def main() -> None:
@@ -3081,9 +3081,7 @@ def main() -> None:
 
     initial_state: BeamSearchState = {
         "question": (
-            "Genera una estrofa clásica en español de cuatro versos "
-            "endecasílabos con rima consonante ABBA. El tema debe ser la "
-            "nostalgia del paso del tiempo."
+            "Genera una estrofa de 4 versos endecasílabos con rima consonante ABBA sobre el paso del tiempo y la memoria."
         ),
         "beams": [
             {
@@ -3108,6 +3106,7 @@ def main() -> None:
         "k": 2,
     }
 
+    # Estos parámetros simplemente los guardo para tener un registro claro de con qué configuración se ejecutó el grafo.
     run_parameters = {
         "model": GENERATION_MODEL,
         "temperature": TEMPERATURE,

@@ -1,0 +1,59 @@
+ESTROFA FINAL
+
+Modelo: mistral:7b-instruct
+Temperatura: 0.3
+Num predict: 600
+k: 2
+max_steps: 3
+alpha: 1.0
+Tiempo total de ejecucion: 451.90 segundos (7.53 minutos)
+Reparacion metrica activa: False
+Variantes por verso para reparacion metrica: 5
+Temperatura reparacion metrica: 0.4
+Num predict reparacion metrica: 200
+Reparacion rima A activa: False
+Variantes para reparacion rima A: 5
+Temperatura reparacion rima A: 0.3
+Num predict reparacion rima A: 200
+Reparacion metrica posterior a rima A activa: False
+Variantes para reparacion metrica posterior a rima A: 5
+Temperatura reparacion metrica posterior a rima A: 0.4
+Num predict reparacion metrica posterior a rima A: 200
+Reparacion rima B activa: False
+Variantes para reparacion rima B: 5
+Temperatura reparacion rima B: 0.3
+Num predict reparacion rima B: 200
+Reparacion rima B condicionada por candidata: False
+Variantes por candidata para reparacion rima B: 2
+Max candidatas usadas para reparacion rima B: 4
+Reparacion metrica posterior a rima B activa: False
+Variantes para reparacion metrica posterior a rima B: 5
+Temperatura reparacion metrica posterior a rima B: 0.4
+Num predict reparacion metrica posterior a rima B: 200
+
+Score global: 0.565
+Historial de scores: [0.5, 0.6, 0.6]
+Resumen de metricas: versos=4/4 | endecasilabos=2/4 | rima=2/4 | score=12.0/20
+Resumen de reparacion metrica: reparación métrica = desactivada
+Resumen reparacion rima A: reparacion rima A = desactivada
+Resumen reparacion rima B: reparacion rima B = desactivada
+Resumen rima exterior AXYA: rima AXYA = incorrecta | objetivo = 'as' | v4 = 'ena'
+Resumen rima interior B: rima interior B = incorrecta | objetivo = 'udo' | v3 = 'eño'
+
+Feedback final:
+Puntuacion formal total: 12.0/20.
+Revisa los siguientes aspectos formales antes de generar una nueva version:
+Numero de versos:
+- El numero de versos es correcto.
+Silabas metricas:
+- Verso 3: tiene 10 silabas, pero deberia tener 11.
+- Verso 4: tiene 12 silabas, pero deberia tener 11.
+Rima consonante:
+- Verso 3: rima C, pero se esperaba B.
+- Verso 4: rima D, pero se esperaba A.
+
+Estrofa completa:
+1. El tiempo pasa, y yo me quedo atrás
+2. En recuerdos, como un olvido mudo
+3. Que en el corazón se alberga sueño
+4. Y que no se puede deshacer la pena

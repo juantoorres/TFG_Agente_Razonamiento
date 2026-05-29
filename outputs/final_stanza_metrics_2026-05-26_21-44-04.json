@@ -1,0 +1,257 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": false,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": false,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_post_a_rhyme_meter_repair": false,
+    "post_a_rhyme_meter_repair_variants": 5,
+    "post_a_rhyme_meter_repair_temperature": 0.4,
+    "post_a_rhyme_meter_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": false,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200,
+    "inner_rhyme_repair_conditioned_by_candidate": false,
+    "inner_rhyme_repair_variants_per_candidate": 2,
+    "inner_rhyme_repair_max_candidate_words": 4,
+    "enable_post_b_rhyme_meter_repair": false,
+    "post_b_rhyme_meter_repair_variants": 5,
+    "post_b_rhyme_meter_repair_temperature": 0.4,
+    "post_b_rhyme_meter_repair_num_predict": 200
+  },
+  "stanza": [
+    "El tiempo, un corredor sin fin,",
+    "Deja huellas en el alma y la mente.",
+    "Y a veces vuelve con su dulce son,",
+    "Atraído por los recuerdos del pasado."
+  ],
+  "score": 0.7,
+  "step_score": 0.7,
+  "score_history": [
+    0.7,
+    0.7,
+    0.7
+  ],
+  "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 8 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+  "metrics": {
+    "score": 0.7,
+    "score_20": 14.0,
+    "verses": [
+      "El tiempo, un corredor sin fin,",
+      "Deja huellas en el alma y la mente.",
+      "Y a veces vuelve con su dulce son,",
+      "Atraído por los recuerdos del pasado."
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        8,
+        11,
+        11,
+        11
+      ],
+      "correct_verses": 3,
+      "total_expected_verses": 4,
+      "score": 0.75,
+      "errors": [
+        "Verso 1: tiene 8 silabas, pero deberia tener 11."
+      ]
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "in",
+        "ente",
+        "on",
+        "ado"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_positions": 2,
+      "total_positions": 4,
+      "score": 0.5,
+      "errors": [
+        "Verso 3: rima C, pero se esperaba B.",
+        "Verso 4: rima D, pero se esperaba A."
+      ]
+    },
+    "errors": [
+      "Verso 1: tiene 8 silabas, pero deberia tener 11.",
+      "Verso 3: rima C, pero se esperaba B.",
+      "Verso 4: rima D, pero se esperaba A."
+    ],
+    "feedback": "Puntuacion formal total: 14.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 8 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A."
+  },
+  "meter_repair_report": {
+    "enabled": false,
+    "changed": false,
+    "original_stanza": [
+      "El tiempo, un corredor sin fin,",
+      "Deja huellas en el alma y la mente.",
+      "Y a veces vuelve con su dulce son,",
+      "Atraído por los recuerdos del pasado."
+    ],
+    "repaired_stanza": [
+      "El tiempo, un corredor sin fin,",
+      "Deja huellas en el alma y la mente.",
+      "Y a veces vuelve con su dulce son,",
+      "Atraído por los recuerdos del pasado."
+    ],
+    "verse_repairs": []
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": false,
+    "attempted": false,
+    "changed": false,
+    "reason": "Reparacion de rima A desactivada.",
+    "original_stanza": [
+      "El tiempo, un corredor sin fin,",
+      "Deja huellas en el alma y la mente.",
+      "Y a veces vuelve con su dulce son,",
+      "Atraído por los recuerdos del pasado."
+    ],
+    "repaired_stanza": [
+      "El tiempo, un corredor sin fin,",
+      "Deja huellas en el alma y la mente.",
+      "Y a veces vuelve con su dulce son,",
+      "Atraído por los recuerdos del pasado."
+    ],
+    "target_rhyme": "in",
+    "current_rhyme": "ado",
+    "verse_1": {
+      "text": "El tiempo, un corredor sin fin,",
+      "last_word": "fin",
+      "rhyme": "in"
+    },
+    "candidate_final_words": [],
+    "enforced_candidate_final_words": [],
+    "post_a_meter_repair_enabled": false,
+    "post_a_meter_repair_attempts": 0,
+    "post_a_meter_repair_successes": 0,
+    "original_verse_4": null,
+    "original_verse_4_syllables": null,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": false,
+    "attempted": false,
+    "changed": false,
+    "reason": "Reparacion de rima B desactivada.",
+    "original_stanza": [
+      "El tiempo, un corredor sin fin,",
+      "Deja huellas en el alma y la mente.",
+      "Y a veces vuelve con su dulce son,",
+      "Atraído por los recuerdos del pasado."
+    ],
+    "repaired_stanza": [
+      "El tiempo, un corredor sin fin,",
+      "Deja huellas en el alma y la mente.",
+      "Y a veces vuelve con su dulce son,",
+      "Atraído por los recuerdos del pasado."
+    ],
+    "target_rhyme": "ente",
+    "current_rhyme": "on",
+    "verse_2": {
+      "text": "Deja huellas en el alma y la mente.",
+      "last_word": "mente",
+      "rhyme": "ente"
+    },
+    "candidate_final_words": [],
+    "enforced_candidate_final_words": [],
+    "has_enforced_candidate_final_words": false,
+    "candidate_warning": null,
+    "conditioned_by_candidate": false,
+    "conditioned_candidate_words": [],
+    "conditioned_generation_reports": [],
+    "post_b_meter_repair_enabled": false,
+    "post_b_meter_repair_attempts": 0,
+    "post_b_meter_repair_successes": 0,
+    "original_verse_3": null,
+    "original_verse_3_syllables": null,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_1": {
+      "text": "El tiempo, un corredor sin fin,",
+      "last_word": "fin",
+      "rhyme": "in"
+    },
+    "verse_4": {
+      "text": "Atraído por los recuerdos del pasado.",
+      "last_word": "pasado",
+      "rhyme": "ado"
+    },
+    "target_rhyme": "in",
+    "current_rhyme": "ado",
+    "errors": [
+      "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'in', pero se obtuvo 'ado'."
+    ],
+    "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('in') y reescribe el verso 4 para que termine con esa misma rima consonante."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_2": {
+      "text": "Deja huellas en el alma y la mente.",
+      "last_word": "mente",
+      "rhyme": "ente"
+    },
+    "verse_3": {
+      "text": "Y a veces vuelve con su dulce son,",
+      "last_word": "son",
+      "rhyme": "on"
+    },
+    "target_rhyme": "ente",
+    "current_rhyme": "on",
+    "errors": [
+      "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ente', pero se obtuvo 'on'."
+    ],
+    "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ente') y reescribe el verso 3 para que termine con esa misma rima consonante."
+  },
+  "generation_reasoning": "Corregido: Verso 1 añadió 3 silabras y se cambió la palabra final para respetar la rima. No se cambió el verso 4 porque ya cumplía con las reglas."
+}

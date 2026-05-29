@@ -1,0 +1,867 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_post_a_rhyme_meter_repair": true,
+    "post_a_rhyme_meter_repair_variants": 5,
+    "post_a_rhyme_meter_repair_temperature": 0.4,
+    "post_a_rhyme_meter_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200,
+    "inner_rhyme_repair_conditioned_by_candidate": true,
+    "inner_rhyme_repair_variants_per_candidate": 2,
+    "inner_rhyme_repair_max_candidate_words": 4,
+    "enable_post_b_rhyme_meter_repair": true,
+    "post_b_rhyme_meter_repair_variants": 5,
+    "post_b_rhyme_meter_repair_temperature": 0.4,
+    "post_b_rhyme_meter_repair_num_predict": 200
+  },
+  "stanza": [
+    "Pasado, tiempo se va, como un río",
+    "Memoria, en espejo, refleja vida",
+    "En cada instante, un recuerdo se herida",
+    "Y presente, como una flor, solo dura"
+  ],
+  "score": 0.7937253933193772,
+  "step_score": 0.9,
+  "score_history": [
+    0.7,
+    0.9
+  ],
+  "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 4: rima C, pero se esperaba A.",
+  "metrics": {
+    "score": 0.9,
+    "score_20": 18.0,
+    "verses": [
+      "Pasado, tiempo se va, como un río",
+      "Memoria, en espejo, refleja vida",
+      "En cada instante, un recuerdo se herida",
+      "Y presente, como una flor, solo dura"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "correct_verses": 4,
+      "total_expected_verses": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "io",
+        "ida",
+        "ida",
+        "ura"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "B",
+        "C"
+      ],
+      "correct_positions": 3,
+      "total_positions": 4,
+      "score": 0.75,
+      "errors": [
+        "Verso 4: rima C, pero se esperaba A."
+      ]
+    },
+    "errors": [
+      "Verso 4: rima C, pero se esperaba A."
+    ],
+    "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 4: rima C, pero se esperaba A."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": true,
+    "original_stanza": [
+      "El pasado, como un río en el tiempo se va",
+      "Memoria, como un espejo, refleja la vida",
+      "En cada instante, un recuerdo se pierde",
+      "Y presente, como una flor, solo dura"
+    ],
+    "repaired_stanza": [
+      "Pasado, tiempo se va, como un río",
+      "Memoria, en espejo, refleja vida",
+      "En cada instante, un recuerdo se pierde",
+      "Y presente, como una flor, solo dura"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "El pasado, como un río en el tiempo se va",
+        "original_syllables": 12,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Pasado, tiempo se va, como un río",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "El pasado, en el tiempo, se va como río",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "Pasado, tiempo se va, como un río",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "En tiempo, pasado se va, como río",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "Tiempo, pasado se va, como río",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Pasado, a lo largo del tiempo, se va",
+            "syllables": 11,
+            "distance": 0
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "Memoria, como un espejo, refleja la vida",
+        "original_syllables": 14,
+        "original_distance": 3,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Memoria, en espejo, refleja vida",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "Memoria, como un espejo, refleja vida",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "Memoria, en espejo, refleja vida",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Memoria, espejo que refleja vida",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Memoria, espejo que la vida refleja",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "Memoria, espejo que refleja a vida",
+            "syllables": 11,
+            "distance": 0
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "En cada instante, un recuerdo se pierde",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "Y presente, como una flor, solo dura",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+    "original_stanza": [
+      "Pasado, tiempo se va, como un río",
+      "Memoria, en espejo, refleja vida",
+      "En cada instante, un recuerdo se pierde",
+      "Y presente, como una flor, solo dura"
+    ],
+    "repaired_stanza": [
+      "Pasado, tiempo se va, como un río",
+      "Memoria, en espejo, refleja vida",
+      "En cada instante, un recuerdo se pierde",
+      "Y presente, como una flor, solo dura"
+    ],
+    "target_rhyme": "io",
+    "current_rhyme": "ura",
+    "verse_1": {
+      "text": "Pasado, tiempo se va, como un río",
+      "last_word": "río",
+      "rhyme": "io"
+    },
+    "candidate_final_words": [
+      "río"
+    ],
+    "enforced_candidate_final_words": [],
+    "post_a_meter_repair_enabled": true,
+    "post_a_meter_repair_attempts": 0,
+    "post_a_meter_repair_successes": 0,
+    "original_verse_4": "Y presente, como una flor, solo dura",
+    "original_verse_4_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "Y presente, como una luz, se apaga",
+        "syllables": 9,
+        "final_word": "apaga",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'io' | v4 = 'aga'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Y presente, como un sueño, es huida",
+        "syllables": 10,
+        "final_word": "huida",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'io' | v4 = 'ida'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Y presente, como un vuelo, se disipa",
+        "syllables": 12,
+        "final_word": "disipa",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'io' | v4 = 'ipa'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Y presente, como una canción, se acaba",
+        "syllables": 10,
+        "final_word": "acaba",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'io' | v4 = 'aba'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Y presente, como una sombra, se desvanece",
+        "syllables": 13,
+        "final_word": "desvanece",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'io' | v4 = 'ece'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": true,
+    "reason": "Se acepto una variante que corrige la rima interior B.",
+    "original_stanza": [
+      "Pasado, tiempo se va, como un río",
+      "Memoria, en espejo, refleja vida",
+      "En cada instante, un recuerdo se pierde",
+      "Y presente, como una flor, solo dura"
+    ],
+    "repaired_stanza": [
+      "Pasado, tiempo se va, como un río",
+      "Memoria, en espejo, refleja vida",
+      "En cada instante, un recuerdo se herida",
+      "Y presente, como una flor, solo dura"
+    ],
+    "target_rhyme": "ida",
+    "current_rhyme": "erde",
+    "verse_2": {
+      "text": "Memoria, en espejo, refleja vida",
+      "last_word": "vida",
+      "rhyme": "ida"
+    },
+    "candidate_final_words": [
+      "vida",
+      "herida",
+      "partida",
+      "salida",
+      "caida"
+    ],
+    "enforced_candidate_final_words": [
+      "herida",
+      "partida",
+      "salida",
+      "caida"
+    ],
+    "has_enforced_candidate_final_words": true,
+    "candidate_warning": null,
+    "conditioned_by_candidate": true,
+    "conditioned_candidate_words": [
+      "herida",
+      "partida",
+      "salida",
+      "caida"
+    ],
+    "conditioned_generation_reports": [
+      {
+        "required_final_word": "herida",
+        "attempted": true,
+        "variants": [
+          "En cada momento, un recuerdo se herida",
+          "Cada instante, un recuerdo se da herida"
+        ],
+        "error": null
+      },
+      {
+        "required_final_word": "partida",
+        "attempted": true,
+        "variants": [
+          "En cada momento, un recuerdo se da partida",
+          "Cada instante, un recuerdo se pierde a partida"
+        ],
+        "error": null
+      },
+      {
+        "required_final_word": "salida",
+        "attempted": true,
+        "variants": [
+          "En cada instante, un recuerdo se desvanece en salida",
+          "En cada momento, un recuerdo se disipa en salida"
+        ],
+        "error": null
+      },
+      {
+        "required_final_word": "caida",
+        "attempted": true,
+        "variants": [
+          "En cada momento, un recuerdo se derrumba",
+          "En cada instante, un recuerdo se desliza"
+        ],
+        "error": null
+      }
+    ],
+    "post_b_meter_repair_enabled": true,
+    "post_b_meter_repair_attempts": 3,
+    "post_b_meter_repair_successes": 1,
+    "original_verse_3": "En cada instante, un recuerdo se pierde",
+    "original_verse_3_syllables": 11,
+    "selected_variant": "En cada instante, un recuerdo se herida",
+    "selected_variant_syllables": 11,
+    "variants": [
+      {
+        "verse": "En cada momento, un recuerdo se herida",
+        "syllables": 12,
+        "final_word": "herida",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'ida' | v3 = 'ida'",
+        "post_b_meter_repair_attempted": true,
+        "post_b_meter_repair_report": {
+          "enabled": true,
+          "repair_label": "post_b",
+          "attempted": true,
+          "changed": true,
+          "reason": "Se reparo la metrica conservando la palabra final obligatoria.",
+          "original_stanza": [
+            "Pasado, tiempo se va, como un río",
+            "Memoria, en espejo, refleja vida",
+            "En cada momento, un recuerdo se herida",
+            "Y presente, como una flor, solo dura"
+          ],
+          "repaired_stanza": [
+            "Pasado, tiempo se va, como un río",
+            "Memoria, en espejo, refleja vida",
+            "En cada instante, un recuerdo se herida",
+            "Y presente, como una flor, solo dura"
+          ],
+          "verse_number": 3,
+          "required_final_word": "herida",
+          "original_verse": "En cada momento, un recuerdo se herida",
+          "original_syllables": 12,
+          "original_distance": 1,
+          "selected_variant": "En cada instante, un recuerdo se herida",
+          "selected_syllables": 11,
+          "selected_distance": 0,
+          "variants": [
+            {
+              "verse": "En cada instante, un recuerdo se herida",
+              "syllables": 11,
+              "distance": 0,
+              "final_word": "herida",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": true,
+              "rejection_reason": null
+            },
+            {
+              "verse": "En cada momento, un recuerdo herida",
+              "syllables": 11,
+              "distance": 0,
+              "final_word": "herida",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            },
+            {
+              "verse": "En cada instante, un recuerdo, herida",
+              "syllables": 10,
+              "distance": 1,
+              "final_word": "herida",
+              "preserves_final_word": true,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No mejora la distancia metrica del verso."
+            },
+            {
+              "verse": "En cada momento, un recuerdo es herida",
+              "syllables": 12,
+              "distance": 1,
+              "final_word": "herida",
+              "preserves_final_word": true,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No mejora la distancia metrica del verso."
+            },
+            {
+              "verse": "En cada instante, un recuerdo, y herida",
+              "syllables": 12,
+              "distance": 1,
+              "final_word": "herida",
+              "preserves_final_word": true,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No mejora la distancia metrica del verso."
+            }
+          ],
+          "error": null
+        },
+        "post_b_meter_repaired_verse": "En cada instante, un recuerdo se herida",
+        "post_b_meter_repaired_syllables": 11,
+        "post_b_meter_repaired_distance": 0,
+        "post_b_meter_repair_accepted": true,
+        "accepted": true,
+        "rejection_reason": null
+      },
+      {
+        "verse": "Cada instante, un recuerdo se da herida",
+        "syllables": 11,
+        "final_word": "herida",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'ida' | v3 = 'ida'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": null
+      },
+      {
+        "verse": "En cada momento, un recuerdo se da partida",
+        "syllables": 14,
+        "final_word": "partida",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'ida' | v3 = 'ida'",
+        "post_b_meter_repair_attempted": true,
+        "post_b_meter_repair_report": {
+          "enabled": true,
+          "repair_label": "post_b",
+          "attempted": true,
+          "changed": false,
+          "reason": "Ninguna variante conserva la palabra final y mejora la metrica.",
+          "original_stanza": [
+            "Pasado, tiempo se va, como un río",
+            "Memoria, en espejo, refleja vida",
+            "En cada momento, un recuerdo se da partida",
+            "Y presente, como una flor, solo dura"
+          ],
+          "repaired_stanza": [
+            "Pasado, tiempo se va, como un río",
+            "Memoria, en espejo, refleja vida",
+            "En cada momento, un recuerdo se da partida",
+            "Y presente, como una flor, solo dura"
+          ],
+          "verse_number": 3,
+          "required_final_word": "partida",
+          "original_verse": "En cada momento, un recuerdo se da partida",
+          "original_syllables": 14,
+          "original_distance": 3,
+          "selected_variant": null,
+          "selected_syllables": null,
+          "selected_distance": null,
+          "variants": [
+            {
+              "verse": "En cada instante, un recuerdo se despedace",
+              "syllables": 13,
+              "distance": 2,
+              "final_word": "despedace",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "En cada momento, un recuerdo se desparta",
+              "syllables": 13,
+              "distance": 2,
+              "final_word": "desparta",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "En cada instante, un recuerdo se desparte",
+              "syllables": 12,
+              "distance": 1,
+              "final_word": "desparte",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "En cada momento, un recuerdo se parte",
+              "syllables": 12,
+              "distance": 1,
+              "final_word": "parte",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "En cada instante, un recuerdo se despierta",
+              "syllables": 12,
+              "distance": 1,
+              "final_word": "despierta",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            }
+          ],
+          "error": null
+        },
+        "post_b_meter_repaired_verse": "En cada momento, un recuerdo se da partida",
+        "post_b_meter_repaired_syllables": 14,
+        "post_b_meter_repaired_distance": 3,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "Corrige B, pero la reparacion metrica posterior no consigue una variante aceptable."
+      },
+      {
+        "verse": "Cada instante, un recuerdo se pierde a partida",
+        "syllables": 13,
+        "final_word": "partida",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'ida' | v3 = 'ida'",
+        "post_b_meter_repair_attempted": true,
+        "post_b_meter_repair_report": {
+          "enabled": true,
+          "repair_label": "post_b",
+          "attempted": true,
+          "changed": true,
+          "reason": "Se reparo la metrica conservando la palabra final obligatoria.",
+          "original_stanza": [
+            "Pasado, tiempo se va, como un río",
+            "Memoria, en espejo, refleja vida",
+            "Cada instante, un recuerdo se pierde a partida",
+            "Y presente, como una flor, solo dura"
+          ],
+          "repaired_stanza": [
+            "Pasado, tiempo se va, como un río",
+            "Memoria, en espejo, refleja vida",
+            "Instantes, recuerdos se pierden partida",
+            "Y presente, como una flor, solo dura"
+          ],
+          "verse_number": 3,
+          "required_final_word": "partida",
+          "original_verse": "Cada instante, un recuerdo se pierde a partida",
+          "original_syllables": 13,
+          "original_distance": 2,
+          "selected_variant": "Instantes, recuerdos se pierden partida",
+          "selected_syllables": 12,
+          "selected_distance": 1,
+          "variants": [
+            {
+              "verse": "Cada momento, un recuerdo se pierde",
+              "syllables": 11,
+              "distance": 0,
+              "final_word": "pierde",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "En cada instante, un recuerdo se va",
+              "syllables": 10,
+              "distance": 1,
+              "final_word": "va",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Un instante, un recuerdo se pierde así",
+              "syllables": 11,
+              "distance": 0,
+              "final_word": "así",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Instantes, recuerdos se pierden partida",
+              "syllables": 12,
+              "distance": 1,
+              "final_word": "partida",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": true,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Pierde instante, pierde recuerdo partida",
+              "syllables": 12,
+              "distance": 1,
+              "final_word": "partida",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            }
+          ],
+          "error": null
+        },
+        "post_b_meter_repaired_verse": "Instantes, recuerdos se pierden partida",
+        "post_b_meter_repaired_syllables": 12,
+        "post_b_meter_repaired_distance": 1,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "Corrige B, pero la reparacion metrica posterior no consigue una variante aceptable."
+      },
+      {
+        "verse": "En cada instante, un recuerdo se desvanece en salida",
+        "syllables": 15,
+        "final_word": "salida",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ida' | v3 = 'alida'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "En cada momento, un recuerdo se disipa en salida",
+        "syllables": 15,
+        "final_word": "salida",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ida' | v3 = 'alida'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "En cada momento, un recuerdo se derrumba",
+        "syllables": 13,
+        "final_word": "derrumba",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ida' | v3 = 'umba'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 2."
+      },
+      {
+        "verse": "En cada instante, un recuerdo se desliza",
+        "syllables": 12,
+        "final_word": "desliza",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": false,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ida' | v3 = 'iza'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No termina en una palabra final candidata distinta del verso 2."
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_1": {
+      "text": "Pasado, tiempo se va, como un río",
+      "last_word": "río",
+      "rhyme": "io"
+    },
+    "verse_4": {
+      "text": "Y presente, como una flor, solo dura",
+      "last_word": "dura",
+      "rhyme": "ura"
+    },
+    "target_rhyme": "io",
+    "current_rhyme": "ura",
+    "errors": [
+      "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'io', pero se obtuvo 'ura'."
+    ],
+    "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('io') y reescribe el verso 4 para que termine con esa misma rima consonante."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": true,
+    "verse_2": {
+      "text": "Memoria, en espejo, refleja vida",
+      "last_word": "vida",
+      "rhyme": "ida"
+    },
+    "verse_3": {
+      "text": "En cada instante, un recuerdo se herida",
+      "last_word": "herida",
+      "rhyme": "ida"
+    },
+    "target_rhyme": "ida",
+    "current_rhyme": "ida",
+    "errors": [],
+    "feedback": "La rima interior B es correcta: el verso 3 conserva la rima consonante del verso 2 ('ida')."
+  },
+  "generation_reasoning": "Mantiene los versos originales con algunas correcciones para satisfacer las restricciones formales."
+}

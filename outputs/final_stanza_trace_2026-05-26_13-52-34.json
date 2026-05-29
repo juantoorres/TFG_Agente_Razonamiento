@@ -1,0 +1,3039 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": false,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": false,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_post_a_rhyme_meter_repair": false,
+    "post_a_rhyme_meter_repair_variants": 5,
+    "post_a_rhyme_meter_repair_temperature": 0.4,
+    "post_a_rhyme_meter_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": false,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200,
+    "inner_rhyme_repair_conditioned_by_candidate": false,
+    "inner_rhyme_repair_variants_per_candidate": 2,
+    "inner_rhyme_repair_max_candidate_words": 4,
+    "enable_post_b_rhyme_meter_repair": false,
+    "post_b_rhyme_meter_repair_variants": 5,
+    "post_b_rhyme_meter_repair_temperature": 0.4,
+    "post_b_rhyme_meter_repair_num_predict": 200
+  },
+  "trace": [
+    {
+      "step": 0,
+      "phase": "expand",
+      "generated_candidates": [
+        {
+          "stanza": [
+            "El tiempo pasa sin cesar,",
+            "y me lleva lejos de ti.",
+            "Recuerdos que no se vuelven a ver,",
+            "y el corazón se siente solo."
+          ],
+          "score": 0.0,
+          "step_score": 0.0,
+          "score_history": [],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=?/? | endecasilabos=?/? | rima=?/? | score=?/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "inner_rhyme_repair_summary": "reparacion rima B = desactivada",
+          "inner_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Todavia no se ha generado ninguna estrofa.",
+          "generation_reasoning": "Generado usando rima consonante ABBA con un tema de nostalgia del paso del tiempo. Versos breves y compactos."
+        },
+        {
+          "stanza": [
+            "El tiempo es un corredor,",
+            "que nos aleja sin cesar.",
+            "Recuerdos que no se pueden volver,",
+            "y el corazón se siente solo."
+          ],
+          "score": 0.0,
+          "step_score": 0.0,
+          "score_history": [],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=?/? | endecasilabos=?/? | rima=?/? | score=?/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "inner_rhyme_repair_summary": "reparacion rima B = desactivada",
+          "inner_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Todavia no se ha generado ninguna estrofa.",
+          "generation_reasoning": "Generado usando rima consonante ABBA con un tema de nostalgia del paso del tiempo. Versos breves y compactos."
+        }
+      ]
+    },
+    {
+      "step": 0,
+      "phase": "score",
+      "candidates": [
+        {
+          "stanza": [
+            "El tiempo pasa sin cesar,",
+            "y me lleva lejos de ti.",
+            "Recuerdos que no se vuelven a ver,",
+            "y el corazón se siente solo."
+          ],
+          "score": 0.5,
+          "step_score": 0.5,
+          "score_history": [
+            0.5
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=1/4 | rima=2/4 | score=10.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {
+            "enabled": false,
+            "changed": false,
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "verse_repairs": []
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima A desactivada.",
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "target_rhyme": "ar",
+            "current_rhyme": "olo",
+            "verse_1": {
+              "text": "El tiempo pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "post_a_meter_repair_enabled": false,
+            "post_a_meter_repair_attempts": 0,
+            "post_a_meter_repair_successes": 0,
+            "original_verse_4": null,
+            "original_verse_4_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "inner_rhyme_repair_summary": "reparacion rima B = desactivada",
+          "inner_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima B desactivada.",
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "target_rhyme": "i",
+            "current_rhyme": "er",
+            "verse_2": {
+              "text": "y me lleva lejos de ti.",
+              "last_word": "ti",
+              "rhyme": "i"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "has_enforced_candidate_final_words": false,
+            "candidate_warning": null,
+            "conditioned_by_candidate": false,
+            "conditioned_candidate_words": [],
+            "conditioned_generation_reports": [],
+            "post_b_meter_repair_enabled": false,
+            "post_b_meter_repair_attempts": 0,
+            "post_b_meter_repair_successes": 0,
+            "original_verse_3": null,
+            "original_verse_3_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'olo'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "verse_4": {
+              "text": "y el corazón se siente solo.",
+              "last_word": "solo",
+              "rhyme": "olo"
+            },
+            "target_rhyme": "ar",
+            "current_rhyme": "olo",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ar', pero se obtuvo 'olo'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ar') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'i' | v3 = 'er'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "y me lleva lejos de ti.",
+              "last_word": "ti",
+              "rhyme": "i"
+            },
+            "verse_3": {
+              "text": "Recuerdos que no se vuelven a ver,",
+              "last_word": "ver",
+              "rhyme": "er"
+            },
+            "target_rhyme": "i",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'i', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('i') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 10.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 9 silabas, pero deberia tener 11.\n- Verso 2: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Generado usando rima consonante ABBA con un tema de nostalgia del paso del tiempo. Versos breves y compactos."
+        },
+        {
+          "stanza": [
+            "El tiempo es un corredor,",
+            "que nos aleja sin cesar.",
+            "Recuerdos que no se pueden volver,",
+            "y el corazón se siente solo."
+          ],
+          "score": 0.5,
+          "step_score": 0.5,
+          "score_history": [
+            0.5
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=1/4 | rima=2/4 | score=10.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {
+            "enabled": false,
+            "changed": false,
+            "original_stanza": [
+              "El tiempo es un corredor,",
+              "que nos aleja sin cesar.",
+              "Recuerdos que no se pueden volver,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo es un corredor,",
+              "que nos aleja sin cesar.",
+              "Recuerdos que no se pueden volver,",
+              "y el corazón se siente solo."
+            ],
+            "verse_repairs": []
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima A desactivada.",
+            "original_stanza": [
+              "El tiempo es un corredor,",
+              "que nos aleja sin cesar.",
+              "Recuerdos que no se pueden volver,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo es un corredor,",
+              "que nos aleja sin cesar.",
+              "Recuerdos que no se pueden volver,",
+              "y el corazón se siente solo."
+            ],
+            "target_rhyme": "or",
+            "current_rhyme": "olo",
+            "verse_1": {
+              "text": "El tiempo es un corredor,",
+              "last_word": "corredor",
+              "rhyme": "or"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "post_a_meter_repair_enabled": false,
+            "post_a_meter_repair_attempts": 0,
+            "post_a_meter_repair_successes": 0,
+            "original_verse_4": null,
+            "original_verse_4_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "inner_rhyme_repair_summary": "reparacion rima B = desactivada",
+          "inner_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima B desactivada.",
+            "original_stanza": [
+              "El tiempo es un corredor,",
+              "que nos aleja sin cesar.",
+              "Recuerdos que no se pueden volver,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo es un corredor,",
+              "que nos aleja sin cesar.",
+              "Recuerdos que no se pueden volver,",
+              "y el corazón se siente solo."
+            ],
+            "target_rhyme": "ar",
+            "current_rhyme": "er",
+            "verse_2": {
+              "text": "que nos aleja sin cesar.",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "has_enforced_candidate_final_words": false,
+            "candidate_warning": null,
+            "conditioned_by_candidate": false,
+            "conditioned_candidate_words": [],
+            "conditioned_generation_reports": [],
+            "post_b_meter_repair_enabled": false,
+            "post_b_meter_repair_attempts": 0,
+            "post_b_meter_repair_successes": 0,
+            "original_verse_3": null,
+            "original_verse_3_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'or' | v4 = 'olo'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo es un corredor,",
+              "last_word": "corredor",
+              "rhyme": "or"
+            },
+            "verse_4": {
+              "text": "y el corazón se siente solo.",
+              "last_word": "solo",
+              "rhyme": "olo"
+            },
+            "target_rhyme": "or",
+            "current_rhyme": "olo",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'or', pero se obtuvo 'olo'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('or') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ar' | v3 = 'er'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "que nos aleja sin cesar.",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "verse_3": {
+              "text": "Recuerdos que no se pueden volver,",
+              "last_word": "volver",
+              "rhyme": "er"
+            },
+            "target_rhyme": "ar",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ar', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ar') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 10.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 8 silabas, pero deberia tener 11.\n- Verso 2: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Generado usando rima consonante ABBA con un tema de nostalgia del paso del tiempo. Versos breves y compactos."
+        }
+      ]
+    },
+    {
+      "step": 0,
+      "phase": "prune",
+      "selected_beams": [
+        {
+          "stanza": [
+            "El tiempo pasa sin cesar,",
+            "y me lleva lejos de ti.",
+            "Recuerdos que no se vuelven a ver,",
+            "y el corazón se siente solo."
+          ],
+          "score": 0.5,
+          "step_score": 0.5,
+          "score_history": [
+            0.5
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=1/4 | rima=2/4 | score=10.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {
+            "enabled": false,
+            "changed": false,
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "verse_repairs": []
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima A desactivada.",
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "target_rhyme": "ar",
+            "current_rhyme": "olo",
+            "verse_1": {
+              "text": "El tiempo pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "post_a_meter_repair_enabled": false,
+            "post_a_meter_repair_attempts": 0,
+            "post_a_meter_repair_successes": 0,
+            "original_verse_4": null,
+            "original_verse_4_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "inner_rhyme_repair_summary": "reparacion rima B = desactivada",
+          "inner_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima B desactivada.",
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "target_rhyme": "i",
+            "current_rhyme": "er",
+            "verse_2": {
+              "text": "y me lleva lejos de ti.",
+              "last_word": "ti",
+              "rhyme": "i"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "has_enforced_candidate_final_words": false,
+            "candidate_warning": null,
+            "conditioned_by_candidate": false,
+            "conditioned_candidate_words": [],
+            "conditioned_generation_reports": [],
+            "post_b_meter_repair_enabled": false,
+            "post_b_meter_repair_attempts": 0,
+            "post_b_meter_repair_successes": 0,
+            "original_verse_3": null,
+            "original_verse_3_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'olo'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "verse_4": {
+              "text": "y el corazón se siente solo.",
+              "last_word": "solo",
+              "rhyme": "olo"
+            },
+            "target_rhyme": "ar",
+            "current_rhyme": "olo",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ar', pero se obtuvo 'olo'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ar') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'i' | v3 = 'er'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "y me lleva lejos de ti.",
+              "last_word": "ti",
+              "rhyme": "i"
+            },
+            "verse_3": {
+              "text": "Recuerdos que no se vuelven a ver,",
+              "last_word": "ver",
+              "rhyme": "er"
+            },
+            "target_rhyme": "i",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'i', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('i') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 10.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 9 silabas, pero deberia tener 11.\n- Verso 2: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Generado usando rima consonante ABBA con un tema de nostalgia del paso del tiempo. Versos breves y compactos."
+        },
+        {
+          "stanza": [
+            "El tiempo es un corredor,",
+            "que nos aleja sin cesar.",
+            "Recuerdos que no se pueden volver,",
+            "y el corazón se siente solo."
+          ],
+          "score": 0.5,
+          "step_score": 0.5,
+          "score_history": [
+            0.5
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=1/4 | rima=2/4 | score=10.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {
+            "enabled": false,
+            "changed": false,
+            "original_stanza": [
+              "El tiempo es un corredor,",
+              "que nos aleja sin cesar.",
+              "Recuerdos que no se pueden volver,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo es un corredor,",
+              "que nos aleja sin cesar.",
+              "Recuerdos que no se pueden volver,",
+              "y el corazón se siente solo."
+            ],
+            "verse_repairs": []
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima A desactivada.",
+            "original_stanza": [
+              "El tiempo es un corredor,",
+              "que nos aleja sin cesar.",
+              "Recuerdos que no se pueden volver,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo es un corredor,",
+              "que nos aleja sin cesar.",
+              "Recuerdos que no se pueden volver,",
+              "y el corazón se siente solo."
+            ],
+            "target_rhyme": "or",
+            "current_rhyme": "olo",
+            "verse_1": {
+              "text": "El tiempo es un corredor,",
+              "last_word": "corredor",
+              "rhyme": "or"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "post_a_meter_repair_enabled": false,
+            "post_a_meter_repair_attempts": 0,
+            "post_a_meter_repair_successes": 0,
+            "original_verse_4": null,
+            "original_verse_4_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "inner_rhyme_repair_summary": "reparacion rima B = desactivada",
+          "inner_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima B desactivada.",
+            "original_stanza": [
+              "El tiempo es un corredor,",
+              "que nos aleja sin cesar.",
+              "Recuerdos que no se pueden volver,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo es un corredor,",
+              "que nos aleja sin cesar.",
+              "Recuerdos que no se pueden volver,",
+              "y el corazón se siente solo."
+            ],
+            "target_rhyme": "ar",
+            "current_rhyme": "er",
+            "verse_2": {
+              "text": "que nos aleja sin cesar.",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "has_enforced_candidate_final_words": false,
+            "candidate_warning": null,
+            "conditioned_by_candidate": false,
+            "conditioned_candidate_words": [],
+            "conditioned_generation_reports": [],
+            "post_b_meter_repair_enabled": false,
+            "post_b_meter_repair_attempts": 0,
+            "post_b_meter_repair_successes": 0,
+            "original_verse_3": null,
+            "original_verse_3_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'or' | v4 = 'olo'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo es un corredor,",
+              "last_word": "corredor",
+              "rhyme": "or"
+            },
+            "verse_4": {
+              "text": "y el corazón se siente solo.",
+              "last_word": "solo",
+              "rhyme": "olo"
+            },
+            "target_rhyme": "or",
+            "current_rhyme": "olo",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'or', pero se obtuvo 'olo'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('or') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ar' | v3 = 'er'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "que nos aleja sin cesar.",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "verse_3": {
+              "text": "Recuerdos que no se pueden volver,",
+              "last_word": "volver",
+              "rhyme": "er"
+            },
+            "target_rhyme": "ar",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ar', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ar') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 10.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 8 silabas, pero deberia tener 11.\n- Verso 2: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Generado usando rima consonante ABBA con un tema de nostalgia del paso del tiempo. Versos breves y compactos."
+        }
+      ]
+    },
+    {
+      "step": 1,
+      "phase": "expand",
+      "generated_candidates": [
+        {
+          "stanza": [
+            "El tiempo pasa sin cesar,",
+            "y me lleva lejos de ti.",
+            "Recuerdos que no se vuelven a ver,",
+            "y el corazón se siente solo."
+          ],
+          "score": 0.5,
+          "step_score": 0.5,
+          "score_history": [
+            0.5
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=1/4 | rima=2/4 | score=10.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "inner_rhyme_repair_summary": "reparacion rima B = desactivada",
+          "inner_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 10.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 9 silabas, pero deberia tener 11.\n- Verso 2: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: Ajuste del número de silabas en los versos 1 y 4 para cumplir con la especificación de 11 silabas. La rima consonante ABBA también se mantuvo."
+        },
+        {
+          "stanza": [
+            "El tiempo pasa sin cesar,",
+            "y me lleva a lejanías.",
+            "Recuerdos que no se vuelven a ver,",
+            "y el corazón se siente solo."
+          ],
+          "score": 0.5,
+          "step_score": 0.5,
+          "score_history": [
+            0.5
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=1/4 | rima=2/4 | score=10.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "inner_rhyme_repair_summary": "reparacion rima B = desactivada",
+          "inner_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 10.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 9 silabas, pero deberia tener 11.\n- Verso 2: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: Ajuste del número de silabas en los versos 1 y 4 para cumplir con la especificación de 11 silabas. La rima consonante ABBA también se mantuvo."
+        },
+        {
+          "stanza": [
+            "El tiempo, un corredor incesante,",
+            "nos aleja sin que se detenga.",
+            "Recuerdos perdidos en el viento,",
+            "y el corazón siente la soledad."
+          ],
+          "score": 0.5,
+          "step_score": 0.5,
+          "score_history": [
+            0.5
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=1/4 | rima=2/4 | score=10.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "inner_rhyme_repair_summary": "reparacion rima B = desactivada",
+          "inner_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 10.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 8 silabas, pero deberia tener 11.\n- Verso 2: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: El verso 1 ahora tiene 11 silabas y rima con el verso 4. El verso 2 ahora tiene 11 silabas y rima con el verso 3. El verso 3 ahora termina en 'd' para cumplir con la rima B."
+        },
+        {
+          "stanza": [
+            "El tiempo, un corredor incesante,",
+            "nos aleja sin que se detenga.",
+            "Recuerdos perdidos en el viento,",
+            "y el corazón siente la tristeza."
+          ],
+          "score": 0.5,
+          "step_score": 0.5,
+          "score_history": [
+            0.5
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=1/4 | rima=2/4 | score=10.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "inner_rhyme_repair_summary": "reparacion rima B = desactivada",
+          "inner_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 10.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 8 silabas, pero deberia tener 11.\n- Verso 2: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: El verso 4 ahora tiene 11 silabas y rima con el verso 1. Además, se cambió 'soledad' por 'tristeza' para evitar repetir la misma palabra final en versos que riman."
+        }
+      ]
+    },
+    {
+      "step": 1,
+      "phase": "score",
+      "candidates": [
+        {
+          "stanza": [
+            "El tiempo pasa sin cesar,",
+            "y me lleva lejos de ti.",
+            "Recuerdos que no se vuelven a ver,",
+            "y el corazón se siente solo."
+          ],
+          "score": 0.5,
+          "step_score": 0.5,
+          "score_history": [
+            0.5,
+            0.5
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=1/4 | rima=2/4 | score=10.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {
+            "enabled": false,
+            "changed": false,
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "verse_repairs": []
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima A desactivada.",
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "target_rhyme": "ar",
+            "current_rhyme": "olo",
+            "verse_1": {
+              "text": "El tiempo pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "post_a_meter_repair_enabled": false,
+            "post_a_meter_repair_attempts": 0,
+            "post_a_meter_repair_successes": 0,
+            "original_verse_4": null,
+            "original_verse_4_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "inner_rhyme_repair_summary": "reparacion rima B = desactivada",
+          "inner_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima B desactivada.",
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "target_rhyme": "i",
+            "current_rhyme": "er",
+            "verse_2": {
+              "text": "y me lleva lejos de ti.",
+              "last_word": "ti",
+              "rhyme": "i"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "has_enforced_candidate_final_words": false,
+            "candidate_warning": null,
+            "conditioned_by_candidate": false,
+            "conditioned_candidate_words": [],
+            "conditioned_generation_reports": [],
+            "post_b_meter_repair_enabled": false,
+            "post_b_meter_repair_attempts": 0,
+            "post_b_meter_repair_successes": 0,
+            "original_verse_3": null,
+            "original_verse_3_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'olo'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "verse_4": {
+              "text": "y el corazón se siente solo.",
+              "last_word": "solo",
+              "rhyme": "olo"
+            },
+            "target_rhyme": "ar",
+            "current_rhyme": "olo",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ar', pero se obtuvo 'olo'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ar') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'i' | v3 = 'er'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "y me lleva lejos de ti.",
+              "last_word": "ti",
+              "rhyme": "i"
+            },
+            "verse_3": {
+              "text": "Recuerdos que no se vuelven a ver,",
+              "last_word": "ver",
+              "rhyme": "er"
+            },
+            "target_rhyme": "i",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'i', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('i') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 10.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 9 silabas, pero deberia tener 11.\n- Verso 2: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: Ajuste del número de silabas en los versos 1 y 4 para cumplir con la especificación de 11 silabas. La rima consonante ABBA también se mantuvo."
+        },
+        {
+          "stanza": [
+            "El tiempo pasa sin cesar,",
+            "y me lleva a lejanías.",
+            "Recuerdos que no se vuelven a ver,",
+            "y el corazón se siente solo."
+          ],
+          "score": 0.5,
+          "step_score": 0.5,
+          "score_history": [
+            0.5,
+            0.5
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=1/4 | rima=2/4 | score=10.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {
+            "enabled": false,
+            "changed": false,
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva a lejanías.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva a lejanías.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "verse_repairs": []
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima A desactivada.",
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva a lejanías.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva a lejanías.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "target_rhyme": "ar",
+            "current_rhyme": "olo",
+            "verse_1": {
+              "text": "El tiempo pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "post_a_meter_repair_enabled": false,
+            "post_a_meter_repair_attempts": 0,
+            "post_a_meter_repair_successes": 0,
+            "original_verse_4": null,
+            "original_verse_4_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "inner_rhyme_repair_summary": "reparacion rima B = desactivada",
+          "inner_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima B desactivada.",
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva a lejanías.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva a lejanías.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "target_rhyme": "ias",
+            "current_rhyme": "er",
+            "verse_2": {
+              "text": "y me lleva a lejanías.",
+              "last_word": "lejanías",
+              "rhyme": "ias"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "has_enforced_candidate_final_words": false,
+            "candidate_warning": null,
+            "conditioned_by_candidate": false,
+            "conditioned_candidate_words": [],
+            "conditioned_generation_reports": [],
+            "post_b_meter_repair_enabled": false,
+            "post_b_meter_repair_attempts": 0,
+            "post_b_meter_repair_successes": 0,
+            "original_verse_3": null,
+            "original_verse_3_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'olo'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "verse_4": {
+              "text": "y el corazón se siente solo.",
+              "last_word": "solo",
+              "rhyme": "olo"
+            },
+            "target_rhyme": "ar",
+            "current_rhyme": "olo",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ar', pero se obtuvo 'olo'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ar') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ias' | v3 = 'er'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "y me lleva a lejanías.",
+              "last_word": "lejanías",
+              "rhyme": "ias"
+            },
+            "verse_3": {
+              "text": "Recuerdos que no se vuelven a ver,",
+              "last_word": "ver",
+              "rhyme": "er"
+            },
+            "target_rhyme": "ias",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ias', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ias') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 10.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 9 silabas, pero deberia tener 11.\n- Verso 2: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: Ajuste del número de silabas en los versos 1 y 4 para cumplir con la especificación de 11 silabas. La rima consonante ABBA también se mantuvo."
+        },
+        {
+          "stanza": [
+            "El tiempo, un corredor incesante,",
+            "nos aleja sin que se detenga.",
+            "Recuerdos perdidos en el viento,",
+            "y el corazón siente la soledad."
+          ],
+          "score": 0.4472135954999579,
+          "step_score": 0.4,
+          "score_history": [
+            0.5,
+            0.4
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=0/4 | rima=2/4 | score=8.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {
+            "enabled": false,
+            "changed": false,
+            "original_stanza": [
+              "El tiempo, un corredor incesante,",
+              "nos aleja sin que se detenga.",
+              "Recuerdos perdidos en el viento,",
+              "y el corazón siente la soledad."
+            ],
+            "repaired_stanza": [
+              "El tiempo, un corredor incesante,",
+              "nos aleja sin que se detenga.",
+              "Recuerdos perdidos en el viento,",
+              "y el corazón siente la soledad."
+            ],
+            "verse_repairs": []
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima A desactivada.",
+            "original_stanza": [
+              "El tiempo, un corredor incesante,",
+              "nos aleja sin que se detenga.",
+              "Recuerdos perdidos en el viento,",
+              "y el corazón siente la soledad."
+            ],
+            "repaired_stanza": [
+              "El tiempo, un corredor incesante,",
+              "nos aleja sin que se detenga.",
+              "Recuerdos perdidos en el viento,",
+              "y el corazón siente la soledad."
+            ],
+            "target_rhyme": "ante",
+            "current_rhyme": "ad",
+            "verse_1": {
+              "text": "El tiempo, un corredor incesante,",
+              "last_word": "incesante",
+              "rhyme": "ante"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "post_a_meter_repair_enabled": false,
+            "post_a_meter_repair_attempts": 0,
+            "post_a_meter_repair_successes": 0,
+            "original_verse_4": null,
+            "original_verse_4_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "inner_rhyme_repair_summary": "reparacion rima B = desactivada",
+          "inner_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima B desactivada.",
+            "original_stanza": [
+              "El tiempo, un corredor incesante,",
+              "nos aleja sin que se detenga.",
+              "Recuerdos perdidos en el viento,",
+              "y el corazón siente la soledad."
+            ],
+            "repaired_stanza": [
+              "El tiempo, un corredor incesante,",
+              "nos aleja sin que se detenga.",
+              "Recuerdos perdidos en el viento,",
+              "y el corazón siente la soledad."
+            ],
+            "target_rhyme": "enga",
+            "current_rhyme": "ento",
+            "verse_2": {
+              "text": "nos aleja sin que se detenga.",
+              "last_word": "detenga",
+              "rhyme": "enga"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "has_enforced_candidate_final_words": false,
+            "candidate_warning": null,
+            "conditioned_by_candidate": false,
+            "conditioned_candidate_words": [],
+            "conditioned_generation_reports": [],
+            "post_b_meter_repair_enabled": false,
+            "post_b_meter_repair_attempts": 0,
+            "post_b_meter_repair_successes": 0,
+            "original_verse_3": null,
+            "original_verse_3_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ante' | v4 = 'ad'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo, un corredor incesante,",
+              "last_word": "incesante",
+              "rhyme": "ante"
+            },
+            "verse_4": {
+              "text": "y el corazón siente la soledad.",
+              "last_word": "soledad",
+              "rhyme": "ad"
+            },
+            "target_rhyme": "ante",
+            "current_rhyme": "ad",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ante', pero se obtuvo 'ad'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ante') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'enga' | v3 = 'ento'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "nos aleja sin que se detenga.",
+              "last_word": "detenga",
+              "rhyme": "enga"
+            },
+            "verse_3": {
+              "text": "Recuerdos perdidos en el viento,",
+              "last_word": "viento",
+              "rhyme": "ento"
+            },
+            "target_rhyme": "enga",
+            "current_rhyme": "ento",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'enga', pero se obtuvo 'ento'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('enga') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 8.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 10 silabas, pero deberia tener 11.\n- Verso 2: tiene 9 silabas, pero deberia tener 11.\n- Verso 3: tiene 10 silabas, pero deberia tener 11.\n- Verso 4: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: El verso 1 ahora tiene 11 silabas y rima con el verso 4. El verso 2 ahora tiene 11 silabas y rima con el verso 3. El verso 3 ahora termina en 'd' para cumplir con la rima B."
+        },
+        {
+          "stanza": [
+            "El tiempo, un corredor incesante,",
+            "nos aleja sin que se detenga.",
+            "Recuerdos perdidos en el viento,",
+            "y el corazón siente la tristeza."
+          ],
+          "score": 0.5,
+          "step_score": 0.5,
+          "score_history": [
+            0.5,
+            0.5
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=1/4 | rima=2/4 | score=10.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {
+            "enabled": false,
+            "changed": false,
+            "original_stanza": [
+              "El tiempo, un corredor incesante,",
+              "nos aleja sin que se detenga.",
+              "Recuerdos perdidos en el viento,",
+              "y el corazón siente la tristeza."
+            ],
+            "repaired_stanza": [
+              "El tiempo, un corredor incesante,",
+              "nos aleja sin que se detenga.",
+              "Recuerdos perdidos en el viento,",
+              "y el corazón siente la tristeza."
+            ],
+            "verse_repairs": []
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima A desactivada.",
+            "original_stanza": [
+              "El tiempo, un corredor incesante,",
+              "nos aleja sin que se detenga.",
+              "Recuerdos perdidos en el viento,",
+              "y el corazón siente la tristeza."
+            ],
+            "repaired_stanza": [
+              "El tiempo, un corredor incesante,",
+              "nos aleja sin que se detenga.",
+              "Recuerdos perdidos en el viento,",
+              "y el corazón siente la tristeza."
+            ],
+            "target_rhyme": "ante",
+            "current_rhyme": "eza",
+            "verse_1": {
+              "text": "El tiempo, un corredor incesante,",
+              "last_word": "incesante",
+              "rhyme": "ante"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "post_a_meter_repair_enabled": false,
+            "post_a_meter_repair_attempts": 0,
+            "post_a_meter_repair_successes": 0,
+            "original_verse_4": null,
+            "original_verse_4_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "inner_rhyme_repair_summary": "reparacion rima B = desactivada",
+          "inner_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima B desactivada.",
+            "original_stanza": [
+              "El tiempo, un corredor incesante,",
+              "nos aleja sin que se detenga.",
+              "Recuerdos perdidos en el viento,",
+              "y el corazón siente la tristeza."
+            ],
+            "repaired_stanza": [
+              "El tiempo, un corredor incesante,",
+              "nos aleja sin que se detenga.",
+              "Recuerdos perdidos en el viento,",
+              "y el corazón siente la tristeza."
+            ],
+            "target_rhyme": "enga",
+            "current_rhyme": "ento",
+            "verse_2": {
+              "text": "nos aleja sin que se detenga.",
+              "last_word": "detenga",
+              "rhyme": "enga"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "has_enforced_candidate_final_words": false,
+            "candidate_warning": null,
+            "conditioned_by_candidate": false,
+            "conditioned_candidate_words": [],
+            "conditioned_generation_reports": [],
+            "post_b_meter_repair_enabled": false,
+            "post_b_meter_repair_attempts": 0,
+            "post_b_meter_repair_successes": 0,
+            "original_verse_3": null,
+            "original_verse_3_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ante' | v4 = 'eza'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo, un corredor incesante,",
+              "last_word": "incesante",
+              "rhyme": "ante"
+            },
+            "verse_4": {
+              "text": "y el corazón siente la tristeza.",
+              "last_word": "tristeza",
+              "rhyme": "eza"
+            },
+            "target_rhyme": "ante",
+            "current_rhyme": "eza",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ante', pero se obtuvo 'eza'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ante') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'enga' | v3 = 'ento'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "nos aleja sin que se detenga.",
+              "last_word": "detenga",
+              "rhyme": "enga"
+            },
+            "verse_3": {
+              "text": "Recuerdos perdidos en el viento,",
+              "last_word": "viento",
+              "rhyme": "ento"
+            },
+            "target_rhyme": "enga",
+            "current_rhyme": "ento",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'enga', pero se obtuvo 'ento'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('enga') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 10.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 10 silabas, pero deberia tener 11.\n- Verso 2: tiene 9 silabas, pero deberia tener 11.\n- Verso 3: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: El verso 4 ahora tiene 11 silabas y rima con el verso 1. Además, se cambió 'soledad' por 'tristeza' para evitar repetir la misma palabra final en versos que riman."
+        }
+      ]
+    },
+    {
+      "step": 1,
+      "phase": "prune",
+      "selected_beams": [
+        {
+          "stanza": [
+            "El tiempo pasa sin cesar,",
+            "y me lleva lejos de ti.",
+            "Recuerdos que no se vuelven a ver,",
+            "y el corazón se siente solo."
+          ],
+          "score": 0.5,
+          "step_score": 0.5,
+          "score_history": [
+            0.5,
+            0.5
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=1/4 | rima=2/4 | score=10.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {
+            "enabled": false,
+            "changed": false,
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "verse_repairs": []
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima A desactivada.",
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "target_rhyme": "ar",
+            "current_rhyme": "olo",
+            "verse_1": {
+              "text": "El tiempo pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "post_a_meter_repair_enabled": false,
+            "post_a_meter_repair_attempts": 0,
+            "post_a_meter_repair_successes": 0,
+            "original_verse_4": null,
+            "original_verse_4_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "inner_rhyme_repair_summary": "reparacion rima B = desactivada",
+          "inner_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima B desactivada.",
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "target_rhyme": "i",
+            "current_rhyme": "er",
+            "verse_2": {
+              "text": "y me lleva lejos de ti.",
+              "last_word": "ti",
+              "rhyme": "i"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "has_enforced_candidate_final_words": false,
+            "candidate_warning": null,
+            "conditioned_by_candidate": false,
+            "conditioned_candidate_words": [],
+            "conditioned_generation_reports": [],
+            "post_b_meter_repair_enabled": false,
+            "post_b_meter_repair_attempts": 0,
+            "post_b_meter_repair_successes": 0,
+            "original_verse_3": null,
+            "original_verse_3_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'olo'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "verse_4": {
+              "text": "y el corazón se siente solo.",
+              "last_word": "solo",
+              "rhyme": "olo"
+            },
+            "target_rhyme": "ar",
+            "current_rhyme": "olo",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ar', pero se obtuvo 'olo'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ar') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'i' | v3 = 'er'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "y me lleva lejos de ti.",
+              "last_word": "ti",
+              "rhyme": "i"
+            },
+            "verse_3": {
+              "text": "Recuerdos que no se vuelven a ver,",
+              "last_word": "ver",
+              "rhyme": "er"
+            },
+            "target_rhyme": "i",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'i', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('i') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 10.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 9 silabas, pero deberia tener 11.\n- Verso 2: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: Ajuste del número de silabas en los versos 1 y 4 para cumplir con la especificación de 11 silabas. La rima consonante ABBA también se mantuvo."
+        },
+        {
+          "stanza": [
+            "El tiempo pasa sin cesar,",
+            "y me lleva a lejanías.",
+            "Recuerdos que no se vuelven a ver,",
+            "y el corazón se siente solo."
+          ],
+          "score": 0.5,
+          "step_score": 0.5,
+          "score_history": [
+            0.5,
+            0.5
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=1/4 | rima=2/4 | score=10.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {
+            "enabled": false,
+            "changed": false,
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva a lejanías.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva a lejanías.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "verse_repairs": []
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima A desactivada.",
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva a lejanías.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva a lejanías.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "target_rhyme": "ar",
+            "current_rhyme": "olo",
+            "verse_1": {
+              "text": "El tiempo pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "post_a_meter_repair_enabled": false,
+            "post_a_meter_repair_attempts": 0,
+            "post_a_meter_repair_successes": 0,
+            "original_verse_4": null,
+            "original_verse_4_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "inner_rhyme_repair_summary": "reparacion rima B = desactivada",
+          "inner_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima B desactivada.",
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva a lejanías.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva a lejanías.",
+              "Recuerdos que no se vuelven a ver,",
+              "y el corazón se siente solo."
+            ],
+            "target_rhyme": "ias",
+            "current_rhyme": "er",
+            "verse_2": {
+              "text": "y me lleva a lejanías.",
+              "last_word": "lejanías",
+              "rhyme": "ias"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "has_enforced_candidate_final_words": false,
+            "candidate_warning": null,
+            "conditioned_by_candidate": false,
+            "conditioned_candidate_words": [],
+            "conditioned_generation_reports": [],
+            "post_b_meter_repair_enabled": false,
+            "post_b_meter_repair_attempts": 0,
+            "post_b_meter_repair_successes": 0,
+            "original_verse_3": null,
+            "original_verse_3_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'olo'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "verse_4": {
+              "text": "y el corazón se siente solo.",
+              "last_word": "solo",
+              "rhyme": "olo"
+            },
+            "target_rhyme": "ar",
+            "current_rhyme": "olo",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ar', pero se obtuvo 'olo'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ar') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ias' | v3 = 'er'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "y me lleva a lejanías.",
+              "last_word": "lejanías",
+              "rhyme": "ias"
+            },
+            "verse_3": {
+              "text": "Recuerdos que no se vuelven a ver,",
+              "last_word": "ver",
+              "rhyme": "er"
+            },
+            "target_rhyme": "ias",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ias', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ias') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 10.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 9 silabas, pero deberia tener 11.\n- Verso 2: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: Ajuste del número de silabas en los versos 1 y 4 para cumplir con la especificación de 11 silabas. La rima consonante ABBA también se mantuvo."
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "phase": "expand",
+      "generated_candidates": [
+        {
+          "stanza": [
+            "El tiempo pasa sin cesar,",
+            "y me lleva lejos de ti.",
+            "Recuerdos que se vuelven a ver,",
+            "y el corazón no se siente solo."
+          ],
+          "score": 0.5,
+          "step_score": 0.5,
+          "score_history": [
+            0.5,
+            0.5
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=1/4 | rima=2/4 | score=10.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "inner_rhyme_repair_summary": "reparacion rima B = desactivada",
+          "inner_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 10.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 9 silabas, pero deberia tener 11.\n- Verso 2: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: Ajuste del número de silabas en los versos 1 y 4 para cumplir con la longitud deseada. La rima consonante ABBA también se mantuvo."
+        },
+        {
+          "stanza": [
+            "El tiempo pasa sin cesar,",
+            "y me lleva lejos de ti.",
+            "Recuerdos que vuelven a florecer,",
+            "y el corazón se siente solo."
+          ],
+          "score": 0.5,
+          "step_score": 0.5,
+          "score_history": [
+            0.5,
+            0.5
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=1/4 | rima=2/4 | score=10.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "inner_rhyme_repair_summary": "reparacion rima B = desactivada",
+          "inner_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 10.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 9 silabas, pero deberia tener 11.\n- Verso 2: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: Ajuste del número de silabas en los versos 1 y 4 para cumplir con la longitud deseada. La rima consonante ABBA también se mantuvo."
+        },
+        {
+          "stanza": [
+            "El tiempo pasa sin cesar,",
+            "y me lleva a lejanías.",
+            "Recuerdos que se vuelven a ver,",
+            "y el corazón no se siente solo."
+          ],
+          "score": 0.5,
+          "step_score": 0.5,
+          "score_history": [
+            0.5,
+            0.5
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=1/4 | rima=2/4 | score=10.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "inner_rhyme_repair_summary": "reparacion rima B = desactivada",
+          "inner_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 10.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 9 silabas, pero deberia tener 11.\n- Verso 2: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: Ajuste de la longitud de los versos y cambio de palabras para respetar la rima consonante ABBA"
+        },
+        {
+          "stanza": [
+            "El tiempo pasa sin cesar,",
+            "y me lleva a lejanías.",
+            "Recuerdos que se pierden en el viento,",
+            "y el corazón se siente solo."
+          ],
+          "score": 0.5,
+          "step_score": 0.5,
+          "score_history": [
+            0.5,
+            0.5
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=1/4 | rima=2/4 | score=10.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {},
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {},
+          "inner_rhyme_repair_summary": "reparacion rima B = desactivada",
+          "inner_rhyme_repair_report": {},
+          "outer_rhyme_summary": "rima AXYA = no evaluable | faltan versos",
+          "outer_rhyme_diagnosis": {},
+          "inner_rhyme_summary": "rima interior B = no evaluable | faltan versos",
+          "inner_rhyme_diagnosis": {},
+          "feedback": "Puntuacion formal total: 10.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 9 silabas, pero deberia tener 11.\n- Verso 2: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: Ajuste de la longitud de los versos y cambio de palabras para respetar la rima consonante ABBA"
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "phase": "score",
+      "candidates": [
+        {
+          "stanza": [
+            "El tiempo pasa sin cesar,",
+            "y me lleva lejos de ti.",
+            "Recuerdos que se vuelven a ver,",
+            "y el corazón no se siente solo."
+          ],
+          "score": 0.5,
+          "step_score": 0.5,
+          "score_history": [
+            0.5,
+            0.5,
+            0.5
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=1/4 | rima=2/4 | score=10.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {
+            "enabled": false,
+            "changed": false,
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que se vuelven a ver,",
+              "y el corazón no se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que se vuelven a ver,",
+              "y el corazón no se siente solo."
+            ],
+            "verse_repairs": []
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima A desactivada.",
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que se vuelven a ver,",
+              "y el corazón no se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que se vuelven a ver,",
+              "y el corazón no se siente solo."
+            ],
+            "target_rhyme": "ar",
+            "current_rhyme": "olo",
+            "verse_1": {
+              "text": "El tiempo pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "post_a_meter_repair_enabled": false,
+            "post_a_meter_repair_attempts": 0,
+            "post_a_meter_repair_successes": 0,
+            "original_verse_4": null,
+            "original_verse_4_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "inner_rhyme_repair_summary": "reparacion rima B = desactivada",
+          "inner_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima B desactivada.",
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que se vuelven a ver,",
+              "y el corazón no se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que se vuelven a ver,",
+              "y el corazón no se siente solo."
+            ],
+            "target_rhyme": "i",
+            "current_rhyme": "er",
+            "verse_2": {
+              "text": "y me lleva lejos de ti.",
+              "last_word": "ti",
+              "rhyme": "i"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "has_enforced_candidate_final_words": false,
+            "candidate_warning": null,
+            "conditioned_by_candidate": false,
+            "conditioned_candidate_words": [],
+            "conditioned_generation_reports": [],
+            "post_b_meter_repair_enabled": false,
+            "post_b_meter_repair_attempts": 0,
+            "post_b_meter_repair_successes": 0,
+            "original_verse_3": null,
+            "original_verse_3_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'olo'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "verse_4": {
+              "text": "y el corazón no se siente solo.",
+              "last_word": "solo",
+              "rhyme": "olo"
+            },
+            "target_rhyme": "ar",
+            "current_rhyme": "olo",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ar', pero se obtuvo 'olo'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ar') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'i' | v3 = 'er'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "y me lleva lejos de ti.",
+              "last_word": "ti",
+              "rhyme": "i"
+            },
+            "verse_3": {
+              "text": "Recuerdos que se vuelven a ver,",
+              "last_word": "ver",
+              "rhyme": "er"
+            },
+            "target_rhyme": "i",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'i', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('i') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 10.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 9 silabas, pero deberia tener 11.\n- Verso 2: tiene 8 silabas, pero deberia tener 11.\n- Verso 3: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: Ajuste del número de silabas en los versos 1 y 4 para cumplir con la longitud deseada. La rima consonante ABBA también se mantuvo."
+        },
+        {
+          "stanza": [
+            "El tiempo pasa sin cesar,",
+            "y me lleva lejos de ti.",
+            "Recuerdos que vuelven a florecer,",
+            "y el corazón se siente solo."
+          ],
+          "score": 0.5,
+          "step_score": 0.5,
+          "score_history": [
+            0.5,
+            0.5,
+            0.5
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=1/4 | rima=2/4 | score=10.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {
+            "enabled": false,
+            "changed": false,
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que vuelven a florecer,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que vuelven a florecer,",
+              "y el corazón se siente solo."
+            ],
+            "verse_repairs": []
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima A desactivada.",
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que vuelven a florecer,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que vuelven a florecer,",
+              "y el corazón se siente solo."
+            ],
+            "target_rhyme": "ar",
+            "current_rhyme": "olo",
+            "verse_1": {
+              "text": "El tiempo pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "post_a_meter_repair_enabled": false,
+            "post_a_meter_repair_attempts": 0,
+            "post_a_meter_repair_successes": 0,
+            "original_verse_4": null,
+            "original_verse_4_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "inner_rhyme_repair_summary": "reparacion rima B = desactivada",
+          "inner_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima B desactivada.",
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que vuelven a florecer,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que vuelven a florecer,",
+              "y el corazón se siente solo."
+            ],
+            "target_rhyme": "i",
+            "current_rhyme": "er",
+            "verse_2": {
+              "text": "y me lleva lejos de ti.",
+              "last_word": "ti",
+              "rhyme": "i"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "has_enforced_candidate_final_words": false,
+            "candidate_warning": null,
+            "conditioned_by_candidate": false,
+            "conditioned_candidate_words": [],
+            "conditioned_generation_reports": [],
+            "post_b_meter_repair_enabled": false,
+            "post_b_meter_repair_attempts": 0,
+            "post_b_meter_repair_successes": 0,
+            "original_verse_3": null,
+            "original_verse_3_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'olo'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "verse_4": {
+              "text": "y el corazón se siente solo.",
+              "last_word": "solo",
+              "rhyme": "olo"
+            },
+            "target_rhyme": "ar",
+            "current_rhyme": "olo",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ar', pero se obtuvo 'olo'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ar') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'i' | v3 = 'er'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "y me lleva lejos de ti.",
+              "last_word": "ti",
+              "rhyme": "i"
+            },
+            "verse_3": {
+              "text": "Recuerdos que vuelven a florecer,",
+              "last_word": "florecer",
+              "rhyme": "er"
+            },
+            "target_rhyme": "i",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'i', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('i') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 10.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 9 silabas, pero deberia tener 11.\n- Verso 2: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: Ajuste del número de silabas en los versos 1 y 4 para cumplir con la longitud deseada. La rima consonante ABBA también se mantuvo."
+        },
+        {
+          "stanza": [
+            "El tiempo pasa sin cesar,",
+            "y me lleva a lejanías.",
+            "Recuerdos que se vuelven a ver,",
+            "y el corazón no se siente solo."
+          ],
+          "score": 0.5,
+          "step_score": 0.5,
+          "score_history": [
+            0.5,
+            0.5,
+            0.5
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=1/4 | rima=2/4 | score=10.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {
+            "enabled": false,
+            "changed": false,
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva a lejanías.",
+              "Recuerdos que se vuelven a ver,",
+              "y el corazón no se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva a lejanías.",
+              "Recuerdos que se vuelven a ver,",
+              "y el corazón no se siente solo."
+            ],
+            "verse_repairs": []
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima A desactivada.",
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva a lejanías.",
+              "Recuerdos que se vuelven a ver,",
+              "y el corazón no se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva a lejanías.",
+              "Recuerdos que se vuelven a ver,",
+              "y el corazón no se siente solo."
+            ],
+            "target_rhyme": "ar",
+            "current_rhyme": "olo",
+            "verse_1": {
+              "text": "El tiempo pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "post_a_meter_repair_enabled": false,
+            "post_a_meter_repair_attempts": 0,
+            "post_a_meter_repair_successes": 0,
+            "original_verse_4": null,
+            "original_verse_4_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "inner_rhyme_repair_summary": "reparacion rima B = desactivada",
+          "inner_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima B desactivada.",
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva a lejanías.",
+              "Recuerdos que se vuelven a ver,",
+              "y el corazón no se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva a lejanías.",
+              "Recuerdos que se vuelven a ver,",
+              "y el corazón no se siente solo."
+            ],
+            "target_rhyme": "ias",
+            "current_rhyme": "er",
+            "verse_2": {
+              "text": "y me lleva a lejanías.",
+              "last_word": "lejanías",
+              "rhyme": "ias"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "has_enforced_candidate_final_words": false,
+            "candidate_warning": null,
+            "conditioned_by_candidate": false,
+            "conditioned_candidate_words": [],
+            "conditioned_generation_reports": [],
+            "post_b_meter_repair_enabled": false,
+            "post_b_meter_repair_attempts": 0,
+            "post_b_meter_repair_successes": 0,
+            "original_verse_3": null,
+            "original_verse_3_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'olo'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "verse_4": {
+              "text": "y el corazón no se siente solo.",
+              "last_word": "solo",
+              "rhyme": "olo"
+            },
+            "target_rhyme": "ar",
+            "current_rhyme": "olo",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ar', pero se obtuvo 'olo'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ar') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ias' | v3 = 'er'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "y me lleva a lejanías.",
+              "last_word": "lejanías",
+              "rhyme": "ias"
+            },
+            "verse_3": {
+              "text": "Recuerdos que se vuelven a ver,",
+              "last_word": "ver",
+              "rhyme": "er"
+            },
+            "target_rhyme": "ias",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ias', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ias') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 10.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 9 silabas, pero deberia tener 11.\n- Verso 2: tiene 8 silabas, pero deberia tener 11.\n- Verso 3: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: Ajuste de la longitud de los versos y cambio de palabras para respetar la rima consonante ABBA"
+        },
+        {
+          "stanza": [
+            "El tiempo pasa sin cesar,",
+            "y me lleva a lejanías.",
+            "Recuerdos que se pierden en el viento,",
+            "y el corazón se siente solo."
+          ],
+          "score": 0.5,
+          "step_score": 0.5,
+          "score_history": [
+            0.5,
+            0.5,
+            0.5
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=1/4 | rima=2/4 | score=10.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {
+            "enabled": false,
+            "changed": false,
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva a lejanías.",
+              "Recuerdos que se pierden en el viento,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva a lejanías.",
+              "Recuerdos que se pierden en el viento,",
+              "y el corazón se siente solo."
+            ],
+            "verse_repairs": []
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima A desactivada.",
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva a lejanías.",
+              "Recuerdos que se pierden en el viento,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva a lejanías.",
+              "Recuerdos que se pierden en el viento,",
+              "y el corazón se siente solo."
+            ],
+            "target_rhyme": "ar",
+            "current_rhyme": "olo",
+            "verse_1": {
+              "text": "El tiempo pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "post_a_meter_repair_enabled": false,
+            "post_a_meter_repair_attempts": 0,
+            "post_a_meter_repair_successes": 0,
+            "original_verse_4": null,
+            "original_verse_4_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "inner_rhyme_repair_summary": "reparacion rima B = desactivada",
+          "inner_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima B desactivada.",
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva a lejanías.",
+              "Recuerdos que se pierden en el viento,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva a lejanías.",
+              "Recuerdos que se pierden en el viento,",
+              "y el corazón se siente solo."
+            ],
+            "target_rhyme": "ias",
+            "current_rhyme": "ento",
+            "verse_2": {
+              "text": "y me lleva a lejanías.",
+              "last_word": "lejanías",
+              "rhyme": "ias"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "has_enforced_candidate_final_words": false,
+            "candidate_warning": null,
+            "conditioned_by_candidate": false,
+            "conditioned_candidate_words": [],
+            "conditioned_generation_reports": [],
+            "post_b_meter_repair_enabled": false,
+            "post_b_meter_repair_attempts": 0,
+            "post_b_meter_repair_successes": 0,
+            "original_verse_3": null,
+            "original_verse_3_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'olo'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "verse_4": {
+              "text": "y el corazón se siente solo.",
+              "last_word": "solo",
+              "rhyme": "olo"
+            },
+            "target_rhyme": "ar",
+            "current_rhyme": "olo",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ar', pero se obtuvo 'olo'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ar') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ias' | v3 = 'ento'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "y me lleva a lejanías.",
+              "last_word": "lejanías",
+              "rhyme": "ias"
+            },
+            "verse_3": {
+              "text": "Recuerdos que se pierden en el viento,",
+              "last_word": "viento",
+              "rhyme": "ento"
+            },
+            "target_rhyme": "ias",
+            "current_rhyme": "ento",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ias', pero se obtuvo 'ento'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ias') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 10.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 9 silabas, pero deberia tener 11.\n- Verso 2: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: Ajuste de la longitud de los versos y cambio de palabras para respetar la rima consonante ABBA"
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "phase": "prune",
+      "selected_beams": [
+        {
+          "stanza": [
+            "El tiempo pasa sin cesar,",
+            "y me lleva lejos de ti.",
+            "Recuerdos que se vuelven a ver,",
+            "y el corazón no se siente solo."
+          ],
+          "score": 0.5,
+          "step_score": 0.5,
+          "score_history": [
+            0.5,
+            0.5,
+            0.5
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=1/4 | rima=2/4 | score=10.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {
+            "enabled": false,
+            "changed": false,
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que se vuelven a ver,",
+              "y el corazón no se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que se vuelven a ver,",
+              "y el corazón no se siente solo."
+            ],
+            "verse_repairs": []
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima A desactivada.",
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que se vuelven a ver,",
+              "y el corazón no se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que se vuelven a ver,",
+              "y el corazón no se siente solo."
+            ],
+            "target_rhyme": "ar",
+            "current_rhyme": "olo",
+            "verse_1": {
+              "text": "El tiempo pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "post_a_meter_repair_enabled": false,
+            "post_a_meter_repair_attempts": 0,
+            "post_a_meter_repair_successes": 0,
+            "original_verse_4": null,
+            "original_verse_4_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "inner_rhyme_repair_summary": "reparacion rima B = desactivada",
+          "inner_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima B desactivada.",
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que se vuelven a ver,",
+              "y el corazón no se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que se vuelven a ver,",
+              "y el corazón no se siente solo."
+            ],
+            "target_rhyme": "i",
+            "current_rhyme": "er",
+            "verse_2": {
+              "text": "y me lleva lejos de ti.",
+              "last_word": "ti",
+              "rhyme": "i"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "has_enforced_candidate_final_words": false,
+            "candidate_warning": null,
+            "conditioned_by_candidate": false,
+            "conditioned_candidate_words": [],
+            "conditioned_generation_reports": [],
+            "post_b_meter_repair_enabled": false,
+            "post_b_meter_repair_attempts": 0,
+            "post_b_meter_repair_successes": 0,
+            "original_verse_3": null,
+            "original_verse_3_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'olo'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "verse_4": {
+              "text": "y el corazón no se siente solo.",
+              "last_word": "solo",
+              "rhyme": "olo"
+            },
+            "target_rhyme": "ar",
+            "current_rhyme": "olo",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ar', pero se obtuvo 'olo'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ar') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'i' | v3 = 'er'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "y me lleva lejos de ti.",
+              "last_word": "ti",
+              "rhyme": "i"
+            },
+            "verse_3": {
+              "text": "Recuerdos que se vuelven a ver,",
+              "last_word": "ver",
+              "rhyme": "er"
+            },
+            "target_rhyme": "i",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'i', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('i') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 10.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 9 silabas, pero deberia tener 11.\n- Verso 2: tiene 8 silabas, pero deberia tener 11.\n- Verso 3: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: Ajuste del número de silabas en los versos 1 y 4 para cumplir con la longitud deseada. La rima consonante ABBA también se mantuvo."
+        },
+        {
+          "stanza": [
+            "El tiempo pasa sin cesar,",
+            "y me lleva lejos de ti.",
+            "Recuerdos que vuelven a florecer,",
+            "y el corazón se siente solo."
+          ],
+          "score": 0.5,
+          "step_score": 0.5,
+          "score_history": [
+            0.5,
+            0.5,
+            0.5
+          ],
+          "preserved_by_elitism": false,
+          "metrics_summary": "versos=4/4 | endecasilabos=1/4 | rima=2/4 | score=10.0/20",
+          "meter_repair_summary": "reparación métrica = desactivada",
+          "meter_repair_report": {
+            "enabled": false,
+            "changed": false,
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que vuelven a florecer,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que vuelven a florecer,",
+              "y el corazón se siente solo."
+            ],
+            "verse_repairs": []
+          },
+          "outer_rhyme_repair_summary": "reparacion rima A = desactivada",
+          "outer_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima A desactivada.",
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que vuelven a florecer,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que vuelven a florecer,",
+              "y el corazón se siente solo."
+            ],
+            "target_rhyme": "ar",
+            "current_rhyme": "olo",
+            "verse_1": {
+              "text": "El tiempo pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "post_a_meter_repair_enabled": false,
+            "post_a_meter_repair_attempts": 0,
+            "post_a_meter_repair_successes": 0,
+            "original_verse_4": null,
+            "original_verse_4_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "inner_rhyme_repair_summary": "reparacion rima B = desactivada",
+          "inner_rhyme_repair_report": {
+            "enabled": false,
+            "attempted": false,
+            "changed": false,
+            "reason": "Reparacion de rima B desactivada.",
+            "original_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que vuelven a florecer,",
+              "y el corazón se siente solo."
+            ],
+            "repaired_stanza": [
+              "El tiempo pasa sin cesar,",
+              "y me lleva lejos de ti.",
+              "Recuerdos que vuelven a florecer,",
+              "y el corazón se siente solo."
+            ],
+            "target_rhyme": "i",
+            "current_rhyme": "er",
+            "verse_2": {
+              "text": "y me lleva lejos de ti.",
+              "last_word": "ti",
+              "rhyme": "i"
+            },
+            "candidate_final_words": [],
+            "enforced_candidate_final_words": [],
+            "has_enforced_candidate_final_words": false,
+            "candidate_warning": null,
+            "conditioned_by_candidate": false,
+            "conditioned_candidate_words": [],
+            "conditioned_generation_reports": [],
+            "post_b_meter_repair_enabled": false,
+            "post_b_meter_repair_attempts": 0,
+            "post_b_meter_repair_successes": 0,
+            "original_verse_3": null,
+            "original_verse_3_syllables": null,
+            "selected_variant": null,
+            "selected_variant_syllables": null,
+            "variants": [],
+            "error": null
+          },
+          "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ar' | v4 = 'olo'",
+          "outer_rhyme_diagnosis": {
+            "target_pattern": "AXYA",
+            "required_pair": [
+              1,
+              4
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_1": {
+              "text": "El tiempo pasa sin cesar,",
+              "last_word": "cesar",
+              "rhyme": "ar"
+            },
+            "verse_4": {
+              "text": "y el corazón se siente solo.",
+              "last_word": "solo",
+              "rhyme": "olo"
+            },
+            "target_rhyme": "ar",
+            "current_rhyme": "olo",
+            "errors": [
+              "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'ar', pero se obtuvo 'olo'."
+            ],
+            "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('ar') y reescribe el verso 4 para que termine con esa misma rima consonante."
+          },
+          "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'i' | v3 = 'er'",
+          "inner_rhyme_diagnosis": {
+            "target_pattern": "XBBY",
+            "required_pair": [
+              2,
+              3
+            ],
+            "has_enough_verses": true,
+            "is_valid": false,
+            "verse_2": {
+              "text": "y me lleva lejos de ti.",
+              "last_word": "ti",
+              "rhyme": "i"
+            },
+            "verse_3": {
+              "text": "Recuerdos que vuelven a florecer,",
+              "last_word": "florecer",
+              "rhyme": "er"
+            },
+            "target_rhyme": "i",
+            "current_rhyme": "er",
+            "errors": [
+              "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'i', pero se obtuvo 'er'."
+            ],
+            "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('i') y reescribe el verso 3 para que termine con esa misma rima consonante."
+          },
+          "feedback": "Puntuacion formal total: 10.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 1: tiene 9 silabas, pero deberia tener 11.\n- Verso 2: tiene 8 silabas, pero deberia tener 11.\n- Verso 4: tiene 10 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+          "generation_reasoning": "Corregido: Ajuste del número de silabas en los versos 1 y 4 para cumplir con la longitud deseada. La rima consonante ABBA también se mantuvo."
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "phase": "stop",
+      "reason": "max_steps",
+      "best_score": 0.5
+    }
+  ]
+}

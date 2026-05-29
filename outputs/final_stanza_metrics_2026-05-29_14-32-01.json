@@ -1,0 +1,900 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_post_a_rhyme_meter_repair": true,
+    "post_a_rhyme_meter_repair_variants": 5,
+    "post_a_rhyme_meter_repair_temperature": 0.4,
+    "post_a_rhyme_meter_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200,
+    "inner_rhyme_repair_conditioned_by_candidate": true,
+    "inner_rhyme_repair_variants_per_candidate": 2,
+    "inner_rhyme_repair_max_candidate_words": 4,
+    "enable_post_b_rhyme_meter_repair": true,
+    "post_b_rhyme_meter_repair_variants": 5,
+    "post_b_rhyme_meter_repair_temperature": 0.4,
+    "post_b_rhyme_meter_repair_num_predict": 200
+  },
+  "stanza": [
+    "El tiempo pasa, la memoria se va",
+    "Archivos olvidados, recuerdo esconden",
+    "Ojos de quienes siempre amaron, huellas allí onden",
+    "Las huellas que nunca se desvanecen"
+  ],
+  "score": 0.7651724731089556,
+  "step_score": 0.8,
+  "score_history": [
+    0.7,
+    0.8,
+    0.8
+  ],
+  "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 4: rima C, pero se esperaba A.",
+  "metrics": {
+    "score": 0.8,
+    "score_20": 16.0,
+    "verses": [
+      "El tiempo pasa, la memoria se va",
+      "Archivos olvidados, recuerdo esconden",
+      "Ojos de quienes siempre amaron, huellas allí onden",
+      "Las huellas que nunca se desvanecen"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        12,
+        11,
+        11
+      ],
+      "correct_verses": 3,
+      "total_expected_verses": 4,
+      "score": 0.75,
+      "errors": [
+        "Verso 2: tiene 12 silabas, pero deberia tener 11."
+      ]
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "a",
+        "onden",
+        "onden",
+        "ecen"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "B",
+        "C"
+      ],
+      "correct_positions": 3,
+      "total_positions": 4,
+      "score": 0.75,
+      "errors": [
+        "Verso 4: rima C, pero se esperaba A."
+      ]
+    },
+    "errors": [
+      "Verso 2: tiene 12 silabas, pero deberia tener 11.",
+      "Verso 4: rima C, pero se esperaba A."
+    ],
+    "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 2: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 4: rima C, pero se esperaba A."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": true,
+    "original_stanza": [
+      "El tiempo pasa, la memoria se va",
+      "En archivos olvidados, el recuerdo se guarda",
+      "Y en los ojos de quienes amaron siempre",
+      "Las huellas que nunca se desvanecen"
+    ],
+    "repaired_stanza": [
+      "El tiempo pasa, la memoria se va",
+      "Archivos olvidados, recuerdo esconden",
+      "Y en los ojos de quienes amaron siempre",
+      "Las huellas que nunca se desvanecen"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "El tiempo pasa, la memoria se va",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "En archivos olvidados, el recuerdo se guarda",
+        "original_syllables": 15,
+        "original_distance": 4,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Archivos olvidados, recuerdo esconden",
+        "selected_syllables": 12,
+        "selected_distance": 1,
+        "variants": [
+          {
+            "verse": "En archivos encierran, recuerdo se guarda",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "Archivos olvidados, recuerdo esconden",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "En archivos olvidad'os, el recuerdo guarda",
+            "syllables": 14,
+            "distance": 3
+          },
+          {
+            "verse": "En archivo olvidado, el recuerdo se guard",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "En archivos olvidad'os, el recuerdo se guarde",
+            "syllables": 15,
+            "distance": 4
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "Y en los ojos de quienes amaron siempre",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "Las huellas que nunca se desvanecen",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+    "original_stanza": [
+      "El tiempo pasa, la memoria se va",
+      "Archivos olvidados, recuerdo esconden",
+      "Y en los ojos de quienes amaron siempre",
+      "Las huellas que nunca se desvanecen"
+    ],
+    "repaired_stanza": [
+      "El tiempo pasa, la memoria se va",
+      "Archivos olvidados, recuerdo esconden",
+      "Y en los ojos de quienes amaron siempre",
+      "Las huellas que nunca se desvanecen"
+    ],
+    "target_rhyme": "a",
+    "current_rhyme": "ecen",
+    "verse_1": {
+      "text": "El tiempo pasa, la memoria se va",
+      "last_word": "va",
+      "rhyme": "a"
+    },
+    "candidate_final_words": [
+      "va"
+    ],
+    "enforced_candidate_final_words": [],
+    "post_a_meter_repair_enabled": true,
+    "post_a_meter_repair_attempts": 0,
+    "post_a_meter_repair_successes": 0,
+    "original_verse_4": "Las huellas que nunca se desvanecen",
+    "original_verse_4_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "Las huellas que nunca se van a perder",
+        "syllables": 12,
+        "final_word": "perder",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'a' | v4 = 'er'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Las huellas que nunca se van a desaparecer",
+        "syllables": 14,
+        "final_word": "desaparecer",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'a' | v4 = 'er'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Las huellas que nunca se van a olvidar",
+        "syllables": 12,
+        "final_word": "olvidar",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'a' | v4 = 'ar'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Las huellas que nunca se van a esconder",
+        "syllables": 12,
+        "final_word": "esconder",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'a' | v4 = 'er'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Las huellas que nunca se van a esfumar",
+        "syllables": 12,
+        "final_word": "esfumar",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'a' | v4 = 'ar'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": true,
+    "reason": "Se acepto una variante que corrige la rima interior B.",
+    "original_stanza": [
+      "El tiempo pasa, la memoria se va",
+      "Archivos olvidados, recuerdo esconden",
+      "Y en los ojos de quienes amaron siempre",
+      "Las huellas que nunca se desvanecen"
+    ],
+    "repaired_stanza": [
+      "El tiempo pasa, la memoria se va",
+      "Archivos olvidados, recuerdo esconden",
+      "Ojos de quienes siempre amaron, huellas allí onden",
+      "Las huellas que nunca se desvanecen"
+    ],
+    "target_rhyme": "onden",
+    "current_rhyme": "empre",
+    "verse_2": {
+      "text": "Archivos olvidados, recuerdo esconden",
+      "last_word": "esconden",
+      "rhyme": "onden"
+    },
+    "candidate_final_words": [
+      "esconden"
+    ],
+    "enforced_candidate_final_words": [],
+    "has_enforced_candidate_final_words": false,
+    "candidate_warning": "No hay palabras finales candidatas distintas de la palabra ancla para la rima B.",
+    "conditioned_by_candidate": false,
+    "conditioned_candidate_words": [],
+    "conditioned_generation_reports": [],
+    "post_b_meter_repair_enabled": true,
+    "post_b_meter_repair_attempts": 5,
+    "post_b_meter_repair_successes": 3,
+    "original_verse_3": "Y en los ojos de quienes amaron siempre",
+    "original_verse_3_syllables": 11,
+    "selected_variant": "Ojos de quienes siempre amaron, huellas allí onden",
+    "selected_variant_syllables": 11,
+    "variants": [
+      {
+        "verse": "Y en los ojos de quienes siempre amaron, el tiempo se va onden",
+        "syllables": 16,
+        "final_word": "onden",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'onden' | v3 = 'onden'",
+        "post_b_meter_repair_attempted": true,
+        "post_b_meter_repair_report": {
+          "enabled": true,
+          "repair_label": "post_b",
+          "attempted": true,
+          "changed": true,
+          "reason": "Se reparo la metrica conservando la palabra final obligatoria.",
+          "original_stanza": [
+            "El tiempo pasa, la memoria se va",
+            "Archivos olvidados, recuerdo esconden",
+            "Y en los ojos de quienes siempre amaron, el tiempo se va onden",
+            "Las huellas que nunca se desvanecen"
+          ],
+          "repaired_stanza": [
+            "El tiempo pasa, la memoria se va",
+            "Archivos olvidados, recuerdo esconden",
+            "Y en los ojos que amaron siempre, el tiempo se va a onden",
+            "Las huellas que nunca se desvanecen"
+          ],
+          "verse_number": 3,
+          "required_final_word": "onden",
+          "original_verse": "Y en los ojos de quienes siempre amaron, el tiempo se va onden",
+          "original_syllables": 16,
+          "original_distance": 5,
+          "selected_variant": "Y en los ojos que amaron siempre, el tiempo se va a onden",
+          "selected_syllables": 13,
+          "selected_distance": 2,
+          "variants": [
+            {
+              "verse": "En los ojos de quienes siempre amaron, el tiempo se va a onden",
+              "syllables": 15,
+              "distance": 4,
+              "final_word": "onden",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Y en los ojos que amaron siempre, el tiempo se va a onden",
+              "syllables": 13,
+              "distance": 2,
+              "final_word": "onden",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": true,
+              "rejection_reason": null
+            },
+            {
+              "verse": "El tiempo se va a onden en los ojos de quienes aman",
+              "syllables": 13,
+              "distance": 2,
+              "final_word": "aman",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "En los ojos, el tiempo se va a onden, quienes siempre amaron",
+              "syllables": 14,
+              "distance": 3,
+              "final_word": "amaron",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Y en los ojos de quienes aman siempre, el tiempo va a onden",
+              "syllables": 14,
+              "distance": 3,
+              "final_word": "onden",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            }
+          ],
+          "error": null
+        },
+        "post_b_meter_repaired_verse": "Y en los ojos que amaron siempre, el tiempo se va a onden",
+        "post_b_meter_repaired_syllables": 13,
+        "post_b_meter_repaired_distance": 2,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "Corrige B, pero la reparacion metrica posterior no consigue una variante aceptable."
+      },
+      {
+        "verse": "Y en los ojos de quienes siempre amaron, las huellas onden",
+        "syllables": 15,
+        "final_word": "onden",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'onden' | v3 = 'onden'",
+        "post_b_meter_repair_attempted": true,
+        "post_b_meter_repair_report": {
+          "enabled": true,
+          "repair_label": "post_b",
+          "attempted": true,
+          "changed": true,
+          "reason": "Se reparo la metrica conservando la palabra final obligatoria.",
+          "original_stanza": [
+            "El tiempo pasa, la memoria se va",
+            "Archivos olvidados, recuerdo esconden",
+            "Y en los ojos de quienes siempre amaron, las huellas onden",
+            "Las huellas que nunca se desvanecen"
+          ],
+          "repaired_stanza": [
+            "El tiempo pasa, la memoria se va",
+            "Archivos olvidados, recuerdo esconden",
+            "Ojos de quienes siempre amaron, huellas allí onden",
+            "Las huellas que nunca se desvanecen"
+          ],
+          "verse_number": 3,
+          "required_final_word": "onden",
+          "original_verse": "Y en los ojos de quienes siempre amaron, las huellas onden",
+          "original_syllables": 15,
+          "original_distance": 4,
+          "selected_variant": "Ojos de quienes siempre amaron, huellas allí onden",
+          "selected_syllables": 11,
+          "selected_distance": 0,
+          "variants": [
+            {
+              "verse": "Y en ojos que siempre amaron, huellas flotan onden",
+              "syllables": 13,
+              "distance": 2,
+              "final_word": "onden",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            },
+            {
+              "verse": "En ojos de quienes siempre amaron, huellas dondé onden",
+              "syllables": 13,
+              "distance": 2,
+              "final_word": "onden",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Ojos de quienes siempre amaron, huellas allí onden",
+              "syllables": 11,
+              "distance": 0,
+              "final_word": "onden",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": true,
+              "rejection_reason": null
+            },
+            {
+              "verse": "En ojos que siempre amaron, huellas ahí onden",
+              "syllables": 10,
+              "distance": 1,
+              "final_word": "onden",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Ojos de quienes siempre amaron, huellas en onden",
+              "syllables": 12,
+              "distance": 1,
+              "final_word": "onden",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            }
+          ],
+          "error": null
+        },
+        "post_b_meter_repaired_verse": "Ojos de quienes siempre amaron, huellas allí onden",
+        "post_b_meter_repaired_syllables": 11,
+        "post_b_meter_repaired_distance": 0,
+        "post_b_meter_repair_accepted": true,
+        "accepted": true,
+        "rejection_reason": null
+      },
+      {
+        "verse": "Y en los ojos de quienes siempre amaron, las trazas onden",
+        "syllables": 15,
+        "final_word": "onden",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'onden' | v3 = 'onden'",
+        "post_b_meter_repair_attempted": true,
+        "post_b_meter_repair_report": {
+          "enabled": true,
+          "repair_label": "post_b",
+          "attempted": true,
+          "changed": true,
+          "reason": "Se reparo la metrica conservando la palabra final obligatoria.",
+          "original_stanza": [
+            "El tiempo pasa, la memoria se va",
+            "Archivos olvidados, recuerdo esconden",
+            "Y en los ojos de quienes siempre amaron, las trazas onden",
+            "Las huellas que nunca se desvanecen"
+          ],
+          "repaired_stanza": [
+            "El tiempo pasa, la memoria se va",
+            "Archivos olvidados, recuerdo esconden",
+            "Y en ojos que siempre amaron, trazas onden",
+            "Las huellas que nunca se desvanecen"
+          ],
+          "verse_number": 3,
+          "required_final_word": "onden",
+          "original_verse": "Y en los ojos de quienes siempre amaron, las trazas onden",
+          "original_syllables": 15,
+          "original_distance": 4,
+          "selected_variant": "Y en ojos que siempre amaron, trazas onden",
+          "selected_syllables": 11,
+          "selected_distance": 0,
+          "variants": [
+            {
+              "verse": "Y en ojos que siempre amaron, trazas onden",
+              "syllables": 11,
+              "distance": 0,
+              "final_word": "onden",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": true,
+              "rejection_reason": null
+            },
+            {
+              "verse": "En ojos de quienes siempre amaron, onden trazas",
+              "syllables": 12,
+              "distance": 1,
+              "final_word": "trazas",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Ojos que siempre amaron, trazas onden allí",
+              "syllables": 11,
+              "distance": 0,
+              "final_word": "allí",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Ojos amados, trazas onden en sus miradas",
+              "syllables": 12,
+              "distance": 1,
+              "final_word": "miradas",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Trazas onden en ojos de siempre amor",
+              "syllables": 10,
+              "distance": 1,
+              "final_word": "amor",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            }
+          ],
+          "error": null
+        },
+        "post_b_meter_repaired_verse": "Y en ojos que siempre amaron, trazas onden",
+        "post_b_meter_repaired_syllables": 11,
+        "post_b_meter_repaired_distance": 0,
+        "post_b_meter_repair_accepted": true,
+        "accepted": false,
+        "rejection_reason": null
+      },
+      {
+        "verse": "Y en los ojos de quienes siempre amaron, el recuerdo onden",
+        "syllables": 15,
+        "final_word": "onden",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'onden' | v3 = 'onden'",
+        "post_b_meter_repair_attempted": true,
+        "post_b_meter_repair_report": {
+          "enabled": true,
+          "repair_label": "post_b",
+          "attempted": true,
+          "changed": false,
+          "reason": "Ninguna variante conserva la palabra final y mejora la metrica.",
+          "original_stanza": [
+            "El tiempo pasa, la memoria se va",
+            "Archivos olvidados, recuerdo esconden",
+            "Y en los ojos de quienes siempre amaron, el recuerdo onden",
+            "Las huellas que nunca se desvanecen"
+          ],
+          "repaired_stanza": [
+            "El tiempo pasa, la memoria se va",
+            "Archivos olvidados, recuerdo esconden",
+            "Y en los ojos de quienes siempre amaron, el recuerdo onden",
+            "Las huellas que nunca se desvanecen"
+          ],
+          "verse_number": 3,
+          "required_final_word": "onden",
+          "original_verse": "Y en los ojos de quienes siempre amaron, el recuerdo onden",
+          "original_syllables": 15,
+          "original_distance": 4,
+          "selected_variant": null,
+          "selected_syllables": null,
+          "selected_distance": null,
+          "variants": [
+            {
+              "verse": "Y en los ojos, onden",
+              "syllables": 6,
+              "distance": 5,
+              "final_word": "onden",
+              "preserves_final_word": true,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No mejora la distancia metrica del verso."
+            },
+            {
+              "verse": "En sus ojos, onden",
+              "syllables": 5,
+              "distance": 6,
+              "final_word": "onden",
+              "preserves_final_word": true,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No mejora la distancia metrica del verso."
+            },
+            {
+              "verse": "Ojos que amaron, onden",
+              "syllables": 5,
+              "distance": 6,
+              "final_word": "onden",
+              "preserves_final_word": true,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No mejora la distancia metrica del verso."
+            },
+            {
+              "verse": "Onden de quienes siempre amaron",
+              "syllables": 8,
+              "distance": 3,
+              "final_word": "amaron",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Sus ojos onden",
+              "syllables": 4,
+              "distance": 7,
+              "final_word": "onden",
+              "preserves_final_word": true,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No mejora la distancia metrica del verso."
+            }
+          ],
+          "error": null
+        },
+        "post_b_meter_repaired_verse": "Y en los ojos de quienes siempre amaron, el recuerdo onden",
+        "post_b_meter_repaired_syllables": 15,
+        "post_b_meter_repaired_distance": 4,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "Corrige B, pero la reparacion metrica posterior no consigue una variante aceptable."
+      },
+      {
+        "verse": "Y en los ojos de quienes siempre amaron, la memoria onden",
+        "syllables": 15,
+        "final_word": "onden",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'onden' | v3 = 'onden'",
+        "post_b_meter_repair_attempted": true,
+        "post_b_meter_repair_report": {
+          "enabled": true,
+          "repair_label": "post_b",
+          "attempted": true,
+          "changed": true,
+          "reason": "Se reparo la metrica conservando la palabra final obligatoria.",
+          "original_stanza": [
+            "El tiempo pasa, la memoria se va",
+            "Archivos olvidados, recuerdo esconden",
+            "Y en los ojos de quienes siempre amaron, la memoria onden",
+            "Las huellas que nunca se desvanecen"
+          ],
+          "repaired_stanza": [
+            "El tiempo pasa, la memoria se va",
+            "Archivos olvidados, recuerdo esconden",
+            "Los ojos que siempre amaron, allí memoria onden",
+            "Las huellas que nunca se desvanecen"
+          ],
+          "verse_number": 3,
+          "required_final_word": "onden",
+          "original_verse": "Y en los ojos de quienes siempre amaron, la memoria onden",
+          "original_syllables": 15,
+          "original_distance": 4,
+          "selected_variant": "Los ojos que siempre amaron, allí memoria onden",
+          "selected_syllables": 11,
+          "selected_distance": 0,
+          "variants": [
+            {
+              "verse": "Y en los ojos de quienes siempre amaron, memoria onden",
+              "syllables": 14,
+              "distance": 3,
+              "final_word": "onden",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            },
+            {
+              "verse": "En los ojos de quienes siempre amaban, memoria onden",
+              "syllables": 13,
+              "distance": 2,
+              "final_word": "onden",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Los ojos que siempre amaron, allí memoria onden",
+              "syllables": 11,
+              "distance": 0,
+              "final_word": "onden",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": true,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Ojos que siempre amaron, en ellos memoria onden",
+              "syllables": 11,
+              "distance": 0,
+              "final_word": "onden",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Siempre amados ojos, memoria allí onden",
+              "syllables": 8,
+              "distance": 3,
+              "final_word": "onden",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            }
+          ],
+          "error": null
+        },
+        "post_b_meter_repaired_verse": "Los ojos que siempre amaron, allí memoria onden",
+        "post_b_meter_repaired_syllables": 11,
+        "post_b_meter_repaired_distance": 0,
+        "post_b_meter_repair_accepted": true,
+        "accepted": false,
+        "rejection_reason": null
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_1": {
+      "text": "El tiempo pasa, la memoria se va",
+      "last_word": "va",
+      "rhyme": "a"
+    },
+    "verse_4": {
+      "text": "Las huellas que nunca se desvanecen",
+      "last_word": "desvanecen",
+      "rhyme": "ecen"
+    },
+    "target_rhyme": "a",
+    "current_rhyme": "ecen",
+    "errors": [
+      "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'a', pero se obtuvo 'ecen'."
+    ],
+    "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('a') y reescribe el verso 4 para que termine con esa misma rima consonante."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": true,
+    "verse_2": {
+      "text": "Archivos olvidados, recuerdo esconden",
+      "last_word": "esconden",
+      "rhyme": "onden"
+    },
+    "verse_3": {
+      "text": "Ojos de quienes siempre amaron, huellas allí onden",
+      "last_word": "onden",
+      "rhyme": "onden"
+    },
+    "target_rhyme": "onden",
+    "current_rhyme": "onden",
+    "errors": [],
+    "feedback": "La rima interior B es correcta: el verso 3 conserva la rima consonante del verso 2 ('onden')."
+  },
+  "generation_reasoning": "Corregido la rima del verso 4 para cumplir con las restricciones."
+}

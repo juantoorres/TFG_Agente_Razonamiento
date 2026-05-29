@@ -1,0 +1,259 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_local_meter_repair": false,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": false,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_post_a_rhyme_meter_repair": false,
+    "post_a_rhyme_meter_repair_variants": 5,
+    "post_a_rhyme_meter_repair_temperature": 0.4,
+    "post_a_rhyme_meter_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": false,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200,
+    "inner_rhyme_repair_conditioned_by_candidate": false,
+    "inner_rhyme_repair_variants_per_candidate": 2,
+    "inner_rhyme_repair_max_candidate_words": 4,
+    "enable_post_b_rhyme_meter_repair": false,
+    "post_b_rhyme_meter_repair_variants": 5,
+    "post_b_rhyme_meter_repair_temperature": 0.4,
+    "post_b_rhyme_meter_repair_num_predict": 200
+  },
+  "stanza": [
+    "El tiempo pasa, y yo me quedo atrás",
+    "En recuerdos, como un olvido mudo",
+    "Que en el corazón se alberga sueño",
+    "Y que no se puede deshacer la pena"
+  ],
+  "score": 0.5646216173286172,
+  "step_score": 0.6,
+  "score_history": [
+    0.5,
+    0.6,
+    0.6
+  ],
+  "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 3: tiene 10 silabas, pero deberia tener 11.\n- Verso 4: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+  "metrics": {
+    "score": 0.6,
+    "score_20": 12.0,
+    "verses": [
+      "El tiempo pasa, y yo me quedo atrás",
+      "En recuerdos, como un olvido mudo",
+      "Que en el corazón se alberga sueño",
+      "Y que no se puede deshacer la pena"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        10,
+        12
+      ],
+      "correct_verses": 2,
+      "total_expected_verses": 4,
+      "score": 0.5,
+      "errors": [
+        "Verso 3: tiene 10 silabas, pero deberia tener 11.",
+        "Verso 4: tiene 12 silabas, pero deberia tener 11."
+      ]
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "as",
+        "udo",
+        "eño",
+        "ena"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_positions": 2,
+      "total_positions": 4,
+      "score": 0.5,
+      "errors": [
+        "Verso 3: rima C, pero se esperaba B.",
+        "Verso 4: rima D, pero se esperaba A."
+      ]
+    },
+    "errors": [
+      "Verso 3: tiene 10 silabas, pero deberia tener 11.",
+      "Verso 4: tiene 12 silabas, pero deberia tener 11.",
+      "Verso 3: rima C, pero se esperaba B.",
+      "Verso 4: rima D, pero se esperaba A."
+    ],
+    "feedback": "Puntuacion formal total: 12.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 3: tiene 10 silabas, pero deberia tener 11.\n- Verso 4: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A."
+  },
+  "meter_repair_report": {
+    "enabled": false,
+    "changed": false,
+    "original_stanza": [
+      "El tiempo pasa, y yo me quedo atrás",
+      "En recuerdos, como un olvido mudo",
+      "Que en el corazón se alberga sueño",
+      "Y que no se puede deshacer la pena"
+    ],
+    "repaired_stanza": [
+      "El tiempo pasa, y yo me quedo atrás",
+      "En recuerdos, como un olvido mudo",
+      "Que en el corazón se alberga sueño",
+      "Y que no se puede deshacer la pena"
+    ],
+    "verse_repairs": []
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": false,
+    "attempted": false,
+    "changed": false,
+    "reason": "Reparacion de rima A desactivada.",
+    "original_stanza": [
+      "El tiempo pasa, y yo me quedo atrás",
+      "En recuerdos, como un olvido mudo",
+      "Que en el corazón se alberga sueño",
+      "Y que no se puede deshacer la pena"
+    ],
+    "repaired_stanza": [
+      "El tiempo pasa, y yo me quedo atrás",
+      "En recuerdos, como un olvido mudo",
+      "Que en el corazón se alberga sueño",
+      "Y que no se puede deshacer la pena"
+    ],
+    "target_rhyme": "as",
+    "current_rhyme": "ena",
+    "verse_1": {
+      "text": "El tiempo pasa, y yo me quedo atrás",
+      "last_word": "atrás",
+      "rhyme": "as"
+    },
+    "candidate_final_words": [],
+    "enforced_candidate_final_words": [],
+    "post_a_meter_repair_enabled": false,
+    "post_a_meter_repair_attempts": 0,
+    "post_a_meter_repair_successes": 0,
+    "original_verse_4": null,
+    "original_verse_4_syllables": null,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": false,
+    "attempted": false,
+    "changed": false,
+    "reason": "Reparacion de rima B desactivada.",
+    "original_stanza": [
+      "El tiempo pasa, y yo me quedo atrás",
+      "En recuerdos, como un olvido mudo",
+      "Que en el corazón se alberga sueño",
+      "Y que no se puede deshacer la pena"
+    ],
+    "repaired_stanza": [
+      "El tiempo pasa, y yo me quedo atrás",
+      "En recuerdos, como un olvido mudo",
+      "Que en el corazón se alberga sueño",
+      "Y que no se puede deshacer la pena"
+    ],
+    "target_rhyme": "udo",
+    "current_rhyme": "eño",
+    "verse_2": {
+      "text": "En recuerdos, como un olvido mudo",
+      "last_word": "mudo",
+      "rhyme": "udo"
+    },
+    "candidate_final_words": [],
+    "enforced_candidate_final_words": [],
+    "has_enforced_candidate_final_words": false,
+    "candidate_warning": null,
+    "conditioned_by_candidate": false,
+    "conditioned_candidate_words": [],
+    "conditioned_generation_reports": [],
+    "post_b_meter_repair_enabled": false,
+    "post_b_meter_repair_attempts": 0,
+    "post_b_meter_repair_successes": 0,
+    "original_verse_3": null,
+    "original_verse_3_syllables": null,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_1": {
+      "text": "El tiempo pasa, y yo me quedo atrás",
+      "last_word": "atrás",
+      "rhyme": "as"
+    },
+    "verse_4": {
+      "text": "Y que no se puede deshacer la pena",
+      "last_word": "pena",
+      "rhyme": "ena"
+    },
+    "target_rhyme": "as",
+    "current_rhyme": "ena",
+    "errors": [
+      "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'as', pero se obtuvo 'ena'."
+    ],
+    "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('as') y reescribe el verso 4 para que termine con esa misma rima consonante."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_2": {
+      "text": "En recuerdos, como un olvido mudo",
+      "last_word": "mudo",
+      "rhyme": "udo"
+    },
+    "verse_3": {
+      "text": "Que en el corazón se alberga sueño",
+      "last_word": "sueño",
+      "rhyme": "eño"
+    },
+    "target_rhyme": "udo",
+    "current_rhyme": "eño",
+    "errors": [
+      "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'udo', pero se obtuvo 'eño'."
+    ],
+    "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('udo') y reescribe el verso 3 para que termine con esa misma rima consonante."
+  },
+  "generation_reasoning": "Corregiendo errores de silabas y rima del verso 3 y 4."
+}
