@@ -28,6 +28,10 @@
 \usepackage{enumitem}
 \setlist{nosep} % Para evitar que entre los elementos de \itemize haya mucha distancia
 
+% Para añadir diagrama de barras en el último capítulo
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
 % Listings config
 \lstset{
   basicstyle=\ttfamily\small,
@@ -135,6 +139,28 @@ EL RESUMEN MEJOR DEJARLO PARA EL FINAL, YA QUE TAMBIÉN SE DEBEN INCLUIR ASPECTO
 % ====================================== AGRADECIMIENTOS ====================================
 \begin{umaacknowledgments}
 ESTA PARTE ES LO ÚLTIMO DEL TFG
+
+%Primero de todo, quiero expresar mi más sincero agradecimiento a mi tutor, el profesor Sergio Gálvez Rojas, por su apoyo, orientación y paciencia a lo largo de todo el proceso de desarrollo de este proyecto.
+%Su experiencia y conocimientos han sido fundamentales para superar los desafíos encontrados y para guiarme en la dirección correcta.
+
+%En segundo lugar, quiero agradecer a mis compañeros de clase, en especial a Pedro, Placi y Sergio, por todos los momentos compartidos, tanto dentro como fuera del ámbito académico, y que forman parte sin duda de esta etapa universitaria y, por qué no, de este proyecto de fin de grado.
+
+%A Alejandro y Álvaro, mis compañeros de piso durante los dos últimos años de la carrera, gracias por vuestra compañía, apoyo y por hacer que la convivencia haya sido una experiencia tan positiva.
+
+%Por supuesto, a Ángel, mi mejor amigo, gracias por estar siempre ahí, por escucharme, por compartir tus ideas y por ser una fuente constante de orgullo, motivación e inspiración.
+
+%Y, sin duda, el agradecimiento más especial e importante, no sólo durante estos 4 años de carrera, sino a lo largo de toda mi vida, va para mi familia.
+%Comenzando por mis hermanas: Esperanza, por ser un ejemplo de esfuerzo y dedicación, y por tu apoyo incondicional en cada paso que doy; y Paula, por tu alegría, energía y cariño, que siempre me han dado fuerzas para seguir adelante.
+
+%A mi mayor referente, mi padre, Juan, por ser un pilar fundamental en mi vida, por enseñarme el valor del trabajo duro y por estar siempre dispuesto a apoyarme en cada decisión que tomo. El hombre al que aspiro a parecerme, mi mayor fuente de inspiración.
+%Ejemplo constante de empeño, sacrificio y dedicación, y que me ha enseñado a perseguir mis sueños con pasión y determinación.
+
+%Y, por último, a mi madre, Margarita. Gracias por ser el corazón de nuestra familia, por tu amor incondicional, por esa sonrisa o ese beso que, incluso en los momentos más difíciles, hace que todo lo malo desaparezca.
+%Ejemplo de fortaleza y amor, y que me ha enseñado a ser la persona que soy hoy. Sin ti, nada de esto habría sido posible.
+
+% ESTO CREO QUE FINALMENTE LO VOY A QUITAR
+% Gracias a todas esas personas que, de una forma u otra, han formado parte de esta etapa de mi vida. Gracias por vuestro apoyo y por compartir conmigo esta experiencia. Sin vosotros, estos 4 años en Málaga y este proyecto de fin de grado no habrían sido lo mismo.
+
 \end{umaacknowledgments}
 
 %────────────────────── TOC and lists ──────────────────────────────────
@@ -165,18 +191,31 @@ ESTA PARTE ES LO ÚLTIMO DEL TFG
 %\setlength{\parindent}{0pt}
 %\setlength{\parskip}{0.5em}
 
-En los últimos años, el desarrollo de los \emph{Large Language Models (LLMs)} ha supuesto un avance significativo en tareas de procesamiento
-del lenguaje natural. Sin embargo, a pesar de la capacidad para generar texto coherente y resolver una amplia variedad de tareas, estos modelos
-presentan limitaciones en lo que a enfrentar problemas que requieren un razonamiento complejo se refiere, ya que tienden a generar respuestas
-directas sin una estructura intermedia explícita.
+%En los últimos años, el desarrollo de los \emph{Large Language Models (LLMs)} ha supuesto un avance significativo en tareas de procesamiento
+%del lenguaje natural. Sin embargo, a pesar de la capacidad para generar texto coherente y resolver una amplia variedad de tareas, estos modelos
+%presentan limitaciones en lo que a enfrentar problemas que requieren un razonamiento complejo se refiere, ya que tienden a generar respuestas
+%directas sin una estructura intermedia explícita.
 
-La ausencia de pasos intermedios limita la capacidad de valorar el razonamiento, desencadenando en falta de transparencia y control sobre cómo se
-construye el razonamiento.
-Es por ello que surge la necesidad de desarrollar sistemas que no solo generen respuestas, sino que estructuren su proceso de razonamiento y evalúen
-sus propios pasos intermedios, con un enfoque que facilite la experimentación y análisis del comportamiento del modelo.
+%La ausencia de pasos intermedios limita la capacidad de valorar el razonamiento, desencadenando en falta de transparencia y control sobre cómo se
+%construye el razonamiento.
+%Es por ello que surge la necesidad de desarrollar sistemas que no solo generen respuestas, sino que estructuren su proceso de razonamiento y evalúen
+%sus propios pasos intermedios, con un enfoque que facilite la experimentación y análisis del comportamiento del modelo.
 
-En conclusión, este proyecto se plantea a partir de la motivación por construir algo más complejo que una simple llamada a un modelo, profundizando
-así en un área en crecimiento, desde el interés por entender no solo qué responden estos modelos, sino cómo llegan a hacerlo.
+%En conclusión, este proyecto se plantea a partir de la motivación por construir algo más complejo que una simple llamada a un modelo, profundizando
+%así en un área en crecimiento, desde el interés por entender no solo qué responden estos modelos, sino cómo llegan a hacerlo.
+
+En los últimos años, el desarrollo de los \emph{Large Language Models (LLMs)} ha supuesto un avance significativo en tareas de procesamiento del lenguaje natural. Estos modelos son capaces de generar texto coherente y
+resolver una amplia variedad de tareas, pero siguen presentando limitaciones cuando deben cumplir restricciones concretas o seguir un proceso de razonamiento controlado.
+
+Una de las principales dificultades es que tienden a generar respuestas finales de forma directa, sin hacer explícito un proceso intermedio de exploración, evaluación o corrección. Esta ausencia de pasos intermedios
+dificulta analizar cómo se construye la respuesta y reduce el control sobre el resultado generado.
+
+A partir de esta idea surge la motivación de este trabajo: construir un sistema que no se limite a realizar una única llamada a un modelo de lenguaje, sino que organice la generación como un proceso iterativo.
+Para ello, el proyecto combina un LLM local con una arquitectura basada en LangGraph y Beam Search, permitiendo generar varias alternativas, evaluarlas formalmente y conservar las más prometedoras.
+
+Como caso de estudio, se plantea la generación de una estrofa clásica en español. Esta tarea resulta adecuada porque combina generación de lenguaje natural con restricciones verificables, como el número de versos,
+la métrica endecasílaba y la rima consonante ABBA.
+
 
 \section{Trabajos Previos}
 
@@ -202,22 +241,50 @@ continua siendo un área en pleno desarrollo.
 
 \section{Objetivos}
 
-El objetivo principal de este trabajo es desarrollar una prueba de concepto de un agente basado en modelos de lenguaje capaz de incorporar un proceso de
-razonamiento estructurado, en lugar de generar respuestas de forma directa. De esta forma, y con el objetivo de facilitar un aálisis detallado del proceso
-seguido por el modelo, se busca explorar un enfoque que permita descomponer la resolución de un problema de índole lingüística en una serie de pasos intermedios.
+%El objetivo principal de este trabajo es desarrollar una prueba de concepto de un agente basado en modelos de lenguaje capaz de incorporar un proceso de
+%razonamiento estructurado, en lugar de generar respuestas de forma directa. De esta forma, y con el objetivo de facilitar un aálisis detallado del proceso
+%seguido por el modelo, se busca explorar un enfoque que permita descomponer la resolución de un problema de índole lingüística en una serie de pasos intermedios.
 
-De forma más concreta, se pretende implementar un sistema que no dependa únicamente de un camino de razonamiento, sino que sea capaz de generar múltiples posibles
-trayectorias, permitiendo así analizar y estudiar como evoluciona el proceso de generación de cada una de ellas. Asimismo, un mecanismo evaluará la calidad de dichos
-razonamientos generados, con el fin de seleccionar aquellos que resulten más adecuados con el tipo de problema que con el que se está trabajando. Este proceso de
-evaluación se utilizará por tanto para guiar la exploración del espacio de soluciones, descartando las opciones menos prometedoras.
+%De forma más concreta, se pretende implementar un sistema que no dependa únicamente de un camino de razonamiento, sino que sea capaz de generar múltiples posibles
+%trayectorias, permitiendo así analizar y estudiar como evoluciona el proceso de generación de cada una de ellas. Asimismo, un mecanismo evaluará la calidad de dichos
+%razonamientos generados, con el fin de seleccionar aquellos que resulten más adecuados con el tipo de problema que con el que se está trabajando. Este proceso de
+%evaluación se utilizará por tanto para guiar la exploración del espacio de soluciones, descartando las opciones menos prometedoras.
 
-Otro gran objetivo de este proyecto se centra en la estructuración del funcionamiento del sistema mediante un flujo de ejecución organizado, que facilite no solo la
-comprensión de este, sino también su posible extensión en trabajos futuros.
+%Otro gran objetivo de este proyecto se centra en la estructuración del funcionamiento del sistema mediante un flujo de ejecución organizado, que facilite no solo la
+%comprensión de este, sino también su posible extensión en trabajos futuros.
 
-Por último, se busca analizar el comportamiento del agente desarrollado a través de problemas de índole lingüística...
+%Por último, se busca analizar el comportamiento del agente desarrollado a través de problemas de índole lingüística...
+
+El objetivo principal de este trabajo es desarrollar una prueba de concepto de un agente basado en modelos de lenguaje capaz de generar texto mediante un proceso estructurado de exploración, evaluación y selección,
+en lugar de limitarse a una única respuesta directa del modelo.
+
+Como caso de estudio, se plantea la generación automática de una estrofa clásica en español formada por cuatro versos, con métrica endecasílaba y rima consonante ABBA. Esta tarea permite combinar generación de lenguaje natural
+con restricciones formales verificables, facilitando así el análisis objetivo de los resultados obtenidos.
+
+Para ello, se propone implementar una arquitectura basada en LangGraph y Beam Search, capaz de mantener varias estrofas candidatas en paralelo. En cada iteración, el sistema genera nuevas alternativas, evalúa su grado de cumplimiento
+formal y conserva aquellas que resultan más prometedoras.
+
+Por último, se busca analizar experimentalmente el comportamiento del agente desarrollado, estudiando hasta qué punto este enfoque iterativo mejora la generación directa y qué relación existe entre la calidad formal de las
+salidas y el coste computacional del proceso.
 
 
 \section{Estructura del Proyecto}
+
+La memoria se organiza en varios capítulos, siguiendo una progresión desde el contexto teórico del trabajo hasta la implementación y evaluación del sistema desarrollado.
+
+En el Capítulo 1 se presenta la introducción del proyecto, incluyendo la motivación, los trabajos previos relacionados, los objetivos planteados y la estructura general de la memoria.
+
+El Capítulo 2 recoge el estado del arte sobre el razonamiento en modelos de lenguaje, prestando especial atención a técnicas como \emph{Chain-of-Thought}, métodos de búsqueda en generación de secuencias
+y el uso de \emph{Beam Search} en combinación con \emph{Large Language Models}.
+
+En el Capítulo 3 se introduce \emph{LangGraph} como herramienta para la construcción de agentes basados en grafos. Se explican sus conceptos fundamentales, como el estado, los nodos, las aristas y los bucles,
+y se muestran ejemplos básicos que sirven como base para el sistema implementado posteriormente.
+
+El Capítulo 4 describe la implementación del agente propuesto, así como el proceso de experimentación y refinamiento seguido durante el desarrollo. En él se analiza la arquitectura basada en \emph{LangGraph} y \emph{Beam Search},
+la función de evaluación formal, los ciclos experimentales realizados y la comparación entre la versión base y la versión refinada.
+
+Además, este último capítulo recoge las conclusiones del trabajo, valorando los resultados obtenidos, las limitaciones encontradas y posibles líneas de trabajo futuro.
+
 
 %────────────────────── Chapter 2 — Estado del arte ───────────────────────
 \chapter{Estado del Arte}
@@ -1046,7 +1113,7 @@ La figura~\ref{fig:procesoRazonamiento} muestra la estructura general del grafo 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.7\textwidth]{images/Imagen 4.1.png}
+    \includegraphics[width=1.0\textwidth]{images/procesoRazonamiento2.png}
     \caption{Esquema del proceso de razonamiento basado en Beam Search con evaluación y poda de trayectorias. Fuente: elaboración propia}
     \label{fig:procesoRazonamiento}
 \end{figure}
@@ -1165,10 +1232,10 @@ estimar la métrica y comprobar el esquema de rima. De este modo, el sistema com
 
 Además, las llamadas a Ollama se configuran mediante parámetros como la temperatura y el número máximo de tokens generados. La temperatura controla el grado de variabilidad de las respuestas. Una temperatura baja favorece salidas más estables y conservadoras,
 mientras que una temperatura mayor incrementa la diversidad de las variantes generadas. En el contexto de este trabajo, este parámetro resulta especialmente relevante, ya que el sistema necesita explorar alternativas, pero sin perder por completo el control sobre la forma de la estrofa.
+ 
+El siguiente Listado~\ref{lst:integracionOllama} muestra una versión simplificada de la función encargada de realizar la llamada al modelo:
 
-El siguiente fragmento muestra una versión simplificada de la función encargada de realizar la llamada al modelo:
-
-\begin{lstlisting}[language=Python, caption={Función de comunicación con Ollama}]
+\begin{lstlisting}[language=Python, caption={Función de comunicación con Ollama}, label={lst:integracionOllama}]
 def chat_ollama(
     model: str,
     messages: List[Dict[str, str]],
@@ -1262,7 +1329,7 @@ generación inicial, corrección iterativa y reparación local. Esta separación
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.85\textwidth]{images/EstrategiasPromptingAgente.png}
+    \includegraphics[width=0.75\textwidth]{images/EstrategiasPromptingAgente.png}
     \caption{Estrategias de prompting utilizadas por el agente durante el proceso de generación y refinamiento de estrofas. Fuente: elaboración propia}
     \label{fig:EstrategiasPromptingAgente}
 \end{figure}
@@ -1278,6 +1345,50 @@ Por esta razón, los prompts insisten en que la salida debe contener únicamente
 
 A pesar de estas instrucciones, los modelos de lenguaje pueden producir salidas con elementos no deseados, como numeraciones, comillas, títulos o frases introductorias.
 Por ello, el sistema incluye pasos de limpieza y normalización antes de evaluar cada candidata. Estos pasos permiten reducir el impacto de pequeñas desviaciones de formato y mejorar la robustez general del proceso.
+
+Un ejemplo de paso de limpieza y noramlización se muestra en el Listado~\ref{lst:limpiezaRespuesta}, donde se eliminan numeraciones, comillas y otros elementos que el modelo podría incluir de forma automática:
+
+\begin{lstlisting}[language=Python, caption={Ejemplo de limpieza y normalización de respuestas}, label={lst:limpiezaRespuesta}]
+    
+    def clean_generated_verse(verse: str) -> str:
+    """Limpia numeracion, comillas exteriores y espacios duplicados."""
+
+    cleaned_verse = str(verse).strip()
+
+    # Casos habituales: "1. verso", "1) verso", "1- verso", "- verso".
+    cleaned_verse = re.sub(
+        r"^\s*(?:[-*]\s+|\d+\s*(?:[.)]|-)\s*)",
+        "",
+        cleaned_verse,
+    )
+
+    quote_pairs = {
+        '"': '"',
+        "'": "'",
+        "\u201c": "\u201d",
+        "\u2018": "\u2019",
+        "\u00ab": "\u00bb",
+    }
+    if len(cleaned_verse) >= 2:
+        first_character = cleaned_verse[0]
+        last_character = cleaned_verse[-1]
+        if quote_pairs.get(first_character) == last_character:
+            cleaned_verse = cleaned_verse[1:-1].strip()
+
+    return " ".join(cleaned_verse.split())
+
+
+def clean_generated_stanza(verses: list[str]) -> list[str]:
+    """Limpia una lista de versos generados y descarta versos vacios."""
+
+    cleaned_verses = []
+    for verse in verses:
+        cleaned_verse = clean_generated_verse(verse)
+        if cleaned_verse:
+            cleaned_verses.append(cleaned_verse)
+    return cleaned_verses
+
+\end{lstlisting}
 
 El control del formato de salida cumple, por tanto, una doble función. Por un lado, facilita la integración técnica entre el modelo y el código \emph{Python}. Por otro lado, reduce la probabilidad de que errores superficiales de formato afecten negativamente a la evaluación formal de una estrofa.
 
@@ -1339,6 +1450,48 @@ Las trazas permiten justificar por qué una determinada configuración funciona 
 
 Por ejemplo, si una estrofa final no cumple correctamente la rima ABBA, la traza puede ayudar a determinar si el fallo procede de la generación inicial, de una reparación de rima fallida o de una poda que descartó una alternativa mejor. Del mismo modo, si el tiempo de ejecución aumenta considerablemente,
 las trazas pueden mostrar si el incremento se debe a un mayor número de variantes, a reparaciones adicionales o a un ancho de haz demasiado elevado.
+
+Dicha traza incluye información como la que se muestra en el Listado~\ref{lst:ejemploTraza}, simplificado del nodo evaluador para ilustrar el tipo de datos registrados:
+
+\begin{lstlisting}[language=Python, caption={Ejemplo de traza generada por el nodo evaluador}, label={lst:ejemploTraza}]
+    for index, candidate in enumerate(state["candidates"]):
+
+        scored_candidate = {
+
+            "stanza": stanza.copy(),
+            "score": total_score,
+            "step_score": step_score,
+            "score_history": updated_history,
+            "feedback": str(evaluation.get("feedback", "")),
+            "metrics": evaluation,
+            "meter_repair_report": meter_repair_report,
+            "outer_rhyme_repair_report": outer_rhyme_repair_report,
+            "inner_rhyme_repair_report": inner_rhyme_repair_report,
+            "outer_rhyme_diagnosis": outer_rhyme_diagnosis,
+            "inner_rhyme_diagnosis": inner_rhyme_diagnosis,
+            "preserved_by_elitism": bool(
+                candidate.get("preserved_by_elitism", False)
+            ),
+            "generation_reasoning": candidate.get("generation_reasoning", ""),
+
+        }
+        scored_candidates.append(scored_candidate)
+
+    trace = state.get("trace", []).copy()
+
+    trace.append(
+        {
+            "step": state["step"],
+            "phase": "score",
+            "candidates": [
+                build_trace_entry(candidate) for candidate in scored_candidates
+            ],
+        }
+    )
+
+\end{lstlisting}
+
+
 
 \subsection{Relación entre Prompting, Estado y Beam Search}
 
@@ -1444,21 +1597,20 @@ El proceso de evaluación puede resumirse en las siguientes fases:
 El Listado~\ref{lst:evaluateStanzaAbba} muestra un fragmento simplificado de la función encargada de evaluar una estrofa candidata. Esta función centraliza la comprobación de las restricciones formales y devuelve una estructura con la puntuación y los errores detectados.
 
 \begin{lstlisting}[language=Python, caption={Fragmento simplificado de la evaluación formal de una estrofa ABBA}, label={lst:evaluateStanzaAbba}]
-
-def evaluate_stanza_abba(stanza: str | list[str]) -> dict[str, object]:
+    def evaluate_stanza_abba(stanza: str | list[str]) -> dict[str, object]:
  
-    verses = normalize_verses_input(stanza)
-    verse_count_evaluation = evaluate_stanza_verse_count(verses)
-    syllable_evaluation = evaluate_stanza_syllable_count(verses)
-    rhyme_evaluation = evaluate_stanza_rhyme_scheme(verses)
+        verses = normalize_verses_input(stanza)
+        verse_count_evaluation = evaluate_stanza_verse_count(verses)
+        syllable_evaluation = evaluate_stanza_syllable_count(verses)
+        rhyme_evaluation = evaluate_stanza_rhyme_scheme(verses)
 
-    raw_score = (
-        float(verse_count_evaluation["score"]) * VERSE_COUNT_WEIGHT
-        + float(syllable_evaluation["score"]) * SYLLABLE_WEIGHT
-        + float(rhyme_evaluation["score"]) * RHYME_WEIGHT
-    )
+        raw_score = (
+            float(verse_count_evaluation["score"]) * VERSE_COUNT_WEIGHT # 0.2
+            + float(syllable_evaluation["score"]) * SYLLABLE_WEIGHT # 0.4
+            + float(rhyme_evaluation["score"]) * RHYME_WEIGHT # 0.4
+        )
 
-    score = round(_clamp_score(raw_score), 4)
+        score = round(_clamp_score(raw_score), 4)
 
 \end{lstlisting}
 
@@ -1694,28 +1846,6 @@ Además, el uso de trazas y métricas estructuradas permite comparar distintas c
 Estas comparaciones se desarrollan en los apartados posteriores, donde se estudia la evolución del agente a través de diferentes ciclos de experimentación.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 %────────────────────── Ciclo 1: Aproximación Inicial y Resultados Base ──────────────────────────
 \section{Ciclo 1: Aproximación Inicial y Resultados Base}
 
@@ -1850,7 +1980,7 @@ La Figura~\ref{fig:ErroresCiclo1} resume los principales errores detectados dura
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.7\textwidth]{images/ErroresCiclo1.png}
+    \includegraphics[width=1.0\textwidth]{images/ErroresCiclo1.png}
    \caption{Principales errores observados durante el primer ciclo experimental. Fuente: elaboración propia}
     \label{fig:ErroresCiclo1}
 \end{figure}
@@ -2061,173 +2191,301 @@ Los resultados obtenidos muestran que estas mejoras incrementan de forma clara l
 %────────────────────── Evaluación Comparativa Final y Discusión Global ──────────────────────────
 \section{Evaluación Comparativa Final y Discusión Global}
 
+Una vez presentados los dos ciclos experimentales, resulta necesario comparar de forma directa el comportamiento de la versión base y de la versión refinada del sistema. El objetivo de esta comparación no es únicamente comprobar qué versión obtiene mejores puntuaciones,
+sino analizar qué aporta realmente cada mejora introducida y qué coste computacional implica.
+
+La Tabla~\ref{tab:comparativaCiclos} resume las principales diferencias observadas entre ambos ciclos experimentales.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|c|c|}
+        \hline
+        \textbf{Métrica} & \textbf{Ciclo 1} & \textbf{Ciclo 2} \\
+        \hline
+        Número de ejecuciones & 3 & 3 \\
+        \hline
+        Puntuación media final & 10.0/20 & 18.67/20 \\
+        \hline
+        Mejor puntuación obtenida & 12.0/20 & 20.0/20 \\
+        \hline
+        Peor puntuación obtenida & 8.0/20 & 18.0/20 \\
+        \hline
+        Estrofas con 4 versos & 100\% & 100\% \\
+        \hline
+        Media de versos endecasílabos & 1/4 & 4/4 \\
+        \hline
+        Rima exterior A correcta & 0\% & 100\% \\
+        \hline
+        Rima interior B correcta & 0\% & 33.33\% \\
+        \hline
+        Estrofas completamente válidas & 0\% & 33.33\% \\
+        \hline
+        Tiempo medio de ejecución & 7.93 min & 47.35 min \\
+        \hline
+    \end{tabular}
+    \caption{Comparación general entre el primer y el segundo ciclo experimental. Fuente: elaboración propia}
+    \label{tab:comparativaCiclos}
+\end{table}
+
+Los resultados muestran una mejora clara en la calidad formal de las estrofas generadas. Mientras que la versión base obtenía una puntuación media de 10.0 sobre 20, la versión refinada alcanza una media de 18.67 sobre 20. Además, en el segundo ciclo se obtiene una
+estrofa con puntuación perfecta, algo que no ocurría en ninguna de las ejecuciones de la versión inicial.
+
+La mejora más evidente aparece en la métrica. En el primer ciclo, la media de versos endecasílabos era de solo 1 sobre 4, mientras que en el segundo ciclo todas las estrofas analizadas alcanzan los 4 versos endecasílabos. Esto confirma la utilidad de la reparación métrica
+local, ya que permite corregir de forma específica los versos que no cumplen el patrón esperado.
+
+También se observa una mejora importante en la rima. La rima exterior A pasa de no cumplirse en ninguna ejecución a cumplirse en todas las ejecuciones del segundo ciclo. La rima interior B, sin embargo, sigue siendo la restricción más difícil: mejora respecto al primer ciclo,
+pero no se resuelve en todos los casos. Este resultado indica que las reparaciones introducidas son efectivas, aunque todavía existe margen de mejora, especialmente en la generación y conservación de la rima entre los versos segundo y tercero.
+
+La Figura~\ref{fig:comparativaCiclosGrafico} muestra de forma visual la diferencia entre ambos ciclos experimentales. Se observa que el segundo ciclo mejora notablemente la puntuación media, aunque también incrementa de forma considerable el tiempo medio de ejecución.
+
+\begin{figure}[h]
+    \centering
+
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[
+                ybar,
+                ymin=0,
+                ymax=20,
+                ylabel={Puntuación media},
+                symbolic x coords={Ciclo 1,Ciclo 2},
+                xtick=data,
+                nodes near coords,
+                nodes near coords align={vertical},
+                bar width=25pt,
+                width=\textwidth,
+                height=6cm,
+                title={Puntuación media sobre 20},
+                grid=major,
+            ]
+                \addplot coordinates {(Ciclo 1,10.0) (Ciclo 2,18.67)};
+            \end{axis}
+        \end{tikzpicture}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[
+                ybar,
+                ymin=0,
+                ymax=60,
+                ylabel={Tiempo medio (min)},
+                symbolic x coords={Ciclo 1,Ciclo 2},
+                xtick=data,
+                nodes near coords,
+                nodes near coords align={vertical},
+                bar width=25pt,
+                width=\textwidth,
+                height=6cm,
+                title={Tiempo medio de ejecución},
+                grid=major,
+            ]
+                \addplot coordinates {(Ciclo 1,7.93) (Ciclo 2,47.35)};
+            \end{axis}
+        \end{tikzpicture}
+    \end{minipage}
+
+    \caption{Comparación entre el primer y el segundo ciclo experimental en términos de puntuación media y tiempo medio de ejecución. Fuente: elaboración propia}
+    \label{fig:comparativaCiclosGrafico}
+\end{figure}
+
+\subsection{Compromiso entre Calidad y Coste Computacional}
+
+La mejora en los resultados formales tiene como contrapartida un aumento considerable del tiempo de ejecución. La versión base presenta un tiempo medio aproximado de 7.93 minutos, mientras que la versión refinada alcanza una media de 47.35 minutos. Esta diferencia se debe
+principalmente al incremento de llamadas al modelo durante las fases de reparación métrica, reparación de rima y reparación métrica posterior a la rima.
+
+Este resultado refleja uno de los compromisos principales del sistema: aumentar la capacidad de corrección mejora la calidad formal de las estrofas, pero también incrementa el coste computacional. Por tanto, la configuración del agente debe ajustarse en función del objetivo del experimento. Si se busca una respuesta rápida, puede bastar con una configuración más ligera. Si se prioriza el cumplimiento estricto de las restricciones, resulta necesario asumir una ejecución más larga.
+
+En este sentido, parámetros como el ancho del haz $k$, la profundidad máxima, el número de variantes generadas en cada reparación, la temperatura o el límite de tokens tienen un impacto directo tanto en la puntuación máxima alcanzada como en el tiempo total de ejecución.
+Aumentar estos valores puede mejorar la probabilidad de encontrar una estrofa válida, pero también hace crecer el número de inferencias necesarias.
+
+\subsection{Interpretación de los Resultados}
+
+Los resultados obtenidos permiten extraer una conclusión importante: el valor del sistema no reside únicamente en el uso de un modelo de lenguaje, sino en la organización del proceso de generación mediante un agente iterativo. La versión base demuestra que el modelo,
+incluso con prompting y Beam Search, no controla de forma fiable todas las restricciones formales. En cambio, la versión refinada muestra que la combinación de evaluación objetiva, reparaciones locales y preservación de beams mejora notablemente el resultado.
+
+No obstante, una puntuación inferior a 20.0 no debe interpretarse necesariamente como un fallo completo del método. El sistema trabaja con una profundidad máxima limitada, por lo que la ejecución finaliza al alcanzar ese límite aunque no se haya encontrado una solución perfecta.
+En principio, aumentar la profundidad del análisis o ampliar el número de alternativas conservadas podría incrementar la probabilidad de alcanzar una estrofa completamente válida, aunque a costa de un mayor tiempo de ejecución.
+
+También debe recordarse que la puntuación utilizada en este trabajo mide principalmente el cumplimiento formal de la estrofa. Una estrofa puede obtener una puntuación alta por cumplir el número de versos, la métrica y la rima, pero eso no implica necesariamente que tenga una gran
+calidad poética. La evaluación estética, semántica o literaria queda fuera del alcance de este capítulo, aunque constituye una posible ampliación futura del sistema.
+
+\subsection{Conclusión Global del Capítulo}
+
+En conjunto, la comparación entre ambos ciclos confirma la utilidad del proceso de refinamiento seguido durante el desarrollo. El primer ciclo permitió comprobar que una arquitectura basada únicamente en generación, evaluación y poda era insuficiente para resolver el problema.
+A partir de ese análisis, el segundo ciclo incorporó mecanismos específicos de reparación que mejoraron de forma clara el cumplimiento de las restricciones formales.
+
+El sistema final no garantiza una solución perfecta en todas las ejecuciones, pero sí demuestra que un agente basado en LangGraph y Beam Search puede guiar de forma progresiva la generación de texto hacia salidas más controladas. Esta aproximación resulta especialmente interesante
+en tareas donde no basta con generar lenguaje natural, sino que es necesario satisfacer restricciones verificables.
+
+Por tanto, el capítulo muestra una evolución completa del agente: diseño inicial, evaluación de una versión base, detección de errores, incorporación de mejoras y comparación final. Esta evolución permite defender que el sistema propuesto no se limita a solicitar una respuesta a un LLM,
+sino que construye un proceso iterativo de generación, evaluación, reparación y selección.
 
 
-%\section{Quantitative metrics}
-%\begin{table}[ht]
-%  \centering
-%  \caption{SR and segmentation performance (mean \(\pm\) std).}
-%  \label{tab:metrics}
-%  \begin{tabular}{l S[table-format=2.2] S[table-format=2.2] S[table-format=1.3]}
-%    \toprule
-%    Method & {PSNR [dB]} & {SSIM} & {Dice} \\
-%    \midrule
-%    Bicubic + RF     & 28.31 & 0.842 & 0.786 \\
-%    EDSR + U\textsuperscript{3}Net & 31.75 & 0.904 & 0.865 \\
-%    Proposed (joint) & 32.18 & 0.918 & 0.882 \\
-%    \bottomrule
-%  \end{tabular}
-%\end{table}
 
-%
-%\section{Qualitative examples}
-%\begin{figure}[ht]
-%  \centering
-%  \includegraphics[width=.9\linewidth]{example-image-b}
-%  \caption{Axial slices: LR input, SR output, and segmentation overlay.}
-%  \label{fig:qualitative}
-%\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 %────────────────────── Chapter 5 — Discussion ─────────────────────────
-\chapter{Discussion}
-Joint optimization improves boundary fidelity and suppresses ringing.
-Failure cases include motion artifacts and unseen acquisition protocols.
+%\chapter{Discussion}
+%Joint optimization improves boundary fidelity and suppresses ringing.
+%Failure cases include motion artifacts and unseen acquisition protocols.
 
 %────────────────────── Appendices ─────────────────────────────────────
-\begin{umaappendices}
+%\begin{umaappendices}
 
-\umaappendix{Data splits and preprocessing}
-\section{Preprocessing}
-Bias-field correction, z-score normalization per volume, random flips and
-intensity jitter for augmentation.
+%\umaappendix{Data splits and preprocessing}
+%\section{Preprocessing}
+%Bias-field correction, z-score normalization per volume, random flips and
+%intensity jitter for augmentation.
 
-\umaappendix{Additional code snippets}
+%\umaappendix{Additional code snippets}
 
-\section{Evaluation script (Python)}
-\begin{lstlisting}[style=python,caption={Metric computation script},label={lst:metrics}]
-# eval_metrics.py
-# Computes PSNR, SSIM (skimage), and Dice given predictions and references.
+%\section{Evaluation script (Python)}
+%\begin{lstlisting}[style=python,caption={Metric computation script},label={lst:metrics}]
+%# eval_metrics.py
+%# Computes PSNR, SSIM (skimage), and Dice given predictions and references.
 
-from skimage.metrics import structural_similarity as ssim
-import numpy as np
+%from skimage.metrics import structural_similarity as ssim
+%import numpy as np
 
-def psnr(x, y, peak=1.0):
-    mse = np.mean((x - y) ** 2)
-    return 10 * np.log10(peak**2 / (mse + 1e-12))
+%def psnr(x, y, peak=1.0):
+%    mse = np.mean((x - y) ** 2)
+%    return 10 * np.log10(peak**2 / (mse + 1e-12))
 
-def dice(p, m, thr=0.5):
-    pbin = (p >= thr).astype(np.float32)
-    m = m.astype(np.float32)
-    return 2*(pbin*m).sum() / (pbin.sum() + m.sum() + 1e-12)
-\end{lstlisting}
+%def dice(p, m, thr=0.5):
+%    pbin = (p >= thr).astype(np.float32)
+%    m = m.astype(np.float32)
+%    return 2*(pbin*m).sum() / (pbin.sum() + m.sum() + 1e-12)
+%\end{lstlisting}
 
-\section{R quick-look plot}
-\begin{lstlisting}[style=r,caption={Boxplots of PSNR and Dice},label={lst:rplots}]
-# rplots.R - Statistical visualization of model performance
-library(ggplot2)
-library(dplyr)
+%\section{R quick-look plot}
+%\begin{lstlisting}[style=r,caption={Boxplots of PSNR and Dice},label={lst:rplots}]
+%# rplots.R - Statistical visualization of model performance
+%library(ggplot2)
+%library(dplyr)
 
-# Generate synthetic results for demonstration
-df <- data.frame(
-  method = rep(c("Bicubic+RF","EDSR+U3Net","Joint"), each=10),
-  psnr = c(rnorm(10,28.3,0.6), rnorm(10,31.8,0.5), rnorm(10,32.2,0.4)),
-  dice = c(rnorm(10,0.786,0.02), rnorm(10,0.865,0.02), rnorm(10,0.882,0.02))
-)
+%# Generate synthetic results for demonstration
+%df <- data.frame(
+%  method = rep(c("Bicubic+RF","EDSR+U3Net","Joint"), each=10),
+%  psnr = c(rnorm(10,28.3,0.6), rnorm(10,31.8,0.5), rnorm(10,32.2,0.4)),
+%  dice = c(rnorm(10,0.786,0.02), rnorm(10,0.865,0.02), rnorm(10,0.882,0.02))
+%)
 
-# Create visualization pipeline
-df %>%
-  ggplot(aes(method, psnr, fill=method)) +
-  geom_boxplot() +
-  theme_minimal() +
-  labs(title="PSNR by Method", y="PSNR (dB)")
-\end{lstlisting}
+%# Create visualization pipeline
+%df %>%
+%  ggplot(aes(method, psnr, fill=method)) +
+%  geom_boxplot() +
+%  theme_minimal() +
+%  labs(title="PSNR by Method", y="PSNR (dB)")
+%\end{lstlisting}
 
-\section{C++ performance-critical kernels}
-\begin{lstlisting}[style=cpp,caption={CUDA-style convolution kernel},label={lst:cpp}]
-// conv3d_kernel.cpp - High-performance 3D convolution
-#include <vector>
-#include <cmath>
-#include <algorithm>
+%\section{C++ performance-critical kernels}
+%\begin{lstlisting}[style=cpp,caption={CUDA-style convolution kernel},label={lst:cpp}]
+%// conv3d_kernel.cpp - High-performance 3D convolution
+%#include <vector>
+%#include <cmath>
+%#include <algorithm>
 
-template<typename T>
-class Conv3DKernel {
-private:
-    std::vector<T> weights_;
-    int kernel_size_;
+%template<typename T>
+%class Conv3DKernel {
+%private:
+%    std::vector<T> weights_;
+%    int kernel_size_;
 
-public:
-    Conv3DKernel(int size) : kernel_size_(size) {
-        weights_.resize(size * size * size);
-    }
+%public:
+%    Conv3DKernel(int size) : kernel_size_(size) {
+%        weights_.resize(size * size * size);
+%    }
 
-    // Apply convolution at a single point
-    T apply(const T* input, int x, int y, int z, int stride) const {
-        T sum = static_cast<T>(0);
-        for (int dz = 0; dz < kernel_size_; ++dz) {
-            for (int dy = 0; dy < kernel_size_; ++dy) {
-                for (int dx = 0; dx < kernel_size_; ++dx) {
-                    int idx = (z + dz) * stride * stride
-                            + (y + dy) * stride + (x + dx);
-                    sum += input[idx] * weights_[dz * kernel_size_ * kernel_size_
-                                                + dy * kernel_size_ + dx];
-                }
-            }
-        }
-        return sum;
-    }
-};
-\end{lstlisting}
+%    // Apply convolution at a single point
+%    T apply(const T* input, int x, int y, int z, int stride) const {
+%        T sum = static_cast<T>(0);
+%        for (int dz = 0; dz < kernel_size_; ++dz) {
+%            for (int dy = 0; dy < kernel_size_; ++dy) {
+%                for (int dx = 0; dx < kernel_size_; ++dx) {
+%                    int idx = (z + dz) * stride * stride
+%                            + (y + dy) * stride + (x + dx);
+%                    sum += input[idx] * weights_[dz * kernel_size_ * kernel_size_
+%                                                + dy * kernel_size_ + dx];
+%                }
+%            }
+%        }
+%        return sum;
+%    }
+%};
+%\end{lstlisting}
 
-\section{SQL data pipeline}
-\begin{lstlisting}[style=sql,caption={Patient cohort selection query},label={lst:sql}]
--- cohort_selection.sql
--- Select patients with complete MRI sequences for training
-SELECT DISTINCT
-    p.patient_id,
-    p.age,
-    p.diagnosis_date,
-    COUNT(s.scan_id) AS num_scans
-FROM patients p
-INNER JOIN mri_scans s ON p.patient_id = s.patient_id
-WHERE s.modality = 'T1w'
-  AND s.quality_score >= 0.8
-  AND p.diagnosis_date BETWEEN '2020-01-01' AND '2024-12-31'
-GROUP BY p.patient_id, p.age, p.diagnosis_date
-HAVING COUNT(s.scan_id) >= 3
-ORDER BY p.diagnosis_date DESC
-LIMIT 1000;
-\end{lstlisting}
+%\section{SQL data pipeline}
+%\begin{lstlisting}[style=sql,caption={Patient cohort selection query},label={lst:sql}]
+%-- cohort_selection.sql
+%-- Select patients with complete MRI sequences for training
+%SELECT DISTINCT
+%    p.patient_id,
+%    p.age,
+%    p.diagnosis_date,
+%    COUNT(s.scan_id) AS num_scans
+%FROM patients p
+%INNER JOIN mri_scans s ON p.patient_id = s.patient_id
+%WHERE s.modality = 'T1w'
+%  AND s.quality_score >= 0.8
+%  AND p.diagnosis_date BETWEEN '2020-01-01' AND '2024-12-31'
+%GROUP BY p.patient_id, p.age, p.diagnosis_date
+%HAVING COUNT(s.scan_id) >= 3
+%ORDER BY p.diagnosis_date DESC
+%LIMIT 1000;
+%\end{lstlisting}
 
-\section{Bash automation}
-\begin{lstlisting}[style=bash,caption={Training pipeline automation},label={lst:bash}]
-#!/bin/bash
-# train_pipeline.sh - Automated model training and evaluation
+%\section{Bash automation}
+%\begin{lstlisting}[style=bash,caption={Training pipeline automation},label={lst:bash}]
+%#!/bin/bash
+%# train_pipeline.sh - Automated model training and evaluation
 
-# Configuration
-MODEL_DIR="./checkpoints"
-DATA_DIR="/data/mri_volumes"
-EPOCHS=100
+%# Configuration
+%MODEL_DIR="./checkpoints"
+%DATA_DIR="/data/mri_volumes"
+%EPOCHS=100
 
-# Create output directories
-mkdir -p "$MODEL_DIR" logs
+%# Create output directories
+%mkdir -p "$MODEL_DIR" logs
 
-# Train with different learning rates
-for lr in 1e-3 1e-4 1e-5; do
-    echo "Training with lr=$lr"
-    python train.py \
-        --data "$DATA_DIR" \
-        --lr "$lr" \
-        --epochs "$EPOCHS" \
-        --output "$MODEL_DIR/model_lr${lr}.pt" \
-        2>&1 | tee "logs/train_lr${lr}.log"
-done
+%# Train with different learning rates
+%for lr in 1e-3 1e-4 1e-5; do
+%    echo "Training with lr=$lr"
+%    python train.py \
+%        --data "$DATA_DIR" \
+%        --lr "$lr" \
+%        --epochs "$EPOCHS" \
+%        --output "$MODEL_DIR/model_lr${lr}.pt" \
+%        2>&1 | tee "logs/train_lr${lr}.log"
+%done
 
-# Evaluate best model
-echo "Evaluating models..."
-python evaluate.py --checkpoint "$MODEL_DIR" --metrics psnr ssim dice
-\end{lstlisting}
+%# Evaluate best model
+%echo "Evaluating models..."
+%python evaluate.py --checkpoint "$MODEL_DIR" --metrics psnr ssim dice
+%\end{lstlisting}
 
-\end{umaappendices}
+%\end{umaappendices}
 
 %────────────────────── Back cover and bibliography ────────────────────
 \backmatter
