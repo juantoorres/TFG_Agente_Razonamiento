@@ -1,0 +1,561 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_rhyme_hint_examples": false,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_post_a_rhyme_meter_repair": true,
+    "post_a_rhyme_meter_repair_variants": 5,
+    "post_a_rhyme_meter_repair_temperature": 0.4,
+    "post_a_rhyme_meter_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200,
+    "inner_rhyme_repair_conditioned_by_candidate": false,
+    "inner_rhyme_repair_variants_per_candidate": 2,
+    "inner_rhyme_repair_max_candidate_words": 4,
+    "enable_post_b_rhyme_meter_repair": true,
+    "post_b_rhyme_meter_repair_variants": 5,
+    "post_b_rhyme_meter_repair_temperature": 0.4,
+    "post_b_rhyme_meter_repair_num_predict": 200
+  },
+  "stanza": [
+    "Pasa el tiempo, deja huella en la memoria",
+    "Vientos llevan recuerdos al mar abismo",
+    "Olvidado se acerca, en la noche se oculta",
+    "Solo quedan ecos de historia perdida"
+  ],
+  "score": 0.7651724731089556,
+  "step_score": 0.8,
+  "score_history": [
+    0.7,
+    0.8,
+    0.8
+  ],
+  "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+  "metrics": {
+    "score": 0.8,
+    "score_20": 16.0,
+    "verses": [
+      "Pasa el tiempo, deja huella en la memoria",
+      "Vientos llevan recuerdos al mar abismo",
+      "Olvidado se acerca, en la noche se oculta",
+      "Solo quedan ecos de historia perdida"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "correct_verses": 4,
+      "total_expected_verses": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "oria",
+        "abismo",
+        "oculta",
+        "ida"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_positions": 2,
+      "total_positions": 4,
+      "score": 0.5,
+      "errors": [
+        "Verso 3: rima C, pero se esperaba B.",
+        "Verso 4: rima D, pero se esperaba A."
+      ]
+    },
+    "errors": [
+      "Verso 3: rima C, pero se esperaba B.",
+      "Verso 4: rima D, pero se esperaba A."
+    ],
+    "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": true,
+    "original_stanza": [
+      "Pasa el tiempo, deja huella en la memoria",
+      "Vientos llevan los recuerdos al mar profundo",
+      "Olvidado se acerca, en la noche se esconde",
+      "Y solo quedan ecos de historia perdida"
+    ],
+    "repaired_stanza": [
+      "Pasa el tiempo, deja huella en la memoria",
+      "Vientos llevan recuerdos al mar abismo",
+      "Olvidado se acerca, en la noche se oculta",
+      "Solo quedan ecos de historia perdida"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "Pasa el tiempo, deja huella en la memoria",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "Vientos llevan los recuerdos al mar profundo",
+        "original_syllables": 13,
+        "original_distance": 2,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Vientos llevan recuerdos al mar abismo",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "Vientos llevan recuerdos al mar abismo",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Vientos llevan recordatorios al mar profundo",
+            "syllables": 14,
+            "distance": 3
+          },
+          {
+            "verse": "Vientos a recuerdos llevan al mar profundo",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "Vientos llevan al mar los recuerdos",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "Vientos llevan recuerdos al mar profund",
+            "syllables": 12,
+            "distance": 1
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "Olvidado se acerca, en la noche se esconde",
+        "original_syllables": 12,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Olvidado se acerca, en la noche se oculta",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "Olvidado se acerca, en la noche se oculta",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Olvidado se acerca, en la noche se esconde a",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "Olvidado se acerca, en la noche se esconde al",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "Olvidado se acerca, en la noche se esconde por",
+            "syllables": 14,
+            "distance": 3
+          },
+          {
+            "verse": "Olvidado se acerca, en la noche se esconde en",
+            "syllables": 12,
+            "distance": 1
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "Y solo quedan ecos de historia perdida",
+        "original_syllables": 12,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Solo quedan ecos de historia perdida",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "Y solo quedan ecos de historia perdida",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "Solo quedan ecos de historia perdida",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Quedan ecos solamente de historia perdida",
+            "syllables": 13,
+            "distance": 2
+          },
+          {
+            "verse": "Ecos solos de historia perdida quedan",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Ecos de historia perdida son solamente",
+            "syllables": 12,
+            "distance": 1
+          }
+        ],
+        "error": null
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+    "original_stanza": [
+      "Pasa el tiempo, deja huella en la memoria",
+      "Vientos llevan recuerdos al mar abismo",
+      "Olvidado se acerca, en la noche se oculta",
+      "Solo quedan ecos de historia perdida"
+    ],
+    "repaired_stanza": [
+      "Pasa el tiempo, deja huella en la memoria",
+      "Vientos llevan recuerdos al mar abismo",
+      "Olvidado se acerca, en la noche se oculta",
+      "Solo quedan ecos de historia perdida"
+    ],
+    "target_rhyme": "oria",
+    "current_rhyme": "ida",
+    "verse_1": {
+      "text": "Pasa el tiempo, deja huella en la memoria",
+      "last_word": "memoria",
+      "rhyme": "oria"
+    },
+    "candidate_final_words": [
+      "memoria"
+    ],
+    "enforced_candidate_final_words": [],
+    "post_a_meter_repair_enabled": true,
+    "post_a_meter_repair_attempts": 0,
+    "post_a_meter_repair_successes": 0,
+    "original_verse_4": "Solo quedan ecos de historia perdida",
+    "original_verse_4_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "Solo quedan rastros de memoria olvidada",
+        "syllables": 13,
+        "final_word": "olvidada",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'oria' | v4 = 'ada'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Solo quedan ecos de recuerdos perdidos",
+        "syllables": 12,
+        "final_word": "perdidos",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'oria' | v4 = 'idos'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Solo quedan huellas de la historia olvidada",
+        "syllables": 13,
+        "final_word": "olvidada",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'oria' | v4 = 'ada'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Solo quedan vestigios de la memoria perdida",
+        "syllables": 15,
+        "final_word": "perdida",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'oria' | v4 = 'ida'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Solo quedan rastros de la historia olvidada",
+        "syllables": 13,
+        "final_word": "olvidada",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'oria' | v4 = 'ada'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige B sin empeorar metrica.",
+    "original_stanza": [
+      "Pasa el tiempo, deja huella en la memoria",
+      "Vientos llevan recuerdos al mar abismo",
+      "Olvidado se acerca, en la noche se oculta",
+      "Solo quedan ecos de historia perdida"
+    ],
+    "repaired_stanza": [
+      "Pasa el tiempo, deja huella en la memoria",
+      "Vientos llevan recuerdos al mar abismo",
+      "Olvidado se acerca, en la noche se oculta",
+      "Solo quedan ecos de historia perdida"
+    ],
+    "target_rhyme": "abismo",
+    "current_rhyme": "oculta",
+    "verse_2": {
+      "text": "Vientos llevan recuerdos al mar abismo",
+      "last_word": "abismo",
+      "rhyme": "abismo"
+    },
+    "candidate_final_words": [
+      "abismo"
+    ],
+    "enforced_candidate_final_words": [],
+    "has_enforced_candidate_final_words": false,
+    "candidate_warning": "No hay palabras finales candidatas distintas de la palabra ancla para la rima B.",
+    "conditioned_by_candidate": false,
+    "conditioned_candidate_words": [],
+    "conditioned_generation_reports": [],
+    "post_b_meter_repair_enabled": true,
+    "post_b_meter_repair_attempts": 0,
+    "post_b_meter_repair_successes": 0,
+    "original_verse_3": "Olvidado se acerca, en la noche se oculta",
+    "original_verse_3_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "Olvidado se aleja, en la noche se esconde",
+        "syllables": 12,
+        "final_word": "esconde",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'abismo' | v3 = 'onde'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Olvidado se acerca, en la noche se esconda",
+        "syllables": 12,
+        "final_word": "esconda",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'abismo' | v3 = 'onda'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Olvidado se aproxima, en la noche se oculta",
+        "syllables": 12,
+        "final_word": "oculta",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'abismo' | v3 = 'oculta'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Olvidado se adelanta, en la noche se oculta",
+        "syllables": 12,
+        "final_word": "oculta",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'abismo' | v3 = 'oculta'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Olvidado se avanza, en la noche se oculta",
+        "syllables": 11,
+        "final_word": "oculta",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'abismo' | v3 = 'oculta'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_1": {
+      "text": "Pasa el tiempo, deja huella en la memoria",
+      "last_word": "memoria",
+      "rhyme": "oria"
+    },
+    "verse_4": {
+      "text": "Solo quedan ecos de historia perdida",
+      "last_word": "perdida",
+      "rhyme": "ida"
+    },
+    "target_rhyme": "oria",
+    "current_rhyme": "ida",
+    "errors": [
+      "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'oria', pero se obtuvo 'ida'."
+    ],
+    "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('oria') y reescribe el verso 4 para que termine con esa misma rima consonante."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_2": {
+      "text": "Vientos llevan recuerdos al mar abismo",
+      "last_word": "abismo",
+      "rhyme": "abismo"
+    },
+    "verse_3": {
+      "text": "Olvidado se acerca, en la noche se oculta",
+      "last_word": "oculta",
+      "rhyme": "oculta"
+    },
+    "target_rhyme": "abismo",
+    "current_rhyme": "oculta",
+    "errors": [
+      "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'abismo', pero se obtuvo 'oculta'."
+    ],
+    "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('abismo') y reescribe el verso 3 para que termine con esa misma rima consonante."
+  },
+  "generation_reasoning": "Corregido el verso 2 para cumplir con la rima B y evitar repetir palabras finales en versos que riman. Adjustado el verso 3 para cumplir con la longitud de silabas y mejorar la estructura."
+}

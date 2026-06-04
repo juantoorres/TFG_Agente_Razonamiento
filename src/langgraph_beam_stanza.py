@@ -37,6 +37,11 @@ NUM_PREDICT = 600
 ALPHA = 1.0
 EPSILON = 1e-6
 
+# Heuristica opcional: usa un diccionario hardcodeado de palabras finales
+# candidatas para rimas frecuentes. En False permite probar el sistema sin
+# apoyo lexico fijo antes de plantear una generacion dinamica de candidatas.
+ENABLE_RHYME_HINT_EXAMPLES = False
+
 # Fase experimental opcional: intenta reparar solo la metrica de versos que no
 # tienen 11 silabas. No toca la rima ni bloquea versos correctos.
 ENABLE_LOCAL_METER_REPAIR = True
@@ -63,7 +68,7 @@ ENABLE_INNER_RHYME_REPAIR = True
 INNER_RHYME_REPAIR_VARIANTS = 5
 INNER_RHYME_REPAIR_TEMPERATURE = 0.3
 INNER_RHYME_REPAIR_NUM_PREDICT = 200
-INNER_RHYME_REPAIR_CONDITIONED_BY_CANDIDATE = True
+INNER_RHYME_REPAIR_CONDITIONED_BY_CANDIDATE = False
 INNER_RHYME_REPAIR_VARIANTS_PER_CANDIDATE = 2
 INNER_RHYME_REPAIR_MAX_CANDIDATE_WORDS = 4
 
@@ -1120,7 +1125,11 @@ def get_candidate_final_words_for_rhyme(
     clean_anchor_word = str(anchor_word or "").strip()
     clean_target_rhyme = str(target_rhyme or "").strip()
 
-    candidates = list(RHYME_HINT_EXAMPLES.get(clean_target_rhyme, []))
+    if ENABLE_RHYME_HINT_EXAMPLES:
+        candidates = list(RHYME_HINT_EXAMPLES.get(clean_target_rhyme, []))
+    else:
+        candidates = []
+
     if clean_anchor_word and clean_anchor_word not in candidates:
         candidates.append(clean_anchor_word)
 
@@ -2899,6 +2908,10 @@ def save_final_result(
         f"max_steps: {run_parameters.get('max_steps')}",
         f"alpha: {run_parameters.get('alpha')}",
         f"Tiempo total de ejecucion: {execution_time_summary}",
+        (
+            "Diccionario de palabras candidatas de rima activo: "
+            f"{run_parameters.get('enable_rhyme_hint_examples')}"
+        ),
         f"Reparacion metrica activa: {run_parameters.get('enable_local_meter_repair')}",
         (
             "Variantes por verso para reparacion metrica: "
@@ -3102,7 +3115,7 @@ def main() -> None:
         "candidates": [],
         "trace": [],
         "step": 0,
-        "max_steps": 3,
+        "max_steps": 4,
         "k": 2,
     }
 
@@ -3114,6 +3127,7 @@ def main() -> None:
         "k": initial_state["k"],
         "max_steps": initial_state["max_steps"],
         "alpha": ALPHA,
+        "enable_rhyme_hint_examples": ENABLE_RHYME_HINT_EXAMPLES,
         "enable_local_meter_repair": ENABLE_LOCAL_METER_REPAIR,
         "meter_repair_variants_per_verse": METER_REPAIR_VARIANTS_PER_VERSE,
         "meter_repair_temperature": METER_REPAIR_TEMPERATURE,

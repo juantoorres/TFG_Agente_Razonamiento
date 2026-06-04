@@ -1,0 +1,504 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 4,
+    "alpha": 1.0,
+    "enable_rhyme_hint_examples": false,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_post_a_rhyme_meter_repair": true,
+    "post_a_rhyme_meter_repair_variants": 5,
+    "post_a_rhyme_meter_repair_temperature": 0.4,
+    "post_a_rhyme_meter_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200,
+    "inner_rhyme_repair_conditioned_by_candidate": false,
+    "inner_rhyme_repair_variants_per_candidate": 2,
+    "inner_rhyme_repair_max_candidate_words": 4,
+    "enable_post_b_rhyme_meter_repair": true,
+    "post_b_rhyme_meter_repair_variants": 5,
+    "post_b_rhyme_meter_repair_temperature": 0.4,
+    "post_b_rhyme_meter_repair_num_predict": 200
+  },
+  "stanza": [
+    "El tiempo pasa, sin cesar, en su huella",
+    "En el corazón se graba la historia",
+    "Libro de recuerdos, no se pierde así",
+    "Y en cada hoja, el tiempo marca su huella"
+  ],
+  "score": 0.9,
+  "step_score": 0.9,
+  "score_history": [
+    0.9,
+    0.9,
+    0.9,
+    0.9
+  ],
+  "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.",
+  "metrics": {
+    "score": 0.9,
+    "score_20": 18.0,
+    "verses": [
+      "El tiempo pasa, sin cesar, en su huella",
+      "En el corazón se graba la historia",
+      "Libro de recuerdos, no se pierde así",
+      "Y en cada hoja, el tiempo marca su huella"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "correct_verses": 4,
+      "total_expected_verses": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "ella",
+        "oria",
+        "i",
+        "ella"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "C",
+        "A"
+      ],
+      "correct_positions": 3,
+      "total_positions": 4,
+      "score": 0.75,
+      "errors": [
+        "Verso 3: rima C, pero se esperaba B."
+      ]
+    },
+    "errors": [
+      "Verso 3: rima C, pero se esperaba B."
+    ],
+    "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": false,
+    "original_stanza": [
+      "El tiempo pasa, sin cesar, en su huella",
+      "En el corazón se graba la historia",
+      "Libro de recuerdos, no se pierde así",
+      "Y en cada hoja, el tiempo marca su traza"
+    ],
+    "repaired_stanza": [
+      "El tiempo pasa, sin cesar, en su huella",
+      "En el corazón se graba la historia",
+      "Libro de recuerdos, no se pierde así",
+      "Y en cada hoja, el tiempo marca su traza"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "El tiempo pasa, sin cesar, en su huella",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "En el corazón se graba la historia",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "Libro de recuerdos, no se pierde así",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "Y en cada hoja, el tiempo marca su traza",
+        "original_syllables": 12,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "selected_distance": null,
+        "variants": [
+          {
+            "verse": "Y en cada hoja marca su huella",
+            "syllables": 9,
+            "distance": 2
+          },
+          {
+            "verse": "En cada hoja marca su traza",
+            "syllables": 9,
+            "distance": 2
+          },
+          {
+            "verse": "En cada hoja marca su rastro",
+            "syllables": 9,
+            "distance": 2
+          },
+          {
+            "verse": "En cada hoja marca su ruta",
+            "syllables": 9,
+            "distance": 2
+          },
+          {
+            "verse": "En cada hoja marca su rincon",
+            "syllables": 9,
+            "distance": 2
+          }
+        ],
+        "error": null
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": true,
+    "reason": "Se acepto una variante que corrige AXYA.",
+    "original_stanza": [
+      "El tiempo pasa, sin cesar, en su huella",
+      "En el corazón se graba la historia",
+      "Libro de recuerdos, no se pierde así",
+      "Y en cada hoja, el tiempo marca su traza"
+    ],
+    "repaired_stanza": [
+      "El tiempo pasa, sin cesar, en su huella",
+      "En el corazón se graba la historia",
+      "Libro de recuerdos, no se pierde así",
+      "Y en cada hoja, el tiempo marca su huella"
+    ],
+    "target_rhyme": "ella",
+    "current_rhyme": "aza",
+    "verse_1": {
+      "text": "El tiempo pasa, sin cesar, en su huella",
+      "last_word": "huella",
+      "rhyme": "ella"
+    },
+    "candidate_final_words": [
+      "huella"
+    ],
+    "enforced_candidate_final_words": [],
+    "post_a_meter_repair_enabled": true,
+    "post_a_meter_repair_attempts": 0,
+    "post_a_meter_repair_successes": 0,
+    "original_verse_4": "Y en cada hoja, el tiempo marca su traza",
+    "original_verse_4_syllables": 12,
+    "selected_variant": "Y en cada hoja, el tiempo marca su huella",
+    "selected_variant_syllables": 11,
+    "variants": [
+      {
+        "verse": "Y en cada hojarascas, el tiempo marca su traza",
+        "syllables": 15,
+        "final_word": "traza",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ella' | v4 = 'aza'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Y en cada hoja, el tiempo marca su rastro",
+        "syllables": 12,
+        "final_word": "rastro",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ella' | v4 = 'astro'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Y en cada hoja, el tiempo marca su huella",
+        "syllables": 11,
+        "final_word": "huella",
+        "final_word_matches_anchor": true,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": true,
+        "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ella' | v4 = 'ella'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": true,
+        "rejection_reason": null
+      },
+      {
+        "verse": "Y en cada hoja, el tiempo marca su estela",
+        "syllables": 12,
+        "final_word": "estela",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ella' | v4 = 'ela'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Y en cada hoja, el tiempo marca su trazo",
+        "syllables": 12,
+        "final_word": "trazo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ella' | v4 = 'azo'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige B sin empeorar metrica.",
+    "original_stanza": [
+      "El tiempo pasa, sin cesar, en su huella",
+      "En el corazón se graba la historia",
+      "Libro de recuerdos, no se pierde así",
+      "Y en cada hoja, el tiempo marca su huella"
+    ],
+    "repaired_stanza": [
+      "El tiempo pasa, sin cesar, en su huella",
+      "En el corazón se graba la historia",
+      "Libro de recuerdos, no se pierde así",
+      "Y en cada hoja, el tiempo marca su huella"
+    ],
+    "target_rhyme": "oria",
+    "current_rhyme": "i",
+    "verse_2": {
+      "text": "En el corazón se graba la historia",
+      "last_word": "historia",
+      "rhyme": "oria"
+    },
+    "candidate_final_words": [
+      "historia"
+    ],
+    "enforced_candidate_final_words": [],
+    "has_enforced_candidate_final_words": false,
+    "candidate_warning": "No hay palabras finales candidatas distintas de la palabra ancla para la rima B.",
+    "conditioned_by_candidate": false,
+    "conditioned_candidate_words": [],
+    "conditioned_generation_reports": [],
+    "post_b_meter_repair_enabled": true,
+    "post_b_meter_repair_attempts": 0,
+    "post_b_meter_repair_successes": 0,
+    "original_verse_3": "Libro de recuerdos, no se pierde así",
+    "original_verse_3_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "Libro de recuerdos, no se pierde oria",
+        "syllables": 10,
+        "final_word": "oria",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'oria' | v3 = 'a'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Libros de memoria, no se pierden así oria",
+        "syllables": 11,
+        "final_word": "oria",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'oria' | v3 = 'a'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "El libro de la historia, no se pierde oria",
+        "syllables": 11,
+        "final_word": "oria",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'oria' | v3 = 'a'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "En el libro de los recuerdos, no se pierde oria",
+        "syllables": 13,
+        "final_word": "oria",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'oria' | v3 = 'a'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Libro de recuerdos, no se pierde más oria",
+        "syllables": 12,
+        "final_word": "oria",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'oria' | v3 = 'a'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": true,
+    "verse_1": {
+      "text": "El tiempo pasa, sin cesar, en su huella",
+      "last_word": "huella",
+      "rhyme": "ella"
+    },
+    "verse_4": {
+      "text": "Y en cada hoja, el tiempo marca su huella",
+      "last_word": "huella",
+      "rhyme": "ella"
+    },
+    "target_rhyme": "ella",
+    "current_rhyme": "ella",
+    "errors": [],
+    "feedback": "La rima exterior AXYA es correcta: el verso 4 conserva la rima consonante del verso 1 ('ella')."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_2": {
+      "text": "En el corazón se graba la historia",
+      "last_word": "historia",
+      "rhyme": "oria"
+    },
+    "verse_3": {
+      "text": "Libro de recuerdos, no se pierde así",
+      "last_word": "así",
+      "rhyme": "i"
+    },
+    "target_rhyme": "oria",
+    "current_rhyme": "i",
+    "errors": [
+      "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'oria', pero se obtuvo 'i'."
+    ],
+    "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('oria') y reescribe el verso 3 para que termine con esa misma rima consonante."
+  },
+  "generation_reasoning": "Corregido el verso 4 para cumplir con la rima ABBA y evitar repetir la misma palabra final en versos que riman."
+}

@@ -1,0 +1,506 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 4,
+    "alpha": 1.0,
+    "enable_rhyme_hint_examples": false,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_post_a_rhyme_meter_repair": true,
+    "post_a_rhyme_meter_repair_variants": 5,
+    "post_a_rhyme_meter_repair_temperature": 0.4,
+    "post_a_rhyme_meter_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200,
+    "inner_rhyme_repair_conditioned_by_candidate": false,
+    "inner_rhyme_repair_variants_per_candidate": 2,
+    "inner_rhyme_repair_max_candidate_words": 4,
+    "enable_post_b_rhyme_meter_repair": true,
+    "post_b_rhyme_meter_repair_variants": 5,
+    "post_b_rhyme_meter_repair_temperature": 0.4,
+    "post_b_rhyme_meter_repair_num_predict": 200
+  },
+  "stanza": [
+    "El tiempo, un río que nunca se detiene",
+    "En él, recuerdos fluyen como aguas vivas",
+    "Mirando ahora, me da la oportunidad",
+    "A veces, en la memoria se detiene"
+  ],
+  "score": 0.7651724731089556,
+  "step_score": 0.8,
+  "score_history": [
+    0.7,
+    0.8,
+    0.8
+  ],
+  "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 4: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.",
+  "metrics": {
+    "score": 0.8,
+    "score_20": 16.0,
+    "verses": [
+      "El tiempo, un río que nunca se detiene",
+      "En él, recuerdos fluyen como aguas vivas",
+      "Mirando ahora, me da la oportunidad",
+      "A veces, en la memoria se detiene"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        12
+      ],
+      "correct_verses": 3,
+      "total_expected_verses": 4,
+      "score": 0.75,
+      "errors": [
+        "Verso 4: tiene 12 silabas, pero deberia tener 11."
+      ]
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "ene",
+        "ivas",
+        "ad",
+        "ene"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "C",
+        "A"
+      ],
+      "correct_positions": 3,
+      "total_positions": 4,
+      "score": 0.75,
+      "errors": [
+        "Verso 3: rima C, pero se esperaba B."
+      ]
+    },
+    "errors": [
+      "Verso 4: tiene 12 silabas, pero deberia tener 11.",
+      "Verso 3: rima C, pero se esperaba B."
+    ],
+    "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Verso 4: tiene 12 silabas, pero deberia tener 11.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": false,
+    "original_stanza": [
+      "El tiempo, un río que nunca se detiene",
+      "En él, recuerdos fluyen como aguas vivas",
+      "Mirando ahora, me da la oportunidad",
+      "A veces, recordar lo que fue"
+    ],
+    "repaired_stanza": [
+      "El tiempo, un río que nunca se detiene",
+      "En él, recuerdos fluyen como aguas vivas",
+      "Mirando ahora, me da la oportunidad",
+      "A veces, recordar lo que fue"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "El tiempo, un río que nunca se detiene",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "En él, recuerdos fluyen como aguas vivas",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "Mirando ahora, me da la oportunidad",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "A veces, recordar lo que fue",
+        "original_syllables": 9,
+        "original_distance": 2,
+        "attempted": true,
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "selected_distance": null,
+        "variants": [
+          {
+            "verse": "A veces, recordar lo que fue, un recuerdo en el pasado",
+            "syllables": 16,
+            "distance": 5
+          },
+          {
+            "verse": "A veces, recordar lo que fue, como una imagen antigua",
+            "syllables": 15,
+            "distance": 4
+          },
+          {
+            "verse": "A veces, recordar lo que fue, un instante perdido",
+            "syllables": 15,
+            "distance": 4
+          },
+          {
+            "verse": "A veces, recordar lo que fue, un recuerdo olvidado",
+            "syllables": 15,
+            "distance": 4
+          },
+          {
+            "verse": "A veces, recordar lo que fue, un paso en el tiempo",
+            "syllables": 14,
+            "distance": 3
+          }
+        ],
+        "error": null
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": true,
+    "reason": "Se acepto una variante que corrige AXYA.",
+    "original_stanza": [
+      "El tiempo, un río que nunca se detiene",
+      "En él, recuerdos fluyen como aguas vivas",
+      "Mirando ahora, me da la oportunidad",
+      "A veces, recordar lo que fue"
+    ],
+    "repaired_stanza": [
+      "El tiempo, un río que nunca se detiene",
+      "En él, recuerdos fluyen como aguas vivas",
+      "Mirando ahora, me da la oportunidad",
+      "A veces, en la memoria se detiene"
+    ],
+    "target_rhyme": "ene",
+    "current_rhyme": "e",
+    "verse_1": {
+      "text": "El tiempo, un río que nunca se detiene",
+      "last_word": "detiene",
+      "rhyme": "ene"
+    },
+    "candidate_final_words": [
+      "detiene"
+    ],
+    "enforced_candidate_final_words": [],
+    "post_a_meter_repair_enabled": true,
+    "post_a_meter_repair_attempts": 0,
+    "post_a_meter_repair_successes": 0,
+    "original_verse_4": "A veces, recordar lo que fue",
+    "original_verse_4_syllables": 9,
+    "selected_variant": "A veces, en la memoria se detiene",
+    "selected_variant_syllables": 12,
+    "variants": [
+      {
+        "verse": "A veces, recordar lo que fue es dificil",
+        "syllables": 13,
+        "final_word": "dificil",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ene' | v4 = 'il'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "A veces, recuerdos del pasado resurgir",
+        "syllables": 14,
+        "final_word": "resurgir",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ene' | v4 = 'ir'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "A veces, el tiempo me hace recordar",
+        "syllables": 12,
+        "final_word": "recordar",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ene' | v4 = 'ar'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "A veces, en la memoria se detiene",
+        "syllables": 12,
+        "final_word": "detiene",
+        "final_word_matches_anchor": true,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": true,
+        "outer_rhyme_summary": "rima AXYA = correcta | v1 = 'ene' | v4 = 'ene'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": true,
+        "rejection_reason": null
+      },
+      {
+        "verse": "A veces, recordar lo que ya fue es dulce",
+        "syllables": 12,
+        "final_word": "dulce",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'ene' | v4 = 'ulce'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige B sin empeorar metrica.",
+    "original_stanza": [
+      "El tiempo, un río que nunca se detiene",
+      "En él, recuerdos fluyen como aguas vivas",
+      "Mirando ahora, me da la oportunidad",
+      "A veces, en la memoria se detiene"
+    ],
+    "repaired_stanza": [
+      "El tiempo, un río que nunca se detiene",
+      "En él, recuerdos fluyen como aguas vivas",
+      "Mirando ahora, me da la oportunidad",
+      "A veces, en la memoria se detiene"
+    ],
+    "target_rhyme": "ivas",
+    "current_rhyme": "ad",
+    "verse_2": {
+      "text": "En él, recuerdos fluyen como aguas vivas",
+      "last_word": "vivas",
+      "rhyme": "ivas"
+    },
+    "candidate_final_words": [
+      "vivas"
+    ],
+    "enforced_candidate_final_words": [],
+    "has_enforced_candidate_final_words": false,
+    "candidate_warning": "No hay palabras finales candidatas distintas de la palabra ancla para la rima B.",
+    "conditioned_by_candidate": false,
+    "conditioned_candidate_words": [],
+    "conditioned_generation_reports": [],
+    "post_b_meter_repair_enabled": true,
+    "post_b_meter_repair_attempts": 0,
+    "post_b_meter_repair_successes": 0,
+    "original_verse_3": "Mirando ahora, me da la oportunidad",
+    "original_verse_3_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "Mirando ahora, me da la oportunidad de recordar",
+        "syllables": 15,
+        "final_word": "recordar",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ivas' | v3 = 'ar'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "En este momento, me da la oportunidad de reflexionar",
+        "syllables": 18,
+        "final_word": "reflexionar",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ivas' | v3 = 'ar'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Mirando ahora, me da la oportunidad de reminiscenciar",
+        "syllables": 17,
+        "final_word": "reminiscenciar",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ivas' | v3 = 'ar'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "En este momento, me da la oportunidad de contemplar",
+        "syllables": 17,
+        "final_word": "contemplar",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ivas' | v3 = 'ar'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Mirando ahora, me da la oportunidad de recobrar",
+        "syllables": 15,
+        "final_word": "recobrar",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'ivas' | v3 = 'ar'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": true,
+    "verse_1": {
+      "text": "El tiempo, un río que nunca se detiene",
+      "last_word": "detiene",
+      "rhyme": "ene"
+    },
+    "verse_4": {
+      "text": "A veces, en la memoria se detiene",
+      "last_word": "detiene",
+      "rhyme": "ene"
+    },
+    "target_rhyme": "ene",
+    "current_rhyme": "ene",
+    "errors": [],
+    "feedback": "La rima exterior AXYA es correcta: el verso 4 conserva la rima consonante del verso 1 ('ene')."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_2": {
+      "text": "En él, recuerdos fluyen como aguas vivas",
+      "last_word": "vivas",
+      "rhyme": "ivas"
+    },
+    "verse_3": {
+      "text": "Mirando ahora, me da la oportunidad",
+      "last_word": "oportunidad",
+      "rhyme": "ad"
+    },
+    "target_rhyme": "ivas",
+    "current_rhyme": "ad",
+    "errors": [
+      "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'ivas', pero se obtuvo 'ad'."
+    ],
+    "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('ivas') y reescribe el verso 3 para que termine con esa misma rima consonante."
+  },
+  "generation_reasoning": "Corregido el verso 4 para satisfacer la rima ABBA y evitar repetir 'será'."
+}

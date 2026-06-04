@@ -1,0 +1,582 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_rhyme_hint_examples": false,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_post_a_rhyme_meter_repair": true,
+    "post_a_rhyme_meter_repair_variants": 5,
+    "post_a_rhyme_meter_repair_temperature": 0.4,
+    "post_a_rhyme_meter_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200,
+    "inner_rhyme_repair_conditioned_by_candidate": true,
+    "inner_rhyme_repair_variants_per_candidate": 2,
+    "inner_rhyme_repair_max_candidate_words": 4,
+    "enable_post_b_rhyme_meter_repair": true,
+    "post_b_rhyme_meter_repair_variants": 5,
+    "post_b_rhyme_meter_repair_temperature": 0.4,
+    "post_b_rhyme_meter_repair_num_predict": 200
+  },
+  "stanza": [
+    "El pasado, un hilo que nos deja atrás,",
+    "En memoria, se cosen los vestidos",
+    "Enlazadas vidas, hilos perdidos",
+    "Recordando, en tiempo se nos deshace."
+  ],
+  "score": 0.7958114415792784,
+  "step_score": 0.9,
+  "score_history": [
+    0.7,
+    0.8,
+    0.9
+  ],
+  "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 4: rima C, pero se esperaba A.",
+  "metrics": {
+    "score": 0.9,
+    "score_20": 18.0,
+    "verses": [
+      "El pasado, un hilo que nos deja atrás,",
+      "En memoria, se cosen los vestidos",
+      "Enlazadas vidas, hilos perdidos",
+      "Recordando, en tiempo se nos deshace."
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "correct_verses": 4,
+      "total_expected_verses": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "as",
+        "idos",
+        "idos",
+        "ace"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "B",
+        "C"
+      ],
+      "correct_positions": 3,
+      "total_positions": 4,
+      "score": 0.75,
+      "errors": [
+        "Verso 4: rima C, pero se esperaba A."
+      ]
+    },
+    "errors": [
+      "Verso 4: rima C, pero se esperaba A."
+    ],
+    "feedback": "Puntuacion formal total: 18.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 4: rima C, pero se esperaba A."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": true,
+    "original_stanza": [
+      "El pasado, un hilo que nos deja atrás,",
+      "En memoria, se teje el vestido viejo.",
+      "Vida entrelazada en hilos sencillos",
+      "Recordando, en tiempo se nos deshace."
+    ],
+    "repaired_stanza": [
+      "El pasado, un hilo que nos deja atrás,",
+      "En memoria, se cosen los vestidos",
+      "Vida entrelazada en hilos sencillos",
+      "Recordando, en tiempo se nos deshace."
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "El pasado, un hilo que nos deja atrás,",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "En memoria, se teje el vestido viejo.",
+        "original_syllables": 12,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "En memoria, se cosen los vestidos",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "En memoria, se cosen los vestidos",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "En memoria, teje el vestido viejo",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "En memoria, se teje el vestido",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "En la memoria, se teje el vestido",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "En memoria, se tejan los vestidos",
+            "syllables": 11,
+            "distance": 0
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "Vida entrelazada en hilos sencillos",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "Recordando, en tiempo se nos deshace.",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+    "original_stanza": [
+      "El pasado, un hilo que nos deja atrás,",
+      "En memoria, se cosen los vestidos",
+      "Vida entrelazada en hilos sencillos",
+      "Recordando, en tiempo se nos deshace."
+    ],
+    "repaired_stanza": [
+      "El pasado, un hilo que nos deja atrás,",
+      "En memoria, se cosen los vestidos",
+      "Vida entrelazada en hilos sencillos",
+      "Recordando, en tiempo se nos deshace."
+    ],
+    "target_rhyme": "as",
+    "current_rhyme": "ace",
+    "verse_1": {
+      "text": "El pasado, un hilo que nos deja atrás,",
+      "last_word": "atrás",
+      "rhyme": "as"
+    },
+    "candidate_final_words": [
+      "atrás"
+    ],
+    "enforced_candidate_final_words": [],
+    "post_a_meter_repair_enabled": true,
+    "post_a_meter_repair_attempts": 0,
+    "post_a_meter_repair_successes": 0,
+    "original_verse_4": "Recordando, en tiempo se nos deshace.",
+    "original_verse_4_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "En pasado, en tiempo se nos deshace.",
+        "syllables": 11,
+        "final_word": "deshace",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'ace'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "En el pasado, en tiempo se nos deshace.",
+        "syllables": 12,
+        "final_word": "deshace",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'ace'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Pasado, en tiempo se nos deshace.",
+        "syllables": 10,
+        "final_word": "deshace",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'ace'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "En tiempo, pasado se nos deshace.",
+        "syllables": 11,
+        "final_word": "deshace",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'ace'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "En el tiempo, pasado se nos deshace.",
+        "syllables": 12,
+        "final_word": "deshace",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'as' | v4 = 'ace'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": true,
+    "reason": "Se acepto una variante que corrige la rima interior B.",
+    "original_stanza": [
+      "El pasado, un hilo que nos deja atrás,",
+      "En memoria, se cosen los vestidos",
+      "Vida entrelazada en hilos sencillos",
+      "Recordando, en tiempo se nos deshace."
+    ],
+    "repaired_stanza": [
+      "El pasado, un hilo que nos deja atrás,",
+      "En memoria, se cosen los vestidos",
+      "Enlazadas vidas, hilos perdidos",
+      "Recordando, en tiempo se nos deshace."
+    ],
+    "target_rhyme": "idos",
+    "current_rhyme": "illos",
+    "verse_2": {
+      "text": "En memoria, se cosen los vestidos",
+      "last_word": "vestidos",
+      "rhyme": "idos"
+    },
+    "candidate_final_words": [
+      "vestidos"
+    ],
+    "enforced_candidate_final_words": [],
+    "has_enforced_candidate_final_words": false,
+    "candidate_warning": "No hay palabras finales candidatas distintas de la palabra ancla para la rima B.",
+    "conditioned_by_candidate": false,
+    "conditioned_candidate_words": [],
+    "conditioned_generation_reports": [],
+    "post_b_meter_repair_enabled": true,
+    "post_b_meter_repair_attempts": 1,
+    "post_b_meter_repair_successes": 1,
+    "original_verse_3": "Vida entrelazada en hilos sencillos",
+    "original_verse_3_syllables": 11,
+    "selected_variant": "Enlazadas vidas, hilos perdidos",
+    "selected_variant_syllables": 11,
+    "variants": [
+      {
+        "verse": "Vidas entrelazadas en hilos sencillos",
+        "syllables": 13,
+        "final_word": "sencillos",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'idos' | v3 = 'illos'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Vida entrelazada en hilos idílicos",
+        "syllables": 10,
+        "final_word": "idílicos",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'idos' | v3 = 'ilicos'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Vida entrelazada en hilos sagrados",
+        "syllables": 10,
+        "final_word": "sagrados",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'idos' | v3 = 'ados'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Vida entrelazada en hilos místicos",
+        "syllables": 10,
+        "final_word": "místicos",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'idos' | v3 = 'isticos'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "Vidas entrelazadas en hilos perdidos",
+        "syllables": 13,
+        "final_word": "perdidos",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": true,
+        "inner_rhyme_summary": "rima interior B = correcta | v2 = 'idos' | v3 = 'idos'",
+        "post_b_meter_repair_attempted": true,
+        "post_b_meter_repair_report": {
+          "enabled": true,
+          "repair_label": "post_b",
+          "attempted": true,
+          "changed": true,
+          "reason": "Se reparo la metrica conservando la palabra final obligatoria.",
+          "original_stanza": [
+            "El pasado, un hilo que nos deja atrás,",
+            "En memoria, se cosen los vestidos",
+            "Vidas entrelazadas en hilos perdidos",
+            "Recordando, en tiempo se nos deshace."
+          ],
+          "repaired_stanza": [
+            "El pasado, un hilo que nos deja atrás,",
+            "En memoria, se cosen los vestidos",
+            "Enlazadas vidas, hilos perdidos",
+            "Recordando, en tiempo se nos deshace."
+          ],
+          "verse_number": 3,
+          "required_final_word": "perdidos",
+          "original_verse": "Vidas entrelazadas en hilos perdidos",
+          "original_syllables": 13,
+          "original_distance": 2,
+          "selected_variant": "Enlazadas vidas, hilos perdidos",
+          "selected_syllables": 11,
+          "selected_distance": 0,
+          "variants": [
+            {
+              "verse": "Vidas enlazadas por hilos sueltos",
+              "syllables": 11,
+              "distance": 0,
+              "final_word": "sueltos",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Vidas entrelazadas por hilo suelto",
+              "syllables": 12,
+              "distance": 1,
+              "final_word": "suelto",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            },
+            {
+              "verse": "Vidas entrelazadas, hilos perdidos",
+              "syllables": 12,
+              "distance": 1,
+              "final_word": "perdidos",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": false,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Enlazadas vidas, hilos perdidos",
+              "syllables": 11,
+              "distance": 0,
+              "final_word": "perdidos",
+              "preserves_final_word": true,
+              "improved": true,
+              "accepted": true,
+              "rejection_reason": null
+            },
+            {
+              "verse": "Entrelazadas vidas en hilos sueltos",
+              "syllables": 12,
+              "distance": 1,
+              "final_word": "sueltos",
+              "preserves_final_word": false,
+              "improved": false,
+              "accepted": false,
+              "rejection_reason": "No conserva exactamente la palabra final obligatoria."
+            }
+          ],
+          "error": null
+        },
+        "post_b_meter_repaired_verse": "Enlazadas vidas, hilos perdidos",
+        "post_b_meter_repaired_syllables": 11,
+        "post_b_meter_repaired_distance": 0,
+        "post_b_meter_repair_accepted": true,
+        "accepted": true,
+        "rejection_reason": null
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_1": {
+      "text": "El pasado, un hilo que nos deja atrás,",
+      "last_word": "atrás",
+      "rhyme": "as"
+    },
+    "verse_4": {
+      "text": "Recordando, en tiempo se nos deshace.",
+      "last_word": "deshace",
+      "rhyme": "ace"
+    },
+    "target_rhyme": "as",
+    "current_rhyme": "ace",
+    "errors": [
+      "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'as', pero se obtuvo 'ace'."
+    ],
+    "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('as') y reescribe el verso 4 para que termine con esa misma rima consonante."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": true,
+    "verse_2": {
+      "text": "En memoria, se cosen los vestidos",
+      "last_word": "vestidos",
+      "rhyme": "idos"
+    },
+    "verse_3": {
+      "text": "Enlazadas vidas, hilos perdidos",
+      "last_word": "perdidos",
+      "rhyme": "idos"
+    },
+    "target_rhyme": "idos",
+    "current_rhyme": "idos",
+    "errors": [],
+    "feedback": "La rima interior B es correcta: el verso 3 conserva la rima consonante del verso 2 ('idos')."
+  },
+  "generation_reasoning": "Corregiendo la rima del verso 3 y manteniendo la estructura original"
+}

@@ -1,0 +1,534 @@
+{
+  "run_parameters": {
+    "model": "mistral:7b-instruct",
+    "temperature": 0.3,
+    "num_predict": 600,
+    "k": 2,
+    "max_steps": 3,
+    "alpha": 1.0,
+    "enable_rhyme_hint_examples": false,
+    "enable_local_meter_repair": true,
+    "meter_repair_variants_per_verse": 5,
+    "meter_repair_temperature": 0.4,
+    "meter_repair_num_predict": 200,
+    "enable_outer_rhyme_repair": true,
+    "outer_rhyme_repair_variants": 5,
+    "outer_rhyme_repair_temperature": 0.3,
+    "outer_rhyme_repair_num_predict": 200,
+    "enable_post_a_rhyme_meter_repair": true,
+    "post_a_rhyme_meter_repair_variants": 5,
+    "post_a_rhyme_meter_repair_temperature": 0.4,
+    "post_a_rhyme_meter_repair_num_predict": 200,
+    "enable_inner_rhyme_repair": true,
+    "inner_rhyme_repair_variants": 5,
+    "inner_rhyme_repair_temperature": 0.3,
+    "inner_rhyme_repair_num_predict": 200,
+    "inner_rhyme_repair_conditioned_by_candidate": false,
+    "inner_rhyme_repair_variants_per_candidate": 2,
+    "inner_rhyme_repair_max_candidate_words": 4,
+    "enable_post_b_rhyme_meter_repair": true,
+    "post_b_rhyme_meter_repair_variants": 5,
+    "post_b_rhyme_meter_repair_temperature": 0.4,
+    "post_b_rhyme_meter_repair_num_predict": 200
+  },
+  "stanza": [
+    "Encespeado, el tiempo río curvo se va",
+    "Sin piedades, sin compasión desborde",
+    "En su flujo, las cosas viven y caen",
+    "Memoria y sus aguas en movimiento"
+  ],
+  "score": 0.6214465011907718,
+  "step_score": 0.8,
+  "score_history": [
+    0.5,
+    0.6,
+    0.8
+  ],
+  "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A.",
+  "metrics": {
+    "score": 0.8,
+    "score_20": 16.0,
+    "verses": [
+      "Encespeado, el tiempo río curvo se va",
+      "Sin piedades, sin compasión desborde",
+      "En su flujo, las cosas viven y caen",
+      "Memoria y sus aguas en movimiento"
+    ],
+    "verse_count": {
+      "expected_verses": 4,
+      "actual_verses": 4,
+      "score": 1.0,
+      "is_valid": true,
+      "errors": []
+    },
+    "syllables": {
+      "target_syllables": 11,
+      "verse_syllable_counts": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "correct_verses": 4,
+      "total_expected_verses": 4,
+      "score": 1.0,
+      "errors": []
+    },
+    "rhyme": {
+      "expected_pattern": [
+        "A",
+        "B",
+        "B",
+        "A"
+      ],
+      "actual_rhymes": [
+        "a",
+        "orde",
+        "en",
+        "ento"
+      ],
+      "actual_scheme": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct_positions": 2,
+      "total_positions": 4,
+      "score": 0.5,
+      "errors": [
+        "Verso 3: rima C, pero se esperaba B.",
+        "Verso 4: rima D, pero se esperaba A."
+      ]
+    },
+    "errors": [
+      "Verso 3: rima C, pero se esperaba B.",
+      "Verso 4: rima D, pero se esperaba A."
+    ],
+    "feedback": "Puntuacion formal total: 16.0/20.\nRevisa los siguientes aspectos formales antes de generar una nueva version:\nNumero de versos:\n- El numero de versos es correcto.\nSilabas metricas:\n- Todos los versos evaluados tienen 11 silabas.\nRima consonante:\n- Verso 3: rima C, pero se esperaba B.\n- Verso 4: rima D, pero se esperaba A."
+  },
+  "meter_repair_report": {
+    "enabled": true,
+    "changed": true,
+    "original_stanza": [
+      "Encespeado, el tiempo río curvo se va",
+      "Sin piedad, sin compasión desborda",
+      "En su flujo, las cosas viven y caen",
+      "La memoria y sus aguas no se detienen"
+    ],
+    "repaired_stanza": [
+      "Encespeado, el tiempo río curvo se va",
+      "Sin piedades, sin compasión desborde",
+      "En su flujo, las cosas viven y caen",
+      "Memoria y sus aguas en movimiento"
+    ],
+    "verse_repairs": [
+      {
+        "verse_number": 1,
+        "original_verse": "Encespeado, el tiempo río curvo se va",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 2,
+        "original_verse": "Sin piedad, sin compasión desborda",
+        "original_syllables": 10,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Sin piedades, sin compasión desborde",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "Sin piedades, sin compasión desborde",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Sin piedad, sin compasión desbordan",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "Sin piedad, sin compasión desborda y",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "Sin piedad, sin compasión desbordando",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Sin piedad, sin compasión desborde y",
+            "syllables": 12,
+            "distance": 1
+          }
+        ],
+        "error": null
+      },
+      {
+        "verse_number": 3,
+        "original_verse": "En su flujo, las cosas viven y caen",
+        "original_syllables": 11,
+        "original_distance": 0,
+        "attempted": false,
+        "reason": "El verso ya tiene 11 silabas metricas.",
+        "improved": false,
+        "selected_variant": null,
+        "selected_syllables": null,
+        "variants": []
+      },
+      {
+        "verse_number": 4,
+        "original_verse": "La memoria y sus aguas no se detienen",
+        "original_syllables": 12,
+        "original_distance": 1,
+        "attempted": true,
+        "improved": true,
+        "selected_variant": "Memoria y sus aguas en movimiento",
+        "selected_syllables": 11,
+        "selected_distance": 0,
+        "variants": [
+          {
+            "verse": "La memoria y sus aguas no se detienen",
+            "syllables": 12,
+            "distance": 1
+          },
+          {
+            "verse": "Memoria y sus aguas sin cesar van",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "Memoria y sus aguas siempre fluyen",
+            "syllables": 10,
+            "distance": 1
+          },
+          {
+            "verse": "Memoria y sus aguas en movimiento",
+            "syllables": 11,
+            "distance": 0
+          },
+          {
+            "verse": "Memoria y sus aguas nunca se detengan",
+            "syllables": 12,
+            "distance": 1
+          }
+        ],
+        "error": null
+      }
+    ]
+  },
+  "outer_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige AXYA sin empeorar metrica.",
+    "original_stanza": [
+      "Encespeado, el tiempo río curvo se va",
+      "Sin piedades, sin compasión desborde",
+      "En su flujo, las cosas viven y caen",
+      "Memoria y sus aguas en movimiento"
+    ],
+    "repaired_stanza": [
+      "Encespeado, el tiempo río curvo se va",
+      "Sin piedades, sin compasión desborde",
+      "En su flujo, las cosas viven y caen",
+      "Memoria y sus aguas en movimiento"
+    ],
+    "target_rhyme": "a",
+    "current_rhyme": "ento",
+    "verse_1": {
+      "text": "Encespeado, el tiempo río curvo se va",
+      "last_word": "va",
+      "rhyme": "a"
+    },
+    "candidate_final_words": [
+      "va"
+    ],
+    "enforced_candidate_final_words": [],
+    "post_a_meter_repair_enabled": true,
+    "post_a_meter_repair_attempts": 0,
+    "post_a_meter_repair_successes": 0,
+    "original_verse_4": "Memoria y sus aguas en movimiento",
+    "original_verse_4_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "En sus aguas, el tiempo se va afluyendo",
+        "syllables": 10,
+        "final_word": "afluyendo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'a' | v4 = 'endo'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Memoria y sus corrientes en movimiento",
+        "syllables": 13,
+        "final_word": "movimiento",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'a' | v4 = 'ento'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "En su flujo, la memoria se desploma",
+        "syllables": 12,
+        "final_word": "desploma",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'a' | v4 = 'oma'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "Encespeado, el tiempo río se va fluyendo",
+        "syllables": 12,
+        "final_word": "fluyendo",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'a' | v4 = 'endo'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      },
+      {
+        "verse": "En su flujo, las aguas de la memoria",
+        "syllables": 11,
+        "final_word": "memoria",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "outer_rhyme_valid": false,
+        "outer_rhyme_summary": "rima AXYA = incorrecta | objetivo = 'a' | v4 = 'oria'",
+        "post_a_meter_repair_attempted": false,
+        "post_a_meter_repair_report": null,
+        "post_a_meter_repaired_verse": null,
+        "post_a_meter_repaired_syllables": null,
+        "post_a_meter_repaired_distance": null,
+        "post_a_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima exterior AXYA."
+      }
+    ],
+    "error": null
+  },
+  "inner_rhyme_repair_report": {
+    "enabled": true,
+    "attempted": true,
+    "changed": false,
+    "reason": "Ninguna variante corrige B sin empeorar metrica.",
+    "original_stanza": [
+      "Encespeado, el tiempo río curvo se va",
+      "Sin piedades, sin compasión desborde",
+      "En su flujo, las cosas viven y caen",
+      "Memoria y sus aguas en movimiento"
+    ],
+    "repaired_stanza": [
+      "Encespeado, el tiempo río curvo se va",
+      "Sin piedades, sin compasión desborde",
+      "En su flujo, las cosas viven y caen",
+      "Memoria y sus aguas en movimiento"
+    ],
+    "target_rhyme": "orde",
+    "current_rhyme": "en",
+    "verse_2": {
+      "text": "Sin piedades, sin compasión desborde",
+      "last_word": "desborde",
+      "rhyme": "orde"
+    },
+    "candidate_final_words": [
+      "desborde"
+    ],
+    "enforced_candidate_final_words": [],
+    "has_enforced_candidate_final_words": false,
+    "candidate_warning": "No hay palabras finales candidatas distintas de la palabra ancla para la rima B.",
+    "conditioned_by_candidate": false,
+    "conditioned_candidate_words": [],
+    "conditioned_generation_reports": [],
+    "post_b_meter_repair_enabled": true,
+    "post_b_meter_repair_attempts": 0,
+    "post_b_meter_repair_successes": 0,
+    "original_verse_3": "En su flujo, las cosas viven y caen",
+    "original_verse_3_syllables": 11,
+    "selected_variant": null,
+    "selected_variant_syllables": null,
+    "variants": [
+      {
+        "verse": "En su curso, los recuerdos viven y se van",
+        "syllables": 13,
+        "final_word": "van",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'orde' | v3 = 'an'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "En su rumbo, las cosas fluyen y caen",
+        "syllables": 11,
+        "final_word": "caen",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'orde' | v3 = 'en'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "En su paso, las imágenes viven y se van",
+        "syllables": 13,
+        "final_word": "van",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'orde' | v3 = 'an'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "En su flujo, la historia vive y se acaba",
+        "syllables": 12,
+        "final_word": "acaba",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'orde' | v3 = 'aba'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      },
+      {
+        "verse": "En su transcurso, las emociones viven y desaparecen",
+        "syllables": 16,
+        "final_word": "desaparecen",
+        "final_word_matches_anchor": false,
+        "uses_candidate_final_word": true,
+        "inner_rhyme_valid": false,
+        "inner_rhyme_summary": "rima interior B = incorrecta | objetivo = 'orde' | v3 = 'ecen'",
+        "post_b_meter_repair_attempted": false,
+        "post_b_meter_repair_report": null,
+        "post_b_meter_repaired_verse": null,
+        "post_b_meter_repaired_syllables": null,
+        "post_b_meter_repaired_distance": null,
+        "post_b_meter_repair_accepted": false,
+        "accepted": false,
+        "rejection_reason": "No corrige la rima interior B."
+      }
+    ],
+    "error": null
+  },
+  "outer_rhyme_diagnosis": {
+    "target_pattern": "AXYA",
+    "required_pair": [
+      1,
+      4
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_1": {
+      "text": "Encespeado, el tiempo río curvo se va",
+      "last_word": "va",
+      "rhyme": "a"
+    },
+    "verse_4": {
+      "text": "Memoria y sus aguas en movimiento",
+      "last_word": "movimiento",
+      "rhyme": "ento"
+    },
+    "target_rhyme": "a",
+    "current_rhyme": "ento",
+    "errors": [
+      "El verso 4 no rima consonantemente con el verso 1: se esperaba la rima 'a', pero se obtuvo 'ento'."
+    ],
+    "feedback": "Para cumplir AXYA, conserva la rima del verso 1 ('a') y reescribe el verso 4 para que termine con esa misma rima consonante."
+  },
+  "inner_rhyme_diagnosis": {
+    "target_pattern": "XBBY",
+    "required_pair": [
+      2,
+      3
+    ],
+    "has_enough_verses": true,
+    "is_valid": false,
+    "verse_2": {
+      "text": "Sin piedades, sin compasión desborde",
+      "last_word": "desborde",
+      "rhyme": "orde"
+    },
+    "verse_3": {
+      "text": "En su flujo, las cosas viven y caen",
+      "last_word": "caen",
+      "rhyme": "en"
+    },
+    "target_rhyme": "orde",
+    "current_rhyme": "en",
+    "errors": [
+      "El verso 3 no rima consonantemente con el verso 2: se esperaba la rima 'orde', pero se obtuvo 'en'."
+    ],
+    "feedback": "Para cumplir la pareja B de ABBA, conserva la rima del verso 2 ('orde') y reescribe el verso 3 para que termine con esa misma rima consonante."
+  },
+  "generation_reasoning": "Corregido el numero de silabas en versos 2 y 4 para cumplir con el requerimiento de 11 silabas metricas. La rima consonante ABBA se mantiene."
+}

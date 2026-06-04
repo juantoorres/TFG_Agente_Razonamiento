@@ -1,0 +1,58 @@
+ESTROFA FINAL
+
+Modelo: mistral:7b-instruct
+Temperatura: 0.3
+Num predict: 600
+k: 2
+max_steps: 4
+alpha: 1.0
+Tiempo total de ejecucion: 3454.57 segundos (57.58 minutos)
+Diccionario de palabras candidatas de rima activo: False
+Reparacion metrica activa: True
+Variantes por verso para reparacion metrica: 5
+Temperatura reparacion metrica: 0.4
+Num predict reparacion metrica: 200
+Reparacion rima A activa: True
+Variantes para reparacion rima A: 5
+Temperatura reparacion rima A: 0.3
+Num predict reparacion rima A: 200
+Reparacion metrica posterior a rima A activa: True
+Variantes para reparacion metrica posterior a rima A: 5
+Temperatura reparacion metrica posterior a rima A: 0.4
+Num predict reparacion metrica posterior a rima A: 200
+Reparacion rima B activa: True
+Variantes para reparacion rima B: 5
+Temperatura reparacion rima B: 0.3
+Num predict reparacion rima B: 200
+Reparacion rima B condicionada por candidata: False
+Variantes por candidata para reparacion rima B: 2
+Max candidatas usadas para reparacion rima B: 4
+Reparacion metrica posterior a rima B activa: True
+Variantes para reparacion metrica posterior a rima B: 5
+Temperatura reparacion metrica posterior a rima B: 0.4
+Num predict reparacion metrica posterior a rima B: 200
+
+Score global: 0.765
+Historial de scores: [0.7, 0.8, 0.8]
+Resumen de metricas: versos=4/4 | endecasilabos=3/4 | rima=3/4 | score=16.0/20
+Resumen de reparacion metrica: reparación métrica = activa | intentos = 1 | mejoras = 0 | cambio = False
+Resumen reparacion rima A: reparacion rima A = activa | intento = True | cambio = True | post-metrica A = 0/0
+Resumen reparacion rima B: reparacion rima B = activa | intento = True | cambio = False | post-metrica B = 0/0
+Resumen rima exterior AXYA: rima AXYA = correcta | v1 = 'ene' | v4 = 'ene'
+Resumen rima interior B: rima interior B = incorrecta | objetivo = 'ivas' | v3 = 'ad'
+
+Feedback final:
+Puntuacion formal total: 16.0/20.
+Revisa los siguientes aspectos formales antes de generar una nueva version:
+Numero de versos:
+- El numero de versos es correcto.
+Silabas metricas:
+- Verso 4: tiene 12 silabas, pero deberia tener 11.
+Rima consonante:
+- Verso 3: rima C, pero se esperaba B.
+
+Estrofa completa:
+1. El tiempo, un río que nunca se detiene
+2. En él, recuerdos fluyen como aguas vivas
+3. Mirando ahora, me da la oportunidad
+4. A veces, en la memoria se detiene
