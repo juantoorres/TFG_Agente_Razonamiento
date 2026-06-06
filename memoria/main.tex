@@ -34,7 +34,8 @@
 
 % Listings config
 \lstset{
-  basicstyle=\ttfamily\small,
+  basicstyle=\ttfamily\small\linespread{1.0}\selectfont,  
+  %basicstyle=\ttfamily\small,
   numbers=left,
   numberstyle=\tiny,
   columns=fullflexible,
@@ -1080,16 +1081,9 @@ representativa del uso de grafos que un ejemplo puramente lineal, al tiempo que 
 
 
 
-%────────────────────── Chapter 4 — Implementación, Experimentación y Refinamiento del Agente ────────────────────────────
+%────────────────────── Chapter 4 — Implementación del Agente ────────────────────────────
 
-\chapter{Implementación, Experimentación y Refinamiento del Agente}
-
-
-
-
-
-
-
+\chapter{Implementación del Agente}
 
 
 
@@ -1181,19 +1175,19 @@ El campo \texttt{beams} almacena las mejores estrofas disponibles en cada iterac
 Los campos \texttt{step}, \texttt{max\_steps} y \texttt{k} controlan respectivamente la iteración actual, el número máximo de iteraciones y el número de alternativas que se conservan tras cada fase de selección.
 
 
-\subsection{Flujo de Ejecución}
+%\subsection{Flujo de Ejecución} ====================================================================================================================>>>>>>>>>>>>>>>>> CREO QUE ESTE APARTADO SOBRA, ES DEMASIADO REPETITIVO CON LO YA EXPLICADO EN 4.1.1
 
-El flujo de ejecución del sistema puede resumirse en los siguientes pasos:
+%El flujo de ejecución del sistema puede resumirse en los siguientes pasos:
 
-\begin{enumerate}
-    \item El nodo \texttt{expand} genera nuevas estrofas candidatas a partir del estado actual.
-    \item El nodo \texttt{score} evalúa formalmente cada candidata y aplica las reparaciones locales disponibles.
-    \item El nodo \texttt{prune} ordena las candidatas según su puntuación y conserva las mejores $k$.
-    \item El sistema comprueba la condición de parada.
-    \item Si no se ha alcanzado el límite de iteraciones, el proceso vuelve al nodo \texttt{expand}.
-\end{enumerate}
+%\begin{enumerate}
+%    \item El nodo \texttt{expand} genera nuevas estrofas candidatas a partir del estado actual.
+%    \item El nodo \texttt{score} evalúa formalmente cada candidata y aplica las reparaciones locales disponibles.
+%    \item El nodo \texttt{prune} ordena las candidatas según su puntuación y conserva las mejores $k$.
+%    \item El sistema comprueba la condición de parada.
+%    \item Si no se ha alcanzado el límite de iteraciones, el proceso vuelve al nodo \texttt{expand}.
+%\end{enumerate}
 
-Este diseño permite que el agente explore diferentes alternativas antes de seleccionar una solución final. Además, al conservar varias estrofas candidatas en paralelo, se reduce la dependencia de una única generación del modelo y se facilita la recuperación ante salidas parciales o formalmente incorrectas.
+%Este diseño permite que el agente explore diferentes alternativas antes de seleccionar una solución final. Además, al conservar varias estrofas candidatas en paralelo, se reduce la dependencia de una única generación del modelo y se facilita la recuperación ante salidas parciales o formalmente incorrectas.
 
 \subsection{Ventajas del Enfoque}
 
@@ -1216,21 +1210,21 @@ comportamiento real del sistema depende de cómo se implementa cada fase y de c�
 En este trabajo, la generación de texto se realiza mediante un modelo ejecutado localmente con \emph{Ollama}. Esta decisión permite mantener todo el proceso de inferencia en el equipo de desarrollo, sin depender de servicios externos.
 El modelo se utiliza principalmente como generador de estrofas y como mecanismo de reparación lingüística, mientras que la evaluación formal de las salidas se realiza mediante funciones objetivas implementadas en \emph{Python}.
 
-La unidad de trabajo del sistema no es un verso aislado ni un soneto completo, sino una estrofa de cuatro versos. Cada estrofa candidata debe cumplir tres restricciones principales: estar formada por exactamente cuatro versos, aproximarse al patrón
-endecasílabo y respetar una rima consonante ABBA. Por tanto, los prompts diseñados para el modelo no solo deben pedir una salida poética, sino también imponer un formato controlado y restricciones formales explícitas.
+%La unidad de trabajo del sistema no es un verso aislado ni un soneto completo, sino una estrofa de cuatro versos. Cada estrofa candidata debe cumplir tres restricciones principales: estar formada por exactamente cuatro versos, aproximarse al patrón
+%endecasílabo y respetar una rima consonante ABBA. Por tanto, los prompts diseñados para el modelo no solo deben pedir una salida poética, sino también imponer un formato controlado y restricciones formales explícitas.
 
 \subsection{Integración con \emph{Ollama}}
 
-La integración con Ollama se realiza mediante llamadas locales al modelo de lenguaje configurado para la generación. En la versión actual del sistema, el modelo utilizado es \texttt{mistral:7b-instruct}, ejecutado de forma local.
+La integración con \emph{Ollama} se realiza mediante llamadas locales al modelo de lenguaje configurado para la generación. En la versión actual del sistema, el modelo utilizado es \texttt{mistral:7b-instruct}, ejecutado de forma local.
 Esta configuración permite realizar múltiples llamadas durante una misma ejecución del grafo, tanto para generar estrofas iniciales como para producir variantes o reparar errores detectados posteriormente.
 
-El uso de Ollama introduce una separación clara entre dos responsabilidades. Por un lado, el modelo de lenguaje se encarga de producir contenido textual: estrofas completas, variantes corregidas o versos alternativos.
+El uso de \emph{Ollama} introduce una separación clara entre dos responsabilidades. Por un lado, el modelo de lenguaje se encarga de producir contenido textual: estrofas completas, variantes corregidas o versos alternativos.
 Por otro lado, el sistema implementado en \emph{Python} se encarga de validar objetivamente si esas salidas cumplen las restricciones exigidas. Esta separación resulta importante, ya que evita confiar exclusivamente en la capacidad del modelo para juzgar sus propias respuestas.
 
 En otras palabras, el modelo no actúa como evaluador principal del sistema. Su papel se centra en la generación y reformulación de texto. La comprobación de la calidad formal se delega en funciones específicas de evaluación, capaces de medir el número de versos,
 estimar la métrica y comprobar el esquema de rima. De este modo, el sistema combina la flexibilidad generativa del LLM con un mecanismo de control externo más determinista.
 
-Además, las llamadas a Ollama se configuran mediante parámetros como la temperatura y el número máximo de tokens generados. La temperatura controla el grado de variabilidad de las respuestas. Una temperatura baja favorece salidas más estables y conservadoras,
+Además, las llamadas a \emph{Ollama} se configuran mediante parámetros como la temperatura y el número máximo de tokens generados. La temperatura controla el grado de variabilidad de las respuestas. Una temperatura baja favorece salidas más estables y conservadoras,
 mientras que una temperatura mayor incrementa la diversidad de las variantes generadas. En el contexto de este trabajo, este parámetro resulta especialmente relevante, ya que el sistema necesita explorar alternativas, pero sin perder por completo el control sobre la forma de la estrofa.
  
 El siguiente Listado~\ref{lst:integracionOllama} muestra una versión simplificada de la función encargada de realizar la llamada al modelo:
@@ -1810,27 +1804,27 @@ Esta configuración permite estudiar no solo la capacidad de generación inicial
 
 % --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-\subsection{Problema de Prueba: Generación de una Estrofa ABBA}
+%\subsection{Problema de Prueba: Generación de una Estrofa ABBA}
 
-El problema seleccionado para evaluar el agente es la generación automática de una estrofa clásica en español formada por cuatro versos. La estrofa debe cumplir las siguientes restricciones:
+%El problema seleccionado para evaluar el agente es la generación automática de una estrofa clásica en español formada por cuatro versos. La estrofa debe cumplir las siguientes restricciones:
 
-\begin{itemize}
-    \item contener exactamente cuatro versos;
-    \item aproximarse al patrón endecasílabo;
-    \item seguir un esquema de rima consonante ABBA.
-\end{itemize}
+%\begin{itemize}
+%    \item contener exactamente cuatro versos;
+%    \item aproximarse al patrón endecasílabo;
+%    \item seguir un esquema de rima consonante ABBA.
+%\end{itemize}
 
-Aunque en una fase inicial del proyecto se planteó la generación de un soneto completo, el desarrollo experimental se centra finalmente en la primera estrofa, con esquema de rima ABBA. Esta decisión no implica un cambio en la naturaleza del problema, sino una reducción controlada de su alcance.
-En lugar de abordar directamente la generación completa de catorce versos, se estudia con mayor profundidad una unidad poética más pequeña, pero suficientemente representativa de las dificultades principales: control del número de versos, métrica endecasílaba y rima consonante.
+%Aunque en una fase inicial del proyecto se planteó la generación de un soneto completo, el desarrollo experimental se centra finalmente en la primera estrofa, con esquema de rima ABBA. Esta decisión no implica un cambio en la naturaleza del problema, sino una reducción controlada de su alcance.
+%En lugar de abordar directamente la generación completa de catorce versos, se estudia con mayor profundidad una unidad poética más pequeña, pero suficientemente representativa de las dificultades principales: control del número de versos, métrica endecasílaba y rima consonante.
 
-Este enfoque permite analizar de forma más precisa el comportamiento del agente. Al trabajar con una única estrofa, resulta más sencillo identificar en qué punto aparecen los errores, qué efecto tienen las reparaciones locales y cómo influye el proceso de selección mediante \emph{Beam Search}.
-De este modo, el sistema puede evaluarse sobre una tarea acotada, pero no trivial.
+%Este enfoque permite analizar de forma más precisa el comportamiento del agente. Al trabajar con una única estrofa, resulta más sencillo identificar en qué punto aparecen los errores, qué efecto tienen las reparaciones locales y cómo influye el proceso de selección mediante \emph{Beam Search}.
+%De este modo, el sistema puede evaluarse sobre una tarea acotada, pero no trivial.
 
-Además, el método propuesto es extensible a la generación de un soneto completo. Una vez resuelta la generación de una estrofa ABBA, el mismo esquema podría aplicarse a la segunda estrofa del soneto, también con rimas fijadas. Posteriormente, sería posible adaptar la lógica de evaluación y
-reparación a los tercetos finales, cuyo esquema de rima puede adoptar patrones como CDC. Por tanto, la generación de la primera estrofa se plantea como una prueba representativa del método, no como una limitación conceptual del sistema.
+%Además, el método propuesto es extensible a la generación de un soneto completo. Una vez resuelta la generación de una estrofa ABBA, el mismo esquema podría aplicarse a la segunda estrofa del soneto, también con rimas fijadas. Posteriormente, sería posible adaptar la lógica de evaluación y
+%reparación a los tercetos finales, cuyo esquema de rima puede adoptar patrones como CDC. Por tanto, la generación de la primera estrofa se plantea como una prueba representativa del método, no como una limitación conceptual del sistema.
 
-La elección de este problema resulta adecuada para evaluar un sistema de razonamiento multietapa por varias razones. En primer lugar, no basta con generar texto gramaticalmente correcto: la salida debe satisfacer restricciones formales verificables. En segundo lugar, los errores
-pueden aparecer en distintos niveles, como el número de versos, la métrica de un verso aislado o la rima entre dos versos concretos. Por último, una estrofa parcialmente incorrecta puede seguir siendo útil si contiene elementos aprovechables que puedan repararse posteriormente.
+%La elección de este problema resulta adecuada para evaluar un sistema de razonamiento multietapa por varias razones. En primer lugar, no basta con generar texto gramaticalmente correcto: la salida debe satisfacer restricciones formales verificables. En segundo lugar, los errores
+%pueden aparecer en distintos niveles, como el número de versos, la métrica de un verso aislado o la rima entre dos versos concretos. Por último, una estrofa parcialmente incorrecta puede seguir siendo útil si contiene elementos aprovechables que puedan repararse posteriormente.
 
 % --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -1839,14 +1833,20 @@ pueden aparecer en distintos niveles, como el número de versos, la métrica de 
 La generación de estrofas con restricciones constituye un caso de prueba interesante para el agente porque obliga a combinar creatividad lingüística y control formal. El modelo de lenguaje aporta capacidad generativa, mientras que el grafo de razonamiento introduce mecanismos de evaluación,
 selección y reparación.
 
-Este planteamiento permite observar si el proceso iterativo mejora realmente los resultados frente a una generación directa. En lugar de aceptar la primera salida del modelo, el sistema genera varias alternativas, las evalúa, conserva las más prometedoras y aplica reparaciones locales cuando
-detecta errores. Por tanto, el problema permite estudiar el valor añadido de la arquitectura propuesta.
+%Este planteamiento permite observar si el proceso iterativo mejora realmente los resultados frente a una generación directa. En lugar de aceptar la primera salida del modelo, el sistema genera varias alternativas, las evalúa, conserva las más prometedoras y aplica reparaciones locales cuando
+%detecta errores. Por tanto, el problema permite estudiar el valor añadido de la arquitectura propuesta.
+
+El método propuesto es extensible a la generación de un soneto completo. Una vez resuelta la generación de una estrofa ABBA, el mismo esquema podría aplicarse a la segunda estrofa del soneto, también con rimas fijadas. Posteriormente, sería posible adaptar la lógica de evaluación y
+reparación a los tercetos finales, cuyo esquema de rima puede adoptar patrones como CDC. Por tanto, la generación de la primera estrofa se plantea como una prueba representativa del método, no como una limitación conceptual del sistema.
 
 Además, el uso de trazas y métricas estructuradas permite comparar distintas configuraciones del sistema. Por ejemplo, se puede analizar el efecto de activar o desactivar la reparación métrica, añadir reparación de rima, modificar el ancho del haz o cambiar el número de iteraciones.
 Estas comparaciones se desarrollan en los apartados posteriores, donde se estudia la evolución del agente a través de diferentes ciclos de experimentación.
 
 
 %────────────────────── Ciclo 1: Aproximación Inicial y Resultados Base ──────────────────────────
+
+\chapter{Experimentación, Refinamiento y Evaluación del Agente}
+
 \section{Ciclo 1: Aproximación Inicial y Resultados Base}
 
 El primer ciclo experimental tiene como objetivo evaluar una versión base del sistema, previa a la incorporación de los mecanismos avanzados de reparación. Esta versión mantiene la arquitectura general del agente, basada en generación de candidatas, evaluación formal y selección mediante \emph{Beam Search},
@@ -1857,22 +1857,14 @@ en el sistema.
 
 \subsection{Configuración de la Versión Base}
 
-Para simular el comportamiento de la aproximación inicial, se desactivaron las principales fases de reparación incorporadas durante el desarrollo posterior. El Listado~\ref{lst:configCiclo1} muestra la configuración utilizada en este primer ciclo experimental.
+En este primer ciclo experimental se evaluó una versión inicial del agente, formada por los tres componentes principales de la arquitectura: generación de candidatas, evaluación formal y selección mediante \emph{Beam Search}.
+El objetivo de esta primera aproximación era comprobar si la combinación de \emph{prompting}, puntuación objetiva y poda top-$k$ era suficiente para guiar al modelo hacia una estrofa que cumpliera las restricciones definidas.
 
-\begin{lstlisting}[language=Python, caption={Configuración utilizada en el primer ciclo experimental}, label={lst:configCiclo1}]
-ENABLE_LOCAL_METER_REPAIR = False
-ENABLE_OUTER_RHYME_REPAIR = False
-ENABLE_POST_A_RHYME_METER_REPAIR = False
-ENABLE_INNER_RHYME_REPAIR = False
-ENABLE_POST_B_RHYME_METER_REPAIR = False
-ENABLE_BEAM_ELITISM = False
-\end{lstlisting}
+En esta versión, el sistema generaba varias estrofas candidatas en cada iteración, evaluaba su grado de cumplimiento formal y conservaba las mejores alternativas para continuar el proceso. Sin embargo, todavía no incorporaba mecanismos específicos de reparación local.
+Es decir, cuando una estrofa presentaba errores métricos o de rima, el sistema podía detectarlos mediante la función de evaluación, pero no disponía aún de una fase dedicada a corregirlos de forma explícita.
 
-Con esta configuración, el sistema conserva el flujo general del grafo, pero no intenta corregir localmente los errores detectados. Las estrofas candidatas se generan, se evalúan mediante la función de puntuación formal y se seleccionan según su puntuación, pero no se aplican reparaciones
-posteriores sobre versos concretos ni sobre parejas de rima.
-
-Los parámetros generales utilizados en estas ejecuciones fueron los mismos que en la configuración experimental principal: modelo \texttt{mistral:7b-instruct}, temperatura 0.3, valor $k=2$ y un máximo de 3 iteraciones. Esto permite que la comparación posterior con la versión refinada se centre en el
-efecto de las reparaciones, y no en cambios en los parámetros principales de ejecución.
+Los parámetros generales utilizados en estas ejecuciones fueron los siguientes: modelo \texttt{mistral:7b-instruct}, temperatura 0.3, valor $k=2$ y un máximo de 3 iteraciones.
+Esta configuración permitió obtener una primera línea base sobre la que analizar las limitaciones del sistema y plantear mejoras posteriores.
 
 \subsection{Resultados Cuantitativos}
 
