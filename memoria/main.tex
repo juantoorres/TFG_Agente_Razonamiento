@@ -1644,19 +1644,11 @@ Estas comparaciones se desarrollan en el siguiente capítulo, donde se analizan 
 %────────────────────── Ciclo 1: Aproximación Inicial y Resultados Base ──────────────────────────
 \section{Ciclo 1: Aproximación Inicial y Resultados Base}
 
-El primer ciclo experimental tiene como objetivo evaluar una versión base del sistema, previa a la incorporación de los mecanismos avanzados de reparación. Esta versión mantiene la arquitectura general del agente, basada en generación de candidatas, evaluación formal y selección mediante \emph{Beam Search},
-pero desactiva las fases específicas de reparación métrica, reparación de rima y protección de \emph{beams}.
+El primer ciclo experimental tiene como objetivo evaluar una versión inicial del agente. Esta primera aproximación mantiene la estructura principal del sistema, basada en generación de candidatas, evaluación formal y selección mediante \emph{Beam Search}.
+El objetivo era comprobar si la combinación de \emph{prompting}, puntuación objetiva y poda top-$k$ era suficiente para guiar al modelo hacia una estrofa que cumpliera las restricciones definidas.
 
-De esta forma, el Ciclo 1 permite estudiar hasta qué punto la combinación de \emph{prompting}, evaluación objetiva y poda top-$k$ resulta suficiente para resolver el problema planteado. Esta configuración se utiliza como línea base para comparar posteriormente el impacto de las mejoras introducidas
-en el sistema.
-
-\subsection{Configuración de la Versión Base}
-
-En este primer ciclo experimental se evaluó una versión inicial del agente, formada por los tres componentes principales de la arquitectura: generación de candidatas, evaluación formal y selección mediante \emph{Beam Search}.
-El objetivo de esta primera aproximación era comprobar si la combinación de \emph{prompting}, puntuación objetiva y poda top-$k$ era suficiente para guiar al modelo hacia una estrofa que cumpliera las restricciones definidas.
-
-En esta versión, el sistema generaba varias estrofas candidatas en cada iteración, evaluaba su grado de cumplimiento formal y conservaba las mejores alternativas para continuar el proceso. Sin embargo, todavía no incorporaba mecanismos específicos de reparación local.
-Es decir, cuando una estrofa presentaba errores métricos o de rima, el sistema podía detectarlos mediante la función de evaluación, pero no disponía aún de una fase dedicada a corregirlos de forma explícita.
+En esta versión, el sistema generaba varias estrofas candidatas en cada iteración, evaluaba su grado de cumplimiento formal y conservaba las mejores alternativas para continuar el proceso.
+Sin embargo, todavía no incorporaba mecanismos específicos de reparación local. Es decir, cuando una estrofa presentaba errores métricos o de rima, el sistema podía detectarlos mediante la función de evaluación, pero no disponía aún de una fase dedicada a corregirlos de forma explícita.
 
 Los parámetros generales utilizados en estas ejecuciones fueron los siguientes: modelo \texttt{mistral:7b-instruct}, temperatura 0.3, valor $k=2$ y un máximo de 3 iteraciones.
 Esta configuración permitió obtener una primera línea base sobre la que analizar las limitaciones del sistema y plantear mejoras posteriores.
@@ -1691,8 +1683,8 @@ La Tabla~\ref{tab:resultadosCiclo1} resume los resultados obtenidos en tres ejec
         \hline
         Estrofas completamente válidas & 0\% \\
         \hline
-        Tiempo medio de ejecución (segundos) & 475.83 s \\
-        \hline
+        %Tiempo medio de ejecución (segundos) & 475.83 s \\
+        %\hline
         Tiempo medio de ejecución (minutos) & 7.93 min \\
         \hline
     \end{tabular}
@@ -1723,137 +1715,62 @@ ya que ``mudo'' y ``sueño'' no presentan rima consonante.
 Este ejemplo refleja una característica habitual de la versión base: el modelo genera una salida lingüísticamente plausible, pero no controla de forma fiable las restricciones formales impuestas. La puntuación obtenida se debe principalmente al número correcto de versos y a algunos aciertos métricos,
 no a un cumplimiento completo de la estructura poética objetivo.
 
-\subsection{Observaciones del Primer Ciclo}
+%% \subsection{Observaciones del Primer Ciclo}
 
-El primer ciclo experimental permite extraer una conclusión inicial clara: la arquitectura basada en \emph{Beam Search} organiza correctamente el proceso de búsqueda, pero no basta por sí sola para garantizar la generación de estrofas válidas. La evaluación formal permite identificar las mejores
-candidatas dentro de las alternativas disponibles, pero si ninguna de ellas cumple adecuadamente las restricciones, la poda no puede corregir el problema por sí misma.
+\subsection{Discusión y Lecciones Aprendidas}
 
-Por otro lado, el tiempo de ejecución de esta versión base es considerablemente menor que el de la versión completa con reparaciones activadas. El tiempo medio observado es de aproximadamente 7.93 minutos por ejecución. Esta diferencia se debe a que el sistema no realiza llamadas adicionales al modelo
-para reparar versos, corregir rimas o ajustar la métrica tras una reparación.
+El primer ciclo experimental permite extraer una conclusión clara: la arquitectura basada en generación, evaluación y poda organiza correctamente el proceso de búsqueda, pero no basta por sí sola para garantizar la generación de estrofas válidas.
+La evaluación formal permite identificar las mejores candidatas entre las alternativas disponibles, pero si ninguna de ellas cumple adecuadamente las restricciones, la poda solo puede conservar la opción menos incorrecta.
 
-Por tanto, este primer ciclo muestra un compromiso claro entre coste computacional y calidad formal. La versión base es más rápida, pero insuficiente para resolver el problema. Esta observación sirve como punto de partida para el análisis de errores del siguiente apartado y justifica la incorporación
-posterior de mecanismos específicos de reparación.
+La principal limitación observada es que el \emph{prompting} directo no garantiza el cumplimiento de restricciones lingüísticas precisas. El modelo sigue con facilidad la instrucción de generar cuatro versos, pero falla con frecuencia en tareas más específicas,
+como ajustar la métrica endecasílaba o planificar correctamente las palabras finales para cumplir la rima consonante.
 
+Por otro lado, esta versión inicial presenta un tiempo de ejecución considerablemente menor que las versiones posteriores. El tiempo medio observado es de aproximadamente 7.93 minutos por ejecución.
+Sin embargo, esta reducción de coste se consigue a cambio de una baja calidad formal en las estrofas obtenidas.
 
-
-%────────────────────── Discusión del Ciclo 1 y Análisis de Errores ──────────────────────────
-\section{Discusión del Ciclo 1 y Análisis de Errores}
-
-Los resultados del primer ciclo experimental muestran que la versión base del sistema no es suficiente para resolver de forma fiable la generación de estrofas con restricciones formales. Aunque el agente mantiene correctamente la estructura general de generación,
-evaluación y poda, el modelo no cumple de manera consistente la métrica endecasílaba ni el esquema de rima ABBA.
-
-El primer problema observado es la limitación del \emph{prompting} directo. Las instrucciones dadas al modelo son suficientes para conseguir una estructura externa de cuatro versos, pero no garantizan el cumplimiento de restricciones lingüísticas más precisas.
-Esto se aprecia especialmente en la métrica, donde la mayoría de versos generados no alcanzan el patrón endecasílabo esperado.
-
-El segundo problema aparece en la rima. Aunque el prompt indica explícitamente que la estrofa debe seguir un esquema ABBA, el modelo no planifica de forma fiable las palabras finales de los versos. En consecuencia, las relaciones importantes de rima,
-es decir, la correspondencia entre el verso 1 y el verso 4, y entre el verso 2 y el verso 3, fallan en las ejecuciones analizadas.
-
-También se observa que el \emph{Beam Search}, por sí solo, no corrige estos errores. El algoritmo puede seleccionar las mejores candidatas disponibles, pero si todas las alternativas generadas presentan fallos formales, la poda únicamente conserva la opción menos incorrecta.
-Por tanto, el problema no está en la estructura de búsqueda, sino en la falta de mecanismos que permitan reparar localmente los errores detectados.
-
-Otro aspecto relevante es la posible pérdida de avances parciales. Una estrofa puede mejorar en una restricción, por ejemplo en la métrica, pero empeorar en otra, como la rima. Sin una estrategia de protección de \emph{beams} prometedores, el sistema puede descartar candidatas útiles
-o modificar partes que ya eran correctas.
-
-Por último, el Ciclo 1 muestra un compromiso claro entre coste y calidad. La versión base es más rápida porque realiza menos llamadas al modelo, pero sus resultados son insuficientes. Esto justifica la incorporación de fases adicionales de reparación, aunque estas aumenten el tiempo
-total de ejecución.
-
-La Figura~\ref{fig:ErroresCiclo1} resume los principales errores detectados durante el primer ciclo experimental. Estos fallos muestran que la arquitectura base necesita mecanismos adicionales de reparación para poder satisfacer las restricciones formales de la estrofa.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=1.0\textwidth]{images/ErroresCiclo1.png}
-   \caption{Principales errores observados durante el primer ciclo experimental. Fuente: elaboración propia}
-    \label{fig:ErroresCiclo1}
-\end{figure}
-
-En conclusión, el análisis del primer ciclo permite identificar las principales necesidades de mejora del sistema: reparación métrica local, reparación específica de rima exterior e interior, reparación posterior conservando palabras finales válidas y preservación de \emph{beams} prometedores.
-Estas mejoras constituyen la base del segundo ciclo experimental.
-
+A partir de estas observaciones, se consideró necesario incorporar nuevas fases al agente. En concreto, los resultados del Ciclo 1 motivaron la inclusión de una reparación métrica local,
+una reparación específica de la rima exterior A, una reparación específica de la rima interior B, una reparación métrica posterior a la rima y una estrategia de preservación de \emph{beams} prometedores.
+Estas modificaciones constituyen la base del segundo ciclo experimental.
 
 
 %────────────────────── Ciclo 2: Optimización y Refinamiento del Código ──────────────────────────
 \section{Ciclo 2: Optimización y Refinamiento del Código}
 
-Tras analizar los resultados del primer ciclo experimental, se comprobó que la arquitectura base del agente no era suficiente para garantizar el cumplimiento de las restricciones formales de la estrofa. Aunque el sistema era capaz de generar varias alternativas y seleccionar
-las mejores mediante \emph{Beam Search}, los errores de métrica y rima seguían apareciendo de forma recurrente.
+%Tras analizar los resultados del primer ciclo experimental, se comprobó que la arquitectura base del agente no era suficiente para garantizar el cumplimiento de las restricciones formales de la estrofa. Aunque el sistema era capaz de generar varias alternativas y seleccionar
+%las mejores mediante \emph{Beam Search}, los errores de métrica y rima seguían apareciendo de forma recurrente.
 
-Por este motivo, el segundo ciclo de desarrollo se centró en introducir mecanismos de reparación específicos. El objetivo principal no fue sustituir la arquitectura inicial, sino complementarla con fases capaces de corregir errores locales sin regenerar toda la estrofa desde cero.
+%Por este motivo, el segundo ciclo de desarrollo se centró en introducir mecanismos de reparación específicos. El objetivo principal no fue sustituir la arquitectura inicial, sino complementarla con fases capaces de corregir errores locales sin regenerar toda la estrofa desde cero.
 
-% --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+A partir de las limitaciones observadas en el primer ciclo, se desarrolló una segunda versión del agente orientada a corregir de forma más específica los errores métricos y de rima.
+El objetivo de este segundo ciclo no fue sustituir la arquitectura inicial, sino complementarla con nuevas fases de diagnóstico y reparación.
 
-\subsection{Activación de Mecanismos de Reparación}
-
-La principal diferencia entre el Ciclo 1 y el Ciclo 2 se encuentra en la activación de las fases de reparación. En esta segunda versión, el agente no se limita a evaluar y podar candidatas, sino que intenta corregir determinados errores antes de calcular la puntuación final.
-
-El Listado~\ref{lst:configCiclo2} muestra la configuración utilizada en esta versión refinada.
-
-\begin{lstlisting}[language=Python, caption={Configuración utilizada en el segundo ciclo experimental}, label={lst:configCiclo2}]
-ENABLE_LOCAL_METER_REPAIR = True
-ENABLE_OUTER_RHYME_REPAIR = True
-ENABLE_POST_A_RHYME_METER_REPAIR = True
-ENABLE_INNER_RHYME_REPAIR = True
-ENABLE_POST_B_RHYME_METER_REPAIR = True
-ENABLE_BEAM_ELITISM = True
-\end{lstlisting}
-
-Con esta configuración, el nodo evaluador adquiere un papel más activo. Además de calcular la puntuación formal de cada candidata, puede aplicar reparaciones métricas, diagnosticar errores de rima y generar variantes locales para mejorar la estrofa.
+Estas mejoras no consisten únicamente en modificar los prompts utilizados, sino en incorporar nuevas etapas funcionales dentro del flujo del agente.
+Cada una de estas etapas puede apoyarse en prompts específicos cuando necesita solicitar variantes al modelo, pero la mejora principal se encuentra en la lógica de detección del error, generación de alternativas y aceptación o rechazo de las variantes obtenidas.
 
 % --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-\subsection{Reparación Métrica Local}
+%El Listado~\ref{lst:configCiclo2} muestra la configuración utilizada en esta versión refinada.
 
-La primera mejora incorporada fue la reparación métrica local. En lugar de pedir al modelo que reescriba toda la estrofa cuando uno o varios versos no son endecasílabos, el sistema identifica los versos problemáticos y solicita variantes únicamente para esos versos.
+%\begin{lstlisting}[language=Python, caption={Configuración utilizada en el segundo ciclo experimental}, label={lst:configCiclo2}]
+%ENABLE_LOCAL_METER_REPAIR = True
+%ENABLE_OUTER_RHYME_REPAIR = True
+%ENABLE_POST_A_RHYME_METER_REPAIR = True
+%ENABLE_INNER_RHYME_REPAIR = True
+%ENABLE_POST_B_RHYME_METER_REPAIR = True
+%ENABLE_BEAM_ELITISM = True
+%\end{lstlisting}
 
-Esta estrategia reduce el riesgo de modificar partes de la estrofa que ya eran correctas. Si un verso cumple la métrica, se conserva; si falla, se intenta acercarlo al objetivo de once sílabas. De este modo, la reparación se aplica de forma más controlada y permite aprovechar
-mejor las candidatas parcialmente válidas.
-
-La reparación métrica no pretende resolver todos los problemas de la estrofa, sino actuar sobre una restricción concreta. Por tanto, no modifica deliberadamente la rima ni la estructura global, sino que se centra en mejorar el ajuste silábico de los versos detectados como incorrectos.
-
-% --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-\subsection{Reparación de la Rima Exterior e Interior}
-
-El segundo bloque de mejoras se centró en la rima consonante ABBA. A partir de los errores observados en el Ciclo 1, se decidió tratar por separado las dos relaciones de rima de la estrofa:
-
-\begin{itemize}
-    \item \textbf{Rima exterior A}: relación entre el verso 1 y el verso 4.
-    \item \textbf{Rima interior B}: relación entre el verso 2 y el verso 3.
-\end{itemize}
-
-En ambos casos se utiliza una estrategia de verso ancla. Para la rima exterior, el primer verso se conserva y el sistema intenta reescribir únicamente el cuarto. Para la rima interior, el segundo verso actúa como referencia y se modifica únicamente el tercero.
-
-Esta decisión permite convertir un problema global en una reparación localizada. En lugar de regenerar la estrofa completa, el sistema conserva la parte que sirve como referencia y modifica solo el verso que debe adaptarse a ella. Con ello se reduce la probabilidad de perder
-elementos que ya cumplían alguna restricción formal.
-
-Además, el sistema utiliza palabras finales candidatas para orientar al modelo hacia terminaciones rimáticas más adecuadas. Esta ayuda resulta especialmente útil cuando el modelo falla al producir una rima consonante válida a partir de una instrucción abierta.
+%Con esta configuración, el nodo evaluador adquiere un papel más activo. Además de calcular la puntuación formal de cada candidata, puede aplicar reparaciones métricas, diagnosticar errores de rima y generar variantes locales para mejorar la estrofa.
 
 % --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-\subsection{Reparación Métrica Posterior a la Rima}
 
-Durante el desarrollo se observó un problema adicional: algunas variantes conseguían corregir la rima, pero introducían errores métricos. Es decir, el sistema podía obtener una palabra final adecuada para cumplir la rima, pero el verso resultante no alcanzaba las once sílabas métricas.
-
-Para evitar perder esas mejoras parciales, se añadió una fase de reparación métrica posterior a la rima. La idea es conservar exactamente la palabra final que permitió corregir la rima y ajustar únicamente el resto del verso para mejorar su métrica.
-
-Esta fase se aplica tanto a la rima exterior A como a la rima interior B. Su objetivo es combinar dos restricciones que inicialmente podían entrar en conflicto: mantener una terminación rimática válida y, al mismo tiempo, acercar el verso al patrón endecasílabo.
-
-% --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-\subsection{Protección de \emph{Beams} Prometedores}
-
-Otra mejora introducida en el segundo ciclo fue la protección de \emph{beams} prometedores. En la versión base, una estrofa con buena puntuación podía desaparecer si las variantes generadas a partir de ella eran peores. Esto provocaba la pérdida de soluciones parciales útiles.
-
-Para reducir este problema, se añadió una estrategia de elitismo. Esta técnica permite conservar determinados \emph{beams} de alta calidad aunque sus descendientes inmediatos no mejoren la puntuación. De esta forma, el sistema evita perder una candidata valiosa por una mala generación
-puntual del modelo.
-
-La protección de \emph{beams} resulta especialmente importante en este tipo de tareas, donde las mejoras no siempre son progresivas. Una reparación puede corregir una rima pero empeorar la métrica, o mantener la estructura pero alterar una palabra final útil.
-El elitismo aporta mayor estabilidad al proceso de búsqueda.
 
 % --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 \subsection{Resumen de las Mejoras Introducidas}
 
-La Tabla~\ref{tab:mejorasCiclo2} resume las principales mejoras incorporadas en el segundo ciclo y el problema que intenta resolver cada una de ellas.
+La Tabla~\ref{tab:mejorasCiclo2} resume las principales modificaciones introducidas en el segundo ciclo y el problema observado en el Ciclo 1 que intenta resolver cada una de ellas.
 
 \begin{table}[h]
     \centering
@@ -1872,18 +1789,19 @@ La Tabla~\ref{tab:mejorasCiclo2} resume las principales mejoras incorporadas en 
         Protección de \emph{beams} & Pérdida de candidatas prometedoras \\
         \hline
     \end{tabular}
-    \caption{Principales mejoras incorporadas durante el segundo ciclo de desarrollo. Fuente: elaboración propia}
+    \caption{Relación entre los errores del primer ciclo y las mejoras introducidas en el segundo. Fuente: elaboración propia}
     \label{tab:mejorasCiclo2}
 \end{table}
+
+En conjunto, estas modificaciones permiten que el agente no se limite a descartar las estrofas incorrectas, sino que intente aprovechar aquellas que contienen partes válidas.
+Por ejemplo, una candidata puede tener una buena estructura pero fallar en la métrica de un verso concreto, o puede haber conseguido una rima adecuada pero necesitar un ajuste métrico posterior.
 
 % --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 \subsection{Resultados del Segundo Ciclo}
 
-Una vez activadas las fases de reparación y la protección de beams, se realizaron nuevas ejecuciones del sistema con la misma configuración general utilizada en el primer ciclo: modelo \texttt{mistral:7b-instruct}, temperatura 0.3,
-valor $k=2$ y un máximo de 3 iteraciones. La diferencia principal se encuentra en que, en este segundo ciclo, el agente sí puede aplicar reparaciones métricas, reparaciones de rima y estrategias de preservación de beams prometedores.
-
-La Tabla~\ref{tab:resultadosCiclo2} resume los resultados obtenidos en tres ejecuciones representativas del segundo ciclo experimental.
+Una vez incorporadas las mejoras anteriores, se realizaron nuevas ejecuciones manteniendo la misma configuración general del primer ciclo: modelo \texttt{mistral:7b-instruct}, temperatura 0.3, valor $k=2$ y un máximo de 3 iteraciones.
+La Tabla~\ref{tab:resultadosCiclo2} resume los resultados obtenidos en tres ejecuciones representativas.
 
 \begin{table}[h]
     \centering
@@ -1911,31 +1829,34 @@ La Tabla~\ref{tab:resultadosCiclo2} resume los resultados obtenidos en tres ejec
         \hline
         Estrofas completamente válidas & 33.33\% \\
         \hline
-        Tiempo medio de ejecución & 2841.13 s \\
-        \hline
-        Tiempo medio de ejecución & 47.35 min \\
+        %Tiempo medio de ejecución & 2841.13 s \\
+        %\hline
+        Tiempo medio de ejecución (minutos) & 47.35 min \\
         \hline
     \end{tabular}
     \caption{Resultados generales obtenidos en el segundo ciclo experimental con las reparaciones activadas. Fuente: elaboración propia}
     \label{tab:resultadosCiclo2}
 \end{table}
 
-Los resultados muestran una mejora clara respecto al primer ciclo experimental. La puntuación media aumenta de forma significativa y, en una de las ejecuciones, el sistema alcanza una puntuación formal perfecta de 20.0 sobre 20.
-Además, todas las estrofas generadas mantienen la estructura de cuatro versos y alcanzan el objetivo métrico de cuatro versos endecasílabos.
+Los resultados muestran una mejora clara respecto al primer ciclo. La puntuación media aumenta hasta 18.67 sobre 20 y, en una de las ejecuciones, el sistema alcanza una puntuación formal perfecta.
+Además, todas las estrofas analizadas mantienen la estructura de cuatro versos y alcanzan el objetivo métrico de cuatro versos endecasílabos.
 
-La mejora también se aprecia en la rima. La rima exterior A se satisface en todas las ejecuciones analizadas, mientras que la rima interior B continúa siendo la restricción más difícil de resolver.
-Este comportamiento confirma que la separación entre rima exterior e interior resulta útil, aunque la rima B sigue presentando mayor dificultad y requiere un tratamiento especialmente cuidadoso.
+La mejora también se aprecia en la rima. La rima exterior A se satisface en todas las ejecuciones, mientras que la rima interior B continúa siendo la restricción más difícil de resolver.
+Este comportamiento indica que las reparaciones introducidas mejoran notablemente el control formal de la estrofa, aunque todavía existe margen de mejora en la gestión de la rima interior.
 
-No obstante, esta mejora formal tiene un coste computacional elevado. El tiempo medio de ejecución aumenta hasta aproximadamente 47.35 minutos. Este incremento se debe a las llamadas adicionales al modelo durante las fases de
-reparación métrica, reparación de rima y reparación métrica posterior a la rima. Por tanto, el segundo ciclo pone de manifiesto un compromiso central del sistema: la calidad formal mejora considerablemente, pero a cambio de un mayor
-tiempo de ejecución.
+% --------------- AQUÍ NO VAMOS A MENCIONAR EL ELEVADO COSTE COMPUTACIONAL (DEMASIADO REPETITIVO), YA QUE VAMOS A RESERVAR UN APARTADO ESPECÍFICO PARA ELLO EN EL 5.3 EVALUACIÓN COMPARATIVA FINAL ----------------
+
+%No obstante, esta mejora formal tiene un coste computacional elevado. El tiempo medio de ejecución aumenta hasta aproximadamente 47.35 minutos. Este incremento se debe a las llamadas adicionales al modelo durante las fases de
+%reparación métrica, reparación de rima y reparación métrica posterior a la rima. Por tanto, el segundo ciclo pone de manifiesto un compromiso central del sistema: la calidad formal mejora considerablemente, pero a cambio de un mayor
+%tiempo de ejecución.
 
 % --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 \subsection{Ejemplo de Salida Obtenida}
 
-El Listado~\ref{lst:ejemploCiclo2} muestra una de las salidas obtenidas durante el segundo ciclo experimental. En este caso, la estrofa alcanza una puntuación formal perfecta de 20.0 sobre 20, cumpliendo las restricciones de número de versos, métrica endecasílaba y rima consonante ABBA.
+%El Listado~\ref{lst:ejemploCiclo2} muestra una de las salidas obtenidas durante el segundo ciclo experimental. En este caso, la estrofa alcanza una puntuación formal perfecta de 20.0 sobre 20, cumpliendo las restricciones de número de versos, métrica endecasílaba y rima consonante ABBA.
 
+El Listado~\ref{lst:ejemploCiclo2} muestra una de las salidas obtenidas durante el segundo ciclo experimental. En este caso, la estrofa alcanza una puntuación formal perfecta de 20.0 sobre 20. % No es necesario repetir que buscamos 4 versos endecasílabos con rima ABBA, ya lo hemos explicado previamente.
 \begin{lstlisting}[caption={Ejemplo de salida obtenida en el segundo ciclo experimental}, label={lst:ejemploCiclo2}]
 1. El tiempo, un río de continua corriente
 2. Deja en mi corazón penas amargas.
@@ -1946,27 +1867,28 @@ El Listado~\ref{lst:ejemploCiclo2} muestra una de las salidas obtenidas durante 
 En este ejemplo, la estrofa contiene exactamente cuatro versos y todos ellos son evaluados como endecasílabos por la función de puntuación. Además, se cumple el esquema de rima ABBA: el primer verso rima con el cuarto mediante las terminaciones ``corriente'' y ``presente'',
 mientras que el segundo verso rima con el tercero mediante ``amargas'' y ``llagas''.
 
-Este caso ilustra el efecto de las mejoras introducidas en el segundo ciclo. A diferencia de las salidas del Ciclo 1, el sistema no solo genera una estrofa con apariencia poética, sino que consigue satisfacer completamente las restricciones formales definidas para el problema.
+%Este caso ilustra el efecto de las mejoras introducidas en el segundo ciclo. A diferencia de las salidas del Ciclo 1, el sistema no solo genera una estrofa con apariencia poética, sino que consigue satisfacer completamente las restricciones formales definidas para el problema.
 
+% ======================== ESTO PUEDE SER QUE VUELVA, DE MOMENTO LO QUITO =========================
 
-En conjunto, el Ciclo 2 transforma el sistema inicial en un agente más robusto. La arquitectura sigue basándose en generación, evaluación y poda, pero ahora incorpora mecanismos de diagnóstico y reparación que permiten aprovechar mejor las estrofas parcialmente correctas.
-Los resultados obtenidos muestran que estas mejoras incrementan de forma clara la puntuación formal, aunque también aumentan considerablemente el tiempo de ejecución. Esta relación entre calidad y coste será analizada de forma comparativa en el apartado final del capítulo.
+%En conjunto, el Ciclo 2 transforma el sistema inicial en un agente más robusto. La arquitectura sigue basándose en generación, evaluación y poda, pero ahora incorpora mecanismos de diagnóstico y reparación que permiten aprovechar mejor las estrofas parcialmente correctas.
+%Los resultados obtenidos muestran que estas mejoras incrementan de forma clara la puntuación formal, aunque también aumentan considerablemente el tiempo de ejecución. Esta relación entre calidad y coste será analizada de forma comparativa en el apartado final del capítulo.
 
+% --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+\subsection{Discusión del Segundo Ciclo}
 
+El segundo ciclo confirma que la incorporación de fases específicas de reparación mejora de forma significativa el cumplimiento formal de las estrofas generadas.
+A diferencia de la versión inicial, el sistema no depende únicamente de que el modelo acierte en una generación directa, sino que puede detectar errores concretos y solicitar variantes más controladas.
 
+No obstante, esta mejora tiene un coste computacional elevado. El tiempo medio de ejecución aumenta hasta aproximadamente 47.35 minutos, debido al mayor número de llamadas al modelo durante las fases de reparación.
+Por tanto, el segundo ciclo evidencia un compromiso claro: las reparaciones aumentan la calidad formal de las salidas, pero también incrementan el tiempo necesario para obtenerlas.
 
-
-
-
-
-
-
-
+En conclusión, el refinamiento introducido en este ciclo permite pasar de una arquitectura que solo evaluaba y seleccionaba candidatas a un agente capaz de diagnosticar y corregir errores locales. La comparación global entre ambos ciclos se desarrolla en el apartado siguiente.
 
 
 %────────────────────── Evaluación Comparativa Final y Discusión Global ──────────────────────────
-\section{Evaluación Comparativa Final y Discusión Global}
+\section{Evaluación Comparativa Final} % y Discusión Global}
 
 Una vez presentados los dos ciclos experimentales, resulta necesario comparar de forma directa el comportamiento de la versión base y de la versión refinada del sistema. El objetivo de esta comparación no es únicamente comprobar qué versión obtiene mejores puntuaciones,
 sino analizar qué aporta realmente cada mejora introducida y qué coste computacional implica.
