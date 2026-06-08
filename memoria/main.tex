@@ -1890,8 +1890,13 @@ En conclusión, el refinamiento introducido en este ciclo permite pasar de una a
 %────────────────────── Evaluación Comparativa Final y Discusión Global ──────────────────────────
 \section{Evaluación Comparativa Final} % y Discusión Global}
 
-Una vez presentados los dos ciclos experimentales, resulta necesario comparar de forma directa el comportamiento de la versión base y de la versión refinada del sistema. El objetivo de esta comparación no es únicamente comprobar qué versión obtiene mejores puntuaciones,
-sino analizar qué aporta realmente cada mejora introducida y qué coste computacional implica.
+%Una vez presentados los dos ciclos experimentales, resulta necesario comparar de forma directa el comportamiento de la versión base y de la versión refinada del sistema. El objetivo de esta comparación no es únicamente comprobar qué versión obtiene mejores puntuaciones,
+%sino analizar qué aporta realmente cada mejora introducida y qué coste computacional implica.
+
+Una vez analizados los dos ciclos experimentales, resulta necesario comparar de forma directa el comportamiento de la versión inicial y de la versión refinada del agente.
+Esta comparación permite valorar el efecto real de las mejoras introducidas, tanto en la calidad formal de las estrofas como en el coste computacional del proceso.
+
+\subsection{Comparación entre Ciclos}
 
 La Tabla~\ref{tab:comparativaCiclos} resume las principales diferencias observadas entre ambos ciclos experimentales.
 
@@ -1919,21 +1924,29 @@ La Tabla~\ref{tab:comparativaCiclos} resume las principales diferencias observad
         \hline
         Estrofas completamente válidas & 0\% & 33.33\% \\
         \hline
-        Tiempo medio de ejecución & 7.93 min & 47.35 min \\
+        Tiempo medio de ejecución (minutos) & 7.93 min & 47.35 min \\
         \hline
     \end{tabular}
     \caption{Comparación general entre el primer y el segundo ciclo experimental. Fuente: elaboración propia}
     \label{tab:comparativaCiclos}
 \end{table}
 
-Los resultados muestran una mejora clara en la calidad formal de las estrofas generadas. Mientras que la versión base obtenía una puntuación media de 10.0 sobre 20, la versión refinada alcanza una media de 18.67 sobre 20. Además, en el segundo ciclo se obtiene una
-estrofa con puntuación perfecta, algo que no ocurría en ninguna de las ejecuciones de la versión inicial.
+Los resultados muestran una mejora clara en la calidad formal de las estrofas generadas. La puntuación media pasa de 10.0 sobre 20 en el primer ciclo a 18.67 sobre 20 en el segundo.
+Además, en la versión refinada se obtiene una estrofa con puntuación perfecta, algo que no ocurre en ninguna de las ejecuciones de la versión inicial.
 
-La mejora más evidente aparece en la métrica. En el primer ciclo, la media de versos endecasílabos era de solo 1 sobre 4, mientras que en el segundo ciclo todas las estrofas analizadas alcanzan los 4 versos endecasílabos. Esto confirma la utilidad de la reparación métrica
-local, ya que permite corregir de forma específica los versos que no cumplen el patrón esperado.
+%La mejora más evidente aparece en la métrica. En el primer ciclo, la media de versos endecasílabos era de solo 1 sobre 4, mientras que en el segundo ciclo todas las estrofas analizadas alcanzan los 4 versos endecasílabos. Esto confirma la utilidad de la reparación métrica
+%local, ya que permite corregir de forma específica los versos que no cumplen el patrón esperado.
 
-También se observa una mejora importante en la rima. La rima exterior A pasa de no cumplirse en ninguna ejecución a cumplirse en todas las ejecuciones del segundo ciclo. La rima interior B, sin embargo, sigue siendo la restricción más difícil: mejora respecto al primer ciclo,
-pero no se resuelve en todos los casos. Este resultado indica que las reparaciones introducidas son efectivas, aunque todavía existe margen de mejora, especialmente en la generación y conservación de la rima entre los versos segundo y tercero.
+% ===== OTRA VEZ REPETIMOS LA "IMPORTANCIA DE LA REPARACIÓN MÉTRICA LOCAL", LO QUITAMOS PARA NO SER TAN REPETITIVOS =====
+
+La mejora más evidente aparece en la métrica. Mientras que en el Ciclo 1 la media de versos endecasílabos era de solo 1 sobre 4, en el Ciclo 2 todas las estrofas analizadas alcanzan los 4 versos endecasílabos.
+
+También se observa una mejora importante en la rima exterior A, que pasa de no cumplirse en ninguna ejecución a cumplirse en todas las ejecuciones del segundo ciclo. La rima interior B, sin embargo, continúa siendo la restricción más difícil de resolver.
+
+%También se observa una mejora importante en la rima. La rima exterior A pasa de no cumplirse en ninguna ejecución a cumplirse en todas las ejecuciones del segundo ciclo. La rima interior B, sin embargo, sigue siendo la restricción más difícil: mejora respecto al primer ciclo,
+%pero no se resuelve en todos los casos. Este resultado indica que las reparaciones introducidas son efectivas, aunque todavía existe margen de mejora, especialmente en la generación y conservación de la rima entre los versos segundo y tercero.
+
+% ==== NO ES NECESARIO DECIR QUE LAS "REPARACIONES INTRODUCIDAS SON EFECTIVAS", ESO YA LO SABEMOS, MUY REPETITIVO, LO QUITAMOS PARA NO SER TAN REPETITIVOS =====
 
 La Figura~\ref{fig:comparativaCiclosGrafico} muestra de forma visual la diferencia entre ambos ciclos experimentales. Se observa que el segundo ciclo mejora notablemente la puntuación media, aunque también incrementa de forma considerable el tiempo medio de ejecución.
 
@@ -1992,35 +2005,37 @@ La Figura~\ref{fig:comparativaCiclosGrafico} muestra de forma visual la diferenc
 
 \subsection{Compromiso entre Calidad y Coste Computacional}
 
-La mejora en los resultados formales tiene como contrapartida un aumento considerable del tiempo de ejecución. La versión base presenta un tiempo medio aproximado de 7.93 minutos, mientras que la versión refinada alcanza una media de 47.35 minutos. Esta diferencia se debe
-principalmente al incremento de llamadas al modelo durante las fases de reparación métrica, reparación de rima y reparación métrica posterior a la rima.
+%La mejora en los resultados formales tiene como contrapartida un aumento considerable del tiempo de ejecución. La versión base presenta un tiempo medio aproximado de 7.93 minutos, mientras que la versión refinada alcanza una media de 47.35 minutos. Esta diferencia se debe
+%principalmente al incremento de llamadas al modelo durante las fases de reparación métrica, reparación de rima y reparación métrica posterior a la rima.
 
-Este resultado refleja uno de los compromisos principales del sistema: aumentar la capacidad de corrección mejora la calidad formal de las estrofas, pero también incrementa el coste computacional. Por tanto, la configuración del agente debe ajustarse en función del objetivo del experimento. Si se busca una respuesta rápida, puede bastar con una configuración más ligera. Si se prioriza el cumplimiento estricto de las restricciones, resulta necesario asumir una ejecución más larga.
+%Este resultado refleja uno de los compromisos principales del sistema: aumentar la capacidad de corrección mejora la calidad formal de las estrofas, pero también incrementa el coste computacional. Por tanto, la configuración del agente debe ajustarse en función del objetivo del experimento. Si se busca una respuesta rápida, puede bastar con una configuración más ligera. Si se prioriza el cumplimiento estricto de las restricciones, resulta necesario asumir una ejecución más larga.
 
-En este sentido, parámetros como el ancho del haz $k$, la profundidad máxima, el número de variantes generadas en cada reparación, la temperatura o el límite de tokens tienen un impacto directo tanto en la puntuación máxima alcanzada como en el tiempo total de ejecución.
-Aumentar estos valores puede mejorar la probabilidad de encontrar una estrofa válida, pero también hace crecer el número de inferencias necesarias.
+%En este sentido, parámetros como el ancho del haz $k$, la profundidad máxima, el número de variantes generadas en cada reparación, la temperatura o el límite de tokens tienen un impacto directo tanto en la puntuación máxima alcanzada como en el tiempo total de ejecución.
+%Aumentar estos valores puede mejorar la probabilidad de encontrar una estrofa válida, pero también hace crecer el número de inferencias necesarias.
 
-\subsection{Interpretación de los Resultados}
+La mejora formal obtenida en el segundo ciclo tiene como contrapartida un aumento considerable del tiempo de ejecución. La versión inicial presenta un tiempo medio aproximado de 7.93 minutos, mientras que la versión refinada alcanza una media de 47.35 minutos.
 
-Los resultados obtenidos permiten extraer una conclusión importante: el valor del sistema no reside únicamente en el uso de un modelo de lenguaje, sino en la organización del proceso de generación mediante un agente iterativo. La versión base demuestra que el modelo,
-incluso con prompting y Beam Search, no controla de forma fiable todas las restricciones formales. En cambio, la versión refinada muestra que la combinación de evaluación objetiva, reparaciones locales y preservación de beams mejora notablemente el resultado.
+Esta diferencia se debe al incremento de llamadas al modelo durante las fases de reparación. En la versión inicial, el sistema genera, evalúa y selecciona candidatas.
+En cambio, en la versión refinada, además de evaluar, el agente puede solicitar nuevas variantes para corregir errores métricos o de rima antes de decidir qué candidatas continúan.
 
-No obstante, una puntuación inferior a 20.0 no debe interpretarse necesariamente como un fallo completo del método. El sistema trabaja con una profundidad máxima limitada, por lo que la ejecución finaliza al alcanzar ese límite aunque no se haya encontrado una solución perfecta.
-En principio, aumentar la profundidad del análisis o ampliar el número de alternativas conservadas podría incrementar la probabilidad de alcanzar una estrofa completamente válida, aunque a costa de un mayor tiempo de ejecución.
+Por tanto, los resultados reflejan un compromiso central del sistema: aumentar la capacidad de corrección mejora la calidad formal de las estrofas, pero también incrementa el coste computacional.
+Parámetros como el ancho del haz $k$, la profundidad máxima, el número de variantes generadas, la temperatura o el límite de tokens influyen directamente tanto en la puntuación alcanzada como en el tiempo total de ejecución.
 
-También debe recordarse que la puntuación utilizada en este trabajo mide principalmente el cumplimiento formal de la estrofa. Una estrofa puede obtener una puntuación alta por cumplir el número de versos, la métrica y la rima, pero eso no implica necesariamente que tenga una gran
-calidad poética. La evaluación estética, semántica o literaria queda fuera del alcance de este capítulo, aunque constituye una posible ampliación futura del sistema.
 
-\subsection{Conclusión Global del Capítulo}
+\subsection{Alcance y Limitaciones}
 
-En conjunto, la comparación entre ambos ciclos confirma la utilidad del proceso de refinamiento seguido durante el desarrollo. El primer ciclo permitió comprobar que una arquitectura basada únicamente en generación, evaluación y poda era insuficiente para resolver el problema.
-A partir de ese análisis, el segundo ciclo incorporó mecanismos específicos de reparación que mejoraron de forma clara el cumplimiento de las restricciones formales.
+Los resultados obtenidos permiten concluir que la versión refinada del agente mejora de forma notable el cumplimiento de las restricciones formales. Sin embargo, el sistema no garantiza una solución perfecta en todas las ejecuciones.
+La búsqueda se detiene al alcanzar una profundidad máxima, por lo que una puntuación inferior a 20.0 no implica necesariamente que no exista una solución válida, sino que no se ha encontrado dentro de los límites establecidos.
 
-El sistema final no garantiza una solución perfecta en todas las ejecuciones, pero sí demuestra que un agente basado en LangGraph y Beam Search puede guiar de forma progresiva la generación de texto hacia salidas más controladas. Esta aproximación resulta especialmente interesante
-en tareas donde no basta con generar lenguaje natural, sino que es necesario satisfacer restricciones verificables.
+También debe tenerse en cuenta que la puntuación utilizada mide principalmente el cumplimiento formal de la estrofa: número de versos, métrica y rima. Por tanto, una puntuación alta no equivale necesariamente a una valoración literaria completa.
+Aspectos como la calidad poética, la coherencia semántica o la originalidad quedan fuera del alcance principal del sistema y podrían abordarse en trabajos futuros.
 
-Por tanto, el capítulo muestra una evolución completa del agente: diseño inicial, evaluación de una versión base, detección de errores, incorporación de mejoras y comparación final. Esta evolución permite defender que el sistema propuesto no se limita a solicitar una respuesta a un LLM,
-sino que construye un proceso iterativo de generación, evaluación, reparación y selección.
+Finalmente, el desarrollo realizado muestra que el agente implementado va más allá de una aplicación directa de \emph{Beam Search}. En un esquema básico, las candidatas se generan, se puntúan y se ordenan.
+En este trabajo, en cambio, cada candidata puede ir acompañada de información diagnóstica sobre sus errores formales, y esa información se utiliza para construir nuevas instrucciones de reparación.
+De este modo, el proceso no solo selecciona las mejores alternativas, sino que también intenta refinar cada trayectoria a partir de su propio feedback formal.
+
+Esta característica convierte el sistema en una arquitectura de búsqueda guiada y reparación local, donde el \emph{Beam Search} actúa como mecanismo de exploración y poda, pero se combina con información específica de cada candidata para orientar su mejora.
+Esta idea constituye una de las principales aportaciones conceptuales del trabajo y abre la puerta a futuras extensiones en tareas de generación con restricciones verificables.
 
 
 
