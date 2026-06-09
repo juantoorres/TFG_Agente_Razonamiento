@@ -34,7 +34,8 @@
 
 % Listings config
 \lstset{
-  basicstyle=\ttfamily\small,
+  basicstyle=\ttfamily\small\linespread{1.0}\selectfont,  
+  %basicstyle=\ttfamily\small,
   numbers=left,
   numberstyle=\tiny,
   columns=fullflexible,
@@ -1067,7 +1068,7 @@ Durante la ejecución, el valor irá trasformándose sucesivamente en función d
 una traza del proceso seguido por el sistema.
 
 Este ejemplo permite apreciar de forma más completa el funcionamiento de \emph{LangGraph}. En él aparecen de manera conjunta varios de los conceptos fundamentales introducidos previamente: un estado compartido que evoluciona, nodos
-que encapsulan operaciones específicas, transiciones condicionales que dirigen el flujo y un buvle que mantiene la ejecución activa hasta alcanzar una condición de finalización. Precisamente por ello, constituye una ilustración más
+que encapsulan operaciones específicas, transiciones condicionales que dirigen el flujo y un bucle que mantiene la ejecución activa hasta alcanzar una condición de finalización. Precisamente por ello, constituye una ilustración más
 representativa del uso de grafos que un ejemplo puramente lineal, al tiempo que se mantiene lo bastante sencillo como para servir de apoyo didáctico dentro de este capítulo.
 
 
@@ -1080,20 +1081,9 @@ representativa del uso de grafos que un ejemplo puramente lineal, al tiempo que 
 
 
 
-%────────────────────── Chapter 4 — Implementación, Experimentación y Refinamiento del Agente ────────────────────────────
+%────────────────────── Chapter 4 — Implementación del Agente ────────────────────────────
 
-\chapter{Implementación, Experimentación y Refinamiento del Agente}
-
-
-
-
-
-
-
-
-
-
-
+\chapter{Implementación del Agente}
 
 %────────────────────── Diseño Estructural del Grafo de Razonamiento ──────────────────────────
 \section{Diseño Estructural del Grafo de Razonamiento}
@@ -1180,21 +1170,6 @@ El campo \texttt{beams} almacena las mejores estrofas disponibles en cada iterac
 
 Los campos \texttt{step}, \texttt{max\_steps} y \texttt{k} controlan respectivamente la iteración actual, el número máximo de iteraciones y el número de alternativas que se conservan tras cada fase de selección.
 
-
-\subsection{Flujo de Ejecución}
-
-El flujo de ejecución del sistema puede resumirse en los siguientes pasos:
-
-\begin{enumerate}
-    \item El nodo \texttt{expand} genera nuevas estrofas candidatas a partir del estado actual.
-    \item El nodo \texttt{score} evalúa formalmente cada candidata y aplica las reparaciones locales disponibles.
-    \item El nodo \texttt{prune} ordena las candidatas según su puntuación y conserva las mejores $k$.
-    \item El sistema comprueba la condición de parada.
-    \item Si no se ha alcanzado el límite de iteraciones, el proceso vuelve al nodo \texttt{expand}.
-\end{enumerate}
-
-Este diseño permite que el agente explore diferentes alternativas antes de seleccionar una solución final. Además, al conservar varias estrofas candidatas en paralelo, se reduce la dependencia de una única generación del modelo y se facilita la recuperación ante salidas parciales o formalmente incorrectas.
-
 \subsection{Ventajas del Enfoque}
 
 La arquitectura basada en grafo presenta varias ventajas. En primer lugar, permite separar de forma clara las responsabilidades de generación, evaluación y selección. Esta separación facilita la modificación independiente de cada fase del sistema, por ejemplo, cambiando la estrategia de prompting sin alterar la función de evaluación,
@@ -1206,36 +1181,22 @@ Por último, la estructura del grafo facilita el registro de trazas intermedias.
 de errores desarrollado en apartados posteriores.
 
 
+% --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-%────────────────────── Implementación de la Lógica de los Nodos y Prompting ──────────────────────────
-\section{Implementación de la Lógica de los Nodos y Prompting}
+\section{Fase de Generación y Prompts} % Nodo Generador
 
-Una vez definida la estructura general del grafo de razonamiento, el siguiente paso consiste en concretar la lógica interna de cada uno de sus nodos. Aunque la arquitectura global puede resumirse como un ciclo de generación, evaluación y selección, el
-comportamiento real del sistema depende de cómo se implementa cada fase y de cómo se comunica el agente con el modelo de lenguaje local.
+Una vez definida la estructura general del grafo, la primera fase funcional del agente corresponde a la generación de estrofas candidatas. Esta fase se implementa en el nodo \texttt{expand}, encargado de comunicarse con el modelo de lenguaje y producir nuevas
+alternativas que posteriormente serán evaluadas.
 
-En este trabajo, la generación de texto se realiza mediante un modelo ejecutado localmente con \emph{Ollama}. Esta decisión permite mantener todo el proceso de inferencia en el equipo de desarrollo, sin depender de servicios externos.
-El modelo se utiliza principalmente como generador de estrofas y como mecanismo de reparación lingüística, mientras que la evaluación formal de las salidas se realiza mediante funciones objetivas implementadas en \emph{Python}.
+En este trabajo, la generación de texto se realiza mediante un modelo ejecutado localmente con \emph{Ollama}. Esta decisión permite mantener el proceso de inferencia en el equipo de desarrollo, sin depender de servicios externos.
+En la versión actual del sistema, el modelo utilizado es \texttt{mistral:7b-instruct}, configurado con parámetros como la temperatura y el número máximo de tokens generados.
 
-La unidad de trabajo del sistema no es un verso aislado ni un soneto completo, sino una estrofa de cuatro versos. Cada estrofa candidata debe cumplir tres restricciones principales: estar formada por exactamente cuatro versos, aproximarse al patrón
-endecasílabo y respetar una rima consonante ABBA. Por tanto, los prompts diseñados para el modelo no solo deben pedir una salida poética, sino también imponer un formato controlado y restricciones formales explícitas.
 
 \subsection{Integración con \emph{Ollama}}
 
-La integración con Ollama se realiza mediante llamadas locales al modelo de lenguaje configurado para la generación. En la versión actual del sistema, el modelo utilizado es \texttt{mistral:7b-instruct}, ejecutado de forma local.
-Esta configuración permite realizar múltiples llamadas durante una misma ejecución del grafo, tanto para generar estrofas iniciales como para producir variantes o reparar errores detectados posteriormente.
+La comunicación con el modelo se realiza mediante una función auxiliar que envía una lista de mensajes en formato conversacional y recibe la respuesta generada. El Listado~\ref{comunicacionOllama} muestra una versión simplificada de esta función.
 
-El uso de Ollama introduce una separación clara entre dos responsabilidades. Por un lado, el modelo de lenguaje se encarga de producir contenido textual: estrofas completas, variantes corregidas o versos alternativos.
-Por otro lado, el sistema implementado en \emph{Python} se encarga de validar objetivamente si esas salidas cumplen las restricciones exigidas. Esta separación resulta importante, ya que evita confiar exclusivamente en la capacidad del modelo para juzgar sus propias respuestas.
-
-En otras palabras, el modelo no actúa como evaluador principal del sistema. Su papel se centra en la generación y reformulación de texto. La comprobación de la calidad formal se delega en funciones específicas de evaluación, capaces de medir el número de versos,
-estimar la métrica y comprobar el esquema de rima. De este modo, el sistema combina la flexibilidad generativa del LLM con un mecanismo de control externo más determinista.
-
-Además, las llamadas a Ollama se configuran mediante parámetros como la temperatura y el número máximo de tokens generados. La temperatura controla el grado de variabilidad de las respuestas. Una temperatura baja favorece salidas más estables y conservadoras,
-mientras que una temperatura mayor incrementa la diversidad de las variantes generadas. En el contexto de este trabajo, este parámetro resulta especialmente relevante, ya que el sistema necesita explorar alternativas, pero sin perder por completo el control sobre la forma de la estrofa.
- 
-El siguiente Listado~\ref{lst:integracionOllama} muestra una versión simplificada de la función encargada de realizar la llamada al modelo:
-
-\begin{lstlisting}[language=Python, caption={Función de comunicación con Ollama}, label={lst:integracionOllama}]
+\begin{lstlisting}[language=Python, caption={Función de comunicación con Ollama}, label={comunicacionOllama}]
 def chat_ollama(
     model: str,
     messages: List[Dict[str, str]],
@@ -1262,99 +1223,49 @@ def chat_ollama(
 
 \end{lstlisting}
 
-Esta función recibe una lista de mensajes en formato conversacional y devuelve el contenido textual generado por el modelo. A partir de esta función básica se construyen las distintas operaciones de generación y reparación utilizadas por el agente.
+Esta función constituye el punto de conexión entre el grafo implementado en \emph{Python} y el modelo local. A partir de ella se construyen las llamadas utilizadas para generar estrofas iniciales, producir variantes y solicitar respuestas en un formato controlado.
 
-%La Figura~\ref{fig:LogicaNodosyPrompting} resume el proceso de interacción entre los prompts generados por el sistema y el modelo local ejecutado mediante Ollama.
-
-%\begin{figure}[h]
-%    \centering
-%    \includegraphics[width=0.5\textwidth]{images/LogicaNodosyPrompting.png}
-%    \caption{Flujo de interacción entre el sistema y el modelo local ejecutado mediante Ollama. Fuente: elaboración propia.}
-%    \label{fig:LogicaNodosyPrompting}
-%\end{figure}
-
-
-% ==================================================================================================================================
+El uso de \emph{Ollama} introduce una separación clara entre generación y validación. El modelo se encarga de producir contenido textual, mientras que el sistema implementado en \emph{Python} evalúa posteriormente si la salida cumple las restricciones formales exigidas.
+Esta separación evita delegar en el propio modelo la valoración principal de sus respuestas.
 
 
 \subsection{Lógica del Nodo Generador}
 
-El nodo generador, denominado \texttt{expand}, es el encargado de producir nuevas estrofas candidatas. Su comportamiento varía en función de la iteración en la que se encuentre el grafo.
+El nodo \texttt{expand} produce nuevas estrofas candidatas a partir del estado actual del grafo. Su comportamiento depende de la iteración en la que se encuentre el proceso.
 
-En la primera iteración, el sistema todavía no dispone de estrofas previas. Por ello, el nodo generador solicita al modelo que produzca una o varias estrofas desde cero.
-El prompt inicial describe de forma explícita la tarea: generar una estrofa de cuatro versos en español, con versos endecasílabos y rima consonante ABBA. La salida generada se considera una propuesta candidata, no una solución final garantizada.
+En la primera iteración, el sistema todavía no dispone de estrofas previas. Por ello, el nodo solicita al modelo que genere una o varias estrofas desde cero. El prompt inicial describe explícitamente la tarea: producir una estrofa de cuatro versos en español, con versos endecasílabos
+y rima consonante ABBA.
 
-En iteraciones posteriores, el comportamiento del nodo cambia. En lugar de solicitar una estrofa completamente nueva sin contexto, el sistema proporciona al modelo una estrofa previa y le pide que genere una variante corregida o mejorada.
-De esta forma, el proceso se vuelve iterativo: cada nueva generación parte de una hipótesis anterior y trata de mejorarla.
+En iteraciones posteriores, el nodo trabaja a partir de los \emph{beams} conservados en la fase de selección. En lugar de pedir una estrofa completamente nueva sin contexto, el sistema proporciona al modelo una estrofa previa y solicita una variante corregida o mejorada.
+De esta forma, la generación se convierte en un proceso iterativo, en el que las mejores candidatas de una iteración sirven como punto de partida para la siguiente.
 
-Este diseño permite que el agente no dependa únicamente de la primera respuesta del modelo. Si una estrofa initial presenta errores de métrica o de rima, puede seguir siendo útil como punto de partida para generar una versión posterior más adecuada.
-Por tanto, el nodo generador cumple una doble función: exploración inicial del espacio de soluciones y refinamiento progresivo de las mejores trayectorias encontradas.
-
-La lógica del nodo puede resumirse de la siguiente forma:
+La lógica general del nodo puede resumirse de la siguiente forma:
 
 \begin{itemize}
-    \item Si no existen estrofas previas, se generan candidatos iniciales desde cero.
-    \item Si ya existen \emph{beams}, se generan nuevas variantes a partir de las estrofas mejor valoradas.
-    \item Cada estrofa generada se almacena como candidata para su posterior evaluación.
-    \item Las candidatas no se aceptan directamente como solución final, sino que pasan al nodo evaluador.
+\item Si no existen estrofas previas, se generan candidatas iniciales desde cero.
+\item Si ya existen \emph{beams}, se generan nuevas variantes a partir de las estrofas conservadas.
+\item Cada salida del modelo se limpia y se almacena como candidata.
+\item Las candidatas generadas no se aceptan directamente, sino que pasan a la fase de evaluación.
 \end{itemize}
 
-Esta distinción entre generación inicial y generación condicionada es fundamental para el funcionamiento del sistema. En una aproximación directa, el modelo solo tendría una oportunidad para satisfacer todas las restricciones.
-En cambio, con esta arquitectura, cada iteración permite corregir errores, conservar avances parciales y explorar diferentes alternativas.
+Este diseño permite reducir la dependencia de una única respuesta del modelo. En lugar de aceptar la primera estrofa generada, el sistema mantiene varias alternativas que serán comparadas posteriormente mediante criterios formales.
 
 
-\subsection{Estrategias de Prompting}
+\subsection{Estrategias de \emph{Prompting} y Control de Salida}
 
-El diseño de los prompts tiene un papel central en el comportamiento del sistema. Dado que los modelos de lenguaje no siempre respetan instrucciones formales de manera estricta, los prompts deben formularse de forma clara, restrictiva y orientada a producir salidas fácilmente procesables por el programa.
+El diseño de los prompts tiene un papel fundamental en el comportamiento del nodo generador. Dado que los modelos de lenguaje no siempre respetan instrucciones formales de manera estricta, los prompts deben indicar con claridad tanto la tarea poética como el formato esperado de la respuesta.
 
-En el sistema se emplean diferentes tipos de prompts según la fase del proceso. No se utiliza un único prompt general para toda la ejecución, sino varios prompts especializados en función de la tarea concreta que debe realizar el modelo.
+En el sistema se utilizan principalmente dos tipos de prompts en esta fase. El primero es el prompt de generación inicial, que solicita una estrofa completa desde cero. El segundo es el prompt de corrección iterativa, que recibe una estrofa anterior y pide al modelo una nueva variante que intente mejorar el cumplimiento de las restricciones.
 
-En primer lugar, se encuentra el prompt de generación inicial. Este prompt solicita una estrofa completa de cuatro versos y especifica las restricciones principales de la tarea. Su objetivo es obtener una primera propuesta que, idealmente, cumpla desde el inicio el número de versos, la métrica y la rima.
-Sin embargo, debido a las limitaciones del modelo, esta salida se trata únicamente como una candidata que debe ser evaluada después.
+Además, los prompts insisten en que la respuesta debe estar estructurada de forma sencilla, evitando explicaciones, comentarios adicionales o análisis literarios. Esta decisión facilita el procesamiento posterior, ya que el sistema necesita separar los versos y enviarlos a la función de evaluación formal.
 
-En segundo lugar, se utilizan prompts de corrección o refinamiento. Estos prompts se aplican cuando el sistema ya dispone de una estrofa previa. En este caso, el modelo recibe información sobre la estrofa anterior y se le pide que genere una versión mejorada.
-La finalidad no es producir una estrofa completamente distinta, sino corregir los aspectos que impiden cumplir las restricciones formales.
+A pesar de estas instrucciones, el modelo puede devolver numeraciones, comillas, títulos o líneas vacías. Por ello, antes de evaluar una estrofa, el sistema aplica una fase de limpieza y normalización. El Listado~\ref{lst:limpiezaRespuesta} muestra un ejemplo simplificado de este proceso.
 
-En tercer lugar, existen prompts de reparación local. Estos prompts se centran en una parte concreta de la estrofa, como un verso que no alcanza las once sílabas métricas o una pareja de versos que no cumple la rima esperada.
-Esta estrategia reduce la libertad del modelo y evita que modifique partes de la estrofa que ya eran válidas.
-
-El uso de prompts especializados permite adaptar el comportamiento del modelo a cada fase del proceso. Por ejemplo, cuando el problema detectado es métrico, el prompt puede pedir variantes de un verso concreto intentando acercarlo a once sílabas.
-Cuando el problema está en la rima, el prompt puede pedir que se conserve un verso ancla y se modifique únicamente el verso reparable.
-
-Esta estrategia es especialmente útil en tareas poéticas con restricciones formales. Si se permite al modelo reescribir toda la estrofa en cada intento, es frecuente que corrija un error pero introduzca otros nuevos.
-Por ejemplo, puede mejorar la rima exterior pero estropear la métrica de un verso que ya era correcto. Por ello, el sistema tiende a aplicar correcciones locales siempre que es posible.
-
-La Figura~\ref{fig:EstrategiasPromptingAgente} resume las principales estrategias de \emph{prompting} utilizadas por el sistema. Como puede observarse, no se emplea una única instrucción general para todo el proceso, sino diferentes prompts especializados según la fase de ejecución:
-generación inicial, corrección iterativa y reparación local. Esta separación permite adaptar la interacción con el modelo a cada tipo de tarea y reducir la probabilidad de modificar partes de la estrofa que ya cumplen las restricciones formales.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.75\textwidth]{images/EstrategiasPromptingAgente.png}
-    \caption{Estrategias de prompting utilizadas por el agente durante el proceso de generación y refinamiento de estrofas. Fuente: elaboración propia}
-    \label{fig:EstrategiasPromptingAgente}
-\end{figure}
-
-
-
-\subsection{Formato de Salida y Control de Respuestas}
-
-Otro aspecto importante del prompting es el formato de salida. Para que el sistema pueda procesar automáticamente las respuestas del modelo, es necesario que estas sean lo más limpias y estructuradas posible.
-En este trabajo se evita que el modelo devuelva explicaciones extensas, comentarios adicionales o análisis literarios mezclados con la estrofa.
-
-Por esta razón, los prompts insisten en que la salida debe contener únicamente la estrofa o el verso solicitado, según corresponda. Esta restricción facilita el procesamiento posterior, ya que el sistema puede limpiar la respuesta, separar los versos y enviarlos a las funciones de evaluación.
-
-A pesar de estas instrucciones, los modelos de lenguaje pueden producir salidas con elementos no deseados, como numeraciones, comillas, títulos o frases introductorias.
-Por ello, el sistema incluye pasos de limpieza y normalización antes de evaluar cada candidata. Estos pasos permiten reducir el impacto de pequeñas desviaciones de formato y mejorar la robustez general del proceso.
-
-Un ejemplo de paso de limpieza y noramlización se muestra en el Listado~\ref{lst:limpiezaRespuesta}, donde se eliminan numeraciones, comillas y otros elementos que el modelo podría incluir de forma automática:
-
-\begin{lstlisting}[language=Python, caption={Ejemplo de limpieza y normalización de respuestas}, label={lst:limpiezaRespuesta}]
-    
+\begin{lstlisting}[language=Python, caption={Ejemplo de limpieza y normalización de respuestas}, label={lst:limpiezaRespuesta}]    
     def clean_generated_verse(verse: str) -> str:
     """Limpia numeracion, comillas exteriores y espacios duplicados."""
 
     cleaned_verse = str(verse).strip()
-
     # Casos habituales: "1. verso", "1) verso", "1- verso", "- verso".
     cleaned_verse = re.sub(
         r"^\s*(?:[-*]\s+|\d+\s*(?:[.)]|-)\s*)",
@@ -1387,348 +1298,246 @@ def clean_generated_stanza(verses: list[str]) -> list[str]:
         if cleaned_verse:
             cleaned_verses.append(cleaned_verse)
     return cleaned_verses
-
 \end{lstlisting}
 
-El control del formato de salida cumple, por tanto, una doble función. Por un lado, facilita la integración técnica entre el modelo y el código \emph{Python}. Por otro lado, reduce la probabilidad de que errores superficiales de formato afecten negativamente a la evaluación formal de una estrofa.
+La Figura~\ref{fig:EstrategiasPromptingAgente} resume las principales estrategias de \emph{prompting} utilizadas por el agente durante la generación. Como puede observarse, no se emplea una única instrucción general, sino distintos prompts según el momento del proceso.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.75\textwidth]{images/EstrategiasPromptingAgente.png}
+\caption{Estrategias de prompting utilizadas por el agente durante el proceso de generación y refinamiento de estrofas. Fuente: elaboración propia}
+\label{fig:EstrategiasPromptingAgente}
+\end{figure}
+
+En conjunto, esta fase proporciona al sistema un conjunto de estrofas candidatas sobre las que trabajar. El modelo aporta diversidad y capacidad generativa, mientras que el grafo organiza esas salidas para que puedan ser evaluadas y seleccionadas en las fases posteriores.
+
+
+
+
+\section{Fase de Evaluación y Métrica Formal} % Nodo Evaluador + Métodos de Scoring y Reparación
+
+La segunda fase funcional del agente corresponde a la evaluación de las estrofas candidatas. Esta fase se implementa en el nodo \texttt{score}, que recibe las salidas generadas por el nodo anterior y determina su grado de cumplimiento formal.
+A diferencia del nodo generador, cuyo objetivo es producir alternativas, el nodo evaluador se encarga de medir, diagnosticar y, cuando procede, aplicar correcciones locales sobre las candidatas.
+
+En este trabajo, la evaluación no se basa en una valoración subjetiva del modelo de lenguaje, sino en una función objetiva implementada en \emph{Python}.
+Esta decisión resulta especialmente adecuada para el problema planteado, ya que las restricciones principales de la tarea pueden comprobarse de forma explícita: número de versos, métrica endecasílaba y rima consonante ABBA.
 
 
 \subsection{Lógica del Nodo Evaluador}
 
-El nodo evaluador, denominado \texttt{score}, recibe las estrofas candidatas generadas por el nodo anterior y les asigna una puntuación. Aunque el desarrollo detallado de la función de puntuación se presenta en el apartado siguiente, resulta conveniente introducir aquí su papel dentro del flujo del grafo.
+El nodo \texttt{score} recibe un conjunto de estrofas candidatas y procesa cada una de ellas de forma independiente. En primer lugar, normaliza la salida generada por el modelo y comprueba su estructura.
+A continuación, evalúa el cumplimiento de las restricciones formales y calcula una puntuación asociada a cada candidata.
 
-La función del nodo evaluador no se limita a calcular una puntuación final. En la versión actual del sistema, este nodo también aplica un conjunto de reparaciones locales antes de obtener la evaluación definitiva.
-Esto significa que una estrofa candidata puede ser modificada durante la fase de evaluación si se detectan errores corregibles.
+En la versión refinada del sistema, esta fase no se limita a asignar una puntuación. Cuando se detectan errores corregibles, el nodo evaluador puede activar mecanismos de reparación local.
+Por ejemplo, si un verso no se aproxima al patrón endecasílabo, se pueden solicitar variantes de ese verso concreto. Del mismo modo, si falla una relación de rima, el sistema puede conservar el verso que actúa como ancla y modificar únicamente el verso que debe adaptarse a él.
 
-El proceso general seguido por este nodo puede resumirse en varias fases. En primer lugar, se analiza la estructura básica de la estrofa, comprobando si contiene el número esperado de versos.
-A continuación, se evalúa la métrica de cada verso y, si procede, se intentan reparaciones locales para acercar los versos al patrón endecasílabo. Después, se diagnostica la rima exterior A, correspondiente a los versos primero y cuarto, y la rima interior B,
-correspondiente a los versos segundo y tercero. En caso de fallo, se pueden activar reparaciones específicas para cada pareja de rima.
+De esta forma, el nodo evaluador cumple una doble función. Por un lado, proporciona una medida cuantitativa que permite comparar candidatas. Por otro, genera información diagnóstica que puede utilizarse para mejorar una estrofa sin necesidad de regenerarla completamente.
 
-Esta lógica convierte el nodo evaluador en una fase de validación y refinamiento. No se limita a descartar salidas incorrectas, sino que intenta aprovechar aquellas candidatas que contienen partes útiles.
-Por ejemplo, una estrofa puede presentar una buena rima exterior pero fallar en la rima interior, o puede tener una estructura correcta pero algunos versos con errores métricos. En esos casos, las reparaciones locales permiten intentar mejorar la candidata sin reiniciar completamente el proceso.
 
-Una característica importante de esta fase es que las reparaciones se aplican de forma controlada. Cuando se repara la rima exterior, el sistema conserva el primer verso como ancla y modifica únicamente el cuarto.
-De forma análoga, cuando se repara la rima interior, se conserva el segundo verso y se modifica el tercero. Esta estrategia reduce el riesgo de perder partes válidas de la estrofa y permite que las mejoras sean acumulativas.
+\subsection{Criterios de Evaluación Formal}
+
+La unidad evaluada por el sistema es siempre una estrofa completa de cuatro versos. Cada candidata se analiza mediante tres criterios principales:
+
+\begin{itemize}
+\item \textbf{Número de versos}: la estrofa debe contener exactamente cuatro versos.
+\item \textbf{Métrica}: cada verso debe aproximarse al patrón endecasílabo, es decir, tener once sílabas métricas.
+\item \textbf{Rima consonante}: la estrofa debe seguir el esquema ABBA, donde el primer verso rima con el cuarto y el segundo verso rima con el tercero.
+\end{itemize}
+
+Estos criterios permiten transformar una tarea creativa en un problema evaluable de forma automática. La calidad de una estrofa no se mide aquí desde un punto de vista literario completo, sino a partir de su grado de cumplimiento de las
+restricciones formales definidas para el experimento.
+
+El criterio métrico se calcula mediante una estimación automática del número de sílabas de cada verso. Esta estimación tiene en cuenta la separación silábica, el ajuste por palabra final y una aproximación básica a la sinalefa.
+Aunque la métrica poética en español puede incluir fenómenos más complejos, esta aproximación proporciona una señal útil para comparar candidatas durante el proceso de búsqueda.
+
+Por su parte, la rima consonante se comprueba a partir de la terminación rimática de la última palabra de cada verso. Para ello, el sistema extrae la rima desde la vocal tónica estimada y compara las parejas correspondientes al esquema ABBA.
+
+
+\subsection{Cálculo de la Puntuación}
+
+La función de evaluación devuelve una puntuación global que resume el cumplimiento formal de la estrofa. Esta puntuación se calcula combinando los distintos criterios mediante pesos definidos en la implementación.
+El Listado~\ref{lst:evaluacionEstrofa} muestra un fragmento simplificado de la función encargada de evaluar una estrofa candidata.
+
+\begin{lstlisting}[language=Python, caption={Fragmento simplificado de la evaluación formal de una estrofa ABBA}, label={lst:evaluacionEstrofa}]
+def evaluate_stanza_abba(stanza: str | list[str]) -> dict[str, object]:
+
+verses = normalize_verses_input(stanza)
+verse_count_evaluation = evaluate_stanza_verse_count(verses)
+syllable_evaluation = evaluate_stanza_syllable_count(verses)
+rhyme_evaluation = evaluate_stanza_rhyme_scheme(verses)
+
+raw_score = (
+    float(verse_count_evaluation["score"]) * VERSE_COUNT_WEIGHT
+    + float(syllable_evaluation["score"]) * SYLLABLE_WEIGHT
+    + float(rhyme_evaluation["score"]) * RHYME_WEIGHT
+)
+
+score = round(_clamp_score(raw_score), 4)
+
+\end{lstlisting}
+
+Esta función centraliza la comprobación de las restricciones principales y permite comparar estrofas que pueden fallar de formas distintas.
+Por ejemplo, una candidata puede tener cuatro versos y buena métrica, pero no cumplir la rima; otra puede presentar rima correcta, pero contener versos alejados del patrón endecasílabo.
+La puntuación global permite ordenar estas alternativas y determinar cuáles resultan más prometedoras.
+
+Además de la puntuación normalizada, el sistema genera información adicional, como el número de versos correctos, el número de versos endecasílabos, el cumplimiento de la rima y un conjunto de errores detectados.
+Esta información resulta útil tanto para el análisis experimental como para orientar las fases de reparación.
+
+
+\subsection{Evaluación Objetiva frente a \emph{LLM-as-a-Judge}}
+
+Durante el diseño del sistema se contempló la posibilidad de utilizar un enfoque de tipo \emph{LLM-as-a-judge}, en el que un modelo actuase como evaluador de las estrofas generadas. Sin embargo, finalmente se optó por una evaluación formal objetiva.
+
+Esta decisión se debe a que los requisitos principales del problema son verificables mediante reglas concretas. Delegar la evaluación en el propio modelo podría introducir inconsistencias,
+ya que un LLM puede equivocarse al contar sílabas, aceptar rimas incorrectas o valorar de forma diferente salidas similares. En cambio, una función programada aplica siempre los mismos criterios, lo que mejora la reproducibilidad de los experimentos.
+
+No obstante, esta elección también delimita el alcance de la evaluación. La puntuación obtenida mide el cumplimiento formal de la estrofa, pero no representa una valoración literaria completa.
+Una estrofa puede obtener una puntuación alta por cumplir la métrica y la rima, aunque su calidad poética sea limitada. Esta cuestión se considera una posible línea de mejora futura.
+
+
+\subsection{Feedback Formal y Reparación Local}
+
+Además de puntuar cada candidata, el nodo evaluador produce información diagnóstica sobre los errores encontrados. Este feedback permite identificar qué parte de la estrofa necesita ser corregida.
+
+Cuando el error es métrico, el sistema puede centrarse únicamente en los versos que no alcanzan el objetivo de once sílabas. Cuando el error afecta a la rima,
+la reparación se plantea de forma localizada: para la rima exterior A se conserva el primer verso y se modifica el cuarto; para la rima interior B se conserva el segundo verso y se modifica el tercero.
+
+Esta estrategia evita reescribir toda la estrofa cada vez que aparece un error. En su lugar, el sistema intenta conservar los elementos válidos y modificar solo la parte problemática.
+Esto resulta especialmente importante porque una generación completa puede corregir una restricción, pero empeorar otra que ya estaba satisfecha.
+
+Por tanto, la evaluación formal no actúa únicamente como un filtro, sino también como una guía para el refinamiento.
+El modelo propone una candidata, el sistema detecta sus errores y, si es posible, se construyen nuevas instrucciones para corregirlos de forma controlada.
+
+
+\subsection{Alcance de la Evaluación Formal}
+
+La función de puntuación constituye una señal fundamental para guiar el comportamiento del agente. Gracias a ella, el sistema puede comparar candidatas, detectar errores y proporcionar información útil para las reparaciones locales.
+
+Sin embargo, debe interpretarse como una medida de cumplimiento formal, no como un juicio absoluto sobre la calidad de la estrofa.
+En este trabajo, el objetivo principal es estudiar cómo un agente puede guiar la generación de texto hacia restricciones verificables. La evaluación estética, semántica o literaria queda fuera del alcance principal del sistema,
+aunque podría incorporarse en futuras versiones mediante métricas adicionales o evaluación humana complementaria.
+
+
+
+
+\section{Fase de Selección y Poda} % Nodo Selector + Lógica de Haz
+
+La tercera fase funcional del agente corresponde a la selección de las mejores estrofas candidatas. Esta fase se implementa en el nodo \texttt{prune}, encargado de aplicar la lógica de poda propia de \emph{Beam Search}.
+Una vez que las candidatas han sido generadas y evaluadas, el sistema debe decidir cuáles continúan activas en la siguiente iteración.
+
+Esta fase resulta necesaria porque el número de alternativas puede crecer rápidamente. Si cada \emph{beam} genera varias variantes en cada paso, mantener todas las trayectorias produciría un aumento progresivo del coste computacional.
+La poda permite limitar este crecimiento y concentrar la búsqueda en las candidatas más prometedoras.
 
 
 \subsection{Lógica del Nodo Selector}
 
-El nodo selector, denominado \texttt{prune}, se encarga de aplicar la poda propia de Beam Search. Una vez que las candidatas han sido evaluadas, el sistema ordena las estrofas según su puntuación y conserva únicamente las mejores $k$ alternativas.
+El nodo \texttt{prune} recibe las candidatas ya puntuadas por el nodo evaluador. A partir de esa información, ordena las estrofas de mayor a menor puntuación y conserva únicamente las mejores $k$, donde $k$ representa el ancho del haz o \emph{beam width}.
 
-Esta fase es necesaria porque el número de candidatas puede crecer rápidamente a medida que avanzan las iteraciones. Si cada beam genera varias variantes, el espacio de búsqueda aumenta de forma exponencial.
-La poda permite limitar este crecimiento y mantener el proceso dentro de un coste computacional asumible.
+El valor de $k$ controla el número de trayectorias que permanecen activas tras cada iteración. Un valor pequeño reduce el tiempo de ejecución, pero también limita la exploración del espacio de soluciones.
+Por el contrario, un valor mayor permite conservar más alternativas, aunque incrementa el número de llamadas al modelo y el coste total del proceso.
 
-El valor de $k$ representa el ancho del haz o \emph{beam width}. Un valor pequeño reduce el tiempo de ejecución, pero también limita la exploración del espacio de soluciones.
-Un valor mayor permite conservar más alternativas, aunque incrementa el número de llamadas al modelo y el coste total del proceso. Por tanto, este parámetro introduce un compromiso directo entre calidad potencial y coste computacional.
+Una vez seleccionadas las mejores candidatas, estas pasan a convertirse en los nuevos \emph{beams} del estado. A partir de ellos, el nodo generador podrá producir nuevas variantes en la siguiente iteración.
+De este modo, el sistema combina exploración y explotación: genera distintas posibilidades, pero concentra progresivamente la búsqueda en aquellas que presentan mejor cumplimiento formal.
 
-Además de seleccionar las mejores estrofas, el nodo selector actualiza el estado del grafo para preparar la siguiente iteración. Las candidatas seleccionadas pasan a convertirse en los nuevos \emph{beams},
-mientras que el contador de iteraciones avanza. A partir de ese momento, el nodo generador podrá producir nuevas variantes tomando como referencia las mejores estrofas conservadas.
 
+\subsection{Ordenación Top-k}
 
-%\subsection{Gestión del Estado entre Nodos}
+La operación central del nodo selector es la ordenación de candidatas según su puntuación. Conceptualmente, el proceso puede resumirse mediante el Listado~\ref{lst:topk}.
 
-%La gestión del estado es uno de los aspectos más importantes de la implementación. En LangGraph, los nodos no trabajan de forma aislada, sino que reciben y devuelven un objeto de estado compartido. Este objeto contiene toda la información necesaria para que el proceso pueda avanzar de una fase a otra sin perder el contexto.
-
-%En este sistema, el estado almacena principalmente las estrofas activas, las candidatas generadas, la traza de ejecución y los parámetros de control del algoritmo. Gracias a esta estructura, el grafo puede mantener varias trayectorias en paralelo sin que se mezclen entre sí.
-
-%Cada beam representa una posible solución parcial o candidata final. Para cada uno de ellos se puede almacenar la estrofa asociada, su puntuación, su historial de puntuaciones y la información de diagnóstico generada durante la evaluación. Esta representación permite comparar diferentes alternativas de forma ordenada y conservar información útil para el análisis experimental posterior.
-
-%El uso de una estructura de estado explícita presenta varias ventajas. En primer lugar, permite que cada nodo tenga una responsabilidad clara. El nodo generador lee los beams actuales y escribe nuevas candidatas. El nodo evaluador lee las candidatas y les añade puntuaciones y diagnósticos. El nodo selector ordena esas candidatas y actualiza la lista de beams. En segundo lugar, facilita la depuración del sistema, ya que la traza permite reconstruir qué ocurrió en cada iteración.
-
-%Además, la gestión del estado resulta esencial para evitar colisiones entre trayectorias. Si varias estrofas se exploran en paralelo, cada una debe conservar su propia información. De lo contrario, una reparación aplicada a una candidata podría afectar indebidamente a otra. Por ello, cada trayectoria se trata como una entidad independiente dentro de la lista de beams.
-
-
-\subsection{Trazabilidad del Proceso} % Archivos de salida generados en la carpeta /outputs
-
-Una de las ventajas de implementar el agente mediante un grafo explícito es la posibilidad de registrar información intermedia durante la ejecución. El sistema no solo produce una estrofa final, sino que también genera trazas que permiten analizar cómo se ha llegado a ella.
-
-Estas trazas incluyen información sobre las fases de expansión, evaluación y poda. Por ejemplo, permiten saber qué candidatas se generaron en una iteración, qué puntuación obtuvo cada una, qué reparaciones se aplicaron y cuáles fueron finalmente seleccionadas para continuar.
-Esta información resulta especialmente útil para el análisis de errores y para la comparación entre distintas configuraciones experimentales.
-
-Desde el punto de vista de la memoria del proyecto, la trazabilidad cumple un papel fundamental. No basta con mostrar la estrofa final generada por el sistema; también interesa estudiar el comportamiento del agente durante el proceso.
-Las trazas permiten justificar por qué una determinada configuración funciona mejor que otra, detectar patrones de fallo y observar el efecto real de las reparaciones introducidas.
-
-Por ejemplo, si una estrofa final no cumple correctamente la rima ABBA, la traza puede ayudar a determinar si el fallo procede de la generación inicial, de una reparación de rima fallida o de una poda que descartó una alternativa mejor. Del mismo modo, si el tiempo de ejecución aumenta considerablemente,
-las trazas pueden mostrar si el incremento se debe a un mayor número de variantes, a reparaciones adicionales o a un ancho de haz demasiado elevado.
-
-Dicha traza incluye información como la que se muestra en el Listado~\ref{lst:ejemploTraza}, simplificado del nodo evaluador para ilustrar el tipo de datos registrados:
-
-\begin{lstlisting}[language=Python, caption={Ejemplo de traza generada por el nodo evaluador}, label={lst:ejemploTraza}]
-    for index, candidate in enumerate(state["candidates"]):
-
-        scored_candidate = {
-
-            "stanza": stanza.copy(),
-            "score": total_score,
-            "step_score": step_score,
-            "score_history": updated_history,
-            "feedback": str(evaluation.get("feedback", "")),
-            "metrics": evaluation,
-            "meter_repair_report": meter_repair_report,
-            "outer_rhyme_repair_report": outer_rhyme_repair_report,
-            "inner_rhyme_repair_report": inner_rhyme_repair_report,
-            "outer_rhyme_diagnosis": outer_rhyme_diagnosis,
-            "inner_rhyme_diagnosis": inner_rhyme_diagnosis,
-            "preserved_by_elitism": bool(
-                candidate.get("preserved_by_elitism", False)
-            ),
-            "generation_reasoning": candidate.get("generation_reasoning", ""),
-
-        }
-        scored_candidates.append(scored_candidate)
-
-    trace = state.get("trace", []).copy()
-
-    trace.append(
-        {
-            "step": state["step"],
-            "phase": "score",
-            "candidates": [
-                build_trace_entry(candidate) for candidate in scored_candidates
-            ],
-        }
-    )
-
-\end{lstlisting}
-
-
-
-\subsection{Relación entre Prompting, Estado y Beam Search}
-
-La lógica de prompting, la gestión del estado y el algoritmo Beam Search no son componentes independientes, sino partes conectadas del mismo proceso. Los prompts determinan qué tipo de variantes genera el modelo. El estado permite conservar varias de esas variantes en paralelo.
-Finalmente, \emph{Beam Search} decide cuáles merecen continuar en la siguiente iteración.
-
-Esta relación puede interpretarse como un ciclo de refinamiento progresivo. El modelo propone soluciones, el sistema las evalúa de forma objetiva y el grafo conserva las alternativas más prometedoras. En cada iteración, las mejores estrofas sirven como punto de partida para nuevas generaciones.
-De este modo, el sistema combina exploración y explotación: explora distintas posibilidades generadas por el modelo, pero concentra progresivamente la búsqueda en aquellas que presentan mejores resultados formales.
-
-Este enfoque resulta adecuado para la generación de estrofas con restricciones, ya que el cumplimiento de la tarea no depende únicamente de la creatividad del modelo. La arquitectura fuerza un proceso de revisión, comparación y selección que permite corregir errores frecuentes en las salidas de los LLMs,
-como el incumplimiento del número de versos, desviaciones métricas o rimas incorrectas.
-
-En resumen, la implementación de los nodos no se limita a conectar llamadas a un modelo de lenguaje. El sistema construye un flujo de trabajo controlado en el que cada nodo cumple una función concreta: generar alternativas, evaluarlas, repararlas cuando es posible y seleccionar las más adecuadas para continuar.
-Esta organización modular facilita la experimentación posterior y permite introducir mejoras de forma progresiva, como se analizará en los siguientes apartados.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-%────────────────────── Desarrollo de la Función de Puntuación (Scoring) ──────────────────────────
-
-\section{Desarrollo de la Función de Puntuación \emph{(Scoring)}}
-
-La función de puntuación constituye uno de los elementos centrales del sistema, ya que determina qué estrofas candidatas deben conservarse y cuáles deben descartarse durante el proceso de búsqueda.
-En una arquitectura basada en \emph{Beam Search}, no basta con generar múltiples alternativas: es necesario disponer de un criterio que permita compararlas entre sí de forma consistente.
-
-En este trabajo, la puntuación no se basa en una valoración subjetiva del modelo de lenguaje, sino en una evaluación formal objetiva. Aunque inicialmente se contempló la posibilidad de utilizar un enfoque de tipo \emph{LLM-as-a-judge},
-en el que un modelo actuase como evaluador de las respuestas generadas, finalmente se optó por una estrategia más controlada y reproducible. Esta decisión resulta especialmente adecuada para el problema planteado, ya que las restricciones principales de la tarea pueden medirse de forma explícita:
-número de versos, métrica aproximada y rima consonante ABBA.
-
-De esta forma, el modelo de lenguaje se utiliza principalmente como generador y reparador de texto, mientras que la valoración de cada estrofa se realiza mediante funciones programadas en Python. Esta separación permite reducir la dependencia de juicios ambiguos del propio modelo y facilita
-la comparación entre diferentes configuraciones experimentales.
-
-% -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-\subsection{Criterios de Evaluación Formal}
-
-La unidad evaluada por el sistema es siempre una estrofa completa de cuatro versos. Cada candidata se analiza teniendo en cuenta tres criterios principales:
-
-\begin{itemize}
-    \item \textbf{Número de versos}: la estrofa debe contener exactamente cuatro versos.
-    \item \textbf{Métrica}: cada verso debe aproximarse al patrón endecasílabo, es decir, tener once sílabas métricas.
-    \item \textbf{Rima consonante}: la estrofa debe seguir el esquema ABBA, donde el primer verso rima con el cuarto y el segundo verso rima con el tercero.
-\end{itemize}
-
-Estos criterios permiten transformar una tarea aparentemente creativa en un problema evaluable de forma automática. La calidad de una estrofa no se mide únicamente por su fluidez literaria, sino por su grado de cumplimiento de unas restricciones formales previamente definidas.
-
-El primer criterio comprueba la estructura básica de la salida. Esta comprobación es necesaria porque los modelos de lenguaje pueden generar respuestas con un número incorrecto de versos, añadir explicaciones o dividir el texto de forma inesperada.
-Una estrofa que no contiene exactamente cuatro versos no puede considerarse válida dentro del marco definido para este proyecto.
-
-El segundo criterio evalúa la métrica de cada verso. Para ello, el sistema emplea una estimación automática del número de sílabas métricas. Esta estimación tiene en cuenta aspectos como la separación silábica, la palabra final del verso y una aproximación básica a la sinalefa.
-Aunque la métrica poética en español puede presentar fenómenos complejos, esta aproximación resulta suficiente para establecer un criterio operativo de comparación entre candidatas.
-
-El tercer criterio analiza la rima consonante. En el esquema ABBA, los versos primero y cuarto deben compartir rima, mientras que los versos segundo y tercero deben rimar entre sí. Para comprobarlo, el sistema extrae la terminación rimática de la última palabra de cada verso,
-tomando como referencia la vocal tónica estimada. Posteriormente, compara las terminaciones correspondientes para determinar si se cumple el patrón esperado.
-
-% -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-\subsection{Evaluación Objetiva frente a \emph{LLM-as-a-Judge}}
-
-El uso de un evaluador basado en \emph{LLM} podría resultar atractivo en tareas abiertas, especialmente cuando se desea valorar aspectos difíciles de formalizar, como la coherencia semántica, la originalidad o la calidad literaria. Sin embargo, en este proyecto la mayor parte de los
-requisitos principales son verificables mediante reglas concretas.
-
-Por este motivo, se decidió no utilizar el modelo como juez principal del proceso. Delegar la evaluación formal en el propio \emph{LLM} podría introducir inconsistencias, ya que el modelo puede interpretar de forma variable las instrucciones,
-equivocarse al contar sílabas o aceptar rimas incorrectas como válidas. En cambio, una función de evaluación programada permite aplicar siempre los mismos criterios sobre todas las candidatas.
-
-Esta decisión aporta varias ventajas. En primer lugar, mejora la reproducibilidad de los experimentos, ya que dos estrofas iguales reciben la misma puntuación independientemente del momento de la ejecución. En segundo lugar, facilita el análisis de errores,
-puesto que el sistema puede indicar qué restricción concreta se incumple. Por último, permite comparar de manera más clara distintas configuraciones del agente, como cambios en los prompts, en el ancho del haz (\emph{beam width}) o en los parámetros de generación.
-
-No obstante, esta elección también implica ciertas limitaciones. La evaluación objetiva se centra en aspectos formales y no captura completamente la calidad estética o semántica de la estrofa. Una estrofa puede cumplir la métrica y la rima, pero resultar poco natural o tener un significado débil.
-Esta limitación se asume como parte del alcance del trabajo, ya que el objetivo principal del sistema es estudiar el razonamiento iterativo y la satisfacción de restricciones formales mediante un agente basado en \emph{LangGraph} y \emph{Beam Search}.
-
-% -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-\subsection{Cálculo de la Puntuación}
-
-La puntuación de cada estrofa se obtiene mediante una función específica de evaluación. Esta función analiza la candidata y devuelve un resultado estructurado con la puntuación global, una puntuación normalizada sobre veinte, los errores detectados y un mensaje de retroalimentación formal.
-
-El proceso de evaluación puede resumirse en las siguientes fases:
-
-\begin{enumerate}
-    \item Limpieza y normalización de la estrofa generada.
-    \item Separación del texto en versos.
-    \item Comprobación del número de versos.
-    \item Estimación de las sílabas métricas de cada verso.
-    \item Extracción de la rima de la última palabra de cada verso.
-    \item Verificación del esquema ABBA.
-    \item Cálculo de una puntuación global.
-    \item Generación de feedback formal para orientar posibles correcciones.
-\end{enumerate}
-
-El Listado~\ref{lst:evaluateStanzaAbba} muestra un fragmento simplificado de la función encargada de evaluar una estrofa candidata. Esta función centraliza la comprobación de las restricciones formales y devuelve una estructura con la puntuación y los errores detectados.
-
-\begin{lstlisting}[language=Python, caption={Fragmento simplificado de la evaluación formal de una estrofa ABBA}, label={lst:evaluateStanzaAbba}]
-    def evaluate_stanza_abba(stanza: str | list[str]) -> dict[str, object]:
- 
-        verses = normalize_verses_input(stanza)
-        verse_count_evaluation = evaluate_stanza_verse_count(verses)
-        syllable_evaluation = evaluate_stanza_syllable_count(verses)
-        rhyme_evaluation = evaluate_stanza_rhyme_scheme(verses)
-
-        raw_score = (
-            float(verse_count_evaluation["score"]) * VERSE_COUNT_WEIGHT # 0.2
-            + float(syllable_evaluation["score"]) * SYLLABLE_WEIGHT # 0.4
-            + float(rhyme_evaluation["score"]) * RHYME_WEIGHT # 0.4
-        )
-
-        score = round(_clamp_score(raw_score), 4)
-
-\end{lstlisting}
-
-El resultado de esta evaluación permite comparar estrofas que pueden fallar de formas distintas. Por ejemplo, una candidata puede tener cuatro versos y buena rima, pero presentar errores métricos. Otra puede tener versos endecasílabos, pero no cumplir el esquema ABBA.
-La puntuación global permite ordenar ambas alternativas y decidir cuál resulta más prometedora para continuar el proceso.
-
-En la implementación actual, la evaluación formal no se utiliza únicamente al final de la ejecución. Por el contrario, se aplica en cada iteración del grafo. Esto permite que el sistema tome decisiones intermedias informadas y no espere hasta el final para detectar errores graves.
-Así, el \emph{Beam Search} puede dirigir la búsqueda hacia las estrofas que muestran un mayor cumplimiento de las restricciones.
-
-% -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-\subsection{Feedback Formal y Reparación de Candidatas}
-
-Además de asignar una puntuación, la función de evaluación produce información diagnóstica sobre los errores encontrados. Esta información resulta fundamental para las fases de reparación, ya que permite saber qué aspecto concreto de la estrofa debe modificarse.
-
-Por ejemplo, si un verso no tiene once sílabas métricas, el sistema puede activar una reparación local centrada únicamente en ese verso. Si la rima exterior A falla, se conserva el primer verso como ancla y se intenta reescribir el cuarto.
-De forma similar, si falla la rima interior B, se conserva el segundo verso y se intenta modificar el tercero.
-
-Este enfoque convierte la función de puntuación en algo más que un mecanismo de ordenación. La evaluación actúa también como una fuente de información para guiar el refinamiento de las candidatas. En lugar de descartar directamente una estrofa parcialmente incorrecta,
-el sistema puede intentar repararla si contiene elementos aprovechables.
-
-La retroalimentación formal generada por el evaluador permite, por tanto, cerrar el ciclo entre evaluación y generación. El modelo propone una estrofa, el sistema detecta sus errores y, si procede, se construyen nuevas instrucciones para corregirlos.
-Este comportamiento resulta especialmente relevante en tareas con restricciones formales, donde una solución puede estar cerca de ser válida aunque todavía incumpla uno de los requisitos.
-
-% -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-\subsection{Puntuación y Beam Search}
-
-Dentro del algoritmo de \emph{Beam Search}, la puntuación cumple la función de guiar la exploración. Tras cada fase de generación y evaluación, el sistema dispone de un conjunto de candidatas con diferentes niveles de calidad formal. El nodo selector ordena estas candidatas según su puntuación
-y conserva únicamente las mejores $k$.
-
-Este mecanismo permite limitar el crecimiento del espacio de búsqueda. Si todas las variantes generadas se mantuvieran activas, el número de trayectorias aumentaría rápidamente en cada iteración. La poda basada en puntuación permite concentrar los recursos computacionales en
-las estrofas más prometedoras.
-
-El valor de $k$ determina cuántas alternativas se conservan en cada iteración. Si $k$ es demasiado pequeño, el sistema puede descartar pronto una estrofa que, aunque inicialmente no sea la mejor, podría haber mejorado en iteraciones posteriores. Si $k$ es demasiado grande,
-el sistema explora más alternativas, pero aumenta el número de llamadas al modelo y, por tanto, el tiempo total de ejecución.
-
-La función de puntuación es, por tanto, el criterio que conecta la evaluación formal con la estrategia de búsqueda. Una puntuación adecuada permite que el sistema avance hacia soluciones cada vez más cercanas al objetivo, mientras que una puntuación mal diseñada podría
-favorecer candidatas que no conduzcan a una estrofa válida.
-
-%La Figura~\ref{fig:ScoringBeamSearch} muestra el papel de la función de puntuación dentro del proceso de \emph{Beam Search}. Cada estrofa candidata es evaluada mediante criterios formales y, a partir de esa puntuación, el sistema decide qué trayectorias continúan activas en la siguiente iteración.
-
-%\begin{figure}[h]
-%    \centering
-%    \includegraphics[width=0.85\textwidth]{images/ScoringBeamSearch.png}
-%    \caption{Papel de la función de puntuación en la selección de las mejores estrofas candidatas. Fuente: elaboración propia}
-%    \label{fig:ScoringBeamSearch}
-%\end{figure}
-
-% -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-\subsection{Ordenación y Selección de las Mejores Candidatas}
-
-Una vez evaluadas todas las candidatas, el sistema procede a ordenarlas de mayor a menor puntuación. Las mejores alternativas se conservan como nuevos \emph{beams}, mientras que el resto se descarta. Esta operación constituye la fase de poda del algoritmo.
-
-Conceptualmente, el proceso puede representarse de la siguiente forma:
-
-\begin{lstlisting}[language=Python, caption={Esquema simplificado de selección de las mejores candidatas}]
+\begin{lstlisting}[language=Python, caption={Esquema simplificado de selección top-k}, label={lst:topk}]
 scored_candidates = evaluate_candidates(candidates)
 
 sorted_candidates = sorted(
-        selection_pool,
-        key=lambda beam: beam["score"],
-        reverse=True,
-    )
+selection_pool,
+key=lambda beam: beam["score"],
+reverse=True,
+)
 
 top_k = sorted_candidates[: state["k"]]
 \end{lstlisting}
 
-El fragmento anterior muestra una versión simplificada del mecanismo de selección. En la implementación completa, cada candidata puede contener más información además de la puntuación, como la estrofa generada, el historial de puntuaciones, los diagnósticos formales y los reportes de reparación.
-Sin embargo, la idea central es la misma: ordenar las alternativas evaluadas y conservar solo las más prometedoras.
+El fragmento anterior muestra la idea principal de la poda: ordenar las alternativas evaluadas y conservar solo las mejores. En la implementación completa, cada candidata almacena más información además de la puntuación,
+como la estrofa generada, el historial de puntuaciones, los diagnósticos formales y los reportes de reparación.
 
-Esta selección se realiza en cada iteración del grafo. Por tanto, una estrofa no necesita ser perfecta desde el primer momento para sobrevivir, pero sí debe obtener una puntuación suficientemente alta como para mantenerse dentro de las mejores alternativas.
-Esto permite que el sistema combine exploración y refinamiento progresivo.
+Esta selección se realiza en cada iteración del grafo. Por tanto, una estrofa no necesita ser perfecta desde el primer momento para sobrevivir, pero sí debe obtener una puntuación suficientemente alta como para mantenerse dentro de las mejores alternativas disponibles.
+
 
 \subsection{Protección de \emph{Beams} Prometedores}
 
-Durante el desarrollo del sistema se observó que algunas estrofas parcialmente buenas podían perderse tras una iteración de generación o reparación. Esto ocurría cuando una estrofa con buena puntuación generaba variantes peores, provocando que la trayectoria original desapareciera del conjunto de
-beams activos.
+Durante el desarrollo del sistema se observó que algunas estrofas parcialmente buenas podían perderse tras una iteración de generación o reparación. Esto ocurría cuando una estrofa con buena puntuación generaba variantes peores,
+provocando que la trayectoria original desapareciera del conjunto de \emph{beams} activos.
 
-Para evitar este problema, se introdujo una estrategia de preservación de \emph{beams} prometedores. La idea consiste en conservar ciertas estrofas de alta calidad aunque sus descendientes inmediatos no mejoren el resultado. Esta técnica se puede interpretar como una forma de elitismo
-dentro del proceso de búsqueda.
+Para reducir este problema, se incorporó una estrategia de preservación de \emph{beams} prometedores. Esta técnica, similar al elitismo, permite conservar determinadas candidatas de alta calidad aunque sus descendientes inmediatos no mejoren el resultado.
 
-El elitismo resulta útil porque las llamadas al modelo no garantizan una mejora monotónica. Una variante generada a partir de una buena estrofa puede corregir un aspecto, pero empeorar otro. Por ejemplo, puede mejorar una rima pero alterar la métrica, o mantener la métrica pero cambiar
-una palabra final que era importante para el esquema ABBA. En estos casos, conservar el beam original evita perder una solución que todavía puede ser competitiva.
+Esta protección resulta útil porque las llamadas al modelo no garantizan una mejora progresiva. Una variante puede corregir una rima pero empeorar la métrica, o mantener la estructura de cuatro versos pero alterar una palabra final importante.
+En estos casos, conservar el \emph{beam} original evita perder una solución que todavía puede ser competitiva.
 
-Esta protección también contribuye a estabilizar el comportamiento del sistema. En tareas de generación con LLMs, las salidas pueden variar incluso bajo instrucciones similares. Mantener los mejores \emph{beams} encontrados permite que el proceso no dependa exclusivamente de la última
-generación producida por el modelo.
 
-\subsection{Interpretación de la Puntuación}
+\subsection{Trazabilidad del Proceso}
 
-La puntuación obtenida por una estrofa debe interpretarse como una medida de cumplimiento formal, no como una valoración literaria completa. Una puntuación alta indica que la candidata se aproxima bien a los requisitos definidos: cuatro versos, métrica endecasílaba y rima ABBA.
-Sin embargo, no garantiza necesariamente que la estrofa sea estética, profunda o semánticamente perfecta.
+Además de seleccionar las mejores candidatas, el sistema registra información intermedia sobre el proceso de búsqueda. Esta trazabilidad permite reconstruir qué alternativas se generaron, qué puntuación obtuvo cada una,
+qué reparaciones se aplicaron y cuáles fueron finalmente conservadas.
 
-Esta distinción es importante para delimitar correctamente el alcance del sistema. El objetivo del agente no es sustituir el juicio literario humano, sino estudiar cómo un modelo de lenguaje puede ser guiado mediante un proceso iterativo de generación, evaluación y selección.
-En este contexto, la puntuación formal proporciona una señal clara y automatizable para dirigir el \emph{Beam Search}.
+%El Listado~\ref{lst:trace1} muestra un fragmento simplificado de la información registrada durante la fase de evaluación y selección.
 
-En consecuencia, los resultados experimentales deben analizarse teniendo en cuenta esta perspectiva. Una mejora en la puntuación media de las estrofas indica que el sistema cumple mejor las restricciones formales, pero no implica necesariamente una mejora equivalente en calidad poética.
-Esta limitación abre la puerta a posibles extensiones futuras, como incorporar métricas semánticas o una valoración humana complementaria.
+El Listado~\ref{lst:trace2} muestra un fragmento simplificado de la función encargada de guardar el resultado final, incluyendo la estrofa seleccionada, sus métricas y la traza completa del proceso.
 
-\subsection{Importancia del Scoring en el Sistema}
+%\begin{lstlisting}[language=Python, caption={Ejemplo simplificado de traza generada durante la evaluación}, label={lst:trace1}]
+%scored_candidate = {
+%"stanza": stanza.copy(),
+%"score": total_score,
+%"step_score": step_score,
+%"score_history": updated_history,
+%"feedback": evaluation.get("feedback", ""),
+%"metrics": evaluation,
+%"meter_repair_report": meter_repair_report,
+%"outer_rhyme_repair_report": outer_rhyme_repair_report,
+%"inner_rhyme_repair_report": inner_rhyme_repair_report,
+%"preserved_by_elitism": candidate.get("preserved_by_elitism", False),
+%}
 
-El desarrollo de la función de puntuación permite transformar la generación poética en un proceso de búsqueda guiada. Sin este componente, el sistema se limitaría a solicitar respuestas al modelo y aceptar la salida obtenida. En cambio, al disponer de una señal de evaluación,
-el agente puede comparar alternativas, conservar las mejores y orientar las iteraciones posteriores.
+%trace.append({
+%    "step": state["step"],
+%    "phase": "score",
+%    "candidates": [
+%    build_trace_entry(candidate) for candidate in scored_candidates
+%    ],
+%})
+%\end{lstlisting}
 
-El scoring actúa como punto de conexión entre las restricciones formales del problema y la arquitectura de razonamiento implementada en LangGraph. Los prompts generan diversidad, el estado mantiene varias trayectorias activas y la puntuación decide cuáles de ellas merecen continuar.
-Por ello, la calidad de la función de puntuación influye directamente en el comportamiento global del agente.
+\begin{lstlisting}[language=Python, caption={Ejemplo simplificado de traza generada durante la evaluación}, label={lst:trace2}]
+def save_final_result(
+    best_beam: dict[str, Any],
+    trace: list[dict[str, Any]],
+    run_parameters: dict[str, Any],
+    execution_time_seconds: float | None = None,
+    output_dir: str = "outputs",
+) -> None:
 
-En resumen, la función de puntuación no solo sirve para medir el resultado final, sino que participa activamente en el proceso de razonamiento. Evalúa cada candidata, aporta feedback para las reparaciones, permite ordenar las trayectorias y guía la poda del \emph{Beam Search}.
-Gracias a este componente, el sistema puede avanzar de manera iterativa hacia estrofas que cumplen cada vez mejor las restricciones formales definidas.
+    """Guarda la estrofa final, sus metricas y la traza completa."""
+    output_path = Path(output_dir)
+    output_path.mkdir(parents=True, exist_ok=True)
+
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    stanza_path = output_path / f"final_stanza_{timestamp}.txt"
+    metrics_path = output_path / f"final_stanza_metrics_{timestamp}.json"
+    trace_path = output_path / f"final_stanza_trace_{timestamp}.json"
+
+\end{lstlisting}
+
+Estas trazas resultan especialmente útiles para la fase experimental. No solo permiten conocer la estrofa final, sino también estudiar cómo ha evolucionado la búsqueda hasta llegar a ella.
+Gracias a esta información, es posible analizar si un fallo procede de la generación inicial, de una reparación insuficiente o de una decisión de poda que descartó una alternativa mejor.
+
+En conjunto, la fase de selección y poda completa el ciclo funcional del agente. El nodo generador propone alternativas, el nodo evaluador las puntúa y diagnostica, y el nodo selector
+conserva únicamente aquellas que presentan mayor potencial. Esta organización permite mantener el proceso de búsqueda dentro de un coste controlado, sin renunciar a explorar varias trayectorias en paralelo.
 
 
 %────────────────────── Configuración del Entorno Experimental y Datasets ──────────────────────────
+% Ahora mismo es la 4.4
+\section{Configuración del Entorno Experimental}
 
-\section{Configuración del Entorno Experimental y Problema de Prueba}
-
-Una vez definida la arquitectura del agente y la función de puntuación, es necesario describir el entorno en el que se ejecutan los experimentos y el tipo de problema utilizado para evaluar el sistema. En este trabajo se opta por una ejecución local del modelo de lenguaje,
-utilizando \emph{Ollama} como herramienta para lanzar las inferencias desde el propio equipo de desarrollo.
+Una vez descritas las fases principales del agente, resulta necesario concretar el entorno en el que se ejecutan las pruebas y la configuración utilizada durante los experimentos.
+Esta información permite contextualizar los resultados obtenidos posteriormente, especialmente en lo relativo al tiempo de ejecución y al coste computacional del sistema.
 
 % -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -1761,16 +1570,16 @@ La Tabla~\ref{tab:entornoExperimental} resume las principales características d
     \label{tab:entornoExperimental}
 \end{table}
 
-El uso de un modelo local condiciona directamente el diseño experimental. A diferencia de una API externa, la ejecución en local permite un mayor control sobre el entorno y evita depender de servicios de terceros, pero también introduce limitaciones de tiempo y recursos.
-Cada llamada al modelo tiene un coste computacional apreciable, especialmente cuando el sistema genera varias variantes por iteración o activa fases adicionales de reparación.
+La ejecución local del modelo permite mantener un mayor control sobre el entorno y evita depender de servicios externos. Sin embargo, también condiciona el diseño experimental, ya que cada llamada al modelo tiene un coste temporal apreciable.
+Este aspecto resulta especialmente importante en las configuraciones que generan varias alternativas por iteración o que incorporan fases adicionales de reparación.
 
-Por este motivo, los experimentos deben equilibrar la calidad de las soluciones generadas con el tiempo total de ejecución. Parámetros como el ancho del haz $k$, el número máximo de iteraciones o el número de variantes solicitadas en cada reparación influyen directamente en dicho coste.
-
+Por ello, los resultados del sistema deben analizarse teniendo en cuenta no solo la calidad formal de las estrofas generadas, sino también el tiempo necesario para obtenerlas.
 % -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 \subsection{Configuración del Agente}
 
-La configuración experimental del agente se basa en un conjunto de parámetros que controlan tanto la generación como la búsqueda. En las pruebas principales se utiliza un ancho de haz reducido, con el objetivo de mantener el coste computacional dentro de unos límites razonables.
+La configuración experimental del agente se basa en un conjunto de parámetros que controlan la generación, la búsqueda y las fases de refinamiento. En las pruebas principales se utiliza un ancho de haz reducido,
+con el objetivo de mantener el coste computacional dentro de unos límites razonables.
 
 La Tabla~\ref{tab:configuracionAgente} resume los principales parámetros utilizados durante la ejecución del sistema.
 
@@ -1805,74 +1614,44 @@ La Tabla~\ref{tab:configuracionAgente} resume los principales parámetros utiliz
     \label{tab:configuracionAgente}
 \end{table}
 
-Además de estos parámetros generales, el sistema incorpora configuraciones específicas para las fases de reparación métrica y de rima. Estas fases pueden generar varias variantes de un verso concreto y aceptar únicamente aquellas que mejoran o mantienen el cumplimiento formal de la estrofa.
-Esta configuración permite estudiar no solo la capacidad de generación inicial del modelo, sino también el efecto de los mecanismos de refinamiento introducidos en el agente.
+Estos parámetros permiten acotar la ejecución del agente. El valor de $k$ limita el número de trayectorias activas, mientras que el número máximo de iteraciones establece la profundidad del proceso de búsqueda.
+Por su parte, la activación de las fases de reparación permite estudiar el comportamiento de la versión refinada del sistema frente a una aproximación inicial más simple.
 
-% --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-\subsection{Problema de Prueba: Generación de una Estrofa ABBA}
-
-El problema seleccionado para evaluar el agente es la generación automática de una estrofa clásica en español formada por cuatro versos. La estrofa debe cumplir las siguientes restricciones:
-
-\begin{itemize}
-    \item contener exactamente cuatro versos;
-    \item aproximarse al patrón endecasílabo;
-    \item seguir un esquema de rima consonante ABBA.
-\end{itemize}
-
-Aunque en una fase inicial del proyecto se planteó la generación de un soneto completo, el desarrollo experimental se centra finalmente en la primera estrofa, con esquema de rima ABBA. Esta decisión no implica un cambio en la naturaleza del problema, sino una reducción controlada de su alcance.
-En lugar de abordar directamente la generación completa de catorce versos, se estudia con mayor profundidad una unidad poética más pequeña, pero suficientemente representativa de las dificultades principales: control del número de versos, métrica endecasílaba y rima consonante.
-
-Este enfoque permite analizar de forma más precisa el comportamiento del agente. Al trabajar con una única estrofa, resulta más sencillo identificar en qué punto aparecen los errores, qué efecto tienen las reparaciones locales y cómo influye el proceso de selección mediante \emph{Beam Search}.
-De este modo, el sistema puede evaluarse sobre una tarea acotada, pero no trivial.
-
-Además, el método propuesto es extensible a la generación de un soneto completo. Una vez resuelta la generación de una estrofa ABBA, el mismo esquema podría aplicarse a la segunda estrofa del soneto, también con rimas fijadas. Posteriormente, sería posible adaptar la lógica de evaluación y
-reparación a los tercetos finales, cuyo esquema de rima puede adoptar patrones como CDC. Por tanto, la generación de la primera estrofa se plantea como una prueba representativa del método, no como una limitación conceptual del sistema.
-
-La elección de este problema resulta adecuada para evaluar un sistema de razonamiento multietapa por varias razones. En primer lugar, no basta con generar texto gramaticalmente correcto: la salida debe satisfacer restricciones formales verificables. En segundo lugar, los errores
-pueden aparecer en distintos niveles, como el número de versos, la métrica de un verso aislado o la rima entre dos versos concretos. Por último, una estrofa parcialmente incorrecta puede seguir siendo útil si contiene elementos aprovechables que puedan repararse posteriormente.
-
-% --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 \subsection{Justificación Experimental}
 
-La generación de estrofas con restricciones constituye un caso de prueba interesante para el agente porque obliga a combinar creatividad lingüística y control formal. El modelo de lenguaje aporta capacidad generativa, mientras que el grafo de razonamiento introduce mecanismos de evaluación,
-selección y reparación.
+%La generación de estrofas con restricciones constituye un caso de prueba interesante para el agente porque obliga a combinar creatividad lingüística y control formal. El modelo de lenguaje aporta capacidad generativa, mientras que el grafo de razonamiento introduce mecanismos de evaluación,
+%selección y reparación.
 
-Este planteamiento permite observar si el proceso iterativo mejora realmente los resultados frente a una generación directa. En lugar de aceptar la primera salida del modelo, el sistema genera varias alternativas, las evalúa, conserva las más prometedoras y aplica reparaciones locales cuando
-detecta errores. Por tanto, el problema permite estudiar el valor añadido de la arquitectura propuesta.
+%El método propuesto es extensible a la generación de un soneto completo. Una vez resuelta la generación de una estrofa ABBA, el mismo esquema podría aplicarse a la segunda estrofa del soneto, también con rimas fijadas. Posteriormente, sería posible adaptar la lógica de evaluación y
+%reparación a los tercetos finales, cuyo esquema de rima puede adoptar patrones como CDC. Por tanto, la generación de la primera estrofa se plantea como una prueba representativa del método, no como una limitación conceptual del sistema.
 
-Además, el uso de trazas y métricas estructuradas permite comparar distintas configuraciones del sistema. Por ejemplo, se puede analizar el efecto de activar o desactivar la reparación métrica, añadir reparación de rima, modificar el ancho del haz o cambiar el número de iteraciones.
-Estas comparaciones se desarrollan en los apartados posteriores, donde se estudia la evolución del agente a través de diferentes ciclos de experimentación.
+%Además, el uso de trazas y métricas estructuradas permite comparar distintas configuraciones del sistema. Por ejemplo, se puede analizar el efecto de activar o desactivar la reparación métrica, añadir reparación de rima, modificar el ancho del haz o cambiar el número de iteraciones.
+%Estas comparaciones se desarrollan en los apartados posteriores, donde se estudia la evolución del agente a través de diferentes ciclos de experimentación.
 
+La elección de una única estrofa permite analizar de forma controlada el comportamiento del sistema. Aunque inicialmente podría plantearse la generación de un soneto completo, el método propuesto es extensible a dicho caso. Una vez resuelta la generación de una estrofa ABBA,
+el mismo esquema podría aplicarse a una segunda estrofa con rimas fijadas y, posteriormente, adaptarse a los tercetos finales, con esquemas como CDC. Por tanto, la generación de la primera estrofa se plantea como una prueba representativa del método, no como una limitación
+conceptual del sistema.
+
+Además, este problema permite estudiar de forma clara el efecto de las distintas decisiones de diseño. Por ejemplo, es posible comparar configuraciones con o sin reparación métrica, con diferentes valores de $k$ o con distinta profundidad máxima.
+Estas comparaciones se desarrollan en el siguiente capítulo, donde se analizan los ciclos de experimentación realizados y la evolución del agente.
+
+
+
+%────────────────────── Experimentación, Refinamiento y Evaluación del Agente ──────────────────────────
+\chapter{Experimentación, Refinamiento y Evaluación del Agente}
 
 %────────────────────── Ciclo 1: Aproximación Inicial y Resultados Base ──────────────────────────
 \section{Ciclo 1: Aproximación Inicial y Resultados Base}
 
-El primer ciclo experimental tiene como objetivo evaluar una versión base del sistema, previa a la incorporación de los mecanismos avanzados de reparación. Esta versión mantiene la arquitectura general del agente, basada en generación de candidatas, evaluación formal y selección mediante \emph{Beam Search},
-pero desactiva las fases específicas de reparación métrica, reparación de rima y protección de \emph{beams}.
+El primer ciclo experimental tiene como objetivo evaluar una versión inicial del agente. Esta primera aproximación mantiene la estructura principal del sistema, basada en generación de candidatas, evaluación formal y selección mediante \emph{Beam Search}.
+El objetivo era comprobar si la combinación de \emph{prompting}, puntuación objetiva y poda top-$k$ era suficiente para guiar al modelo hacia una estrofa que cumpliera las restricciones definidas.
 
-De esta forma, el Ciclo 1 permite estudiar hasta qué punto la combinación de \emph{prompting}, evaluación objetiva y poda top-$k$ resulta suficiente para resolver el problema planteado. Esta configuración se utiliza como línea base para comparar posteriormente el impacto de las mejoras introducidas
-en el sistema.
+En esta versión, el sistema generaba varias estrofas candidatas en cada iteración, evaluaba su grado de cumplimiento formal y conservaba las mejores alternativas para continuar el proceso.
+Sin embargo, todavía no incorporaba mecanismos específicos de reparación local. Es decir, cuando una estrofa presentaba errores métricos o de rima, el sistema podía detectarlos mediante la función de evaluación, pero no disponía aún de una fase dedicada a corregirlos de forma explícita.
 
-\subsection{Configuración de la Versión Base}
-
-Para simular el comportamiento de la aproximación inicial, se desactivaron las principales fases de reparación incorporadas durante el desarrollo posterior. El Listado~\ref{lst:configCiclo1} muestra la configuración utilizada en este primer ciclo experimental.
-
-\begin{lstlisting}[language=Python, caption={Configuración utilizada en el primer ciclo experimental}, label={lst:configCiclo1}]
-ENABLE_LOCAL_METER_REPAIR = False
-ENABLE_OUTER_RHYME_REPAIR = False
-ENABLE_POST_A_RHYME_METER_REPAIR = False
-ENABLE_INNER_RHYME_REPAIR = False
-ENABLE_POST_B_RHYME_METER_REPAIR = False
-ENABLE_BEAM_ELITISM = False
-\end{lstlisting}
-
-Con esta configuración, el sistema conserva el flujo general del grafo, pero no intenta corregir localmente los errores detectados. Las estrofas candidatas se generan, se evalúan mediante la función de puntuación formal y se seleccionan según su puntuación, pero no se aplican reparaciones
-posteriores sobre versos concretos ni sobre parejas de rima.
-
-Los parámetros generales utilizados en estas ejecuciones fueron los mismos que en la configuración experimental principal: modelo \texttt{mistral:7b-instruct}, temperatura 0.3, valor $k=2$ y un máximo de 3 iteraciones. Esto permite que la comparación posterior con la versión refinada se centre en el
-efecto de las reparaciones, y no en cambios en los parámetros principales de ejecución.
+Los parámetros generales utilizados en estas ejecuciones fueron los siguientes: modelo \texttt{mistral:7b-instruct}, temperatura 0.3, valor $k=2$ y un máximo de 3 iteraciones.
+Esta configuración permitió obtener una primera línea base sobre la que analizar las limitaciones del sistema y plantear mejoras posteriores.
 
 \subsection{Resultados Cuantitativos}
 
@@ -1904,8 +1683,8 @@ La Tabla~\ref{tab:resultadosCiclo1} resume los resultados obtenidos en tres ejec
         \hline
         Estrofas completamente válidas & 0\% \\
         \hline
-        Tiempo medio de ejecución (segundos) & 475.83 s \\
-        \hline
+        %Tiempo medio de ejecución (segundos) & 475.83 s \\
+        %\hline
         Tiempo medio de ejecución (minutos) & 7.93 min \\
         \hline
     \end{tabular}
@@ -1936,147 +1715,62 @@ ya que ``mudo'' y ``sueño'' no presentan rima consonante.
 Este ejemplo refleja una característica habitual de la versión base: el modelo genera una salida lingüísticamente plausible, pero no controla de forma fiable las restricciones formales impuestas. La puntuación obtenida se debe principalmente al número correcto de versos y a algunos aciertos métricos,
 no a un cumplimiento completo de la estructura poética objetivo.
 
-\subsection{Observaciones del Primer Ciclo}
+%% \subsection{Observaciones del Primer Ciclo}
 
-El primer ciclo experimental permite extraer una conclusión inicial clara: la arquitectura basada en \emph{Beam Search} organiza correctamente el proceso de búsqueda, pero no basta por sí sola para garantizar la generación de estrofas válidas. La evaluación formal permite identificar las mejores
-candidatas dentro de las alternativas disponibles, pero si ninguna de ellas cumple adecuadamente las restricciones, la poda no puede corregir el problema por sí misma.
+\subsection{Discusión y Lecciones Aprendidas}
 
-Por otro lado, el tiempo de ejecución de esta versión base es considerablemente menor que el de la versión completa con reparaciones activadas. El tiempo medio observado es de aproximadamente 7.93 minutos por ejecución. Esta diferencia se debe a que el sistema no realiza llamadas adicionales al modelo
-para reparar versos, corregir rimas o ajustar la métrica tras una reparación.
+El primer ciclo experimental permite extraer una conclusión clara: la arquitectura basada en generación, evaluación y poda organiza correctamente el proceso de búsqueda, pero no basta por sí sola para garantizar la generación de estrofas válidas.
+La evaluación formal permite identificar las mejores candidatas entre las alternativas disponibles, pero si ninguna de ellas cumple adecuadamente las restricciones, la poda solo puede conservar la opción menos incorrecta.
 
-Por tanto, este primer ciclo muestra un compromiso claro entre coste computacional y calidad formal. La versión base es más rápida, pero insuficiente para resolver el problema. Esta observación sirve como punto de partida para el análisis de errores del siguiente apartado y justifica la incorporación
-posterior de mecanismos específicos de reparación.
+La principal limitación observada es que el \emph{prompting} directo no garantiza el cumplimiento de restricciones lingüísticas precisas. El modelo sigue con facilidad la instrucción de generar cuatro versos, pero falla con frecuencia en tareas más específicas,
+como ajustar la métrica endecasílaba o planificar correctamente las palabras finales para cumplir la rima consonante.
 
+Por otro lado, esta versión inicial presenta un tiempo de ejecución considerablemente menor que las versiones posteriores. El tiempo medio observado es de aproximadamente 7.93 minutos por ejecución.
+Sin embargo, esta reducción de coste se consigue a cambio de una baja calidad formal en las estrofas obtenidas.
 
-
-
-
-
-
-
-
-%────────────────────── Discusión del Ciclo 1 y Análisis de Errores ──────────────────────────
-\section{Discusión del Ciclo 1 y Análisis de Errores}
-
-Los resultados del primer ciclo experimental muestran que la versión base del sistema no es suficiente para resolver de forma fiable la generación de estrofas con restricciones formales. Aunque el agente mantiene correctamente la estructura general de generación,
-evaluación y poda, el modelo no cumple de manera consistente la métrica endecasílaba ni el esquema de rima ABBA.
-
-El primer problema observado es la limitación del \emph{prompting} directo. Las instrucciones dadas al modelo son suficientes para conseguir una estructura externa de cuatro versos, pero no garantizan el cumplimiento de restricciones lingüísticas más precisas.
-Esto se aprecia especialmente en la métrica, donde la mayoría de versos generados no alcanzan el patrón endecasílabo esperado.
-
-El segundo problema aparece en la rima. Aunque el prompt indica explícitamente que la estrofa debe seguir un esquema ABBA, el modelo no planifica de forma fiable las palabras finales de los versos. En consecuencia, las relaciones importantes de rima,
-es decir, la correspondencia entre el verso 1 y el verso 4, y entre el verso 2 y el verso 3, fallan en las ejecuciones analizadas.
-
-También se observa que el \emph{Beam Search}, por sí solo, no corrige estos errores. El algoritmo puede seleccionar las mejores candidatas disponibles, pero si todas las alternativas generadas presentan fallos formales, la poda únicamente conserva la opción menos incorrecta.
-Por tanto, el problema no está en la estructura de búsqueda, sino en la falta de mecanismos que permitan reparar localmente los errores detectados.
-
-Otro aspecto relevante es la posible pérdida de avances parciales. Una estrofa puede mejorar en una restricción, por ejemplo en la métrica, pero empeorar en otra, como la rima. Sin una estrategia de protección de \emph{beams} prometedores, el sistema puede descartar candidatas útiles
-o modificar partes que ya eran correctas.
-
-Por último, el Ciclo 1 muestra un compromiso claro entre coste y calidad. La versión base es más rápida porque realiza menos llamadas al modelo, pero sus resultados son insuficientes. Esto justifica la incorporación de fases adicionales de reparación, aunque estas aumenten el tiempo
-total de ejecución.
-
-La Figura~\ref{fig:ErroresCiclo1} resume los principales errores detectados durante el primer ciclo experimental. Estos fallos muestran que la arquitectura base necesita mecanismos adicionales de reparación para poder satisfacer las restricciones formales de la estrofa.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=1.0\textwidth]{images/ErroresCiclo1.png}
-   \caption{Principales errores observados durante el primer ciclo experimental. Fuente: elaboración propia}
-    \label{fig:ErroresCiclo1}
-\end{figure}
-
-En conclusión, el análisis del primer ciclo permite identificar las principales necesidades de mejora del sistema: reparación métrica local, reparación específica de rima exterior e interior, reparación posterior conservando palabras finales válidas y preservación de \emph{beams} prometedores.
-Estas mejoras constituyen la base del segundo ciclo experimental.
-
-
-
-
+A partir de estas observaciones, se consideró necesario incorporar nuevas fases al agente. En concreto, los resultados del Ciclo 1 motivaron la inclusión de una reparación métrica local,
+una reparación específica de la rima exterior A, una reparación específica de la rima interior B, una reparación métrica posterior a la rima y una estrategia de preservación de \emph{beams} prometedores.
+Estas modificaciones constituyen la base del segundo ciclo experimental.
 
 
 %────────────────────── Ciclo 2: Optimización y Refinamiento del Código ──────────────────────────
-
 \section{Ciclo 2: Optimización y Refinamiento del Código}
 
-Tras analizar los resultados del primer ciclo experimental, se comprobó que la arquitectura base del agente no era suficiente para garantizar el cumplimiento de las restricciones formales de la estrofa. Aunque el sistema era capaz de generar varias alternativas y seleccionar
-las mejores mediante \emph{Beam Search}, los errores de métrica y rima seguían apareciendo de forma recurrente.
+%Tras analizar los resultados del primer ciclo experimental, se comprobó que la arquitectura base del agente no era suficiente para garantizar el cumplimiento de las restricciones formales de la estrofa. Aunque el sistema era capaz de generar varias alternativas y seleccionar
+%las mejores mediante \emph{Beam Search}, los errores de métrica y rima seguían apareciendo de forma recurrente.
 
-Por este motivo, el segundo ciclo de desarrollo se centró en introducir mecanismos de reparación específicos. El objetivo principal no fue sustituir la arquitectura inicial, sino complementarla con fases capaces de corregir errores locales sin regenerar toda la estrofa desde cero.
+%Por este motivo, el segundo ciclo de desarrollo se centró en introducir mecanismos de reparación específicos. El objetivo principal no fue sustituir la arquitectura inicial, sino complementarla con fases capaces de corregir errores locales sin regenerar toda la estrofa desde cero.
 
-% --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+A partir de las limitaciones observadas en el primer ciclo, se desarrolló una segunda versión del agente orientada a corregir de forma más específica los errores métricos y de rima.
+El objetivo de este segundo ciclo no fue sustituir la arquitectura inicial, sino complementarla con nuevas fases de diagnóstico y reparación.
 
-\subsection{Activación de Mecanismos de Reparación}
-
-La principal diferencia entre el Ciclo 1 y el Ciclo 2 se encuentra en la activación de las fases de reparación. En esta segunda versión, el agente no se limita a evaluar y podar candidatas, sino que intenta corregir determinados errores antes de calcular la puntuación final.
-
-El Listado~\ref{lst:configCiclo2} muestra la configuración utilizada en esta versión refinada.
-
-\begin{lstlisting}[language=Python, caption={Configuración utilizada en el segundo ciclo experimental}, label={lst:configCiclo2}]
-ENABLE_LOCAL_METER_REPAIR = True
-ENABLE_OUTER_RHYME_REPAIR = True
-ENABLE_POST_A_RHYME_METER_REPAIR = True
-ENABLE_INNER_RHYME_REPAIR = True
-ENABLE_POST_B_RHYME_METER_REPAIR = True
-ENABLE_BEAM_ELITISM = True
-\end{lstlisting}
-
-Con esta configuración, el nodo evaluador adquiere un papel más activo. Además de calcular la puntuación formal de cada candidata, puede aplicar reparaciones métricas, diagnosticar errores de rima y generar variantes locales para mejorar la estrofa.
+Estas mejoras no consisten únicamente en modificar los prompts utilizados, sino en incorporar nuevas etapas funcionales dentro del flujo del agente.
+Cada una de estas etapas puede apoyarse en prompts específicos cuando necesita solicitar variantes al modelo, pero la mejora principal se encuentra en la lógica de detección del error, generación de alternativas y aceptación o rechazo de las variantes obtenidas.
 
 % --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-\subsection{Reparación Métrica Local}
+%El Listado~\ref{lst:configCiclo2} muestra la configuración utilizada en esta versión refinada.
 
-La primera mejora incorporada fue la reparación métrica local. En lugar de pedir al modelo que reescriba toda la estrofa cuando uno o varios versos no son endecasílabos, el sistema identifica los versos problemáticos y solicita variantes únicamente para esos versos.
+%\begin{lstlisting}[language=Python, caption={Configuración utilizada en el segundo ciclo experimental}, label={lst:configCiclo2}]
+%ENABLE_LOCAL_METER_REPAIR = True
+%ENABLE_OUTER_RHYME_REPAIR = True
+%ENABLE_POST_A_RHYME_METER_REPAIR = True
+%ENABLE_INNER_RHYME_REPAIR = True
+%ENABLE_POST_B_RHYME_METER_REPAIR = True
+%ENABLE_BEAM_ELITISM = True
+%\end{lstlisting}
 
-Esta estrategia reduce el riesgo de modificar partes de la estrofa que ya eran correctas. Si un verso cumple la métrica, se conserva; si falla, se intenta acercarlo al objetivo de once sílabas. De este modo, la reparación se aplica de forma más controlada y permite aprovechar
-mejor las candidatas parcialmente válidas.
-
-La reparación métrica no pretende resolver todos los problemas de la estrofa, sino actuar sobre una restricción concreta. Por tanto, no modifica deliberadamente la rima ni la estructura global, sino que se centra en mejorar el ajuste silábico de los versos detectados como incorrectos.
-
-% --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-\subsection{Reparación de la Rima Exterior e Interior}
-
-El segundo bloque de mejoras se centró en la rima consonante ABBA. A partir de los errores observados en el Ciclo 1, se decidió tratar por separado las dos relaciones de rima de la estrofa:
-
-\begin{itemize}
-    \item \textbf{Rima exterior A}: relación entre el verso 1 y el verso 4.
-    \item \textbf{Rima interior B}: relación entre el verso 2 y el verso 3.
-\end{itemize}
-
-En ambos casos se utiliza una estrategia de verso ancla. Para la rima exterior, el primer verso se conserva y el sistema intenta reescribir únicamente el cuarto. Para la rima interior, el segundo verso actúa como referencia y se modifica únicamente el tercero.
-
-Esta decisión permite convertir un problema global en una reparación localizada. En lugar de regenerar la estrofa completa, el sistema conserva la parte que sirve como referencia y modifica solo el verso que debe adaptarse a ella. Con ello se reduce la probabilidad de perder
-elementos que ya cumplían alguna restricción formal.
-
-Además, el sistema utiliza palabras finales candidatas para orientar al modelo hacia terminaciones rimáticas más adecuadas. Esta ayuda resulta especialmente útil cuando el modelo falla al producir una rima consonante válida a partir de una instrucción abierta.
+%Con esta configuración, el nodo evaluador adquiere un papel más activo. Además de calcular la puntuación formal de cada candidata, puede aplicar reparaciones métricas, diagnosticar errores de rima y generar variantes locales para mejorar la estrofa.
 
 % --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-\subsection{Reparación Métrica Posterior a la Rima}
 
-Durante el desarrollo se observó un problema adicional: algunas variantes conseguían corregir la rima, pero introducían errores métricos. Es decir, el sistema podía obtener una palabra final adecuada para cumplir la rima, pero el verso resultante no alcanzaba las once sílabas métricas.
-
-Para evitar perder esas mejoras parciales, se añadió una fase de reparación métrica posterior a la rima. La idea es conservar exactamente la palabra final que permitió corregir la rima y ajustar únicamente el resto del verso para mejorar su métrica.
-
-Esta fase se aplica tanto a la rima exterior A como a la rima interior B. Su objetivo es combinar dos restricciones que inicialmente podían entrar en conflicto: mantener una terminación rimática válida y, al mismo tiempo, acercar el verso al patrón endecasílabo.
-
-% --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-\subsection{Protección de \emph{Beams} Prometedores}
-
-Otra mejora introducida en el segundo ciclo fue la protección de \emph{beams} prometedores. En la versión base, una estrofa con buena puntuación podía desaparecer si las variantes generadas a partir de ella eran peores. Esto provocaba la pérdida de soluciones parciales útiles.
-
-Para reducir este problema, se añadió una estrategia de elitismo. Esta técnica permite conservar determinados \emph{beams} de alta calidad aunque sus descendientes inmediatos no mejoren la puntuación. De esta forma, el sistema evita perder una candidata valiosa por una mala generación
-puntual del modelo.
-
-La protección de \emph{beams} resulta especialmente importante en este tipo de tareas, donde las mejoras no siempre son progresivas. Una reparación puede corregir una rima pero empeorar la métrica, o mantener la estructura pero alterar una palabra final útil.
-El elitismo aporta mayor estabilidad al proceso de búsqueda.
 
 % --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 \subsection{Resumen de las Mejoras Introducidas}
 
-La Tabla~\ref{tab:mejorasCiclo2} resume las principales mejoras incorporadas en el segundo ciclo y el problema que intenta resolver cada una de ellas.
+La Tabla~\ref{tab:mejorasCiclo2} resume las principales modificaciones introducidas en el segundo ciclo y el problema observado en el Ciclo 1 que intenta resolver cada una de ellas.
 
 \begin{table}[h]
     \centering
@@ -2095,18 +1789,19 @@ La Tabla~\ref{tab:mejorasCiclo2} resume las principales mejoras incorporadas en 
         Protección de \emph{beams} & Pérdida de candidatas prometedoras \\
         \hline
     \end{tabular}
-    \caption{Principales mejoras incorporadas durante el segundo ciclo de desarrollo. Fuente: elaboración propia}
+    \caption{Relación entre los errores del primer ciclo y las mejoras introducidas en el segundo. Fuente: elaboración propia}
     \label{tab:mejorasCiclo2}
 \end{table}
+
+En conjunto, estas modificaciones permiten que el agente no se limite a descartar las estrofas incorrectas, sino que intente aprovechar aquellas que contienen partes válidas.
+Por ejemplo, una candidata puede tener una buena estructura pero fallar en la métrica de un verso concreto, o puede haber conseguido una rima adecuada pero necesitar un ajuste métrico posterior.
 
 % --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 \subsection{Resultados del Segundo Ciclo}
 
-Una vez activadas las fases de reparación y la protección de beams, se realizaron nuevas ejecuciones del sistema con la misma configuración general utilizada en el primer ciclo: modelo \texttt{mistral:7b-instruct}, temperatura 0.3,
-valor $k=2$ y un máximo de 3 iteraciones. La diferencia principal se encuentra en que, en este segundo ciclo, el agente sí puede aplicar reparaciones métricas, reparaciones de rima y estrategias de preservación de beams prometedores.
-
-La Tabla~\ref{tab:resultadosCiclo2} resume los resultados obtenidos en tres ejecuciones representativas del segundo ciclo experimental.
+Una vez incorporadas las mejoras anteriores, se realizaron nuevas ejecuciones manteniendo la misma configuración general del primer ciclo: modelo \texttt{mistral:7b-instruct}, temperatura 0.3, valor $k=2$ y un máximo de 3 iteraciones.
+La Tabla~\ref{tab:resultadosCiclo2} resume los resultados obtenidos en tres ejecuciones representativas.
 
 \begin{table}[h]
     \centering
@@ -2134,31 +1829,34 @@ La Tabla~\ref{tab:resultadosCiclo2} resume los resultados obtenidos en tres ejec
         \hline
         Estrofas completamente válidas & 33.33\% \\
         \hline
-        Tiempo medio de ejecución & 2841.13 s \\
-        \hline
-        Tiempo medio de ejecución & 47.35 min \\
+        %Tiempo medio de ejecución & 2841.13 s \\
+        %\hline
+        Tiempo medio de ejecución (minutos) & 47.35 min \\
         \hline
     \end{tabular}
     \caption{Resultados generales obtenidos en el segundo ciclo experimental con las reparaciones activadas. Fuente: elaboración propia}
     \label{tab:resultadosCiclo2}
 \end{table}
 
-Los resultados muestran una mejora clara respecto al primer ciclo experimental. La puntuación media aumenta de forma significativa y, en una de las ejecuciones, el sistema alcanza una puntuación formal perfecta de 20.0 sobre 20.
-Además, todas las estrofas generadas mantienen la estructura de cuatro versos y alcanzan el objetivo métrico de cuatro versos endecasílabos.
+Los resultados muestran una mejora clara respecto al primer ciclo. La puntuación media aumenta hasta 18.67 sobre 20 y, en una de las ejecuciones, el sistema alcanza una puntuación formal perfecta.
+Además, todas las estrofas analizadas mantienen la estructura de cuatro versos y alcanzan el objetivo métrico de cuatro versos endecasílabos.
 
-La mejora también se aprecia en la rima. La rima exterior A se satisface en todas las ejecuciones analizadas, mientras que la rima interior B continúa siendo la restricción más difícil de resolver.
-Este comportamiento confirma que la separación entre rima exterior e interior resulta útil, aunque la rima B sigue presentando mayor dificultad y requiere un tratamiento especialmente cuidadoso.
+La mejora también se aprecia en la rima. La rima exterior A se satisface en todas las ejecuciones, mientras que la rima interior B continúa siendo la restricción más difícil de resolver.
+Este comportamiento indica que las reparaciones introducidas mejoran notablemente el control formal de la estrofa, aunque todavía existe margen de mejora en la gestión de la rima interior.
 
-No obstante, esta mejora formal tiene un coste computacional elevado. El tiempo medio de ejecución aumenta hasta aproximadamente 47.35 minutos. Este incremento se debe a las llamadas adicionales al modelo durante las fases de
-reparación métrica, reparación de rima y reparación métrica posterior a la rima. Por tanto, el segundo ciclo pone de manifiesto un compromiso central del sistema: la calidad formal mejora considerablemente, pero a cambio de un mayor
-tiempo de ejecución.
+% --------------- AQUÍ NO VAMOS A MENCIONAR EL ELEVADO COSTE COMPUTACIONAL (DEMASIADO REPETITIVO), YA QUE VAMOS A RESERVAR UN APARTADO ESPECÍFICO PARA ELLO EN EL 5.3 EVALUACIÓN COMPARATIVA FINAL ----------------
+
+%No obstante, esta mejora formal tiene un coste computacional elevado. El tiempo medio de ejecución aumenta hasta aproximadamente 47.35 minutos. Este incremento se debe a las llamadas adicionales al modelo durante las fases de
+%reparación métrica, reparación de rima y reparación métrica posterior a la rima. Por tanto, el segundo ciclo pone de manifiesto un compromiso central del sistema: la calidad formal mejora considerablemente, pero a cambio de un mayor
+%tiempo de ejecución.
 
 % --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 \subsection{Ejemplo de Salida Obtenida}
 
-El Listado~\ref{lst:ejemploCiclo2} muestra una de las salidas obtenidas durante el segundo ciclo experimental. En este caso, la estrofa alcanza una puntuación formal perfecta de 20.0 sobre 20, cumpliendo las restricciones de número de versos, métrica endecasílaba y rima consonante ABBA.
+%El Listado~\ref{lst:ejemploCiclo2} muestra una de las salidas obtenidas durante el segundo ciclo experimental. En este caso, la estrofa alcanza una puntuación formal perfecta de 20.0 sobre 20, cumpliendo las restricciones de número de versos, métrica endecasílaba y rima consonante ABBA.
 
+El Listado~\ref{lst:ejemploCiclo2} muestra una de las salidas obtenidas durante el segundo ciclo experimental. En este caso, la estrofa alcanza una puntuación formal perfecta de 20.0 sobre 20. % No es necesario repetir que buscamos 4 versos endecasílabos con rima ABBA, ya lo hemos explicado previamente.
 \begin{lstlisting}[caption={Ejemplo de salida obtenida en el segundo ciclo experimental}, label={lst:ejemploCiclo2}]
 1. El tiempo, un río de continua corriente
 2. Deja en mi corazón penas amargas.
@@ -2169,30 +1867,36 @@ El Listado~\ref{lst:ejemploCiclo2} muestra una de las salidas obtenidas durante 
 En este ejemplo, la estrofa contiene exactamente cuatro versos y todos ellos son evaluados como endecasílabos por la función de puntuación. Además, se cumple el esquema de rima ABBA: el primer verso rima con el cuarto mediante las terminaciones ``corriente'' y ``presente'',
 mientras que el segundo verso rima con el tercero mediante ``amargas'' y ``llagas''.
 
-Este caso ilustra el efecto de las mejoras introducidas en el segundo ciclo. A diferencia de las salidas del Ciclo 1, el sistema no solo genera una estrofa con apariencia poética, sino que consigue satisfacer completamente las restricciones formales definidas para el problema.
+%Este caso ilustra el efecto de las mejoras introducidas en el segundo ciclo. A diferencia de las salidas del Ciclo 1, el sistema no solo genera una estrofa con apariencia poética, sino que consigue satisfacer completamente las restricciones formales definidas para el problema.
 
+% ======================== ESTO PUEDE SER QUE VUELVA, DE MOMENTO LO QUITO =========================
 
-En conjunto, el Ciclo 2 transforma el sistema inicial en un agente más robusto. La arquitectura sigue basándose en generación, evaluación y poda, pero ahora incorpora mecanismos de diagnóstico y reparación que permiten aprovechar mejor las estrofas parcialmente correctas.
-Los resultados obtenidos muestran que estas mejoras incrementan de forma clara la puntuación formal, aunque también aumentan considerablemente el tiempo de ejecución. Esta relación entre calidad y coste será analizada de forma comparativa en el apartado final del capítulo.
+%En conjunto, el Ciclo 2 transforma el sistema inicial en un agente más robusto. La arquitectura sigue basándose en generación, evaluación y poda, pero ahora incorpora mecanismos de diagnóstico y reparación que permiten aprovechar mejor las estrofas parcialmente correctas.
+%Los resultados obtenidos muestran que estas mejoras incrementan de forma clara la puntuación formal, aunque también aumentan considerablemente el tiempo de ejecución. Esta relación entre calidad y coste será analizada de forma comparativa en el apartado final del capítulo.
 
+% --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+\subsection{Discusión del Segundo Ciclo}
 
+El segundo ciclo confirma que la incorporación de fases específicas de reparación mejora de forma significativa el cumplimiento formal de las estrofas generadas.
+A diferencia de la versión inicial, el sistema no depende únicamente de que el modelo acierte en una generación directa, sino que puede detectar errores concretos y solicitar variantes más controladas.
 
+No obstante, esta mejora tiene un coste computacional elevado. El tiempo medio de ejecución aumenta hasta aproximadamente 47.35 minutos, debido al mayor número de llamadas al modelo durante las fases de reparación.
+Por tanto, el segundo ciclo evidencia un compromiso claro: las reparaciones aumentan la calidad formal de las salidas, pero también incrementan el tiempo necesario para obtenerlas.
 
-
-
-
-
-
-
-
+En conclusión, el refinamiento introducido en este ciclo permite pasar de una arquitectura que solo evaluaba y seleccionaba candidatas a un agente capaz de diagnosticar y corregir errores locales. La comparación global entre ambos ciclos se desarrolla en el apartado siguiente.
 
 
 %────────────────────── Evaluación Comparativa Final y Discusión Global ──────────────────────────
-\section{Evaluación Comparativa Final y Discusión Global}
+\section{Evaluación Comparativa Final} % y Discusión Global}
 
-Una vez presentados los dos ciclos experimentales, resulta necesario comparar de forma directa el comportamiento de la versión base y de la versión refinada del sistema. El objetivo de esta comparación no es únicamente comprobar qué versión obtiene mejores puntuaciones,
-sino analizar qué aporta realmente cada mejora introducida y qué coste computacional implica.
+%Una vez presentados los dos ciclos experimentales, resulta necesario comparar de forma directa el comportamiento de la versión base y de la versión refinada del sistema. El objetivo de esta comparación no es únicamente comprobar qué versión obtiene mejores puntuaciones,
+%sino analizar qué aporta realmente cada mejora introducida y qué coste computacional implica.
+
+Una vez analizados los dos ciclos experimentales, resulta necesario comparar de forma directa el comportamiento de la versión inicial y de la versión refinada del agente.
+Esta comparación permite valorar el efecto real de las mejoras introducidas, tanto en la calidad formal de las estrofas como en el coste computacional del proceso.
+
+\subsection{Comparación entre Ciclos}
 
 La Tabla~\ref{tab:comparativaCiclos} resume las principales diferencias observadas entre ambos ciclos experimentales.
 
@@ -2220,21 +1924,29 @@ La Tabla~\ref{tab:comparativaCiclos} resume las principales diferencias observad
         \hline
         Estrofas completamente válidas & 0\% & 33.33\% \\
         \hline
-        Tiempo medio de ejecución & 7.93 min & 47.35 min \\
+        Tiempo medio de ejecución (minutos) & 7.93 min & 47.35 min \\
         \hline
     \end{tabular}
     \caption{Comparación general entre el primer y el segundo ciclo experimental. Fuente: elaboración propia}
     \label{tab:comparativaCiclos}
 \end{table}
 
-Los resultados muestran una mejora clara en la calidad formal de las estrofas generadas. Mientras que la versión base obtenía una puntuación media de 10.0 sobre 20, la versión refinada alcanza una media de 18.67 sobre 20. Además, en el segundo ciclo se obtiene una
-estrofa con puntuación perfecta, algo que no ocurría en ninguna de las ejecuciones de la versión inicial.
+Los resultados muestran una mejora clara en la calidad formal de las estrofas generadas. La puntuación media pasa de 10.0 sobre 20 en el primer ciclo a 18.67 sobre 20 en el segundo.
+Además, en la versión refinada se obtiene una estrofa con puntuación perfecta, algo que no ocurre en ninguna de las ejecuciones de la versión inicial.
 
-La mejora más evidente aparece en la métrica. En el primer ciclo, la media de versos endecasílabos era de solo 1 sobre 4, mientras que en el segundo ciclo todas las estrofas analizadas alcanzan los 4 versos endecasílabos. Esto confirma la utilidad de la reparación métrica
-local, ya que permite corregir de forma específica los versos que no cumplen el patrón esperado.
+%La mejora más evidente aparece en la métrica. En el primer ciclo, la media de versos endecasílabos era de solo 1 sobre 4, mientras que en el segundo ciclo todas las estrofas analizadas alcanzan los 4 versos endecasílabos. Esto confirma la utilidad de la reparación métrica
+%local, ya que permite corregir de forma específica los versos que no cumplen el patrón esperado.
 
-También se observa una mejora importante en la rima. La rima exterior A pasa de no cumplirse en ninguna ejecución a cumplirse en todas las ejecuciones del segundo ciclo. La rima interior B, sin embargo, sigue siendo la restricción más difícil: mejora respecto al primer ciclo,
-pero no se resuelve en todos los casos. Este resultado indica que las reparaciones introducidas son efectivas, aunque todavía existe margen de mejora, especialmente en la generación y conservación de la rima entre los versos segundo y tercero.
+% ===== OTRA VEZ REPETIMOS LA "IMPORTANCIA DE LA REPARACIÓN MÉTRICA LOCAL", LO QUITAMOS PARA NO SER TAN REPETITIVOS =====
+
+La mejora más evidente aparece en la métrica. Mientras que en el Ciclo 1 la media de versos endecasílabos era de solo 1 sobre 4, en el Ciclo 2 todas las estrofas analizadas alcanzan los 4 versos endecasílabos.
+
+También se observa una mejora importante en la rima exterior A, que pasa de no cumplirse en ninguna ejecución a cumplirse en todas las ejecuciones del segundo ciclo. La rima interior B, sin embargo, continúa siendo la restricción más difícil de resolver.
+
+%También se observa una mejora importante en la rima. La rima exterior A pasa de no cumplirse en ninguna ejecución a cumplirse en todas las ejecuciones del segundo ciclo. La rima interior B, sin embargo, sigue siendo la restricción más difícil: mejora respecto al primer ciclo,
+%pero no se resuelve en todos los casos. Este resultado indica que las reparaciones introducidas son efectivas, aunque todavía existe margen de mejora, especialmente en la generación y conservación de la rima entre los versos segundo y tercero.
+
+% ==== NO ES NECESARIO DECIR QUE LAS "REPARACIONES INTRODUCIDAS SON EFECTIVAS", ESO YA LO SABEMOS, MUY REPETITIVO, LO QUITAMOS PARA NO SER TAN REPETITIVOS =====
 
 La Figura~\ref{fig:comparativaCiclosGrafico} muestra de forma visual la diferencia entre ambos ciclos experimentales. Se observa que el segundo ciclo mejora notablemente la puntuación media, aunque también incrementa de forma considerable el tiempo medio de ejecución.
 
@@ -2293,35 +2005,37 @@ La Figura~\ref{fig:comparativaCiclosGrafico} muestra de forma visual la diferenc
 
 \subsection{Compromiso entre Calidad y Coste Computacional}
 
-La mejora en los resultados formales tiene como contrapartida un aumento considerable del tiempo de ejecución. La versión base presenta un tiempo medio aproximado de 7.93 minutos, mientras que la versión refinada alcanza una media de 47.35 minutos. Esta diferencia se debe
-principalmente al incremento de llamadas al modelo durante las fases de reparación métrica, reparación de rima y reparación métrica posterior a la rima.
+%La mejora en los resultados formales tiene como contrapartida un aumento considerable del tiempo de ejecución. La versión base presenta un tiempo medio aproximado de 7.93 minutos, mientras que la versión refinada alcanza una media de 47.35 minutos. Esta diferencia se debe
+%principalmente al incremento de llamadas al modelo durante las fases de reparación métrica, reparación de rima y reparación métrica posterior a la rima.
 
-Este resultado refleja uno de los compromisos principales del sistema: aumentar la capacidad de corrección mejora la calidad formal de las estrofas, pero también incrementa el coste computacional. Por tanto, la configuración del agente debe ajustarse en función del objetivo del experimento. Si se busca una respuesta rápida, puede bastar con una configuración más ligera. Si se prioriza el cumplimiento estricto de las restricciones, resulta necesario asumir una ejecución más larga.
+%Este resultado refleja uno de los compromisos principales del sistema: aumentar la capacidad de corrección mejora la calidad formal de las estrofas, pero también incrementa el coste computacional. Por tanto, la configuración del agente debe ajustarse en función del objetivo del experimento. Si se busca una respuesta rápida, puede bastar con una configuración más ligera. Si se prioriza el cumplimiento estricto de las restricciones, resulta necesario asumir una ejecución más larga.
 
-En este sentido, parámetros como el ancho del haz $k$, la profundidad máxima, el número de variantes generadas en cada reparación, la temperatura o el límite de tokens tienen un impacto directo tanto en la puntuación máxima alcanzada como en el tiempo total de ejecución.
-Aumentar estos valores puede mejorar la probabilidad de encontrar una estrofa válida, pero también hace crecer el número de inferencias necesarias.
+%En este sentido, parámetros como el ancho del haz $k$, la profundidad máxima, el número de variantes generadas en cada reparación, la temperatura o el límite de tokens tienen un impacto directo tanto en la puntuación máxima alcanzada como en el tiempo total de ejecución.
+%Aumentar estos valores puede mejorar la probabilidad de encontrar una estrofa válida, pero también hace crecer el número de inferencias necesarias.
 
-\subsection{Interpretación de los Resultados}
+La mejora formal obtenida en el segundo ciclo tiene como contrapartida un aumento considerable del tiempo de ejecución. La versión inicial presenta un tiempo medio aproximado de 7.93 minutos, mientras que la versión refinada alcanza una media de 47.35 minutos.
 
-Los resultados obtenidos permiten extraer una conclusión importante: el valor del sistema no reside únicamente en el uso de un modelo de lenguaje, sino en la organización del proceso de generación mediante un agente iterativo. La versión base demuestra que el modelo,
-incluso con prompting y Beam Search, no controla de forma fiable todas las restricciones formales. En cambio, la versión refinada muestra que la combinación de evaluación objetiva, reparaciones locales y preservación de beams mejora notablemente el resultado.
+Esta diferencia se debe al incremento de llamadas al modelo durante las fases de reparación. En la versión inicial, el sistema genera, evalúa y selecciona candidatas.
+En cambio, en la versión refinada, además de evaluar, el agente puede solicitar nuevas variantes para corregir errores métricos o de rima antes de decidir qué candidatas continúan.
 
-No obstante, una puntuación inferior a 20.0 no debe interpretarse necesariamente como un fallo completo del método. El sistema trabaja con una profundidad máxima limitada, por lo que la ejecución finaliza al alcanzar ese límite aunque no se haya encontrado una solución perfecta.
-En principio, aumentar la profundidad del análisis o ampliar el número de alternativas conservadas podría incrementar la probabilidad de alcanzar una estrofa completamente válida, aunque a costa de un mayor tiempo de ejecución.
+Por tanto, los resultados reflejan un compromiso central del sistema: aumentar la capacidad de corrección mejora la calidad formal de las estrofas, pero también incrementa el coste computacional.
+Parámetros como el ancho del haz $k$, la profundidad máxima, el número de variantes generadas, la temperatura o el límite de tokens influyen directamente tanto en la puntuación alcanzada como en el tiempo total de ejecución.
 
-También debe recordarse que la puntuación utilizada en este trabajo mide principalmente el cumplimiento formal de la estrofa. Una estrofa puede obtener una puntuación alta por cumplir el número de versos, la métrica y la rima, pero eso no implica necesariamente que tenga una gran
-calidad poética. La evaluación estética, semántica o literaria queda fuera del alcance de este capítulo, aunque constituye una posible ampliación futura del sistema.
 
-\subsection{Conclusión Global del Capítulo}
+\subsection{Alcance y Limitaciones}
 
-En conjunto, la comparación entre ambos ciclos confirma la utilidad del proceso de refinamiento seguido durante el desarrollo. El primer ciclo permitió comprobar que una arquitectura basada únicamente en generación, evaluación y poda era insuficiente para resolver el problema.
-A partir de ese análisis, el segundo ciclo incorporó mecanismos específicos de reparación que mejoraron de forma clara el cumplimiento de las restricciones formales.
+Los resultados obtenidos permiten concluir que la versión refinada del agente mejora de forma notable el cumplimiento de las restricciones formales. Sin embargo, el sistema no garantiza una solución perfecta en todas las ejecuciones.
+La búsqueda se detiene al alcanzar una profundidad máxima, por lo que una puntuación inferior a 20.0 no implica necesariamente que no exista una solución válida, sino que no se ha encontrado dentro de los límites establecidos.
 
-El sistema final no garantiza una solución perfecta en todas las ejecuciones, pero sí demuestra que un agente basado en LangGraph y Beam Search puede guiar de forma progresiva la generación de texto hacia salidas más controladas. Esta aproximación resulta especialmente interesante
-en tareas donde no basta con generar lenguaje natural, sino que es necesario satisfacer restricciones verificables.
+También debe tenerse en cuenta que la puntuación utilizada mide principalmente el cumplimiento formal de la estrofa: número de versos, métrica y rima. Por tanto, una puntuación alta no equivale necesariamente a una valoración literaria completa.
+Aspectos como la calidad poética, la coherencia semántica o la originalidad quedan fuera del alcance principal del sistema y podrían abordarse en trabajos futuros.
 
-Por tanto, el capítulo muestra una evolución completa del agente: diseño inicial, evaluación de una versión base, detección de errores, incorporación de mejoras y comparación final. Esta evolución permite defender que el sistema propuesto no se limita a solicitar una respuesta a un LLM,
-sino que construye un proceso iterativo de generación, evaluación, reparación y selección.
+Finalmente, el desarrollo realizado muestra que el agente implementado va más allá de una aplicación directa de \emph{Beam Search}. En un esquema básico, las candidatas se generan, se puntúan y se ordenan.
+En este trabajo, en cambio, cada candidata puede ir acompañada de información diagnóstica sobre sus errores formales, y esa información se utiliza para construir nuevas instrucciones de reparación.
+De este modo, el proceso no solo selecciona las mejores alternativas, sino que también intenta refinar cada trayectoria a partir de su propio feedback formal.
+
+Esta característica convierte el sistema en una arquitectura de búsqueda guiada y reparación local, donde el \emph{Beam Search} actúa como mecanismo de exploración y poda, pero se combina con información específica de cada candidata para orientar su mejora.
+Esta idea constituye una de las principales aportaciones conceptuales del trabajo y abre la puerta a futuras extensiones en tareas de generación con restricciones verificables.
 
 
 
