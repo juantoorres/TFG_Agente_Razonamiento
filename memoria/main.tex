@@ -30,6 +30,7 @@
 
 % Para añadir diagrama de barras en el último capítulo
 \usepackage{pgfplots}
+\usepackage{tikz}
 \pgfplotsset{compat=1.18}
 
 % Listings config
@@ -186,105 +187,96 @@ ESTA PARTE ES LO ÚLTIMO DEL TFG
 \clearpage
 
 \mainmatter
+
 %────────────────────── Capítulo 1 — Introducción ───────────────────────
 \chapter{Introducción}
+
 \section{Motivación}
-%\setlength{\parindent}{0pt}
-%\setlength{\parskip}{0.5em}
 
-%En los últimos años, el desarrollo de los \emph{Large Language Models (LLMs)} ha supuesto un avance significativo en tareas de procesamiento
-%del lenguaje natural. Sin embargo, a pesar de la capacidad para generar texto coherente y resolver una amplia variedad de tareas, estos modelos
-%presentan limitaciones en lo que a enfrentar problemas que requieren un razonamiento complejo se refiere, ya que tienden a generar respuestas
-%directas sin una estructura intermedia explícita.
+%En los últimos años, el desarrollo de los \emph{Large Language Models (LLMs)} ha supuesto un avance significativo en tareas de procesamiento del lenguaje natural. Estos modelos son capaces de generar texto coherente y
+%resolver una amplia variedad de tareas, pero siguen presentando limitaciones cuando deben cumplir restricciones concretas o seguir un proceso de razonamiento controlado.
 
-%La ausencia de pasos intermedios limita la capacidad de valorar el razonamiento, desencadenando en falta de transparencia y control sobre cómo se
-%construye el razonamiento.
-%Es por ello que surge la necesidad de desarrollar sistemas que no solo generen respuestas, sino que estructuren su proceso de razonamiento y evalúen
-%sus propios pasos intermedios, con un enfoque que facilite la experimentación y análisis del comportamiento del modelo.
+%Una de las principales dificultades es que tienden a generar respuestas finales de forma directa, sin hacer explícito un proceso intermedio de exploración, evaluación o corrección. Esta ausencia de pasos intermedios
+%dificulta analizar cómo se construye la respuesta y reduce el control sobre el resultado generado.
 
-%En conclusión, este proyecto se plantea a partir de la motivación por construir algo más complejo que una simple llamada a un modelo, profundizando
-%así en un área en crecimiento, desde el interés por entender no solo qué responden estos modelos, sino cómo llegan a hacerlo.
+%A partir de esta idea surge la motivación de este trabajo: construir un sistema que no se limite a realizar una única llamada a un modelo de lenguaje, sino que organice la generación como un proceso iterativo.
+%Para ello, el proyecto combina un LLM local con una arquitectura basada en LangGraph y Beam Search, permitiendo generar varias alternativas, evaluarlas formalmente y conservar las más prometedoras.
 
-En los últimos años, el desarrollo de los \emph{Large Language Models (LLMs)} ha supuesto un avance significativo en tareas de procesamiento del lenguaje natural. Estos modelos son capaces de generar texto coherente y
-resolver una amplia variedad de tareas, pero siguen presentando limitaciones cuando deben cumplir restricciones concretas o seguir un proceso de razonamiento controlado.
+%Como caso de estudio, se plantea la generación de una estrofa clásica en español. Esta tarea resulta adecuada porque combina generación de lenguaje natural con restricciones verificables, como el número de versos,
+%la métrica endecasílaba y la rima consonante ABBA.
 
-Una de las principales dificultades es que tienden a generar respuestas finales de forma directa, sin hacer explícito un proceso intermedio de exploración, evaluación o corrección. Esta ausencia de pasos intermedios
-dificulta analizar cómo se construye la respuesta y reduce el control sobre el resultado generado.
+En los últimos años, el desarrollo de los \emph{Large Language Models (LLMs)} ha supuesto un avance significativo en el procesamiento del lenguaje natural.Estos modelos son capaces de generar texto coherente, responder
+preguntas y resolver una amplia variedad de tareas lingüísticas. Sin embargo, siguen presentando limitaciones cuando deben cumplir restricciones concretas o seguir un proceso de razonamiento controlado.
 
-A partir de esta idea surge la motivación de este trabajo: construir un sistema que no se limite a realizar una única llamada a un modelo de lenguaje, sino que organice la generación como un proceso iterativo.
-Para ello, el proyecto combina un LLM local con una arquitectura basada en LangGraph y Beam Search, permitiendo generar varias alternativas, evaluarlas formalmente y conservar las más prometedoras.
+Una de las principales dificultades aparece cuando la respuesta no puede considerarse únicamente como una generación libre, sino como el resultado de un proceso que debe ser explorado, evaluado y corregido.
+En estos casos, una única llamada al modelo puede producir una salida aparentemente válida, pero sin garantías de que cumpla todos los requisitos establecidos.
 
-Como caso de estudio, se plantea la generación de una estrofa clásica en español. Esta tarea resulta adecuada porque combina generación de lenguaje natural con restricciones verificables, como el número de versos,
-la métrica endecasílaba y la rima consonante ABBA.
+Esta limitación motiva el desarrollo de sistemas que organicen la generación como un proceso iterativo.
+En lugar de aceptar directamente la primera respuesta del modelo, resulta interesante explorar varias alternativas, evaluarlas mediante criterios explícitos y conservar aquellas que resulten más prometedoras.
+
+A partir de esta idea, el presente trabajo plantea la construcción de un agente basado en modelos de lenguaje, orientado a la generación de texto con restricciones verificables.
+La motivación principal no es únicamente obtener una salida final correcta, sino estudiar cómo un proceso estructurado puede mejorar el control sobre las respuestas producidas por un LLM.
+
 
 
 \section{Trabajos Previos}
 
-Con el fin de abordar la limitación que presentan los \emph{Large Language Models (LLMs)} anteriormente mencionada, diversos trabajos han propuesto
-técnicas que fomentan el razonamiento paso a paso. Un ejemplo de esto es \emph{"Chain-of-Thought Prompting (CoT)"}, introducido por Wei et al. (2022) [1],
-el cual consiste en guiar al modelo para que genere pasos intermedios antes de alcanzar una respuesta final. Este enfoque pone de manifiesto la importancia
-de estructurar el proceso de generación en lugar de limitarse a obtener una respuesta final directa.
+El desarrollo de agentes basados en modelos de lenguaje se apoya en distintas líneas de trabajo relacionadas con el razonamiento guiado y la exploración de alternativas.
+Entre ellas destaca \emph{Chain-of-Thought Prompting}, propuesto por Wei et al. (2022) \cite{wei2022chain}, que muestra cómo la generación de pasos intermedios puede mejorar el rendimiento de los modelos en tareas que requieren razonamiento.
 
-Por otro lado, en el ámbito de la generación de texto, los algoritmos de búsqueda han sido ampliamente utilizados para explorar múltiples
-posibles soluciones. Destaca el algoritmo de \emph{Beam Search}, el cual se apoya en una función de evaluación para mantener las secuencias más
-prometedoras en cada iteración. Trabajos como el de Wu et al. (2020) [3] demuestran que, aunque este método haya sido tradicionalmente aplicado en tareas como la traducción automática,
-su uso puede extenderse también al razonamiento en \emph{LLMs}, simplemente permitiendo explorar distintas cadenas de pensamiento
-\emph{(CoT)} y seleccionando las más relevantes (según la función de evaluación anteriormente mencionada).
+Por otro lado, los métodos de búsqueda han sido ampliamente utilizados en generación de secuencias para mantener varias alternativas candidatas antes de seleccionar una salida final.
+En esta línea, Wu et al. (2020) \cite{wu2016google} exploran el uso de \emph{Beam Search} aplicado al razonamiento en modelos de lenguaje, permitiendo comparar distintas cadenas de pensamiento antes de escoger la respuesta más adecuada.
 
-Estos antecedentes reflejan dos ideas fundamentales:
-\begin{itemize}
-  \item Por un lado, la necesidad de guiar el razonamiento de los modelos mediante la generación de pasos intermedios.
-  \item Por el otro, la utilidad de explorar múltiples soluciones antes de seleccionar la respuesta final.
-\end{itemize}
+Estos trabajos sirven como punto de partida para el presente proyecto, que combina la generación de alternativas, la evaluación formal y la selección de candidatas dentro de un agente implementado con \emph{LangGraph}.
+El desarrollo detallado de estas técnicas y su relación con el sistema propuesto se presenta en el Capítulo 2.
 
-Sin embargo, la combinación de ambos enfoques en sistemas que implementen bucles dinámicos de razonamiento y mecanismos de selección de hipótesis
-continua siendo un área en pleno desarrollo.
 
 \section{Objetivos}
 
-%El objetivo principal de este trabajo es desarrollar una prueba de concepto de un agente basado en modelos de lenguaje capaz de incorporar un proceso de
-%razonamiento estructurado, en lugar de generar respuestas de forma directa. De esta forma, y con el objetivo de facilitar un aálisis detallado del proceso
-%seguido por el modelo, se busca explorar un enfoque que permita descomponer la resolución de un problema de índole lingüística en una serie de pasos intermedios.
+%El objetivo principal de este trabajo es desarrollar una prueba de concepto de un agente basado en modelos de lenguaje capaz de generar texto mediante un proceso estructurado de exploración, evaluación y selección,
+%en lugar de limitarse a una única respuesta directa del modelo.
 
-%De forma más concreta, se pretende implementar un sistema que no dependa únicamente de un camino de razonamiento, sino que sea capaz de generar múltiples posibles
-%trayectorias, permitiendo así analizar y estudiar como evoluciona el proceso de generación de cada una de ellas. Asimismo, un mecanismo evaluará la calidad de dichos
-%razonamientos generados, con el fin de seleccionar aquellos que resulten más adecuados con el tipo de problema que con el que se está trabajando. Este proceso de
-%evaluación se utilizará por tanto para guiar la exploración del espacio de soluciones, descartando las opciones menos prometedoras.
+%Como caso de estudio, se plantea la generación automática de una estrofa clásica en español formada por cuatro versos, con métrica endecasílaba y rima consonante ABBA. Esta tarea permite combinar generación de lenguaje natural
+%con restricciones formales verificables, facilitando así el análisis objetivo de los resultados obtenidos.
 
-%Otro gran objetivo de este proyecto se centra en la estructuración del funcionamiento del sistema mediante un flujo de ejecución organizado, que facilite no solo la
-%comprensión de este, sino también su posible extensión en trabajos futuros.
+%Para ello, se propone implementar una arquitectura basada en LangGraph y Beam Search, capaz de mantener varias estrofas candidatas en paralelo. En cada iteración, el sistema genera nuevas alternativas, evalúa su grado de cumplimiento
+%formal y conserva aquellas que resultan más prometedoras.
 
-%Por último, se busca analizar el comportamiento del agente desarrollado a través de problemas de índole lingüística...
+%Por último, se busca analizar experimentalmente el comportamiento del agente desarrollado, estudiando hasta qué punto este enfoque iterativo mejora la generación directa y qué relación existe entre la calidad formal de las
+%salidas y el coste computacional del proceso.
 
-El objetivo principal de este trabajo es desarrollar una prueba de concepto de un agente basado en modelos de lenguaje capaz de generar texto mediante un proceso estructurado de exploración, evaluación y selección,
-en lugar de limitarse a una única respuesta directa del modelo.
+El objetivo principal de este trabajo es desarrollar una prueba de concepto de un agente basado en modelos de lenguaje capaz de generar texto mediante un proceso estructurado de exploración, evaluación, reparación y selección.
+A diferencia de una generación directa, el sistema propuesto mantiene varias alternativas candidatas y las refina de forma iterativa.
 
-Como caso de estudio, se plantea la generación automática de una estrofa clásica en español formada por cuatro versos, con métrica endecasílaba y rima consonante ABBA. Esta tarea permite combinar generación de lenguaje natural
-con restricciones formales verificables, facilitando así el análisis objetivo de los resultados obtenidos.
+Como caso de estudio, se plantea la generación automática de una estrofa clásica en español formada por cuatro versos, con métrica endecasílaba y rima consonante ABBA.
+Esta tarea permite combinar generación de lenguaje natural con restricciones formales verificables, facilitando así el análisis objetivo de los resultados obtenidos.
 
-Para ello, se propone implementar una arquitectura basada en LangGraph y Beam Search, capaz de mantener varias estrofas candidatas en paralelo. En cada iteración, el sistema genera nuevas alternativas, evalúa su grado de cumplimiento
-formal y conserva aquellas que resultan más prometedoras.
+Para alcanzar este objetivo, se propone implementar una arquitectura basada en \emph{LangGraph} y \emph{Beam Search}, capaz de organizar el proceso de generación en distintas fases.
+En cada iteración, el agente genera nuevas candidatas, evalúa su grado de cumplimiento formal, aplica reparaciones locales cuando resulta necesario y conserva las alternativas más prometedoras.
 
-Por último, se busca analizar experimentalmente el comportamiento del agente desarrollado, estudiando hasta qué punto este enfoque iterativo mejora la generación directa y qué relación existe entre la calidad formal de las
-salidas y el coste computacional del proceso.
+Por último, se busca analizar experimentalmente el comportamiento del agente desarrollado. Para ello, se comparan distintas versiones del sistema,
+estudiando hasta qué punto la incorporación de mecanismos de reparación mejora la calidad formal de las estrofas y qué coste computacional implica este refinamiento.
 
 
-\section{Estructura del Proyecto}
+\section{Estructura de la Memoria}
 
-La memoria se organiza en varios capítulos, siguiendo una progresión desde el contexto teórico del trabajo hasta la implementación y evaluación del sistema desarrollado.
+La memoria se organiza en cinco capítulos, siguiendo una progresión desde el contexto teórico del trabajo hasta la implementación, experimentación y evaluación del agente desarrollado.
 
 En el Capítulo 1 se presenta la introducción del proyecto, incluyendo la motivación, los trabajos previos relacionados, los objetivos planteados y la estructura general de la memoria.
 
-El Capítulo 2 recoge el estado del arte sobre el razonamiento en modelos de lenguaje, prestando especial atención a técnicas como \emph{Chain-of-Thought}, métodos de búsqueda en generación de secuencias
-y el uso de \emph{Beam Search} en combinación con \emph{Large Language Models}.
+El Capítulo 2 recoge el estado del arte sobre el razonamiento en modelos de lenguaje.
+En él se revisan técnicas como \emph{Chain-of-Thought}, métodos de búsqueda en generación de secuencias y el uso de \emph{Beam Search} como mecanismo para explorar múltiples alternativas candidatas.
 
-En el Capítulo 3 se introduce \emph{LangGraph} como herramienta para la construcción de agentes basados en grafos. Se explican sus conceptos fundamentales, como el estado, los nodos, las aristas y los bucles,
-y se muestran ejemplos básicos que sirven como base para el sistema implementado posteriormente.
+En el Capítulo 3 se introduce \emph{LangGraph} como herramienta para la construcción de agentes basados en grafos.
+Se explican sus conceptos fundamentales, como el estado, los nodos, las aristas y los bucles, y se justifica su utilidad para organizar procesos iterativos de generación y evaluación.
 
-El Capítulo 4 describe la implementación del agente propuesto, así como el proceso de experimentación y refinamiento seguido durante el desarrollo. En él se analiza la arquitectura basada en \emph{LangGraph} y \emph{Beam Search},
-la función de evaluación formal, los ciclos experimentales realizados y la comparación entre la versión base y la versión refinada.
+El Capítulo 4 describe la implementación del agente propuesto.
+En este capítulo se presentan las fases principales del sistema: generación de candidatas, evaluación formal, reparación local, selección mediante \emph{Beam Search} y configuración del entorno experimental.
 
-Además, este último capítulo recoge las conclusiones del trabajo, valorando los resultados obtenidos, las limitaciones encontradas y posibles líneas de trabajo futuro.
+El Capítulo 5 recoge la experimentación, el refinamiento y la evaluación del agente.
+En él se comparan una versión inicial y una versión refinada del sistema, analizando la mejora en el cumplimiento de las restricciones formales y el coste computacional asociado.
+
+Finalmente, se presentan las conclusiones del trabajo, junto con las principales limitaciones encontradas y posibles líneas de trabajo futuro.
 
 
 %────────────────────── Chapter 2 — Estado del arte ───────────────────────
@@ -927,7 +919,6 @@ Finalmente, el sistema se compila y se ejecuta a partir de un estado inicial:
 
 \begin{lstlisting}[language=Python, caption={Ejecución de estado inicial}]
 graph = builder.compile()
-
 result = graph.invoke({"counter": 0})
 \end{lstlisting}
 
@@ -1009,7 +1000,6 @@ Definidos el estado, la función de decisión y los nodos de procesamiento, pued
 
 \begin{lstlisting}[language=Python, caption={Conexión de los elementos del grafo}]
 builder = StateGraph(NumberState)
-
 builder.add_node("divide", divide_node)
 builder.add_node("increment", increment_node)
 \end{lstlisting}
@@ -1057,7 +1047,6 @@ Por último, el grafo se compila y se ejecuta a partir de un estado inicial conc
 
 \begin{lstlisting}[language=Python, caption={Ejecución de estado inicial}]
 graph = builder.compile()
-
 result = graph.invoke({
     "value": 7,
     "history": []
@@ -1124,15 +1113,12 @@ La definición del grafo se realiza mediante la clase \texttt{StateGraph}. En el
 
 \begin{lstlisting}[language=Python, caption={Definición del grafo de razonamiento con LangGraph}]
 builder = StateGraph(BeamSearchState)
-
 builder.add_node("expand", expand_node)
 builder.add_node("score", score_node)
 builder.add_node("prune", prune_node)
 
 builder.set_entry_point("expand")
-
 builder.add_edge("expand", "score")
-
 builder.add_edge("score", "prune")
 
 builder.add_conditional_edges(
@@ -1217,7 +1203,6 @@ def chat_ollama(
 
     response = requests.post(f"{BASE_URL}/api/chat", json=payload, timeout=240)
     response.raise_for_status()
-
     data = response.json()
     return data["message"]["content"].strip()
 
@@ -1264,7 +1249,6 @@ A pesar de estas instrucciones, el modelo puede devolver numeraciones, comillas,
 \begin{lstlisting}[language=Python, caption={Ejemplo de limpieza y normalización de respuestas}, label={lst:limpiezaRespuesta}]    
     def clean_generated_verse(verse: str) -> str:
     """Limpia numeracion, comillas exteriores y espacios duplicados."""
-
     cleaned_verse = str(verse).strip()
     # Casos habituales: "1. verso", "1) verso", "1- verso", "- verso".
     cleaned_verse = re.sub(
@@ -1274,8 +1258,7 @@ A pesar de estas instrucciones, el modelo puede devolver numeraciones, comillas,
     )
 
     quote_pairs = {
-        '"': '"',
-        "'": "'",
+        '"': '"', "'": "'",
         "\u201c": "\u201d",
         "\u2018": "\u2019",
         "\u00ab": "\u00bb",
@@ -1288,10 +1271,8 @@ A pesar de estas instrucciones, el modelo puede devolver numeraciones, comillas,
 
     return " ".join(cleaned_verse.split())
 
-
 def clean_generated_stanza(verses: list[str]) -> list[str]:
     """Limpia una lista de versos generados y descarta versos vacios."""
-
     cleaned_verses = []
     for verse in verses:
         cleaned_verse = clean_generated_verse(verse)
@@ -1360,7 +1341,6 @@ El Listado~\ref{lst:evaluacionEstrofa} muestra un fragmento simplificado de la f
 
 \begin{lstlisting}[language=Python, caption={Fragmento simplificado de la evaluación formal de una estrofa ABBA}, label={lst:evaluacionEstrofa}]
 def evaluate_stanza_abba(stanza: str | list[str]) -> dict[str, object]:
-
 verses = normalize_verses_input(stanza)
 verse_count_evaluation = evaluate_stanza_verse_count(verses)
 syllable_evaluation = evaluate_stanza_syllable_count(verses)
@@ -1373,7 +1353,6 @@ raw_score = (
 )
 
 score = round(_clamp_score(raw_score), 4)
-
 \end{lstlisting}
 
 Esta función centraliza la comprobación de las restricciones principales y permite comparar estrofas que pueden fallar de formas distintas.
@@ -1444,15 +1423,14 @@ De este modo, el sistema combina exploración y explotación: genera distintas p
 
 La operación central del nodo selector es la ordenación de candidatas según su puntuación. Conceptualmente, el proceso puede resumirse mediante el Listado~\ref{lst:topk}.
 
+% # "candidates" = scored_candidates
 \begin{lstlisting}[language=Python, caption={Esquema simplificado de selección top-k}, label={lst:topk}]
-scored_candidates = evaluate_candidates(candidates)
-
+selection_pool = list(state["candidates"]) # scored_candidates
 sorted_candidates = sorted(
-selection_pool,
-key=lambda beam: beam["score"],
-reverse=True,
+    selection_pool,
+    key=lambda beam: beam["score"],
+    reverse=True,
 )
-
 top_k = sorted_candidates[: state["k"]]
 \end{lstlisting}
 
@@ -1513,7 +1491,6 @@ def save_final_result(
     execution_time_seconds: float | None = None,
     output_dir: str = "outputs",
 ) -> None:
-
     """Guarda la estrofa final, sus metricas y la traza completa."""
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
@@ -1522,7 +1499,6 @@ def save_final_result(
     stanza_path = output_path / f"final_stanza_{timestamp}.txt"
     metrics_path = output_path / f"final_stanza_metrics_{timestamp}.json"
     trace_path = output_path / f"final_stanza_trace_{timestamp}.json"
-
 \end{lstlisting}
 
 Estas trazas resultan especialmente útiles para la fase experimental. No solo permiten conocer la estrofa final, sino también estudiar cómo ha evolucionado la búsqueda hasta llegar a ella.
@@ -1641,6 +1617,15 @@ Estas comparaciones se desarrollan en el siguiente capítulo, donde se analizan 
 %────────────────────── Experimentación, Refinamiento y Evaluación del Agente ──────────────────────────
 \chapter{Experimentación, Refinamiento y Evaluación del Agente}
 
+\section{Diseño Experimental por Ciclos}
+
+La experimentación del agente se ha organizado en dos ciclos principales. Esta estructura permite mostrar de forma progresiva la evolución del sistema,
+desde una primera versión inicial hasta una versión refinada a partir de los resultados obtenidos.
+
+El primer ciclo proporciona una línea base sobre la que analizar el comportamiento del agente. El segundo ciclo incorpora los cambios derivados de ese análisis y permite valorar el efecto de dichas modificaciones.
+
+Esta organización facilita comparar ambas versiones de forma ordenada, empleando las mismas métricas de evaluación y manteniendo una relación clara entre los errores observados, las mejoras introducidas y los resultados finales.
+
 %────────────────────── Ciclo 1: Aproximación Inicial y Resultados Base ──────────────────────────
 \section{Ciclo 1: Aproximación Inicial y Resultados Base}
 
@@ -1650,7 +1635,7 @@ El objetivo era comprobar si la combinación de \emph{prompting}, puntuación ob
 En esta versión, el sistema generaba varias estrofas candidatas en cada iteración, evaluaba su grado de cumplimiento formal y conservaba las mejores alternativas para continuar el proceso.
 Sin embargo, todavía no incorporaba mecanismos específicos de reparación local. Es decir, cuando una estrofa presentaba errores métricos o de rima, el sistema podía detectarlos mediante la función de evaluación, pero no disponía aún de una fase dedicada a corregirlos de forma explícita.
 
-Los parámetros generales utilizados en estas ejecuciones fueron los siguientes: modelo \texttt{mistral:7b-instruct}, temperatura 0.3, valor $k=2$ y un máximo de 3 iteraciones.
+Los parámetros generales utilizados en estas ejecuciones fueron los siguientes: un máximo de 3 iteraciones, modelo \texttt{mistral:7b-instruct}, temperatura 0.3, valor $k=2$.
 Esta configuración permitió obtener una primera línea base sobre la que analizar las limitaciones del sistema y plantear mejoras posteriores.
 
 \subsection{Resultados Cuantitativos}
@@ -1715,8 +1700,6 @@ ya que ``mudo'' y ``sueño'' no presentan rima consonante.
 Este ejemplo refleja una característica habitual de la versión base: el modelo genera una salida lingüísticamente plausible, pero no controla de forma fiable las restricciones formales impuestas. La puntuación obtenida se debe principalmente al número correcto de versos y a algunos aciertos métricos,
 no a un cumplimiento completo de la estructura poética objetivo.
 
-%% \subsection{Observaciones del Primer Ciclo}
-
 \subsection{Discusión y Lecciones Aprendidas}
 
 El primer ciclo experimental permite extraer una conclusión clara: la arquitectura basada en generación, evaluación y poda organiza correctamente el proceso de búsqueda, pero no basta por sí sola para garantizar la generación de estrofas válidas.
@@ -1736,37 +1719,12 @@ Estas modificaciones constituyen la base del segundo ciclo experimental.
 %────────────────────── Ciclo 2: Optimización y Refinamiento del Código ──────────────────────────
 \section{Ciclo 2: Optimización y Refinamiento del Código}
 
-%Tras analizar los resultados del primer ciclo experimental, se comprobó que la arquitectura base del agente no era suficiente para garantizar el cumplimiento de las restricciones formales de la estrofa. Aunque el sistema era capaz de generar varias alternativas y seleccionar
-%las mejores mediante \emph{Beam Search}, los errores de métrica y rima seguían apareciendo de forma recurrente.
-
-%Por este motivo, el segundo ciclo de desarrollo se centró en introducir mecanismos de reparación específicos. El objetivo principal no fue sustituir la arquitectura inicial, sino complementarla con fases capaces de corregir errores locales sin regenerar toda la estrofa desde cero.
-
 A partir de las limitaciones observadas en el primer ciclo, se desarrolló una segunda versión del agente orientada a corregir de forma más específica los errores métricos y de rima.
 El objetivo de este segundo ciclo no fue sustituir la arquitectura inicial, sino complementarla con nuevas fases de diagnóstico y reparación.
 
 Estas mejoras no consisten únicamente en modificar los prompts utilizados, sino en incorporar nuevas etapas funcionales dentro del flujo del agente.
 Cada una de estas etapas puede apoyarse en prompts específicos cuando necesita solicitar variantes al modelo, pero la mejora principal se encuentra en la lógica de detección del error, generación de alternativas y aceptación o rechazo de las variantes obtenidas.
 
-% --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-%El Listado~\ref{lst:configCiclo2} muestra la configuración utilizada en esta versión refinada.
-
-%\begin{lstlisting}[language=Python, caption={Configuración utilizada en el segundo ciclo experimental}, label={lst:configCiclo2}]
-%ENABLE_LOCAL_METER_REPAIR = True
-%ENABLE_OUTER_RHYME_REPAIR = True
-%ENABLE_POST_A_RHYME_METER_REPAIR = True
-%ENABLE_INNER_RHYME_REPAIR = True
-%ENABLE_POST_B_RHYME_METER_REPAIR = True
-%ENABLE_BEAM_ELITISM = True
-%\end{lstlisting}
-
-%Con esta configuración, el nodo evaluador adquiere un papel más activo. Además de calcular la puntuación formal de cada candidata, puede aplicar reparaciones métricas, diagnosticar errores de rima y generar variantes locales para mejorar la estrofa.
-
-% --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-% --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 \subsection{Resumen de las Mejoras Introducidas}
 
@@ -1844,17 +1802,9 @@ Además, todas las estrofas analizadas mantienen la estructura de cuatro versos 
 La mejora también se aprecia en la rima. La rima exterior A se satisface en todas las ejecuciones, mientras que la rima interior B continúa siendo la restricción más difícil de resolver.
 Este comportamiento indica que las reparaciones introducidas mejoran notablemente el control formal de la estrofa, aunque todavía existe margen de mejora en la gestión de la rima interior.
 
-% --------------- AQUÍ NO VAMOS A MENCIONAR EL ELEVADO COSTE COMPUTACIONAL (DEMASIADO REPETITIVO), YA QUE VAMOS A RESERVAR UN APARTADO ESPECÍFICO PARA ELLO EN EL 5.3 EVALUACIÓN COMPARATIVA FINAL ----------------
-
-%No obstante, esta mejora formal tiene un coste computacional elevado. El tiempo medio de ejecución aumenta hasta aproximadamente 47.35 minutos. Este incremento se debe a las llamadas adicionales al modelo durante las fases de
-%reparación métrica, reparación de rima y reparación métrica posterior a la rima. Por tanto, el segundo ciclo pone de manifiesto un compromiso central del sistema: la calidad formal mejora considerablemente, pero a cambio de un mayor
-%tiempo de ejecución.
-
 % --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 \subsection{Ejemplo de Salida Obtenida}
-
-%El Listado~\ref{lst:ejemploCiclo2} muestra una de las salidas obtenidas durante el segundo ciclo experimental. En este caso, la estrofa alcanza una puntuación formal perfecta de 20.0 sobre 20, cumpliendo las restricciones de número de versos, métrica endecasílaba y rima consonante ABBA.
 
 El Listado~\ref{lst:ejemploCiclo2} muestra una de las salidas obtenidas durante el segundo ciclo experimental. En este caso, la estrofa alcanza una puntuación formal perfecta de 20.0 sobre 20. % No es necesario repetir que buscamos 4 versos endecasílabos con rima ABBA, ya lo hemos explicado previamente.
 \begin{lstlisting}[caption={Ejemplo de salida obtenida en el segundo ciclo experimental}, label={lst:ejemploCiclo2}]
@@ -1866,13 +1816,6 @@ El Listado~\ref{lst:ejemploCiclo2} muestra una de las salidas obtenidas durante 
 
 En este ejemplo, la estrofa contiene exactamente cuatro versos y todos ellos son evaluados como endecasílabos por la función de puntuación. Además, se cumple el esquema de rima ABBA: el primer verso rima con el cuarto mediante las terminaciones ``corriente'' y ``presente'',
 mientras que el segundo verso rima con el tercero mediante ``amargas'' y ``llagas''.
-
-%Este caso ilustra el efecto de las mejoras introducidas en el segundo ciclo. A diferencia de las salidas del Ciclo 1, el sistema no solo genera una estrofa con apariencia poética, sino que consigue satisfacer completamente las restricciones formales definidas para el problema.
-
-% ======================== ESTO PUEDE SER QUE VUELVA, DE MOMENTO LO QUITO =========================
-
-%En conjunto, el Ciclo 2 transforma el sistema inicial en un agente más robusto. La arquitectura sigue basándose en generación, evaluación y poda, pero ahora incorpora mecanismos de diagnóstico y reparación que permiten aprovechar mejor las estrofas parcialmente correctas.
-%Los resultados obtenidos muestran que estas mejoras incrementan de forma clara la puntuación formal, aunque también aumentan considerablemente el tiempo de ejecución. Esta relación entre calidad y coste será analizada de forma comparativa en el apartado final del capítulo.
 
 % --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -1889,9 +1832,6 @@ En conclusión, el refinamiento introducido en este ciclo permite pasar de una a
 
 %────────────────────── Evaluación Comparativa Final y Discusión Global ──────────────────────────
 \section{Evaluación Comparativa Final} % y Discusión Global}
-
-%Una vez presentados los dos ciclos experimentales, resulta necesario comparar de forma directa el comportamiento de la versión base y de la versión refinada del sistema. El objetivo de esta comparación no es únicamente comprobar qué versión obtiene mejores puntuaciones,
-%sino analizar qué aporta realmente cada mejora introducida y qué coste computacional implica.
 
 Una vez analizados los dos ciclos experimentales, resulta necesario comparar de forma directa el comportamiento de la versión inicial y de la versión refinada del agente.
 Esta comparación permite valorar el efecto real de las mejoras introducidas, tanto en la calidad formal de las estrofas como en el coste computacional del proceso.
@@ -1934,21 +1874,76 @@ La Tabla~\ref{tab:comparativaCiclos} resume las principales diferencias observad
 Los resultados muestran una mejora clara en la calidad formal de las estrofas generadas. La puntuación media pasa de 10.0 sobre 20 en el primer ciclo a 18.67 sobre 20 en el segundo.
 Además, en la versión refinada se obtiene una estrofa con puntuación perfecta, algo que no ocurre en ninguna de las ejecuciones de la versión inicial.
 
-%La mejora más evidente aparece en la métrica. En el primer ciclo, la media de versos endecasílabos era de solo 1 sobre 4, mientras que en el segundo ciclo todas las estrofas analizadas alcanzan los 4 versos endecasílabos. Esto confirma la utilidad de la reparación métrica
-%local, ya que permite corregir de forma específica los versos que no cumplen el patrón esperado.
-
-% ===== OTRA VEZ REPETIMOS LA "IMPORTANCIA DE LA REPARACIÓN MÉTRICA LOCAL", LO QUITAMOS PARA NO SER TAN REPETITIVOS =====
-
 La mejora más evidente aparece en la métrica. Mientras que en el Ciclo 1 la media de versos endecasílabos era de solo 1 sobre 4, en el Ciclo 2 todas las estrofas analizadas alcanzan los 4 versos endecasílabos.
 
 También se observa una mejora importante en la rima exterior A, que pasa de no cumplirse en ninguna ejecución a cumplirse en todas las ejecuciones del segundo ciclo. La rima interior B, sin embargo, continúa siendo la restricción más difícil de resolver.
 
-%También se observa una mejora importante en la rima. La rima exterior A pasa de no cumplirse en ninguna ejecución a cumplirse en todas las ejecuciones del segundo ciclo. La rima interior B, sin embargo, sigue siendo la restricción más difícil: mejora respecto al primer ciclo,
-%pero no se resuelve en todos los casos. Este resultado indica que las reparaciones introducidas son efectivas, aunque todavía existe margen de mejora, especialmente en la generación y conservación de la rima entre los versos segundo y tercero.
+La Figura~\ref{fig:evolucionPuntuacionIteraciones} muestra la evolución de la puntuación formal a lo largo de las iteraciones del agente. En el primer ciclo, las puntuaciones tienden a mantenerse estables en valores bajos, mientras que en el segundo ciclo se observa una mejora progresiva hasta alcanzar puntuaciones más altas.
 
-% ==== NO ES NECESARIO DECIR QUE LAS "REPARACIONES INTRODUCIDAS SON EFECTIVAS", ESO YA LO SABEMOS, MUY REPETITIVO, LO QUITAMOS PARA NO SER TAN REPETITIVOS =====
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=0.85\textwidth,
+            height=7cm,
+            xmin=1,
+            xmax=3,
+            ymin=0,
+            ymax=20,
+            xtick={1,2,3},
+            xlabel={Iteración},
+            ylabel={Puntuación formal},
+            title={Evolución de la puntuación por iteración},
+            grid=major,
+            mark size=2.5pt,
+            legend entries={}
+        ]
 
-La Figura~\ref{fig:comparativaCiclosGrafico} muestra de forma visual la diferencia entre ambos ciclos experimentales. Se observa que el segundo ciclo mejora notablemente la puntuación media, aunque también incrementa de forma considerable el tiempo medio de ejecución.
+        % Ciclo 1 - Ejecuciones individuales
+        \addplot[blue, dashed, mark=o] coordinates {(1,8) (2,8) (3,8)};
+        \addplot[red, dashed, mark=o] coordinates {(1,10) (2,12) (3,12)};
+        \addplot[brown, dashed, mark=o] coordinates {(1,10) (2,10) (3,10)};
+
+        % Ciclo 2 - Ejecuciones individuales
+        \addplot[blue, solid, mark=square*] coordinates {(1,16) (2,18) (3,18)};
+        \addplot[red, solid, mark=square*] coordinates {(1,16) (2,20)};
+        \addplot[brown, solid, mark=square*] coordinates {(1,14) (2,18) (3,20)};
+
+        \end{axis}
+    \end{tikzpicture}
+
+    \vspace{0.25cm}
+
+    \begin{tabular}{ll}
+        \textbf{Ciclo 1} & \textbf{Ciclo 2} \\[0.1cm]
+
+        \tikz{\draw[blue, dashed, mark=o, mark options={solid}] plot coordinates {(0,0) (0.7,0)};}
+        Ejecución 1
+        &
+        \tikz{\draw[blue, solid, mark=square*, mark options={solid}] plot coordinates {(0,0) (0.7,0)};}
+        Ejecución 1
+        \\
+
+        \tikz{\draw[red, dashed, mark=o, mark options={solid}] plot coordinates {(0,0) (0.7,0)};}
+        Ejecución 2
+        &
+        \tikz{\draw[red, solid, mark=square*, mark options={solid}] plot coordinates {(0,0) (0.7,0)};}
+        Ejecución 2
+        \\
+
+        \tikz{\draw[brown, dashed, mark=o, mark options={solid}] plot coordinates {(0,0) (0.7,0)};}
+        Ejecución 3
+        &
+        \tikz{\draw[brown, solid, mark=square*, mark options={solid}] plot coordinates {(0,0) (0.7,0)};}
+        Ejecución 3
+        \\
+    \end{tabular}
+
+    \caption{Evolución de la puntuación formal durante las iteraciones de los dos ciclos experimentales. Fuente: elaboración propia}
+    \label{fig:evolucionPuntuacionIteraciones}
+\end{figure}
+
+Además, la Figura~\ref{fig:comparativaCiclosGrafico} muestra de forma visual la diferencia entre ambos ciclos experimentales. Se observa que el segundo ciclo mejora notablemente la puntuación media, aunque también incrementa de forma considerable el tiempo medio de ejecución.
 
 \begin{figure}[h]
     \centering
@@ -2003,15 +1998,23 @@ La Figura~\ref{fig:comparativaCiclosGrafico} muestra de forma visual la diferenc
     \label{fig:comparativaCiclosGrafico}
 \end{figure}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \subsection{Compromiso entre Calidad y Coste Computacional}
-
-%La mejora en los resultados formales tiene como contrapartida un aumento considerable del tiempo de ejecución. La versión base presenta un tiempo medio aproximado de 7.93 minutos, mientras que la versión refinada alcanza una media de 47.35 minutos. Esta diferencia se debe
-%principalmente al incremento de llamadas al modelo durante las fases de reparación métrica, reparación de rima y reparación métrica posterior a la rima.
-
-%Este resultado refleja uno de los compromisos principales del sistema: aumentar la capacidad de corrección mejora la calidad formal de las estrofas, pero también incrementa el coste computacional. Por tanto, la configuración del agente debe ajustarse en función del objetivo del experimento. Si se busca una respuesta rápida, puede bastar con una configuración más ligera. Si se prioriza el cumplimiento estricto de las restricciones, resulta necesario asumir una ejecución más larga.
-
-%En este sentido, parámetros como el ancho del haz $k$, la profundidad máxima, el número de variantes generadas en cada reparación, la temperatura o el límite de tokens tienen un impacto directo tanto en la puntuación máxima alcanzada como en el tiempo total de ejecución.
-%Aumentar estos valores puede mejorar la probabilidad de encontrar una estrofa válida, pero también hace crecer el número de inferencias necesarias.
 
 La mejora formal obtenida en el segundo ciclo tiene como contrapartida un aumento considerable del tiempo de ejecución. La versión inicial presenta un tiempo medio aproximado de 7.93 minutos, mientras que la versión refinada alcanza una media de 47.35 minutos.
 
