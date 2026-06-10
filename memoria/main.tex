@@ -35,14 +35,11 @@
 
 % Listings config
 \lstset{
-  basicstyle=\ttfamily\small\linespread{1.0}\selectfont,  
-  %basicstyle=\ttfamily\small,
+  basicstyle=\ttfamily\scriptsize,
   numbers=left,
   numberstyle=\tiny,
-  columns=fullflexible,
   frame=single,
-  breaklines=true,
-  tabsize=2
+  breaklines=true
 }
 
 
@@ -811,15 +808,16 @@ un proceso iteerativo en el que se alternan fases de análisis y acción hasta a
 Este comportamiento cíclico se representa de forma esquemática en la figura~\ref{fig:CicloRazonamientoAcción}, donde se observa la interacción bidireccional entre los nodos de razonamiento y acción, así como la
 posibilidad de repetir la ejecución de acciones cuando sea necesario. Esta estructura refleja el carácter dinámico del agente y su capacidad para adaptarse progresivamente a la información disponible.
 
+
+Este tipo de patrón resulta especialmenente útil en problemas donde la información es insuficiente o donde es necesario realizar operaciones intermedias antes de obtener una respuesta final. Además, permite
+estructurar el comportamiento del agente de forma clara, separando las fases de razonamiento y ejecución, lo que facilita tanto su comprensión como su implementación.
+
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth]{images/CicloRazonamientoAcción.png}
     \caption{Esquema de interacción iterativa entre las fases de razonamiento y acción en un agente basado en grafos. Fuente: elaboración propia}
     \label{fig:CicloRazonamientoAcción}
 \end{figure}
-
-Este tipo de patrón resulta especialmenente útil en problemas donde la información es insuficiente o donde es necesario realizar operaciones intermedias antes de obtener una respuesta final. Además, permite
-estructurar el comportamiento del agente de forma clara, separando las fases de razonamiento y ejecución, lo que facilita tanto su comprensión como su implementación.
 
 En el contexto de este trabajo, este enfoque sirve como ejemplo de cómo \emph{LangGraph} permite integrar distintos componentes dentro de un mismo flujo de ejecución, combinando generación, evaluación y toma
 de decisiones en un proceso iterativo.

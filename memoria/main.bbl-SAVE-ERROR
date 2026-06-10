@@ -19,6 +19,87 @@
 
 \refsection{0}
   \datalist[entry]{none/global//global/global/global}
+    \entry{wei2022chain}{article}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{4}{}{%
+        {{hash=61331a11b490f3d927555985facd25b3}{%
+           family={Wei},
+           familyi={W\bibinitperiod},
+           given={Jason},
+           giveni={J\bibinitperiod}}}%
+        {{hash=27d22d8f05f44b47f7dcfe9b7fb85584}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Xuezhi},
+           giveni={X\bibinitperiod}}}%
+        {{hash=fc76f5fb256da4d423554f8e629b4321}{%
+           family={Schuurmans},
+           familyi={S\bibinitperiod},
+           given={Dale},
+           giveni={D\bibinitperiod}}}%
+        {{hash=3fd5b56bfa48546f2caae7b4aa56a29f}{%
+           family={Bosma},
+           familyi={B\bibinitperiod},
+           given={Maarten},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{7e5e566ee8f47df717196e96221e7705}
+      \strng{fullhash}{16ccb5418f7ac751f553bccfb5bca08a}
+      \strng{fullhashraw}{16ccb5418f7ac751f553bccfb5bca08a}
+      \strng{bibnamehash}{7e5e566ee8f47df717196e96221e7705}
+      \strng{authorbibnamehash}{7e5e566ee8f47df717196e96221e7705}
+      \strng{authornamehash}{7e5e566ee8f47df717196e96221e7705}
+      \strng{authorfullhash}{16ccb5418f7ac751f553bccfb5bca08a}
+      \strng{authorfullhashraw}{16ccb5418f7ac751f553bccfb5bca08a}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:2201.11903}
+      \field{title}{Chain-of-Thought Prompting Elicits Reasoning in Large Language Models}
+      \field{year}{2022}
+    \endentry
+    \entry{wu2016google}{misc}{}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{3}{}{%
+        {{hash=1fc7a40d6072b1bb1d4e56d14ef88e2f}{%
+           family={Wu},
+           familyi={W\bibinitperiod},
+           given={Yonghui},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=29ea22df63f174ac629e9ef100b40484}{%
+           family={Schuster},
+           familyi={S\bibinitperiod},
+           given={Mike},
+           giveni={M\bibinitperiod}}}%
+        {{hash=c0d10aaf985cebf8d0497e1828f9313f}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Zhifeng},
+           giveni={Z\bibinitperiod}}}%
+      }
+      \strng{namehash}{efb78d75edae4c7c2772249ec014241a}
+      \strng{fullhash}{efb78d75edae4c7c2772249ec014241a}
+      \strng{fullhashraw}{efb78d75edae4c7c2772249ec014241a}
+      \strng{bibnamehash}{efb78d75edae4c7c2772249ec014241a}
+      \strng{authorbibnamehash}{efb78d75edae4c7c2772249ec014241a}
+      \strng{authornamehash}{efb78d75edae4c7c2772249ec014241a}
+      \strng{authorfullhash}{efb78d75edae4c7c2772249ec014241a}
+      \strng{authorfullhashraw}{efb78d75edae4c7c2772249ec014241a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{cs.CL}
+      \field{eprinttype}{arXiv}
+      \field{title}{Google's Neural Machine Translation System: Bridging the Gap between Human and Machine Translation}
+      \field{year}{2016}
+      \verb{eprint}
+      \verb 1609.08144
+      \endverb
+    \endentry
     \entry{vaswani2017attention}{article}{}{}
       \name{author}{8}{}{%
         {{hash=7f28e84700536646dd6620a0db07ad09}{%
@@ -70,8 +151,8 @@
       \strng{authornamehash}{ee273ab30cfb889666f8c4d806eb9ce7}
       \strng{authorfullhash}{cb26e47f6b8133865271fc8483132297}
       \strng{authorfullhashraw}{cb26e47f6b8133865271fc8483132297}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Advances in Neural Information Processing Systems}
@@ -121,8 +202,8 @@
       \strng{authornamehash}{0884233a667161739ddd01569813457f}
       \strng{authorfullhash}{fea8bcbf28b5929866ac2a91cec1e8c6}
       \strng{authorfullhashraw}{fea8bcbf28b5929866ac2a91cec1e8c6}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Advances in Neural Information Processing Systems}
@@ -162,54 +243,13 @@
       \strng{authornamehash}{e1331c79138f819881e39bc36f1b80e0}
       \strng{authorfullhash}{2eebda6c4f9f69adac8fa8b8d03b7c6b}
       \strng{authorfullhashraw}{2eebda6c4f9f69adac8fa8b8d03b7c6b}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{arXiv preprint arXiv:2108.07258}
       \field{title}{On the Opportunities and Risks of Foundation Models}
       \field{year}{2021}
-    \endentry
-    \entry{wei2022chain}{article}{}{}
-      \true{moreauthor}
-      \true{morelabelname}
-      \name{author}{4}{}{%
-        {{hash=61331a11b490f3d927555985facd25b3}{%
-           family={Wei},
-           familyi={W\bibinitperiod},
-           given={Jason},
-           giveni={J\bibinitperiod}}}%
-        {{hash=27d22d8f05f44b47f7dcfe9b7fb85584}{%
-           family={Wang},
-           familyi={W\bibinitperiod},
-           given={Xuezhi},
-           giveni={X\bibinitperiod}}}%
-        {{hash=fc76f5fb256da4d423554f8e629b4321}{%
-           family={Schuurmans},
-           familyi={S\bibinitperiod},
-           given={Dale},
-           giveni={D\bibinitperiod}}}%
-        {{hash=3fd5b56bfa48546f2caae7b4aa56a29f}{%
-           family={Bosma},
-           familyi={B\bibinitperiod},
-           given={Maarten},
-           giveni={M\bibinitperiod}}}%
-      }
-      \strng{namehash}{7e5e566ee8f47df717196e96221e7705}
-      \strng{fullhash}{16ccb5418f7ac751f553bccfb5bca08a}
-      \strng{fullhashraw}{16ccb5418f7ac751f553bccfb5bca08a}
-      \strng{bibnamehash}{7e5e566ee8f47df717196e96221e7705}
-      \strng{authorbibnamehash}{7e5e566ee8f47df717196e96221e7705}
-      \strng{authornamehash}{7e5e566ee8f47df717196e96221e7705}
-      \strng{authorfullhash}{16ccb5418f7ac751f553bccfb5bca08a}
-      \strng{authorfullhashraw}{16ccb5418f7ac751f553bccfb5bca08a}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{arXiv preprint arXiv:2201.11903}
-      \field{title}{Chain-of-Thought Prompting Elicits Reasoning in Large Language Models}
-      \field{year}{2022}
     \endentry
     \entry{wang2022self}{article}{}{}
       \true{moreauthor}
@@ -239,8 +279,8 @@
       \strng{authornamehash}{f0938ff849c419a95ae46f5fc0a5627c}
       \strng{authorfullhash}{f0938ff849c419a95ae46f5fc0a5627c}
       \strng{authorfullhashraw}{f0938ff849c419a95ae46f5fc0a5627c}
-      \field{sortinit}{5}
-      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{arXiv preprint arXiv:2203.11171}
@@ -266,8 +306,8 @@
       \strng{authorfullhash}{4ae4be538df04cfc1571685175562cad}
       \strng{authorfullhashraw}{4ae4be538df04cfc1571685175562cad}
       \field{extraname}{1}
-      \field{sortinit}{6}
-      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{arXiv preprint arXiv:2305.10601}
@@ -321,8 +361,8 @@
       \strng{authorfullhash}{6f22c9f891fbcfb7465b1c3157b57023}
       \strng{authorfullhashraw}{6f22c9f891fbcfb7465b1c3157b57023}
       \field{extraname}{2}
-      \field{sortinit}{7}
-      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{arXiv preprint arXiv:2210.03629}
@@ -353,8 +393,8 @@
       \strng{authornamehash}{b5e6a2accdc2023c51f42c6ec010d19b}
       \strng{authorfullhash}{b5e6a2accdc2023c51f42c6ec010d19b}
       \strng{authorfullhashraw}{b5e6a2accdc2023c51f42c6ec010d19b}
-      \field{sortinit}{8}
-      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Speech and Language Processing}
@@ -396,8 +436,8 @@
       \strng{authornamehash}{280f40af56334147e3a90e9ccb4ce854}
       \strng{authorfullhash}{7e3258d2294a0f1380b15e0027255658}
       \strng{authorfullhashraw}{7e3258d2294a0f1380b15e0027255658}
-      \field{sortinit}{9}
-      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{arXiv preprint arXiv:1904.09751}
@@ -554,8 +594,8 @@
       \strng{authornamehash}{2f77cd3798975852fc32eaed9d33c411}
       \strng{authorfullhash}{2f77cd3798975852fc32eaed9d33c411}
       \strng{authorfullhashraw}{2f77cd3798975852fc32eaed9d33c411}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Graph Theory with Applications}
@@ -575,8 +615,8 @@
       \strng{authornamehash}{2f787faf1ea9eedb9d8c11a29db02908}
       \strng{authorfullhash}{2f787faf1ea9eedb9d8c11a29db02908}
       \strng{authorfullhashraw}{2f787faf1ea9eedb9d8c11a29db02908}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{howpublished}{\url{https://msmk.university/node/}}
