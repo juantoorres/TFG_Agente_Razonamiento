@@ -1642,6 +1642,14 @@ Esta configuración permitió obtener una primera línea base sobre la que anali
 
 La Tabla~\ref{tab:resultadosCiclo1} resume los resultados obtenidos en tres ejecuciones de la versión base. Aunque el número de ejecuciones es reducido, los resultados permiten identificar con claridad las limitaciones principales de esta primera aproximación.
 
+
+
+Los resultados muestran que la versión base es capaz de respetar la estructura externa de la tarea, ya que en todas las ejecuciones se generan estrofas formadas por cuatro versos. Sin embargo, el cumplimiento de las restricciones formales más exigentes es muy limitado. La media de versos
+endecasílabos es de solo 1 sobre 4, y ninguna ejecución consigue satisfacer correctamente la rima exterior A ni la rima interior B.
+
+También resulta significativo que el cumplimiento de rima se mantenga en 2/4 en todas las ejecuciones. Este valor no implica que el esquema ABBA esté parcialmente resuelto, sino que los versos utilizados como referencia o ancla dentro del patrón se contabilizan como parte de la estructura de rima.
+Las relaciones realmente relevantes, es decir, la correspondencia entre el verso 1 y el verso 4 para la rima A, y entre el verso 2 y el verso 3 para la rima B, fallan en todos los casos analizados.
+
 \begin{table}[h]
     \centering
     \begin{tabular}{|l|c|}
@@ -1677,12 +1685,6 @@ La Tabla~\ref{tab:resultadosCiclo1} resume los resultados obtenidos en tres ejec
     \label{tab:resultadosCiclo1}
 \end{table}
 
-Los resultados muestran que la versión base es capaz de respetar la estructura externa de la tarea, ya que en todas las ejecuciones se generan estrofas formadas por cuatro versos. Sin embargo, el cumplimiento de las restricciones formales más exigentes es muy limitado. La media de versos
-endecasílabos es de solo 1 sobre 4, y ninguna ejecución consigue satisfacer correctamente la rima exterior A ni la rima interior B.
-
-También resulta significativo que el cumplimiento de rima se mantenga en 2/4 en todas las ejecuciones. Este valor no implica que el esquema ABBA esté parcialmente resuelto, sino que los versos utilizados como referencia o ancla dentro del patrón se contabilizan como parte de la estructura de rima.
-Las relaciones realmente relevantes, es decir, la correspondencia entre el verso 1 y el verso 4 para la rima A, y entre el verso 2 y el verso 3 para la rima B, fallan en todos los casos analizados.
-
 \subsection{Ejemplo de Salida Obtenida}
 
 El Listado~\ref{lst:ejemploCiclo1} muestra una de las salidas obtenidas durante este primer ciclo. Se ha seleccionado este ejemplo porque corresponde a la mejor puntuación observada en las ejecuciones realizadas, con un resultado de 12.0 sobre 20.
@@ -1699,6 +1701,36 @@ ya que ``mudo'' y ``sueño'' no presentan rima consonante.
 
 Este ejemplo refleja una característica habitual de la versión base: el modelo genera una salida lingüísticamente plausible, pero no controla de forma fiable las restricciones formales impuestas. La puntuación obtenida se debe principalmente al número correcto de versos y a algunos aciertos métricos,
 no a un cumplimiento completo de la estructura poética objetivo.
+
+
+% ================================================================================================================================================================================================================================================================================================
+
+Además de los resultados finales, resulta útil analizar cómo evolucionó el proceso de búsqueda durante una ejecución concreta. La Figura~\ref{fig:ArbolBusquedaCiclo1} muestra un fragmento representativo del árbol de
+búsqueda generado en el primer ciclo experimental. En cada nodo se indican de forma resumida las terminaciones de los cuatro versos de la estrofa candidata, la puntuación formal obtenida y si
+dicha candidata fue conservada o descartada tras la fase de poda.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{images/ArbolBusquedaCiclo1.png}
+    \caption{Árbol de búsqueda generado durante una ejecución representativa del primer ciclo experimental. Fuente: elaboración propia}
+    \label{fig:ArbolBusquedaCiclo1}
+\end{figure}
+
+Como puede observarse, el sistema parte de varias candidatas iniciales con puntuaciones modestas y genera nuevas variantes a lo largo de las iteraciones sucesivas.
+%La poda permite conservar las alternativas más prometedoras en cada paso, elevando parcialmente la puntuación de algunas ramas. Sin embargo,
+La búsqueda termina estabilizándose en soluciones con una puntuación máxima de 12.0 sobre 20,
+lo que refleja que la arquitectura inicial es capaz de seleccionar mejores candidatas, pero no de corregir de forma explícita los errores formales persistentes.
+
+
+
+
+
+
+
+% ================================================================================================================================================================================================================================================================================================
+
+
+
 
 \subsection{Discusión y Lecciones Aprendidas}
 
@@ -1817,6 +1849,19 @@ El Listado~\ref{lst:ejemploCiclo2} muestra una de las salidas obtenidas durante 
 En este ejemplo, la estrofa contiene exactamente cuatro versos y todos ellos son evaluados como endecasílabos por la función de puntuación. Además, se cumple el esquema de rima ABBA: el primer verso rima con el cuarto mediante las terminaciones ``corriente'' y ``presente'',
 mientras que el segundo verso rima con el tercero mediante ``amargas'' y ``llagas''.
 
+Además de los resultados finales, resulta útil visualizar el funcionamiento del proceso de búsqueda durante el segundo ciclo experimental. La Figura~\ref{fig:ArbolBusquedaCiclo2} muestra un esquema ilustrativo del árbol de búsqueda generado por el agente,
+incluyendo las fases de evaluación, reparación y poda. En cada nodo se indican de forma resumida las terminaciones de los cuatro versos de la estrofa candidata, la puntuación formal obtenida y si la candidata fue conservada o descartada.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{images/ArbolBusquedaCiclo2.png}
+    \caption{Esquema ilustrativo del árbol de búsqueda durante el segundo ciclo experimental. Fuente: elaboración propia}
+    \label{fig:ArbolBusquedaCiclo2}
+\end{figure}
+
+Como puede observarse, en el segundo ciclo la búsqueda no se limita a ordenar las candidatas generadas, sino que incorpora mecanismos de refinamiento local que permiten mejorar progresivamente algunas ramas.
+Esto hace posible alcanzar estrofas con un cumplimiento formal más alto, hasta llegar en algunos casos a una solución con puntuación 20.0 sobre 20.
+
 % --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 \subsection{Discusión del Segundo Ciclo}
@@ -1839,6 +1884,11 @@ Esta comparación permite valorar el efecto real de las mejoras introducidas, ta
 \subsection{Comparación entre Ciclos}
 
 La Tabla~\ref{tab:comparativaCiclos} resume las principales diferencias observadas entre ambos ciclos experimentales.
+
+
+
+Los resultados muestran una mejora clara en la calidad formal de las estrofas generadas. La puntuación media pasa de 10.0 sobre 20 en el primer ciclo a 18.67 sobre 20 en el segundo.
+Además, en la versión refinada se obtiene una estrofa con puntuación perfecta, algo que no ocurre en ninguna de las ejecuciones de la versión inicial.
 
 \begin{table}[h]
     \centering
@@ -1871,20 +1921,36 @@ La Tabla~\ref{tab:comparativaCiclos} resume las principales diferencias observad
     \label{tab:comparativaCiclos}
 \end{table}
 
-Los resultados muestran una mejora clara en la calidad formal de las estrofas generadas. La puntuación media pasa de 10.0 sobre 20 en el primer ciclo a 18.67 sobre 20 en el segundo.
-Además, en la versión refinada se obtiene una estrofa con puntuación perfecta, algo que no ocurre en ninguna de las ejecuciones de la versión inicial.
-
 La mejora más evidente aparece en la métrica. Mientras que en el Ciclo 1 la media de versos endecasílabos era de solo 1 sobre 4, en el Ciclo 2 todas las estrofas analizadas alcanzan los 4 versos endecasílabos.
 
 También se observa una mejora importante en la rima exterior A, que pasa de no cumplirse en ninguna ejecución a cumplirse en todas las ejecuciones del segundo ciclo. La rima interior B, sin embargo, continúa siendo la restricción más difícil de resolver.
 
-La Figura~\ref{fig:evolucionPuntuacionIteraciones} muestra la evolución de la puntuación formal a lo largo de las iteraciones del agente. En el primer ciclo, las puntuaciones tienden a mantenerse estables en valores bajos, mientras que en el segundo ciclo se observa una mejora progresiva hasta alcanzar puntuaciones más altas.
+%La Figura~\ref{fig:comparativaCiclosGrafico} muestra de forma visual la diferencia entre ambos ciclos experimentales. Se observa que el segundo ciclo mejora notablemente la puntuación media, aunque también incrementa de forma considerable el tiempo medio de ejecución.
+
+
+
+
+%La Figura~\ref{fig:evolucionPuntuacionIteraciones} muestra la evolución de la puntuación formal a lo largo de las iteraciones del agente. En el primer ciclo, las puntuaciones tienden a mantenerse estables en valores bajos, mientras que en el segundo ciclo se observa una mejora progresiva hasta alcanzar puntuaciones más altas.
+
+%La Figura~\ref{fig:evolucionPuntuacionIteraciones} muestra la evolución de la puntuación formal a lo largo de las iteraciones del agente para las ejecuciones realizadas en ambos ciclos experimentales.
+%En el primer ciclo, las puntuaciones se mantienen en valores reducidos y presentan una evolución prácticamente estable, situándose entre 8.0 y 12.0 puntos sobre 20.
+%Esto indica que la versión inicial del sistema era capaz de generar estrofas con una estructura básica correcta, pero tenía dificultades para mejorar de forma significativa el cumplimiento de las restricciones métricas y de rima a medida que avanzaba la búsqueda.
+
+%En cambio, en el segundo ciclo se observa una tendencia claramente más favorable. Las ejecuciones parten ya de puntuaciones superiores, alrededor de 14.0 y 16.0 puntos, y progresan hasta alcanzar valores próximos al máximo de la escala, llegando en algunos casos a 20.0 puntos.
+%Esta diferencia refleja el efecto de los mecanismos de reparación incorporados en la versión refinada del agente, que permiten corregir errores formales detectados durante la evaluación y conservar candidatas más prometedoras en las sucesivas fases de poda.
+
+%Por tanto, la gráfica permite visualizar de forma directa la mejora obtenida entre ambos ciclos. Mientras que el primer ciclo tiende a estancarse en soluciones parcialmente válidas, el segundo ciclo muestra una capacidad mayor para refinar las estrofas generadas y aproximarse al cumplimiento completo de las restricciones formales impuestas.
+
+La Figura~\ref{fig:evolucionPuntuacionIteraciones} muestra la evolución de la puntuación formal durante las iteraciones del agente en los dos ciclos experimentales. En el primer ciclo, las puntuaciones se mantienen en valores relativamente bajos, entre 8.0 y 12.0 puntos sobre 20, lo que refleja un cierto estancamiento del sistema inicial.
+
+En cambio, en el segundo ciclo se observa una mejora más clara: las ejecuciones parten de puntuaciones superiores y alcanzan valores cercanos al máximo, llegando incluso a 20.0 puntos en una de ellas. Esta diferencia evidencia el efecto positivo de los mecanismos de reparación incorporados, que permiten refinar las candidatas y mejorar el cumplimiento de las restricciones formales.
+
 
 \begin{figure}[h]
     \centering
     \begin{tikzpicture}
         \begin{axis}[
-            width=0.85\textwidth,
+            width=0.7\textwidth,
             height=7cm,
             xmin=1,
             xmax=3,
@@ -1894,111 +1960,91 @@ La Figura~\ref{fig:evolucionPuntuacionIteraciones} muestra la evolución de la p
             xlabel={Iteración},
             ylabel={Puntuación formal},
             title={Evolución de la puntuación por iteración},
-            grid=major,
-            mark size=2.5pt,
-            legend entries={}
-        ]
-
-        % Ciclo 1 - Ejecuciones individuales
-        \addplot[blue, dashed, mark=o] coordinates {(1,8) (2,8) (3,8)};
-        \addplot[red, dashed, mark=o] coordinates {(1,10) (2,12) (3,12)};
-        \addplot[brown, dashed, mark=o] coordinates {(1,10) (2,10) (3,10)};
-
-        % Ciclo 2 - Ejecuciones individuales
-        \addplot[blue, solid, mark=square*] coordinates {(1,16) (2,18) (3,18)};
-        \addplot[red, solid, mark=square*] coordinates {(1,16) (2,20)};
-        \addplot[brown, solid, mark=square*] coordinates {(1,14) (2,18) (3,20)};
-
+            grid=major, mark size=2.5pt, legend entries={}
+            ]
+            % Ciclo 1 - Ejecuciones individuales
+            \addplot[blue, dashed, mark=o] coordinates {(1,8) (2,8) (3,8)};
+            \addplot[red, dashed, mark=o] coordinates {(1,10) (2,12) (3,12)};
+            \addplot[brown, dashed, mark=o] coordinates {(1,10) (2,10) (3,10)};
+            
+            % Ciclo 2 - Ejecuciones individuales
+            \addplot[blue, solid, mark=square*] coordinates {(1,16) (2,18) (3,18)};
+            \addplot[red, solid, mark=square*] coordinates {(1,16) (2,20)};
+            \addplot[brown, solid, mark=square*] coordinates {(1,14) (2,18) (3,20)};
+        
         \end{axis}
     \end{tikzpicture}
-
+    
     \vspace{0.25cm}
-
+    
     \begin{tabular}{ll}
         \textbf{Ciclo 1} & \textbf{Ciclo 2} \\[0.1cm]
-
-        \tikz{\draw[blue, dashed, mark=o, mark options={solid}] plot coordinates {(0,0) (0.7,0)};}
-        Ejecución 1
-        &
-        \tikz{\draw[blue, solid, mark=square*, mark options={solid}] plot coordinates {(0,0) (0.7,0)};}
-        Ejecución 1
-        \\
-
-        \tikz{\draw[red, dashed, mark=o, mark options={solid}] plot coordinates {(0,0) (0.7,0)};}
-        Ejecución 2
-        &
-        \tikz{\draw[red, solid, mark=square*, mark options={solid}] plot coordinates {(0,0) (0.7,0)};}
-        Ejecución 2
-        \\
-
-        \tikz{\draw[brown, dashed, mark=o, mark options={solid}] plot coordinates {(0,0) (0.7,0)};}
-        Ejecución 3
-        &
-        \tikz{\draw[brown, solid, mark=square*, mark options={solid}] plot coordinates {(0,0) (0.7,0)};}
-        Ejecución 3
-        \\
+        
+        \tikz{\draw[blue, dashed, mark=o, mark options={solid}] plot coordinates {(0,0) (0.7,0)};} Ejecución 1 &
+        \tikz{\draw[blue, solid, mark=square*, mark options={solid}] plot coordinates {(0,0) (0.7,0)};} Ejecución 1 \\
+        \tikz{\draw[red, dashed, mark=o, mark options={solid}] plot coordinates {(0,0) (0.7,0)};} Ejecución 2 &
+        \tikz{\draw[red, solid, mark=square*, mark options={solid}] plot coordinates {(0,0) (0.7,0)};} Ejecución 2 \\
+        \tikz{\draw[brown, dashed, mark=o, mark options={solid}] plot coordinates {(0,0) (0.7,0)};} Ejecución 3 &
+        \tikz{\draw[brown, solid, mark=square*, mark options={solid}] plot coordinates {(0,0) (0.7,0)};} Ejecución 3 \\
     \end{tabular}
-
     \caption{Evolución de la puntuación formal durante las iteraciones de los dos ciclos experimentales. Fuente: elaboración propia}
     \label{fig:evolucionPuntuacionIteraciones}
 \end{figure}
 
-Además, la Figura~\ref{fig:comparativaCiclosGrafico} muestra de forma visual la diferencia entre ambos ciclos experimentales. Se observa que el segundo ciclo mejora notablemente la puntuación media, aunque también incrementa de forma considerable el tiempo medio de ejecución.
-
-\begin{figure}[h]
-    \centering
-
-    \begin{minipage}{0.48\textwidth}
-        \centering
-        \begin{tikzpicture}
-            \begin{axis}[
-                ybar,
-                ymin=0,
-                ymax=20,
-                ylabel={Puntuación media},
-                symbolic x coords={Ciclo 1,Ciclo 2},
-                xtick=data,
-                nodes near coords,
-                nodes near coords align={vertical},
-                bar width=25pt,
-                width=\textwidth,
-                height=6cm,
-                title={Puntuación media sobre 20},
-                grid=major,
-            ]
-                \addplot coordinates {(Ciclo 1,10.0) (Ciclo 2,18.67)};
-            \end{axis}
-        \end{tikzpicture}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.48\textwidth}
-        \centering
-        \begin{tikzpicture}
-            \begin{axis}[
-                ybar,
-                ymin=0,
-                ymax=60,
-                ylabel={Tiempo medio (min)},
-                symbolic x coords={Ciclo 1,Ciclo 2},
-                xtick=data,
-                nodes near coords,
-                nodes near coords align={vertical},
-                bar width=25pt,
-                width=\textwidth,
-                height=6cm,
-                title={Tiempo medio de ejecución},
-                grid=major,
-            ]
-                \addplot coordinates {(Ciclo 1,7.93) (Ciclo 2,47.35)};
-            \end{axis}
-        \end{tikzpicture}
-    \end{minipage}
-
-    \caption{Comparación entre el primer y el segundo ciclo experimental en términos de puntuación media y tiempo medio de ejecución. Fuente: elaboración propia}
-    \label{fig:comparativaCiclosGrafico}
-\end{figure}
 
 
+%\begin{figure}[h]
+%    \centering
+
+%    \begin{minipage}{0.48\textwidth}
+%        \centering
+%        \begin{tikzpicture}
+%            \begin{axis}[
+%                ybar,
+%                ymin=0,
+%                ymax=20,
+%                ylabel={Puntuación media},
+%                symbolic x coords={Ciclo 1,Ciclo 2},
+%                xtick=data,
+%                nodes near coords,
+%                nodes near coords align={vertical},
+%                bar width=25pt,
+%                width=\textwidth,
+%                height=6cm,
+%                title={Puntuación media sobre 20},
+%                grid=major,
+%            ]
+%                \addplot coordinates {(Ciclo 1,10.0) (Ciclo 2,18.67)};
+%            \end{axis}
+%        \end{tikzpicture}
+%    \end{minipage}
+%    \hfill
+%    \begin{minipage}{0.48\textwidth}
+%        \centering
+%        \begin{tikzpicture}
+%            \begin{axis}[
+%                ybar,
+%                ymin=0,
+%                ymax=60,
+%                ylabel={Tiempo medio (min)},
+%                symbolic x coords={Ciclo 1,Ciclo 2},
+%                xtick=data,
+%                nodes near coords,
+%                nodes near coords align={vertical},
+%                bar width=25pt,
+%                width=\textwidth,
+%                height=6cm,
+%                title={Tiempo medio de ejecución},
+%                grid=major,
+%            ]
+%                \addplot coordinates {(Ciclo 1,7.93) (Ciclo 2,47.35)};
+%            \end{axis}
+%        \end{tikzpicture}
+%    \end{minipage}
+
+%    \caption{Comparación entre el primer y el segundo ciclo experimental en términos de puntuación media y tiempo medio de ejecución. Fuente: elaboración propia}
+%    \label{fig:comparativaCiclosGrafico}
+%\end{figure}
 
 
 
