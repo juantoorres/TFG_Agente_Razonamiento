@@ -45,6 +45,9 @@
   tabsize=2
 }
 
+
+
+
 %───────── Template, covers, back cover ────────────────────────────────
 \usepackage{template/sty_files/template-TFGspanish-uma}
 
@@ -99,20 +102,18 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.6em}
 
-EL RESUMEN MEJOR DEJARLO PARA EL FINAL, YA QUE TAMBIÉN SE DEBEN INCLUIR ASPECTOS RELACIONADOS CON LOS RESULTADOS
+Este trabajo presenta el desarrollo de una prueba de concepto de un agente basado en modelos de lenguaje ejecutados en local, orientado a la generación de texto con restricciones formales verificables.
+El sistema propuesto combina \emph{LangGraph} como herramienta para estructurar el flujo de ejecución y \emph{Beam Search} como estrategia de búsqueda para mantener varias estrofas candidatas en paralelo.
 
-%En este trabajo se presenta el desarrollo de una prueba de concepto de un agente con capacidad de razonamiento basado en modelos de lenguaje de gran tamaño \emph{(LLMs)}.
-%A diferencia de los sistemas tradicionales que generan una respuesta directa ante una consulta, el agente propuesto implementa bucles dinámicos de \emph{Chain of Thought (CoT)} que le permiten generar,
-%evaluar y refinar pasos intermedios antes de producir una respuesta final.
+Como caso de estudio, se aborda la generación automática de una estrofa en español formada por cuatro versos endecasílabos con rima consonante ABBA.
+Para ello, el agente organiza el proceso en fases de generación, evaluación formal, reparación local y selección de candidatas. La evaluación se basa en criterios objetivos, como el número de versos, el cumplimiento métrico y la adecuación del esquema de rima.
 
-%El sistema se implementa utilizando modelos de lenguaje ejecutados en local, como Llama-3, junto con la librería \emph{LangGraph} para la contrucción de flujos de razonamiento. Además, se emplea
-%una estrategia de búsqueda basada en \emph{Beam Search} que permite explorar múltiples posibles líneas de razonamiento y seleccionar aquellas más prometedoras mediante un mecanismo de puntuación.
+La experimentación se organiza en dos ciclos. El primero establece una línea base sin mecanismos explícitos de reparación, mientras que el segundo incorpora refinamientos orientados a corregir errores métricos y de rima.
+Los resultados muestran una mejora clara en la calidad formal de las estrofas generadas, pasando de soluciones parciales a resultados mucho más próximos al cumplimiento completo de las restricciones, aunque a costa de un mayor tiempo de ejecución.
 
-%El objetivo del proyecto es analizar la viabilidad de este enfoque para mejorar la capacidad de razonamiento de agentes basados en \emph{LLMs} y estudiar su comportamiento en diferentes escenarios de
-%resolución de problemas.
-%\medskip
+\medskip
 
-%\noindent \textbf{Palabras clave:} modelos de lenguaje, agentes inteligentes, \emph{Chain of Thought}, razonamiento automático, \emph{Beam Search}.
+\noindent \textbf{Palabras clave:} modelos de lenguaje, agentes inteligentes, \emph{LangGraph}, \emph{Beam Search}, generación con restricciones, evaluación formal.
 \end{abstract}
 
 
@@ -121,44 +122,43 @@ EL RESUMEN MEJOR DEJARLO PARA EL FINAL, YA QUE TAMBIÉN SE DEBEN INCLUIR ASPECTO
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.6em}
 
-EL RESUMEN MEJOR DEJARLO PARA EL FINAL, YA QUE TAMBIÉN SE DEBEN INCLUIR ASPECTOS RELACIONADOS CON LOS RESULTADOS
+This work presents the development of a proof-of-concept agent based on locally executed language models, aimed at generating text under verifiable formal constraints.
+The proposed system combines \emph{LangGraph} as a tool for structuring the execution flow and \emph{Beam Search} as a search strategy to maintain several candidate stanzas in parallel.
 
-%This work represents the development of a proof-of-concept reasoning agent based on Large Language Models \emph{(LLMs)}.
-%Unlike traditional systems that generate an immediate response to a query, the proposed agent implements dynamic \emph{Chain Of Thought (CoT)} loops that allow it to generate, evaluate, and refine
-%intermediate reasoning steps before producing a final answer.
+As a case study, the system addresses the automatic generation of a Spanish stanza composed of four hendecasyllabic verses with ABBA consonant rhyme. To this end, the agent organizes the process into generation, formal evaluation, local repair and candidate selection stages.
+The evaluation is based on objective criteria, such as the number of verses, metrical correctness and compliance with the target rhyme scheme.
 
-%The system is implemented using locally executed language models such as Llama-3, together with the \emph{LangGraph} library for building reasoning workflows. Additionally, a \emph{Beam Search}
-%strategy is employed to explore multiple possible reasoning paths and select the most promising ones through a scoring mechanism.
+The experimental evaluation is organized into two cycles. The first one establishes a baseline without explicit repair mechanisms, whereas the second introduces refinements aimed at correcting metrical and rhyme-related errors.
+The results show a clear improvement in the formal quality of the generated stanzas, progressing from partial solutions to outputs much closer to full compliance with the imposed constraints, although at the cost of higher execution time.
 
-%The goal of this project is to analyze the feasibility of this approach to improve the reasoning capabilities of LLM-based agents and to study their behaviour in different problem-solving scenarios.
-%\medskip
+\medskip
 
-%\noindent \textbf{Keywords:} language models, intelligent agents, \emph{Chain of Thought}, automated reasoning, \emph{Beam Search}.
+\noindent \textbf{Keywords:} language models, intelligent agents, \emph{LangGraph}, \emph{Beam Search}, constrained generation, formal evaluation.
 \end{abstract}
 
 %──────────────── Acknowledgments ───────────────────────────────────────
 
 % ====================================== AGRADECIMIENTOS ====================================
 \begin{umaacknowledgments}
-ESTA PARTE ES LO ÚLTIMO DEL TFG
+%ESTA PARTE ES LO ÚLTIMO DEL TFG
 
-%Primero de todo, quiero expresar mi más sincero agradecimiento a mi tutor, el profesor Sergio Gálvez Rojas, por su apoyo, orientación y paciencia a lo largo de todo el proceso de desarrollo de este proyecto.
-%Su experiencia y conocimientos han sido fundamentales para superar los desafíos encontrados y para guiarme en la dirección correcta.
+Primero de todo, quiero expresar mi más sincero agradecimiento a mi tutor, el profesor Sergio Gálvez Rojas, por su apoyo, orientación y paciencia a lo largo de todo el proceso de desarrollo de este proyecto.
+Su experiencia y conocimientos han sido fundamentales para superar los desafíos encontrados y para guiarme en la dirección correcta.
 
-%En segundo lugar, quiero agradecer a mis compañeros de clase, en especial a Pedro, Placi y Sergio, por todos los momentos compartidos, tanto dentro como fuera del ámbito académico, y que forman parte sin duda de esta etapa universitaria y, por qué no, de este proyecto de fin de grado.
+En segundo lugar, quiero agradecer a mis compañeros de clase, en especial a Pedro, Placi y Sergio, por todos los momentos compartidos, tanto dentro como fuera del ámbito académico, y que forman parte sin duda de esta etapa universitaria y, por qué no, de este proyecto de fin de grado.
 
-%A Alejandro y Álvaro, mis compañeros de piso durante los dos últimos años de la carrera, gracias por vuestra compañía, apoyo y por hacer que la convivencia haya sido una experiencia tan positiva.
+A Alejandro y Álvaro, mis compañeros de piso durante los dos últimos años de la carrera, gracias por vuestra compañía, apoyo y por hacer que la convivencia haya sido una experiencia tan positiva.
 
-%Por supuesto, a Ángel, mi mejor amigo, gracias por estar siempre ahí, por escucharme, por compartir tus ideas y por ser una fuente constante de orgullo, motivación e inspiración.
+Por supuesto, a Ángel, mi mejor amigo, gracias por estar siempre ahí, por escucharme, por compartir tus ideas y por ser una fuente constante de orgullo, motivación e inspiración.
 
-%Y, sin duda, el agradecimiento más especial e importante, no sólo durante estos 4 años de carrera, sino a lo largo de toda mi vida, va para mi familia.
-%Comenzando por mis hermanas: Esperanza, por ser un ejemplo de esfuerzo y dedicación, y por tu apoyo incondicional en cada paso que doy; y Paula, por tu alegría, energía y cariño, que siempre me han dado fuerzas para seguir adelante.
+Y, sin duda, el agradecimiento más especial e importante, no sólo durante estos 4 años de carrera, sino a lo largo de toda mi vida, va para mi familia.
+Comenzando por mis hermanas: Esperanza, por ser un ejemplo de esfuerzo y dedicación, y por tu apoyo incondicional en cada paso que doy; y Paula, por tu alegría, energía y cariño, que siempre me han dado fuerzas para seguir adelante.
 
-%A mi mayor referente, mi padre, Juan, por ser un pilar fundamental en mi vida, por enseñarme el valor del trabajo duro y por estar siempre dispuesto a apoyarme en cada decisión que tomo. El hombre al que aspiro a parecerme, mi mayor fuente de inspiración.
-%Ejemplo constante de empeño, sacrificio y dedicación, y que me ha enseñado a perseguir mis sueños con pasión y determinación.
+A mi mayor referente, mi padre, Juan, por ser un pilar fundamental en mi vida, por enseñarme el valor del trabajo duro y por estar siempre dispuesto a apoyarme en cada decisión que tomo. El hombre al que aspiro a parecerme, mi mayor fuente de inspiración.
+Ejemplo constante de empeño, sacrificio y dedicación, y que me ha enseñado a perseguir mis sueños con pasión y determinación.
 
-%Y, por último, a mi madre, Margarita. Gracias por ser el corazón de nuestra familia, por tu amor incondicional, por esa sonrisa o ese beso que, incluso en los momentos más difíciles, hace que todo lo malo desaparezca.
-%Ejemplo de fortaleza y amor, y que me ha enseñado a ser la persona que soy hoy. Sin ti, nada de esto habría sido posible.
+Y, por último, a mi madre, Margarita. Gracias por ser el corazón de nuestra familia, por tu amor incondicional, por esa sonrisa o ese beso que, incluso en los momentos más difíciles, hace que todo lo malo desaparezca.
+Ejemplo de fortaleza y amor, y que me ha enseñado a ser la persona que soy hoy. Sin ti, nada de esto habría sido posible.
 
 % ESTO CREO QUE FINALMENTE LO VOY A QUITAR
 % Gracias a todas esas personas que, de una forma u otra, han formado parte de esta etapa de mi vida. Gracias por vuestro apoyo y por compartir conmigo esta experiencia. Sin vosotros, estos 4 años en Málaga y este proyecto de fin de grado no habrían sido lo mismo.
@@ -205,7 +205,7 @@ ESTA PARTE ES LO ÚLTIMO DEL TFG
 %Como caso de estudio, se plantea la generación de una estrofa clásica en español. Esta tarea resulta adecuada porque combina generación de lenguaje natural con restricciones verificables, como el número de versos,
 %la métrica endecasílaba y la rima consonante ABBA.
 
-En los últimos años, el desarrollo de los \emph{Large Language Models (LLMs)} ha supuesto un avance significativo en el procesamiento del lenguaje natural.Estos modelos son capaces de generar texto coherente, responder
+En los últimos años, el desarrollo de los \emph{Large Language Models (LLMs)} ha supuesto un avance significativo en el procesamiento del lenguaje natural. Estos modelos son capaces de generar texto coherente, responder
 preguntas y resolver una amplia variedad de tareas lingüísticas. Sin embargo, siguen presentando limitaciones cuando deben cumplir restricciones concretas o seguir un proceso de razonamiento controlado.
 
 Una de las principales dificultades aparece cuando la respuesta no puede considerarse únicamente como una generación libre, sino como el resultado de un proceso que debe ser explorado, evaluado y corregido.
@@ -289,7 +289,7 @@ Los \emph{Large Language Models (LLMs)} han experimentado un crecimiento notable
 Modelos basados en arquitecturas \emph{Transformer} han demostrado una gran capacidad para generar texto coherente, mantener el contexto en conversaciones prolongadas y abordar una amplia variedad de tareas lingüísticas
 con un alto grado de precisión.
 
-Estos avances se deben, en gran medida, al entrenamiento sobre grandes colúmenes de datos y a la capacidad de estos modelos para capturar patrones estadísticos complejos en el lenguaje \cite{vaswani2017attention,brown2020language}.
+Estos avances se deben, en gran medida, al entrenamiento sobre grandes volúmenes de datos y a la capacidad de estos modelos para capturar patrones estadísticos complejos en el lenguaje \cite{vaswani2017attention,brown2020language}.
 
 No obstante, a pesar de su elevado rendimiento en tareas generales de generación de texto, estos modelos presentan limitaciones significativas cuando se enfrentan a problemas que requieren razonamiento estructurado. A diferencia
 de los sistemas diseñados específicamente para la inferencia lógica o el cálculo simbólico, los \emph{LLMs} no siguen un proceso explícito de razonamiento, sino que generan respuestas basándose en la probabilidad de aparición de las
@@ -312,7 +312,7 @@ sino que también incrementa la fiabilidad del resultado final.
 
 
 Además, los \emph{LLMs} tienden a generar una única respuesta por defecto, sin explorar alternativas ni considerar diferentes posibles soluciones. Esta característica contrasta con los enfoques clásicos de resolución de problemas,
-en los que es habitual evaluar múltiples hipótesis antes de seleccionar la más adecuada. Como resultado, el modelo puede quedar limitado a una única trayectoria de generación, sin mecanismos internos que permiten revisar,
+en los que es habitual evaluar múltiples hipótesis antes de seleccionar la más adecuada. Como resultado, el modelo puede quedar limitado a una única trayectoria de generación, sin mecanismos internos que permitan revisar,
 comparar o corregir sus propias decisiones.
 
 En este contexto, surge la necesidad de desarrollar estrategias que permitan guiar el proceso de generación de los \emph{LLMs} hacia formas de razonamiento más estructuradas y fiables. Estas estrategias buscan introducir mecanismos
@@ -343,11 +343,11 @@ Sin embargo, a pesar de sus ventajas, este enfoque presenta también limitacione
 puede comprometer el resultado final sin posibilidad de corrección. Además, no existe un mecanismo interno que permita evaluar la calidad de los pasos generados ni comparar distintas alternativas de razonamiento.
 % esta limitación desaparecerá cuando introduzcamos Beam Search
 
-Por otro lado, la eficacia se \emph{CoT} depende en gran medida de la calidad del \emph{prompt} utilizado, así como de la capacidad del modelo para seguir instrucciones de forma consistente. En algunos casos, el modelo puede generar pasos
+Por otro lado, la eficacia de \emph{CoT} depende en gran medida de la calidad del \emph{prompt} utilizado, así como de la capacidad del modelo para seguir instrucciones de forma consistente. En algunos casos, el modelo puede generar pasos
 intermedios que resultan aceptables desde el punto de vista lingüístico, pero que no aportan un avance real en la resolución del problema.
 
-En conjunto, \emph{Chain-of-Thought} representa un avance significativo en la forma de abordar el razonamiento con modelos de lenguaje, al introducir la idea de estructurar la generación mediante pasos intermedios. No obstante, sus
-limitaciones ponen de manifiesto la necesidad de desarrollar enfoques más avanzados que permitan explorar múltiples trayectorias y evaluar su calidad de manera sistemática.
+%En conjunto, \emph{Chain-of-Thought} representa un avance significativo en la forma de abordar el razonamiento con modelos de lenguaje, al introducir la idea de estructurar la generación mediante pasos intermedios. No obstante, sus
+%limitaciones ponen de manifiesto la necesidad de desarrollar enfoques más avanzados que permitan explorar múltiples trayectorias y evaluar su calidad de manera sistemática.
 
 %────────────────────── Extensiones de razonamiento paso a paso ──────────────────────────
 \section{Extensiones de Razonamiento Paso a Paso}
@@ -377,7 +377,7 @@ especialmente relevante en el desarrollo de sistemas capaces de abordar problema
 El proceso de generación de texto en los modelos de lenguaje puede entenderse como un problema de búsqueda en el espacio de todas las posibles secuencias de palabras. En cada paso, el modelo asigna una probabilidad a los posibles
 siguientes \emph{tokens} en función del contexto previo, para que sea el método de búsqueda el que posteriormente determina cómo se selecciona la continuación de la secuencia generada.
 
-El enfoque más sencillo es la estrategia \emph{greedy}, que consiste en seleccionar en cada paso el token con mayor probabilidad. Este método es eficiente y produce resultados coherentes en muchos casos, pero presenta una limitación
+El enfoque más sencillo es la estrategia \emph{greedy}, que consiste en seleccionar en cada paso el \emph{token} con mayor probabilidad. Este método es eficiente y produce resultados coherentes en muchos casos, pero presenta una limitación
 importante: al tomar decisiones de forma local, puede descartar opciones que, aunque inicialmente menos probables, podrían conducir a mejores resultados a largo plazo \cite{jurafsky2009speech}.
 
 Como se muestra en la figura~\ref{fig:GreedySearch}, este comportamiento implica que en cada paso únicamente se sigue la alternativa más probable, ignorando otras posibles continuaciones que quedan descartadas desde etapas tempranas del proceso.
@@ -385,7 +385,7 @@ Esta característica explica por qué el método puede converger rápidamente a 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.7\textwidth]{images/GreedySearch.png}
+    \includegraphics[width=0.8\textwidth]{images/GreedySearch.png}
     \caption{Ilustración del algoritmo de búsqueda voraz en la generación de texto. Fuente: elaboración propia}
     \label{fig:GreedySearch}
 \end{figure}
@@ -430,12 +430,16 @@ trayectorias que se mantienen activas en cada iteración. A partir de estas secu
 iterativa hasta alcanzar una condición de finalización, como la generación de una secuencia completa o un numero máximo de pasos \cite{jurafsky2009speech}.
 
 Desde un punto de vista conceptual, \emph{Beam Search} puede interpretarse como una exploración controlada del espacio de soluciones. En lugar de comprometerse con una única trayectoria desde el inicio, el algoritmo permite reconsiderar
-decisiones a medida que se genera la secuencia, manteniedno abiertas varias alternativas en paralelo. Esto reduce la probabilidad de descartar prematuramente opciones que podrían resultar óptimos en etapas posteriores (como sucede en la
+decisiones a medida que se genera la secuencia, manteniendo abiertas varias alternativas en paralelo. Esto reduce la probabilidad de descartar prematuramente opciones que podrían resultar óptimas en etapas posteriores (como sucede en la
 búsqueda voraz).
 
 La figura~\ref{fig:BeamSearchImagen2} ilustra este proceso mediante un árbol de generación en el que, a partir de un estado inicial, se exploran múltiples continuaciones posibles. En cada iteración, únicamente se conservan las $k$ trayectorias
 mejor valoradas, mientras que el resto son descartadas, lo que permite limitar el crecimiento exponencial del número de secuencias. Este mecanismo de expansión y poda sucesiva constituye el núcleo del algoritmo y explica su capacidad para
 combinar exploración y eficiencia.
+
+No obstante, la eficacia del algoritmo depende en gran medida de la función de puntuación utilizada para evaluar las secuencias candidatas. En aplicaciones tradicionales de procesamiento del lenguaje, esta puntuación suele basarse en
+la probabilidad acumulada de la secuencia generada. Sin embargo, este criterio no siempre es suficiente en tareas que requieren razonamiento, donde la calidad de una solución no depende únicamente de su probabilidad, sino también de la
+coherencia y validez de los pasos intermedios.
 
 \begin{figure}[h]
     \centering
@@ -444,12 +448,8 @@ combinar exploración y eficiencia.
     \label{fig:BeamSearchImagen2}
 \end{figure}
 
-No obstante, la eficacia del algoritmo depende en gran medida de la función de puntuación utilizada para evaluar las secuencias candidatas. En aplicaciones tradicionales de procesamiento del lenguaje, esta puntuaciñon suele basarse en
-la probabilidad acumulada de la secuencia generada. Sin embargo, este criterio no siempre es suficiente en tareas que requieren razonamiento, donde la calidad de una solución no depende únicamente de su probabilidad, sino también de la
-coherencia y validez de los pasos intermedios.
-
 Otra limitación relevante es que \emph{Beam Search} sigue siendo un método determinista en su forma básica, lo que implica que puede generar resultados similares en ejecuciones repetidas si no se introduce algún mecanismo de variabilidad.
-Además, el valor del parámetro $k$ unfluye directamente en el equilibrio entre coste computacional y calidad de las soluciones: valores pequeños pueden limitar la exploración, mientras que valores grandes incrementan significativamente
+Además, el valor del parámetro $k$ influye directamente en el equilibrio entre coste computacional y calidad de las soluciones: valores pequeños pueden limitar la exploración, mientras que valores grandes incrementan significativamente
 el tiempo de cálculo.
 
 A pesar de estas limitaciones, \emph{Beam Search} constituye una herramienta fundamental en la generación de secuencias, y su capacidad para mantener múltiples hipótesis lo convierte en un candidato natural para su aplicación en tareas de
@@ -464,15 +464,15 @@ Aunque el algoritmo de \emph{Beam Search} ha sido tradicionalmente utilizado en 
 lenguaje. En este contexto, el objetivo no es únicamente generar una secuencia probable, sino explorar distintas posibles trayectorias de razonamiento y seleccionar aquellas que conducen a soluciones más adecuadas.
 
 La combinación de \emph{Beam Search} con enfoques como \emph{Chain-of-Thought} permite reinterpretar el proceso de generación como una búsqueda sobre posibles cadenas de razonamiento. En lugar de producir una única secuencia de pasos intermedios,
-el modelo puede generar múltiples alternativas en cada etapa, dando lugar a diferentes hipótesis que desarrollan en paralelo. Este enfoque permite superar uan de las principales limitaciones del razonamiento lineal, al incorporar la posibilidad
+el modelo puede generar múltiples alternativas en cada etapa, dando lugar a diferentes hipótesis que desarrollan en paralelo. Este enfoque permite superar una de las principales limitaciones del razonamiento lineal, al incorporar la posibilidad
 de reconsiderar decisiones y explorar distintos caminos hacia la solución.
 
 Como se muestra en la figura~\ref{fig:BeamSearchYCoT}, esta diferencia puede entenderse como el paso de un proceso de generación basado en una única trayectoria (\emph{Chain-of-Thought}) a otro en el que se mantienen múltiples trayectorias de
-razonamiento de forma simultánea (\emph{Beam Search} + \emph{CoT}). Esta ampliación del espacio de búsqueda permite aumentar la probabilidad de encontrar soluciones correctas, especialmente en problemas que requieren varios pasos intermedios.
+razonamiento de forma simultánea (\emph{Beam Search} + \emph{CoT}). %Esta ampliación del espacio de búsqueda permite aumentar la probabilidad de encontrar soluciones correctas, especialmente en problemas que requieren varios pasos intermedios.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.95\textwidth]{images/BeamSearchYCoT.png}
+    \includegraphics[width=0.9\textwidth]{images/BeamSearchYCoT.png}
     \caption{Estrategias de generación: trayectoria única frente a múltiples trayectorias. Fuente: elaboración propia}
     \label{fig:BeamSearchYCoT}
 \end{figure}
@@ -487,8 +487,8 @@ la necesidad de definir criterios más complejos que permitan evaluar no solo el
 Además, el uso de \emph{Beam Search} en este contexto requiere integrar mecanismos que permitan generar pasos de razonamiento coherentes y relevantes en cada iteración. Esto puede lograrse mediante el uso de técnicas de \emph{propmting}
 adecuadas, que orienten al modelo hacia la producción de pasos intermedios bien estructurados, o mediante la incorporación de componentes adicionales encargados de guiar el proceso de generación.
 
-Por último, cabe destacar que la aplicación de \emph{Beam Search} al razonamiento introduce un equilibrio delicado entre exploración y coste computacional. A medida que se incrementa el número de traycetorias consideradas, mejora la capacidad
-del sistema para encontrar soluciones de mayor calidad, pero también aumenta el número de evaluaciones necesarios. Por tanto, resulta necesario ajustar cuidadosamente los parámetros del algoritmo para lograr un compromisoadecuado entre
+Por último, cabe destacar que la aplicación de \emph{Beam Search} al razonamiento introduce un equilibrio delicado entre exploración y coste computacional. A medida que se incrementa el número de trayectorias consideradas, mejora la capacidad
+del sistema para encontrar soluciones de mayor calidad, pero también aumenta el número de evaluaciones necesarios. Por tanto, resulta necesario ajustar cuidadosamente los parámetros del algoritmo para lograr un compromiso adecuado entre
 eficacia y rendimiento.
 
 En conjunto, la integración de \emph{Beam Search} en el proceso de razonamiento con modelos de lenguaje representa un paso hacia enfoques más estructurados y controlados, en los que la generación de soluciones no depende de una única trayectoria,
@@ -504,7 +504,7 @@ directamente la salida del modelo con una respuesta de referencia, en tareas de 
 En enfoques tradicionales, la evaluación suele centrarse en la corrección de la respuesta final mediante métricas como la exactitud o el \emph{exact match}. Este tipo de medidas resulta adecuado en tareas cerradas, como la resolución de problemas
 matemáticos con una única solución correcta \cite{cobbe2021training}. Sin embargo, presentan limitaciones importantes en escenarios donde el razonamiento intermedio juega un papel fundamental o donde pueden existir múltiples soluciones plausibles.
 
-En este contexto, ha surgido un interés creciente por evaluar explícitamente las traycetorias de razonamiento generadas por los modelos. Este enfoque implica analizar la coherencia, consistencia y utilidad de los pasos intermedios, en lugar de
+En este contexto, ha surgido un interés creciente por evaluar explícitamente las trayectorias de razonamiento generadas por los modelos. Este enfoque implica analizar la coherencia, consistencia y utilidad de los pasos intermedios, en lugar de
 limitarse a verificar el resultado final. La evaluación del proceso permite identificar errores que no serían detectables mediante métricas tradicionales, especialmente en casos en los que una respuesta correcta puede haberse obtenido a partir
 de un razonamiento incorrecto o incompleto.
 
@@ -546,8 +546,8 @@ Las extensiones basadas en la generación de múltiples trayectorias, como \emph
 se basa únicamente en el resultado, sin tener en cuenta la calidad del razonamiento intermedio. Esto limita su capacidad para discriminar entre soluciones que pueden parecer correctas superficialmente pero que se basan en procesos
 inconsistentes \cite{wang2022self}.
 
-Asimismo, la exploración del espacio de soluciones suele implicar un compromiso complejo entre calidad y coste computacional. Métodos como \emph{Tree of Thoughts}, que permiten considerar múltiples alternativas tienden a requerir un mayor
-número de evaluaciones, lo que dificulta su aplicación en entornos donde lso recursos son limitados.
+Asimismo, la exploración del espacio de soluciones suele implicar un compromiso complejo entre calidad y coste computacional. Métodos como \emph{Tree of Thoughts}, que permiten considerar múltiples alternativas, tienden a requerir un mayor
+número de evaluaciones, dificultando así su aplicación en entornos donde los recursos son limitados.
 
 Por último, muchos de los enfoques existentes carecen de un marco unificado que integre de manera coherente la generación de soluciones, su evaluación y el control del flujo de razonamiento. En lugar de ello, estos componentes suelen abordarse
 de forma aislada, lo que reduce la capacidad del sistema para gestionar el proceso de forma estructurada.
@@ -605,7 +605,7 @@ razonamiento. Esta necesidad constituye el punto de partida para el enfoque prop
 \section{Introducción a LangGraph}
 
 En los sistemas basados en modelos de lenguaje, el enfoque tradicional ha consistido en realizar llamadas independientes y aisladas a un modelo, evolucionando posteriormente
-hacia sistemas más complejos capaces de gestionar flujos de ejecución estructurados. Esto cambio responde así a la necesidad de construir aplicaciones que no solo generen
+hacia sistemas más complejos capaces de gestionar flujos de ejecución estructurados. Este cambio responde así a la necesidad de construir aplicaciones que no solo generen
 respuestas, sino que integren múltiples pasos de procesamiento, toma de decisiones y manejo de información intermedia.
 
 En este contexto surge \emph{LangGraph}, una herramienta que se presenta como alternativa a los enfoques lineales, y diseñada para facilitar la construcción de agentes
@@ -622,46 +622,18 @@ procesos más complejos y adaptativos.
 
 \begin{figure}[h]
     \centering
-
-    \begin{subfigure}{0.45\textwidth}
-        \centering
-        \includegraphics[width=0.8\linewidth]{images/DiagramaFlujoSecuencial.png}
-        \caption{Ejemplo de enfoque tradicional mediante diagrama de flujo lineal}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.45\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{images/DiagramaFlujoGrafo2.png}
-        \caption{Ejemplo de enfoque moderno mediante diagrama de flujo en grafo}
-    \end{subfigure}
-
-    \caption{Comparación entre enfoques. Fuente: Elaboración propia}
+    \includegraphics[width=0.9\textwidth]{images/DosFlujos.png}
+    \caption{Comparación entre un flujo de ejecución lineal tradicional y un flujo basado en grafo. Fuente: Elaboración propia}
     \label{fig:ComparaciónEnfoques}
 \end{figure}
 
 Además, la modularidad que ofrece \emph{LangGraph} al facilitar la separación de responsabilidades dentro del sistema, permitiendo definir distintos componentes que se encargan de
 tareas específicas no solo mejorar la claridad del diseño, sino que a su vez favorece la reutilización y extensión del sistema. Algunas de las tareas específicas ejecutadas por los
-compenentes son la generación de contenido, la evaluación de resultados o la actualización del estado interno.
+componentes son la generación de contenido, la evaluación de resultados o la actualización del estado interno.
 
 De este modo, \emph{LangGraph} constituye una base sólida para el desarrollo de agentes avanzados, proporcionando un marco de trabajo que permite superar las limitaciones de los
 enfoques secuenciales tradicionales y ofreciendo una forma más estructurada y flexible de diseñar agentes basados en modelos de lenguaje.
 
-%\begin{algorithm}
-%\caption{Joint SR+Seg training}
-%\label{alg:train}
-%\begin{algorithmic}[1]
-%\Procedure{Train}{$\mathcal{D}$, $\theta$, $\phi$}
-%  \For{epoch $=1..E$}
-%    \For{batch $(y,x,m)\sim \mathcal{D}$}
-%      \State $\hat x \gets f_\theta(y)$
-%      \State $z \gets g_\phi(\hat x)$; $p\gets\sigma(z)$
-%      \State $\mathcal{L}\gets \mathcal{L}_{\mathrm{SR}}(\hat x,x)+\gamma\,\mathcal{L}_{\mathrm{seg}}(p,m)$
-%      \State Update $(\theta,\phi)$ by Adam on $\nabla \mathcal{L}$
-%    \EndFor
-%  \EndFor
-%\EndProcedure
-%\end{algorithmic}
-%\end{algorithm}
 
 %────────────────────── Concepto de grafos aplicado a agentes ──────────────────────────
 \section{Concepto de Grafo Aplicado a Agentes}
