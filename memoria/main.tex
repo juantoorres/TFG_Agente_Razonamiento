@@ -33,13 +33,14 @@
 \usepackage{tikz}
 \pgfplotsset{compat=1.18}
 
-% Listings config
 \lstset{
-  basicstyle=\ttfamily\scriptsize,
+  basicstyle=\ttfamily\footnotesize\linespread{1.15}\selectfont,
   numbers=left,
   numberstyle=\tiny,
+  columns=fullflexible,
   frame=single,
-  breaklines=true
+  breaklines=true,
+  tabsize=2
 }
 
 
@@ -694,14 +695,14 @@ refinamiento progresivo, como los basados en razonamiento paso a paso.
 
 Finalmente, es necesario considerar la existencia de puntos de inicio y finalización dentro del grafo. El nodo inicial marca el punto de salida, desde donde
 da comienzo la ejecución, mientras que las condiciones de finalización controlan cuándo se ha alcanzado un resultado satisfactorio y, por lo tanto,
-detener el proceso. Este mecanismo permite controlar el flujo de ejecución y evitar iteraciones innecesarios.
+detener el proceso. Este mecanismo permite controlar el flujo de ejecución y evitar iteraciones innecesarias.
 
 
 %────────────────────── Conceptos fundamentales de LangGraph ──────────────────────────
 \section{Funcionamiento General de LangGraph}
 
 Una vez definidos los elementos fundamentales de \emph{LangGraph}, resulta necesario comprender cómo interactuan entre sí durante la ejecución de un agente. El funcionamiento de
-\emph{LangGraph} puede entenderse como la evaluación progresiva de un grafo, donde el sistema transita entre los diferentes nodos siguiendo las transiciones definidas (arsitas) y
+\emph{LangGraph} puede entenderse como la evaluación progresiva de un grafo, donde el sistema transita entre los diferentes nodos siguiendo las transiciones definidas (aristas) y
 actualizando el estado en cada paso.
 
 La ejecución comienza a partir de una configuración inicial, que contiene la información de partida necesaria para la ejecución. A partir de este punto,
@@ -719,7 +720,7 @@ Dependiendo de la configuración del grafo, la siguiente etapa puede:
 Con dicho condicionante, el mecanismo logra introducir dinamismo en el flujo de ejecución, permitiendo que el agente sea capaz de adaptarse a la información generada en tiempo
 de ejecución, y adoptar el comportamiento pertinente.
 
-A medida que el proceso avanza, el estado de va actualizando de forma incremental, acumulando a su vez información relevante que podría influir en decisiones y transiciones futuras.
+A medida que el proceso avanza, el estado se va actualizando de forma incremental, acumulando a su vez información relevante que podría influir en decisiones y transiciones futuras.
 Este ciclo de ejecución de nodo, actualización de estado y transición se repite iterativamente hasta que se alcanza la condición de parada, previamente establecida. \cite{anderfernandez_langgraph2024}
 
 En aquellos casos en los que el grafo incluye bucles, el sistema puede volver a nodos previamente ejecutados, lo que permite implementar procesos iterativos.
@@ -763,7 +764,7 @@ que la inclusión de datos irrelevantes puede dificultar la toma de decisiones. 
 del proceso. \cite{weng2023llm_agents}
 
 En conclusión, la gestión del estado no solo constituye un elemento técnico dentro de \emph{LangGraph}, sino que también representa un aspecto clave en el diseño de agentes basados en modelos
-de lenguaje. Un estado bien defeinido permite mejorar la coherencia del sistema, facilitar el seguimiento del razonamiento y optimizar el proceso de toma de decisiones.
+de lenguaje. Un estado bien definido permite mejorar la coherencia del sistema, facilitar el seguimiento del razonamiento y optimizar el proceso de toma de decisiones.
 
 
 %────────────────────── Máquina de estados finitos aplicada a LangGraph ──────────────────────────
@@ -867,9 +868,7 @@ Una vez definidos el estado y las funciones principales, se construye el grafo m
 
 \begin{lstlisting}[language=Python, caption={Conexión de los elementos del grafo}]
 builder = StateGraph(CounterState)
-
 builder.add_node("increment", increment_node)
-
 builder.set_entry_point("increment")
 
 builder.add_conditional_edges(
@@ -988,7 +987,6 @@ builder.set_conditional_entry_point(
         "end": END,
     },
 )
-
 builder.add_conditional_edges(
     "divide",
     choose_operation,
@@ -998,7 +996,6 @@ builder.add_conditional_edges(
         "end": END,
     },
 )
-
 builder.add_conditional_edges(
     "increment",
     choose_operation,
@@ -1459,12 +1456,11 @@ def save_final_result(
     trace: list[dict[str, Any]],
     run_parameters: dict[str, Any],
     execution_time_seconds: float | None = None,
-    output_dir: str = "outputs",
-) -> None:
+    output_dir: str = "outputs") -> None:
+
     """Guarda la estrofa final, sus metricas y la traza completa."""
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
-
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     stanza_path = output_path / f"final_stanza_{timestamp}.txt"
     metrics_path = output_path / f"final_stanza_metrics_{timestamp}.json"
@@ -2069,156 +2065,172 @@ Esta idea constituye una de las principales aportaciones conceptuales del trabaj
 
 
 
-
-
-
-
-
-
-
-
-
-
-%────────────────────── Chapter 5 — Discussion ─────────────────────────
-%\chapter{Discussion}
-%Joint optimization improves boundary fidelity and suppresses ringing.
-%Failure cases include motion artifacts and unseen acquisition protocols.
-
 %────────────────────── Appendices ─────────────────────────────────────
-%\begin{umaappendices}
+\begin{umaappendices}
 
-%\umaappendix{Data splits and preprocessing}
-%\section{Preprocessing}
-%Bias-field correction, z-score normalization per volume, random flips and
-%intensity jitter for augmentation.
+\umaappendix{Ejecuciones Adicionales con Modelos de Mayor Tamaño}
+\label{anexo:modelosAdicionales}
 
-%\umaappendix{Additional code snippets}
+\section{Descripción General}
 
-%\section{Evaluation script (Python)}
-%\begin{lstlisting}[style=python,caption={Metric computation script},label={lst:metrics}]
-%# eval_metrics.py
-%# Computes PSNR, SSIM (skimage), and Dice given predictions and references.
+Además de la experimentación principal presentada en el Capítulo 5, realizada íntegramente con el modelo \texttt{mistral:7b-instruct}, se llevaron a cabo varias ejecuciones adicionales con modelos de mayor tamaño.
+En concreto, se utilizaron los modelos \texttt{gpt-oss:120b} y \texttt{magistral:24b}, manteniendo la misma implementación del agente desarrollada en este trabajo.
 
-%from skimage.metrics import structural_similarity as ssim
-%import numpy as np
+El objetivo de estas pruebas complementarias no es sustituir la evaluación principal, sino ampliar el análisis del sistema y observar cómo puede variar su comportamiento al emplear modelos de lenguaje con mayor capacidad.
+De esta forma, se estudia hasta qué punto los resultados obtenidos dependen no solo de la arquitectura propuesta, basada en \emph{LangGraph}, \emph{Beam Search} y mecanismos de reparación, sino también del modelo generador utilizado.
 
-%def psnr(x, y, peak=1.0):
-%    mse = np.mean((x - y) ** 2)
-%    return 10 * np.log10(peak**2 / (mse + 1e-12))
+Estas ejecuciones fueron realizadas por el tutor del trabajo tras clonar el repositorio del proyecto y ejecutar el sistema en un entorno hardware distinto al empleado durante el desarrollo principal.
+En particular, se utilizó una GPU NVIDIA Tesla P40 con 24\,GiB de memoria de vídeo (VRAM), lo que permitió probar modelos que no podían ejecutarse en el equipo local utilizado inicialmente.
 
-%def dice(p, m, thr=0.5):
-%    pbin = (p >= thr).astype(np.float32)
-%    m = m.astype(np.float32)
-%    return 2*(pbin*m).sum() / (pbin.sum() + m.sum() + 1e-12)
-%\end{lstlisting}
+\section{Resumen de Resultados}
 
-%\section{R quick-look plot}
-%\begin{lstlisting}[style=r,caption={Boxplots of PSNR and Dice},label={lst:rplots}]
-%# rplots.R - Statistical visualization of model performance
-%library(ggplot2)
-%library(dplyr)
+La Tabla~\ref{tab:ejecucionesModelosAdicionales} resume los resultados obtenidos en las tres ejecuciones adicionales realizadas con modelos de mayor tamaño.
+Para cada ejecución se recoge el modelo empleado, el tiempo total, la puntuación formal final y el grado de cumplimiento de las restricciones métricas y de rima.
 
-%# Generate synthetic results for demonstration
-%df <- data.frame(
-%  method = rep(c("Bicubic+RF","EDSR+U3Net","Joint"), each=10),
-%  psnr = c(rnorm(10,28.3,0.6), rnorm(10,31.8,0.5), rnorm(10,32.2,0.4)),
-%  dice = c(rnorm(10,0.786,0.02), rnorm(10,0.865,0.02), rnorm(10,0.882,0.02))
-%)
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lcccc}
+\toprule
+Modelo & Tiempo & Score & Métrica & Rima \\
+\midrule
+\texttt{gpt-oss:120b} & 79.86 min & 20.0/20 & 4/4 & 4/4 \\
+\texttt{gpt-oss:120b} & 115.39 min & 18.0/20 & 3/4 & 4/4 \\
+\texttt{magistral:latest} & 14.05 min & 18.0/20 & 4/4 & 3/4 \\
+\bottomrule
+\end{tabular}
+\caption{Resumen de ejecuciones adicionales con modelos de mayor tamaño. Fuente: elaboración propia}
+\label{tab:ejecucionesModelosAdicionales}
+\end{table}
 
-%# Create visualization pipeline
-%df %>%
-%  ggplot(aes(method, psnr, fill=method)) +
-%  geom_boxplot() +
-%  theme_minimal() +
-%  labs(title="PSNR by Method", y="PSNR (dB)")
-%\end{lstlisting}
+Los resultados muestran que el uso de modelos de mayor tamaño puede mejorar el cumplimiento formal de las estrofas generadas, aunque no elimina por completo los errores.
+En una de las ejecuciones con \texttt{gpt-oss:120b} se alcanza una puntuación perfecta de 20.0 sobre 20, mientras que las otras dos ejecuciones obtienen 18.0 sobre 20 debido a errores puntuales de métrica o rima.
+También se observa una diferencia notable en los tiempos de ejecución, especialmente entre \texttt{gpt-oss:120b} y \texttt{magistral:latest}.
 
-%\section{C++ performance-critical kernels}
-%\begin{lstlisting}[style=cpp,caption={CUDA-style convolution kernel},label={lst:cpp}]
-%// conv3d_kernel.cpp - High-performance 3D convolution
-%#include <vector>
-%#include <cmath>
-%#include <algorithm>
+La Figura~\ref{fig:comparativaModelosAdicionales} compara la puntuación formal y el tiempo de ejecución de las pruebas adicionales con modelos de mayor tamaño.
+Como referencia, se incluye también el valor medio obtenido en el segundo ciclo experimental con \texttt{mistral:7b-instruct}.
 
-%template<typename T>
-%class Conv3DKernel {
-%private:
-%    std::vector<T> weights_;
-%    int kernel_size_;
+La comparación muestra que los modelos de mayor tamaño pueden alcanzar puntuaciones formales elevadas, llegando incluso a 20.0 sobre 20 en una de las ejecuciones con \texttt{gpt-oss:120b}.
+Sin embargo, también se aprecia que este incremento de capacidad no garantiza siempre una solución perfecta y puede implicar tiempos de ejecución considerablemente superiores.
+Por otro lado, con \texttt{magistral:latest} se obtiene una puntuación alta con un tiempo menor, aunque mantiene un error puntual en la rima interior.
 
-%public:
-%    Conv3DKernel(int size) : kernel_size_(size) {
-%        weights_.resize(size * size * size);
-%    }
+\begin{figure}[h]
+    \centering
 
-%    // Apply convolution at a single point
-%    T apply(const T* input, int x, int y, int z, int stride) const {
-%        T sum = static_cast<T>(0);
-%        for (int dz = 0; dz < kernel_size_; ++dz) {
-%            for (int dy = 0; dy < kernel_size_; ++dy) {
-%                for (int dx = 0; dx < kernel_size_; ++dx) {
-%                    int idx = (z + dz) * stride * stride
-%                            + (y + dy) * stride + (x + dx);
-%                    sum += input[idx] * weights_[dz * kernel_size_ * kernel_size_
-%                                                + dy * kernel_size_ + dx];
-%                }
-%            }
-%        }
-%        return sum;
-%    }
-%};
-%\end{lstlisting}
+    \begin{minipage}{0.46\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[
+                ybar,
+                ymin=0,
+                ymax=20,
+                ylabel={Score final},
+                symbolic x coords={Mistral C2,GPT-OSS 1,GPT-OSS 2,Magistral},
+                xtick=data,
+                x tick label style={rotate=35, anchor=east},
+                nodes near coords,
+                nodes near coords align={vertical},
+                bar width=12pt,
+                width=\textwidth,
+                height=5cm,
+                title={Puntuación formal},
+                grid=major,
+                tick label style={font=\scriptsize},
+                label style={font=\scriptsize},
+                title style={font=\scriptsize},
+                nodes near coords style={font=\scriptsize}
+            ]
+                \addplot coordinates {
+                    (Mistral C2,18.67)
+                    (GPT-OSS 1,20.0)
+                    (GPT-OSS 2,18.0)
+                    (Magistral,18.0)
+                };
+            \end{axis}
+        \end{tikzpicture}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.46\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[
+                ybar,
+                ymin=0,
+                ymax=125,
+                ylabel={Tiempo (min)},
+                symbolic x coords={Mistral C2,GPT-OSS 1,GPT-OSS 2,Magistral},
+                xtick=data,
+                x tick label style={rotate=35, anchor=east},
+                nodes near coords,
+                nodes near coords align={vertical},
+                bar width=12pt,
+                width=\textwidth,
+                height=5cm,
+                title={Tiempo de ejecución},
+                grid=major,
+                tick label style={font=\scriptsize},
+                label style={font=\scriptsize},
+                title style={font=\scriptsize},
+                nodes near coords style={font=\scriptsize}
+            ]
+                \addplot coordinates {
+                    (Mistral C2,47.35)
+                    (GPT-OSS 1,79.86)
+                    (GPT-OSS 2,115.39)
+                    (Magistral,14.05)
+                };
+            \end{axis}
+        \end{tikzpicture}
+    \end{minipage}
 
-%\section{SQL data pipeline}
-%\begin{lstlisting}[style=sql,caption={Patient cohort selection query},label={lst:sql}]
-%-- cohort_selection.sql
-%-- Select patients with complete MRI sequences for training
-%SELECT DISTINCT
-%    p.patient_id,
-%    p.age,
-%    p.diagnosis_date,
-%    COUNT(s.scan_id) AS num_scans
-%FROM patients p
-%INNER JOIN mri_scans s ON p.patient_id = s.patient_id
-%WHERE s.modality = 'T1w'
-%  AND s.quality_score >= 0.8
-%  AND p.diagnosis_date BETWEEN '2020-01-01' AND '2024-12-31'
-%GROUP BY p.patient_id, p.age, p.diagnosis_date
-%HAVING COUNT(s.scan_id) >= 3
-%ORDER BY p.diagnosis_date DESC
-%LIMIT 1000;
-%\end{lstlisting}
+    \caption{Comparación entre la ejecución principal refinada y las ejecuciones adicionales con modelos de mayor tamaño. Fuente: elaboración propia}
+    \label{fig:comparativaModelosAdicionales}
+\end{figure}
 
-%\section{Bash automation}
-%\begin{lstlisting}[style=bash,caption={Training pipeline automation},label={lst:bash}]
-%#!/bin/bash
-%# train_pipeline.sh - Automated model training and evaluation
 
-%# Configuration
-%MODEL_DIR="./checkpoints"
-%DATA_DIR="/data/mri_volumes"
-%EPOCHS=100
 
-%# Create output directories
-%mkdir -p "$MODEL_DIR" logs
+\section{Ejemplos de Salida}
 
-%# Train with different learning rates
-%for lr in 1e-3 1e-4 1e-5; do
-%    echo "Training with lr=$lr"
-%    python train.py \
-%        --data "$DATA_DIR" \
-%        --lr "$lr" \
-%        --epochs "$EPOCHS" \
-%        --output "$MODEL_DIR/model_lr${lr}.pt" \
-%        2>&1 | tee "logs/train_lr${lr}.log"
-%done
+A continuación se muestran las estrofas finales obtenidas en las ejecuciones adicionales descritas anteriormente.
+Estos ejemplos permiten observar de forma directa el tipo de salida generado por cada modelo y complementar los resultados cuantitativos recogidos en la Tabla~\ref{tab:ejecucionesModelosAdicionales}.
 
-%# Evaluate best model
-%echo "Evaluating models..."
-%python evaluate.py --checkpoint "$MODEL_DIR" --metrics psnr ssim dice
-%\end{lstlisting}
+\begin{lstlisting}[caption={Estrofa obtenida con el modelo gpt-oss:120b en la primera ejecución adicional}, label={lst:gptoss120bEjecucion1}]
+1. Ojos verdes son espejo de mi sueño
+2. En su brillo vibra ya dulce canto
+3. Y su sombra cubre mi dulce manto
+4. Al alba su luz vuelve mi fiel dueño
+\end{lstlisting}
 
-%\end{umaappendices}
+\begin{lstlisting}[caption={Estrofa obtenida con el modelo gpt-oss:120b en la segunda ejecución adicional}, label={lst:gptoss120bEjecucion2}]
+1. Tus ojos verdes, luz que al cielo me guía
+2. Surge en sus ojos la llama y luz
+3. Y su reflejo cruza el pecho, cruz
+4. Guardo su luz bajo velo del día
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Estrofa obtenida con el modelo magistral:latest en la ejecución adicional}, label={lst:magistralEjecucion}]
+1. La memoria es un río que fluye y va
+2. y arrastra las sombras del ayer en su huella
+3. como el viento que borra su huella sin fin
+4. y en su paso solo el olvido sea
+\end{lstlisting}
+
+Como puede observarse, la primera ejecución con \texttt{gpt-oss:120b} alcanza una estrofa formalmente válida según los criterios evaluados, ya que cumple tanto la métrica endecasílaba como el esquema de rima ABBA.
+En la segunda ejecución del mismo modelo, la rima se mantiene correctamente, pero aparece un error métrico puntual. Por último, la ejecución con \texttt{magistral:latest} obtiene versos endecasílabos, pero no completa correctamente la rima interior.
+
+\section{Observaciones}
+
+Las ejecuciones adicionales permiten comprobar que la arquitectura propuesta puede utilizarse con modelos de lenguaje distintos al empleado en la experimentación principal.
+Aunque el flujo de generación, evaluación, reparación y selección se mantiene constante, los resultados obtenidos muestran que la calidad formal de las estrofas y el tiempo de ejecución dependen también del modelo utilizado y del entorno hardware disponible.
+
+Estos resultados deben interpretarse como una ampliación exploratoria, ya que solo se realizaron tres ejecuciones y en un entorno distinto al utilizado durante el desarrollo principal.
+Por tanto, no se pretende establecer una comparación exhaustiva entre modelos, sino mostrar que el sistema es adaptable a configuraciones de mayor capacidad y que el modelo generador influye de forma relevante en el comportamiento final del agente.
+
+En conjunto, estas pruebas complementan el análisis del Capítulo 5 y refuerzan una de las ideas principales del trabajo: la arquitectura basada en \emph{LangGraph}, \emph{Beam Search} y mecanismos de reparación proporciona una estructura general de control,
+pero el rendimiento final sigue condicionado por la capacidad del modelo de lenguaje empleado.
+
+
+\end{umaappendices}
 
 %────────────────────── Back cover and bibliography ────────────────────
 \backmatter
