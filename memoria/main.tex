@@ -795,7 +795,7 @@ Una de las formas más representativas de utilizar \emph{LangGraph} en el diseñ
 enfoque permite que el sistema no solo genere una respuesta, sino que también interactúe con su entorno y utilice información externa para mejorar sus decisiones. \cite{yao2023react}
 
 En este sentido, resulta especialmente ilustrativo considerar un esquema en el que el agente analiza una consulta inicial y decide si es necesario realizar alguna acción adicional antes de generar una
-respuesta definitiva. Este proceso puede modelarse mediante un grafo en el que cada nodo representa una fase diferencia del comportamiento del agente.
+respuesta definitiva. Este proceso puede modelarse mediante un grafo en el que cada nodo representa una fase diferenciada del comportamiento del agente.
 
 En una primera etapa el sistema procesa la entrada del usuario y genera una interpretación inicial del problema. A partir de esta información, el agente puede decidir si dispone de suficiente conocimiento
 para responder directamente o si, por el contrario, necesita apoyarse en alguna herramienta externa, como una función de \emph{Python} o una consulta a una API.
@@ -815,7 +815,7 @@ estructurar el comportamiento del agente de forma clara, separando las fases de 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.7\textwidth]{images/CicloRazonamientoAcción.png}
+    \includegraphics[width=0.4\textwidth]{images/CicloRazonamientoAcción.png}
     \caption{Esquema de interacción iterativa entre las fases de razonamiento y acción en un agente basado en grafos. Fuente: elaboración propia}
     \label{fig:CicloRazonamientoAcción}
 \end{figure}
@@ -1185,8 +1185,8 @@ Esta separación evita delegar en el propio modelo la valoración principal de s
 
 El nodo \texttt{expand} produce nuevas estrofas candidatas a partir del estado actual del grafo. Su comportamiento depende de la iteración en la que se encuentre el proceso.
 
-En la primera iteración, el sistema todavía no dispone de estrofas previas. Por ello, el nodo solicita al modelo que genere una o varias estrofas desde cero. El prompt inicial describe explícitamente la tarea: producir una estrofa de cuatro versos en español, con versos endecasílabos
-y rima consonante ABBA.
+En la primera iteración, el sistema todavía no dispone de estrofas previas. Por ello, el nodo solicita al modelo que genere una o varias estrofas desde cero. El \emph{prompt} inicial describe explícitamente la tarea: producir una estrofa sobre el paso del tiempo y la memoria,
+formada por cuatro versos en español, endecasílabos y con rima consonante ABBA.
 
 En iteraciones posteriores, el nodo trabaja a partir de los \emph{beams} conservados en la fase de selección. En lugar de pedir una estrofa completamente nueva sin contexto, el sistema proporciona al modelo una estrofa previa y solicita una variante corregida o mejorada.
 De esta forma, la generación se convierte en un proceso iterativo, en el que las mejores candidatas de una iteración sirven como punto de partida para la siguiente.
@@ -1588,9 +1588,11 @@ Estas comparaciones se desarrollan en el siguiente capítulo, donde se analizan 
 La experimentación del agente se ha organizado en dos ciclos principales. Esta estructura permite mostrar de forma progresiva la evolución del sistema,
 desde una primera versión inicial hasta una versión refinada a partir de los resultados obtenidos.
 
-El primer ciclo proporciona una línea base sobre la que analizar el comportamiento del agente. El segundo ciclo incorpora los cambios derivados de ese análisis y permite valorar el efecto de dichas modificaciones.
-
+El primer ciclo proporciona una línea base sobre la que analizar el comportamiento del agente, mientras que el segundo ciclo incorpora los cambios derivados de ese análisis y permite valorar el efecto de dichas modificaciones.
 Esta organización facilita comparar ambas versiones de forma ordenada, empleando las mismas métricas de evaluación y manteniendo una relación clara entre los errores observados, las mejoras introducidas y los resultados finales.
+
+En ambos ciclos experimentales se mantiene la misma consigna inicial: generar una estrofa en español sobre el paso del tiempo y la memoria, formada por cuatro versos endecasílabos y con rima consonante ABBA.
+Esto permite comparar ambas versiones del sistema bajo una misma tarea de generación.
 
 %────────────────────── Ciclo 1: Aproximación Inicial y Resultados Base ──────────────────────────
 \section{Ciclo 1: Aproximación Inicial y Resultados Base}
@@ -2037,6 +2039,135 @@ Por tanto, los resultados reflejan un compromiso central del sistema: aumentar l
 Parámetros como el ancho del haz $k$, la profundidad máxima, el número de variantes generadas, la temperatura o el límite de tokens influyen directamente tanto en la puntuación alcanzada como en el tiempo total de ejecución.
 
 
+\subsubsection{Pruebas Adicionales con Modelos de Mayor Tamaño}
+
+Además de la experimentación principal realizada con \texttt{mistral:7b-instruct}, se llevaron a cabo varias ejecuciones adicionales con modelos de mayor tamaño, manteniendo la misma implementación del agente desarrollada en este trabajo.
+En concreto, se realizaron dos ejecuciones con \texttt{gpt-oss:120b} y una ejecución con \texttt{magistral:24b}.
+
+Estas pruebas fueron ejecutadas en un entorno hardware distinto al utilizado durante el desarrollo principal.
+La ejecución con \texttt{magistral:24b} se realizó sobre una GPU Tesla P40 con 24,GB de VRAM, mientras que las ejecuciones con \texttt{gpt-oss:120b} utilizaron tres GPUs Tesla P40 de 24,GB cada una.
+Este entorno permitió probar modelos que no podían ejecutarse en el equipo local empleado inicialmente.
+
+El objetivo de estas ejecuciones no es sustituir la evaluación principal, sino ampliar el análisis del compromiso entre calidad formal y coste computacional.
+De este modo, se observa cómo el comportamiento del agente puede depender no solo de la arquitectura propuesta, sino también del modelo generador utilizado y de los recursos de cómputo disponibles.
+
+La Tabla~\ref{tab:ejecucionesModelosAdicionales2} resume los resultados obtenidos en estas pruebas adicionales.
+Para cada ejecución se recoge el modelo empleado, el hardware utilizado, el tiempo total, la puntuación formal final y el grado de cumplimiento de las restricciones métricas y de rima.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lccccc}
+\toprule
+Modelo & Hardware & Tiempo & Score & Métrica & Rima \\
+\midrule
+\texttt{gpt-oss:120b} & 3x Tesla P40 & 79.86 min & 20.0/20 & 4/4 & 4/4 \\
+\texttt{gpt-oss:120b} & 3x Tesla P40 & 115.39 min & 18.0/20 & 3/4 & 4/4 \\
+\texttt{magistral:latest} & 1x Tesla P40 & 14.05 min & 18.0/20 & 4/4 & 3/4 \\
+\bottomrule
+\end{tabular}
+\caption{Resumen de ejecuciones adicionales con modelos de mayor tamaño. Fuente: elaboración propia}
+\label{tab:ejecucionesModelosAdicionales2}
+\end{table}
+
+Los resultados muestran que el uso de modelos de mayor tamaño puede alcanzar puntuaciones formales elevadas.
+En una de las ejecuciones con \texttt{gpt-oss:120b} se obtiene una puntuación perfecta de 20.0 sobre 20, mientras que las otras dos ejecuciones alcanzan 18.0 sobre 20.
+Sin embargo, también se observa que un modelo de mayor tamaño no garantiza siempre una solución perfecta, ya que pueden persistir errores puntuales de métrica o de rima.
+
+La Figura~\ref{fig:comparativaModelosAdicionales2} compara la puntuación formal y el tiempo de ejecución de estas pruebas adicionales. Como referencia, se incluye también el valor medio obtenido en el segundo ciclo experimental con \texttt{mistral:7b-instruct}.
+
+\begin{figure}[h]
+    \centering
+
+    \begin{minipage}{0.46\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[
+                ybar,
+                ymin=0,
+                ymax=20,
+                ylabel={Score final},
+                symbolic x coords={Mistral C2,GPT-OSS 1,GPT-OSS 2,Magistral},
+                xtick=data,
+                x tick label style={rotate=35, anchor=east},
+                nodes near coords,
+                nodes near coords align={vertical},
+                bar width=12pt,
+                width=\textwidth,
+                height=5cm,
+                title={Puntuación formal},
+                grid=major,
+                tick label style={font=\scriptsize},
+                label style={font=\scriptsize},
+                title style={font=\scriptsize},
+                nodes near coords style={font=\scriptsize}
+            ]
+                \addplot coordinates {
+                    (Mistral C2,18.67)
+                    (GPT-OSS 1,20.0)
+                    (GPT-OSS 2,18.0)
+                    (Magistral,18.0)
+                };
+            \end{axis}
+        \end{tikzpicture}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.46\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[
+                ybar,
+                ymin=0,
+                ymax=125,
+                ylabel={Tiempo (min)},
+                symbolic x coords={Mistral C2,GPT-OSS 1,GPT-OSS 2,Magistral},
+                xtick=data,
+                x tick label style={rotate=35, anchor=east},
+                nodes near coords,
+                nodes near coords align={vertical},
+                bar width=12pt,
+                width=\textwidth,
+                height=5cm,
+                title={Tiempo de ejecución},
+                grid=major,
+                tick label style={font=\scriptsize},
+                label style={font=\scriptsize},
+                title style={font=\scriptsize},
+                nodes near coords style={font=\scriptsize}
+            ]
+                \addplot coordinates {
+                    (Mistral C2,47.35)
+                    (GPT-OSS 1,79.86)
+                    (GPT-OSS 2,115.39)
+                    (Magistral,14.05)
+                };
+            \end{axis}
+        \end{tikzpicture}
+    \end{minipage}
+
+    \caption{Comparación entre la ejecución principal refinada y las ejecuciones adicionales con modelos de mayor tamaño. Fuente: elaboración propia}
+    \label{fig:comparativaModelosAdicionales2}
+\end{figure}
+
+La comparación refuerza la existencia de un compromiso entre calidad formal y coste computacional. \texttt{gpt-oss:120b} permite alcanzar el mejor resultado formal observado, pero sus tiempos de ejecución son superiores a los de la configuración principal.
+Por otro lado, \texttt{magistral:24b} obtiene una puntuación alta con un tiempo menor, aunque mantiene un error puntual en la rima interior.
+
+En conjunto, estas pruebas muestran que la arquitectura propuesta puede trasladarse a modelos de distinta escala.
+No obstante, al tratarse de un número reducido de ejecuciones, los resultados deben interpretarse como una ampliación experimental del análisis principal, no como una comparativa exhaustiva entre modelos.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \subsection{Alcance y Limitaciones}
 
 Los resultados obtenidos permiten concluir que la versión refinada del agente mejora de forma notable el cumplimiento de las restricciones formales. Sin embargo, el sistema no garantiza una solución perfecta en todas las ejecuciones.
@@ -2051,6 +2182,29 @@ De este modo, el proceso no solo selecciona las mejores alternativas, sino que t
 
 Esta característica convierte el sistema en una arquitectura de búsqueda guiada y reparación local, donde el \emph{Beam Search} actúa como mecanismo de exploración y poda, pero se combina con información específica de cada candidata para orientar su mejora.
 Esta idea constituye una de las principales aportaciones conceptuales del trabajo y abre la puerta a futuras extensiones en tareas de generación con restricciones verificables.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
