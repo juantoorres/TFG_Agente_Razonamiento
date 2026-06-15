@@ -65,8 +65,8 @@
 \MakeBlueUMACover{
   degree     = {Grado en Ingeniería Informática},
   mencion    = {Mención en Computación},
-  titleES    = {Diseño e implementación de un agente de razonamiento basado en LLMs con exploración mediante Beam Search},
-  titleEN    = {Design and implementation of an LLM-based reasoning agent with Beam Search exploration},
+  titleES    = {Diseño e implementación de un agente de razonamiento basado en LLMs con exploración mediante \emph{Beam Search}},
+  titleEN    = {Design and implementation of an LLM-based reasoning agent with \emph{Beam Search} exploration},
   author     = {Juan Torres Gómez},
   tutor      = {Sergio Gálvez Rojas},
   % cotutor= {Dra.~Jane Doe},
@@ -80,8 +80,8 @@
 \MakeWhiteUMACover{
   degree     = {Grado en Ingeniería Informática},
   mencion    = {Mención en Computación},
-  titleES    = {Diseño e implementación de un agente de razonamiento basado en LLMs con exploración mediante Beam Search},
-  titleEN    = {Design and implementation of an LLM-based reasoning agent with Beam Search exploration},
+  titleES    = {Diseño e implementación de un agente de razonamiento basado en \emph{LLMs} con exploración mediante \emph{Beam Search}},
+  titleEN    = {Design and implementation of an \emph{LLM}-based reasoning agent with \emph{Beam Search} exploration},
   author     = {Juan Torres Gómez},
   tutor      = {Sergio Gálvez Rojas},
   % cotutor= {Dra.~Jane Doe},
@@ -274,7 +274,7 @@ En este capítulo se presentan las fases principales del sistema: generación de
 El Capítulo 5 recoge la experimentación, el refinamiento y la evaluación del agente.
 En él se comparan una versión inicial y una versión refinada del sistema, analizando la mejora en el cumplimiento de las restricciones formales y el coste computacional asociado.
 
-Finalmente, se presentan las conclusiones del trabajo, junto con las principales limitaciones encontradas y posibles líneas de trabajo futuro.
+Finalmente, el Capítulo 6 presenta las conclusiones del trabajo, recogiendo tanto los resultados principales obtenidos como el aprendizaje personal adquirido durante el desarrollo del proyecto.
 
 
 %────────────────────── Chapter 2 — Estado del arte ───────────────────────
@@ -417,7 +417,7 @@ de considerar distintas alternativas puede mejorar significativamente la calidad
 
 
 %────────────────────── Beam Search en detalle ──────────────────────────
-\section{Beam Search en Detalle}
+\section{\emph{Beam Search} en Detalle}
 
 Entre los distintos métodos de búsqueda utilizados en la generación de secuencias, el algoritmo de \emph{Beam Search} ocupa un lugar destacado debido a su capacidad para equilibrar la exploración de múltiples alternativas con un coste
 computacional controlado. A diferencia de estrategias como \emph{greddy search} (búsqueda voraz), que siguen una única trayectoria, o los métodos de muestreo, que introducen aleatoriedad, \emph{Beam Search} mantiene de forma simultánea un
@@ -455,8 +455,8 @@ razonamiento con modelos de lenguaje. En particular, su estructura iterativa y s
 permite extender su uso más allá de los contextos tradicionales.
 
 
-%────────────────────── Uso de Beam Search en razonamiento con LLMs ──────────────────────────
-\section{Uso de Beam Search en Razonamiento con LLMs}
+%────────────────────── Uso de \emph{Beam Search} en razonamiento con \emph{LLMs} ──────────────────────────
+\section{Uso de \emph{Beam Search} en Razonamiento con \emph{LLMs}}
 
 Aunque el algoritmo de \emph{Beam Search} ha sido tradicionalmente utilizado en tareas como la traducción automática o la generación de texto, su estructura resulta especialmente adecuada para abordar problemas de razonamiento en modelos de
 lenguaje. En este contexto, el objetivo no es únicamente generar una secuencia probable, sino explorar distintas posibles trayectorias de razonamiento y seleccionar aquellas que conducen a soluciones más adecuadas.
@@ -600,7 +600,7 @@ razonamiento. Esta necesidad constituye el punto de partida para el enfoque prop
 \chapter{LangGraph}
 
 %────────────────────── Introducción a LangGraph ──────────────────────────
-\section{Introducción a LangGraph}
+\section{Introducción a \emph{LangGraph}}
 
 En los sistemas basados en modelos de lenguaje, el enfoque tradicional ha consistido en realizar llamadas independientes y aisladas a un modelo, evolucionando posteriormente
 hacia sistemas más complejos capaces de gestionar flujos de ejecución estructurados. Este cambio responde así a la necesidad de construir aplicaciones que no solo generen
@@ -657,7 +657,7 @@ de flujos de ejecución complejos que serían difíciles de representar mediante
 
 
 %────────────────────── Conceptos fundamentales de LangGraph ──────────────────────────
-\section{Conceptos Fundamentales de LangGraph}
+\section{Conceptos Fundamentales de \emph{LangGraph}}
 
 Para comprender el funcionamiento de \emph{LangGraph}, es necesario analizar los elementos básicos que conforman su modelo de ejecución.
 En conjunto, estos elementos proporcionan una base para el diseño y construcción de agentes complejos, permitiendo combinar generación, evaluación y toma
@@ -699,7 +699,7 @@ detener el proceso. Este mecanismo permite controlar el flujo de ejecución y ev
 
 
 %────────────────────── Conceptos fundamentales de LangGraph ──────────────────────────
-\section{Funcionamiento General de LangGraph}
+\section{Funcionamiento General de \emph{LangGraph}}
 
 Una vez definidos los elementos fundamentales de \emph{LangGraph}, resulta necesario comprender cómo interactuan entre sí durante la ejecución de un agente. El funcionamiento de
 \emph{LangGraph} puede entenderse como la evaluación progresiva de un grafo, donde el sistema transita entre los diferentes nodos siguiendo las transiciones definidas (aristas) y
@@ -732,7 +732,7 @@ construir sistemas en los que la respuesta final es el resultado de múltiples p
 
 
 %────────────────────── Gestión del estado en LangGraph ──────────────────────────
-\section{Gestión del Estado en LangGraph}
+\section{Gestión del Estado en \emph{LangGraph}}
 
 Uno de los elementos clave en el funcionamiento de sistemas basados en grafos es la gestión del estado, entendido como el conjunto de información que se mantiene y se actualiza a lo
 largo de la ejecución. En el caso de \emph{LangGraph}, el estado desempeña un papel fundamental, ya que actúa como el medio a través del cual los distintos nodos comparten información
@@ -768,7 +768,7 @@ de lenguaje. Un estado bien definido permite mejorar la coherencia del sistema, 
 
 
 %────────────────────── Máquina de estados finitos aplicada a LangGraph ──────────────────────────
-\section{Máquina de Estados Finitos Aplicada a LangGraph}
+\section{Máquina de Estados Finitos Aplicada a \emph{LangGraph}}
 Las máquinas de estados finitos constituyen un modelo ampliamente utilizado para describir sistemas cuyo comportamiento puede dividirse en un conjunto de etapas bien definidas, entre las que se
 producen transiciones en función de determinadas condiciones. Este enfoque resulta especialmente útil para modelar procesos en los que el flujo de ejecución no es estrictamente lineal, sino
 que depende de decisiones tomadas durante la ejecución. \cite{hopcroft2001automata}
@@ -789,7 +789,7 @@ las posibles rutas de ejecución, lo que contribuye a una mejor comprensión del
 
 
 %────────────────────── Ejemplo de patrón ReAct en LangGraph ──────────────────────────
-\section{Ejemplo de Patrón ReAct en LangGraph}
+\section{Ejemplo de Patrón ReAct en \emph{LangGraph}}
 
 Una de las formas más representativas de utilizar \emph{LangGraph} en el diseño de agentes es mediante la implementación de patrones que combinan razonamiento y acción de manera iterativa. Este tipo de
 enfoque permite que el sistema no solo genere una respuesta, sino que también interactúe con su entorno y utilice información externa para mejorar sus decisiones. \cite{yao2023react}
@@ -804,7 +804,7 @@ Esta decisión se traduce en una transición condicional dentro del grafo. Si el
 caso contrario, el sistema transita hacia un nodo encargado de ejecutar la acción correspondiente, obteniendo nueva información que se incorpora al estado.
 
 Una vez se realizada la acción, el flujo no concluye, sino que vuelve al nodo inicial de razonamiento. De este modo, el agente puede reconsiderar la situación a la luz de los nuevos datos obtenidos, generando
-un proceso iteerativo en el que se alternan fases de análisis y acción hasta alcanzar una solución adecuada.
+un proceso iterativo en el que se alternan fases de análisis y acción hasta alcanzar una solución adecuada.
 
 Este comportamiento cíclico se representa de forma esquemática en la figura~\ref{fig:CicloRazonamientoAcción}, donde se observa la interacción bidireccional entre los nodos de razonamiento y acción, así como la
 posibilidad de repetir la ejecución de acciones cuando sea necesario. Esta estructura refleja el carácter dinámico del agente y su capacidad para adaptarse progresivamente a la información disponible.
@@ -815,7 +815,7 @@ estructurar el comportamiento del agente de forma clara, separando las fases de 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.4\textwidth]{images/CicloRazonamientoAcción.png}
+    \includegraphics[width=0.5\textwidth]{images/CicloRazonamientoAcción.png}
     \caption{Esquema de interacción iterativa entre las fases de razonamiento y acción en un agente basado en grafos. Fuente: elaboración propia}
     \label{fig:CicloRazonamientoAcción}
 \end{figure}
@@ -825,7 +825,7 @@ de decisiones en un proceso iterativo.
 
 
 %────────────────────── Ejemplos en LangGraph ──────────────────────────
-\section{Ejemplos en LangGraph}
+\section{Ejemplos en \emph{LangGraph}}
 
 \subsection{Ejemplo Básico: Contador Iterativo}
 
@@ -1060,7 +1060,7 @@ La figura~\ref{fig:procesoRazonamiento} muestra la estructura general del grafo 
 \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{images/procesoRazonamiento2.png}
-    \caption{Esquema del proceso de razonamiento basado en Beam Search con evaluación y poda de trayectorias. Fuente: elaboración propia}
+    \caption{Esquema del proceso de razonamiento basado en \emph{Beam Search} con evaluación y poda de trayectorias. Fuente: elaboración propia}
     \label{fig:procesoRazonamiento}
 \end{figure}
 
@@ -1074,11 +1074,11 @@ El sistema se organiza mediante tres nodos principales:
 
 Este ciclo se repite hasta alcanzar el número máximo de iteraciones definido en la configuración del experimento.
 
-\subsection{Implementación del Grafo en LangGraph}
+\subsection{Implementación del Grafo en \emph{LangGraph}}
 
 La definición del grafo se realiza mediante la clase \texttt{StateGraph}. En ella se especifican los nodos que componen el flujo de ejecución y las transiciones entre ellos. El siguiente fragmento muestra una versión simplificada de la construcción del grafo:
 
-\begin{lstlisting}[language=Python, caption={Definición del grafo de razonamiento con LangGraph}]
+\begin{lstlisting}[language=Python, caption={Definición del grafo de razonamiento con \emph{LangGraph}}]
 builder = StateGraph(BeamSearchState)
 builder.add_node("expand", expand_node)
 builder.add_node("score", score_node)
@@ -2185,206 +2185,58 @@ Esta idea constituye una de las principales aportaciones conceptuales del trabaj
 
 
 
+% ----------------------- CHAPTER 6: CONCLUSIONES -----------------------
+
+
+\chapter{Conclusiones}
+
+\section{Conclusiones del Trabajo}
+
+El objetivo principal de este trabajo era diseñar e implementar una prueba de concepto de un agente basado en modelos de lenguaje capaz de generar texto bajo restricciones formales verificables.
+Para ello, se ha desarrollado un sistema que combina \emph{LangGraph} para estructurar el flujo de ejecución, \emph{Beam Search} para mantener varias candidatas en paralelo y una función de evaluación
+objetiva para medir el cumplimiento de las restricciones impuestas.
+
+El caso de estudio elegido, la generación de una estrofa en español formada por cuatro versos endecasílabos con rima consonante ABBA, ha permitido comprobar las dificultades que presentan los modelos de lenguaje
+cuando deben ajustarse a requisitos formales estrictos. Aunque estos modelos son capaces de producir texto coherente y lingüísticamente plausible, los resultados del primer ciclo muestran que una generación directa,
+incluso combinada con evaluación y selección, no garantiza el cumplimiento correcto de la métrica y la rima.
+
+La comparación entre los dos ciclos experimentales confirma la utilidad de introducir mecanismos explícitos de reparación. La versión inicial del agente permitía explorar varias candidatas y seleccionar las mejores,
+pero tendía a conservar únicamente la opción menos incorrecta cuando ninguna estrofa cumplía adecuadamente las restricciones. En cambio, la versión refinada incorpora reparaciones locales orientadas a corregir errores
+concretos de métrica y rima, lo que permite mejorar de forma notable la puntuación formal de las salidas generadas.
+
+Una de las conclusiones más relevantes es que el sistema desarrollado va más allá de una aplicación directa de \emph{Beam Search}. En este trabajo, las candidatas no solo se generan y se ordenan según una puntuación,
+sino que también se analizan para obtener información diagnóstica sobre sus errores. Esta información se utiliza posteriormente para guiar nuevas instrucciones de reparación, dando lugar a un proceso de búsqueda más controlado
+y orientado al refinamiento progresivo de las soluciones.
+
+Los resultados adicionales obtenidos con modelos de mayor tamaño refuerzan también la importancia del modelo generador y del entorno hardware utilizado. Las pruebas con \texttt{gpt-oss:120b} y \texttt{magistral:24b} muestran 
+que la arquitectura propuesta puede trasladarse a modelos distintos, alcanzando puntuaciones formales elevadas. Sin embargo, también evidencian que una mayor capacidad del modelo no elimina por completo los errores y puede
+implicar un coste computacional considerable.
+
+En conjunto, el trabajo demuestra que es posible construir un agente capaz de organizar la generación de texto como un proceso iterativo de exploración, evaluación, reparación y selección. Aunque el sistema no garantiza una
+solución perfecta en todos los casos, sí proporciona una arquitectura flexible y extensible para abordar tareas de generación con restricciones verificables. Como posibles líneas de continuación, podrían incorporarse métricas
+semánticas o literarias adicionales, ampliar el número de ejecuciones experimentales, probar nuevos modelos y extender el enfoque a composiciones poéticas de mayor longitud.
+
+
+\section{Aprendizaje Personal}
+
+La realización de este trabajo me ha permitido profundizar en el desarrollo de sistemas basados en modelos de lenguaje desde una perspectiva más estructurada que la simple generación de texto.
+A lo largo del proyecto he comprobado que, para construir aplicaciones más robustas, no basta con diseñar un buen prompt, sino que es necesario definir un flujo de ejecución claro, mecanismos de evaluación y estrategias de corrección.
+
+Uno de los principales aprendizajes ha sido comprender mejor las limitaciones reales de los modelos de lenguaje. Aunque pueden generar respuestas coherentes y aparentemente correctas, no siempre cumplen de forma fiable
+restricciones precisas como la métrica o la rima. Esta experiencia me ha permitido valorar la importancia de combinar la capacidad generativa de los \emph{LLMs} con componentes externos de validación.
+
+También he adquirido experiencia práctica con herramientas actuales para la construcción de agentes, especialmente \emph{LangGraph} y \emph{Ollama}. El uso de \emph{LangGraph} me ha ayudado a organizar el sistema en nodos,
+estados y transiciones, mientras que \emph{Ollama} me ha permitido trabajar con modelos locales y comprender mejor sus posibilidades y limitaciones.
+
+Desde el punto de vista metodológico, el proyecto me ha enseñado la importancia de avanzar de forma iterativa. El primer ciclo experimental permitió detectar errores concretos, y esas observaciones sirvieron como base para
+diseñar las mejoras del segundo ciclo. Esta forma de trabajar, basada en medir, analizar y refinar, ha sido una de las partes más valiosas del proyecto.
+
+En conjunto, este trabajo me ha aportado una visión más completa sobre el diseño de agentes basados en modelos de lenguaje. Más allá del resultado concreto obtenido, me ha permitido integrar conocimientos de programación,
+inteligencia artificial, procesamiento del lenguaje natural, experimentación y análisis crítico.
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-%────────────────────── Appendices ─────────────────────────────────────
-\begin{umaappendices}
-
-\umaappendix{Ejecuciones Adicionales con Modelos de Mayor Tamaño}
-\label{anexo:modelosAdicionales}
-
-\section{Descripción General}
-
-Además de la experimentación principal presentada en el Capítulo 5, realizada íntegramente con el modelo \texttt{mistral:7b-instruct}, se llevaron a cabo varias ejecuciones adicionales con modelos de mayor tamaño.
-En concreto, se utilizaron los modelos \texttt{gpt-oss:120b} y \texttt{magistral:24b}, manteniendo la misma implementación del agente desarrollada en este trabajo.
-
-El objetivo de estas pruebas complementarias no es sustituir la evaluación principal, sino ampliar el análisis del sistema y observar cómo puede variar su comportamiento al emplear modelos de lenguaje con mayor capacidad.
-De esta forma, se estudia hasta qué punto los resultados obtenidos dependen no solo de la arquitectura propuesta, basada en \emph{LangGraph}, \emph{Beam Search} y mecanismos de reparación, sino también del modelo generador utilizado.
-
-Estas ejecuciones fueron realizadas por el tutor del trabajo tras clonar el repositorio del proyecto y ejecutar el sistema en un entorno hardware distinto al empleado durante el desarrollo principal.
-En particular, se utilizó una GPU NVIDIA Tesla P40 con 24\,GiB de memoria de vídeo (VRAM), lo que permitió probar modelos que no podían ejecutarse en el equipo local utilizado inicialmente.
-
-\section{Resumen de Resultados}
-
-La Tabla~\ref{tab:ejecucionesModelosAdicionales} resume los resultados obtenidos en las tres ejecuciones adicionales realizadas con modelos de mayor tamaño.
-Para cada ejecución se recoge el modelo empleado, el tiempo total, la puntuación formal final y el grado de cumplimiento de las restricciones métricas y de rima.
-
-\begin{table}[h]
-\centering
-\small
-\begin{tabular}{lcccc}
-\toprule
-Modelo & Tiempo & Score & Métrica & Rima \\
-\midrule
-\texttt{gpt-oss:120b} & 79.86 min & 20.0/20 & 4/4 & 4/4 \\
-\texttt{gpt-oss:120b} & 115.39 min & 18.0/20 & 3/4 & 4/4 \\
-\texttt{magistral:latest} & 14.05 min & 18.0/20 & 4/4 & 3/4 \\
-\bottomrule
-\end{tabular}
-\caption{Resumen de ejecuciones adicionales con modelos de mayor tamaño. Fuente: elaboración propia}
-\label{tab:ejecucionesModelosAdicionales}
-\end{table}
-
-Los resultados muestran que el uso de modelos de mayor tamaño puede mejorar el cumplimiento formal de las estrofas generadas, aunque no elimina por completo los errores.
-En una de las ejecuciones con \texttt{gpt-oss:120b} se alcanza una puntuación perfecta de 20.0 sobre 20, mientras que las otras dos ejecuciones obtienen 18.0 sobre 20 debido a errores puntuales de métrica o rima.
-También se observa una diferencia notable en los tiempos de ejecución, especialmente entre \texttt{gpt-oss:120b} y \texttt{magistral:latest}.
-
-La Figura~\ref{fig:comparativaModelosAdicionales} compara la puntuación formal y el tiempo de ejecución de las pruebas adicionales con modelos de mayor tamaño.
-Como referencia, se incluye también el valor medio obtenido en el segundo ciclo experimental con \texttt{mistral:7b-instruct}.
-
-La comparación muestra que los modelos de mayor tamaño pueden alcanzar puntuaciones formales elevadas, llegando incluso a 20.0 sobre 20 en una de las ejecuciones con \texttt{gpt-oss:120b}.
-Sin embargo, también se aprecia que este incremento de capacidad no garantiza siempre una solución perfecta y puede implicar tiempos de ejecución considerablemente superiores.
-Por otro lado, con \texttt{magistral:latest} se obtiene una puntuación alta con un tiempo menor, aunque mantiene un error puntual en la rima interior.
-
-\begin{figure}[h]
-    \centering
-
-    \begin{minipage}{0.46\textwidth}
-        \centering
-        \begin{tikzpicture}
-            \begin{axis}[
-                ybar,
-                ymin=0,
-                ymax=20,
-                ylabel={Score final},
-                symbolic x coords={Mistral C2,GPT-OSS 1,GPT-OSS 2,Magistral},
-                xtick=data,
-                x tick label style={rotate=35, anchor=east},
-                nodes near coords,
-                nodes near coords align={vertical},
-                bar width=12pt,
-                width=\textwidth,
-                height=5cm,
-                title={Puntuación formal},
-                grid=major,
-                tick label style={font=\scriptsize},
-                label style={font=\scriptsize},
-                title style={font=\scriptsize},
-                nodes near coords style={font=\scriptsize}
-            ]
-                \addplot coordinates {
-                    (Mistral C2,18.67)
-                    (GPT-OSS 1,20.0)
-                    (GPT-OSS 2,18.0)
-                    (Magistral,18.0)
-                };
-            \end{axis}
-        \end{tikzpicture}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.46\textwidth}
-        \centering
-        \begin{tikzpicture}
-            \begin{axis}[
-                ybar,
-                ymin=0,
-                ymax=125,
-                ylabel={Tiempo (min)},
-                symbolic x coords={Mistral C2,GPT-OSS 1,GPT-OSS 2,Magistral},
-                xtick=data,
-                x tick label style={rotate=35, anchor=east},
-                nodes near coords,
-                nodes near coords align={vertical},
-                bar width=12pt,
-                width=\textwidth,
-                height=5cm,
-                title={Tiempo de ejecución},
-                grid=major,
-                tick label style={font=\scriptsize},
-                label style={font=\scriptsize},
-                title style={font=\scriptsize},
-                nodes near coords style={font=\scriptsize}
-            ]
-                \addplot coordinates {
-                    (Mistral C2,47.35)
-                    (GPT-OSS 1,79.86)
-                    (GPT-OSS 2,115.39)
-                    (Magistral,14.05)
-                };
-            \end{axis}
-        \end{tikzpicture}
-    \end{minipage}
-
-    \caption{Comparación entre la ejecución principal refinada y las ejecuciones adicionales con modelos de mayor tamaño. Fuente: elaboración propia}
-    \label{fig:comparativaModelosAdicionales}
-\end{figure}
-
-
-
-\section{Ejemplos de Salida}
-
-A continuación se muestran las estrofas finales obtenidas en las ejecuciones adicionales descritas anteriormente.
-Estos ejemplos permiten observar de forma directa el tipo de salida generado por cada modelo y complementar los resultados cuantitativos recogidos en la Tabla~\ref{tab:ejecucionesModelosAdicionales}.
-
-\begin{lstlisting}[caption={Estrofa obtenida con el modelo gpt-oss:120b en la primera ejecución adicional}, label={lst:gptoss120bEjecucion1}]
-1. Ojos verdes son espejo de mi sueño
-2. En su brillo vibra ya dulce canto
-3. Y su sombra cubre mi dulce manto
-4. Al alba su luz vuelve mi fiel dueño
-\end{lstlisting}
-
-\begin{lstlisting}[caption={Estrofa obtenida con el modelo gpt-oss:120b en la segunda ejecución adicional}, label={lst:gptoss120bEjecucion2}]
-1. Tus ojos verdes, luz que al cielo me guía
-2. Surge en sus ojos la llama y luz
-3. Y su reflejo cruza el pecho, cruz
-4. Guardo su luz bajo velo del día
-\end{lstlisting}
-
-\begin{lstlisting}[caption={Estrofa obtenida con el modelo magistral:latest en la ejecución adicional}, label={lst:magistralEjecucion}]
-1. La memoria es un río que fluye y va
-2. y arrastra las sombras del ayer en su huella
-3. como el viento que borra su huella sin fin
-4. y en su paso solo el olvido sea
-\end{lstlisting}
-
-Como puede observarse, la primera ejecución con \texttt{gpt-oss:120b} alcanza una estrofa formalmente válida según los criterios evaluados, ya que cumple tanto la métrica endecasílaba como el esquema de rima ABBA.
-En la segunda ejecución del mismo modelo, la rima se mantiene correctamente, pero aparece un error métrico puntual. Por último, la ejecución con \texttt{magistral:latest} obtiene versos endecasílabos, pero no completa correctamente la rima interior.
-
-\section{Observaciones}
-
-Las ejecuciones adicionales permiten comprobar que la arquitectura propuesta puede utilizarse con modelos de lenguaje distintos al empleado en la experimentación principal.
-Aunque el flujo de generación, evaluación, reparación y selección se mantiene constante, los resultados obtenidos muestran que la calidad formal de las estrofas y el tiempo de ejecución dependen también del modelo utilizado y del entorno hardware disponible.
-
-Estos resultados deben interpretarse como una ampliación exploratoria, ya que solo se realizaron tres ejecuciones y en un entorno distinto al utilizado durante el desarrollo principal.
-Por tanto, no se pretende establecer una comparación exhaustiva entre modelos, sino mostrar que el sistema es adaptable a configuraciones de mayor capacidad y que el modelo generador influye de forma relevante en el comportamiento final del agente.
-
-En conjunto, estas pruebas complementan el análisis del Capítulo 5 y refuerzan una de las ideas principales del trabajo: la arquitectura basada en \emph{LangGraph}, \emph{Beam Search} y mecanismos de reparación proporciona una estructura general de control,
-pero el rendimiento final sigue condicionado por la capacidad del modelo de lenguaje empleado.
-
-
-\end{umaappendices}
 
 %────────────────────── Back cover and bibliography ────────────────────
 \backmatter
