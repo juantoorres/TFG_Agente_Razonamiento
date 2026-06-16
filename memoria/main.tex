@@ -65,8 +65,8 @@
 \MakeBlueUMACover{
   degree     = {Grado en Ingeniería Informática},
   mencion    = {Mención en Computación},
-  titleES    = {Diseño e implementación de un agente de razonamiento basado en LLMs con exploración mediante \emph{Beam Search}},
-  titleEN    = {Design and implementation of an LLM-based reasoning agent with \emph{Beam Search} exploration},
+  titleES    = {Diseño e implementación de un agente de razonamiento basado en \emph{LLMs} con exploración mediante \emph{Beam Search}},
+  titleEN    = {Design and implementation of an \emph{LLM}-based reasoning agent with \emph{Beam Search} exploration},
   author     = {Juan Torres Gómez},
   tutor      = {Sergio Gálvez Rojas},
   % cotutor= {Dra.~Jane Doe},
@@ -213,7 +213,7 @@ Esta limitación motiva el desarrollo de sistemas que organicen la generación c
 En lugar de aceptar directamente la primera respuesta del modelo, resulta interesante explorar varias alternativas, evaluarlas mediante criterios explícitos y conservar aquellas que resulten más prometedoras.
 
 A partir de esta idea, el presente trabajo plantea la construcción de un agente basado en modelos de lenguaje, orientado a la generación de texto con restricciones verificables.
-La motivación principal no es únicamente obtener una salida final correcta, sino estudiar cómo un proceso estructurado puede mejorar el control sobre las respuestas producidas por un LLM.
+La motivación principal no es únicamente obtener una salida final correcta, sino estudiar cómo un proceso estructurado puede mejorar el control sobre las respuestas producidas por un \emph{LLM}.
 
 
 
@@ -281,7 +281,7 @@ Finalmente, el Capítulo 6 presenta las conclusiones del trabajo, recogiendo tan
 \chapter{Estado del Arte}
 
 %────────────────────── Introducción al problema del razonamiento en LLMs ──────────────────────────
-\section{Introducción al Problema del Razonamiento en LLMs}
+\section{Introducción al Problema del Razonamiento en \emph{LLMs}}
 
 Los \emph{Large Language Models (LLMs)} han experimentado un crecimiento notable en los últimos años, convirtiéndose en una de las tecnologías más relevantes dentro del ámbito del procesamiento del lenguaje natural.
 Modelos basados en arquitecturas \emph{Transformer} han demostrado una gran capacidad para generar texto coherente, mantener el contexto en conversaciones prolongadas y abordar una amplia variedad de tareas lingüísticas
@@ -323,7 +323,7 @@ mejorar la capacidad de los modelos para abordar tareas complejas que van más a
 \section{Chain-of-Thought (CoT)}
 
 El concepto \emph{Chain-of-Thought (CoT)} surge como una de las primeras estrategias eficaces para mejorar la capacidad de razonamiento de los modelos de lenguaje en tareas complejas. Frente al enfoque tradicional, en el que el modelo
-genera directamente una respuesta final, \emph{CoT} propone guiar el proceso de generación mediante la inclusión explícita de pasos intermedios que relfejen el razonamiento seguido para alcanzar dicha respuesta \cite{wei2022chain}.
+genera directamente una respuesta final, \emph{CoT} propone guiar el proceso de generación mediante la inclusión explícita de pasos intermedios que reflejen el razonamiento seguido para alcanzar dicha respuesta \cite{wei2022chain}.
 
 La idea fundamental consiste en modificar la forma en que se formula la entrada al modelo, de modo que este produzca no solo el resultado, sino también una secuencia de inferencias o transformaciones que conducen a él. Este enfoque
 puede implementarse, por ejemplo, mediante instrucciones en el \emph{prompt} que inviten al modelo a "pensar paso a paso", lo que conduce a la generación de estructuras de razonamiento más elaboradas.
@@ -364,7 +364,7 @@ de evaluación más elaborados.
 Por su parte, el método \emph{ReAct} combina el razonamiento con la ejecución de acciones externas dentro de un mismo proceso iterativo \cite{yao2023react}. Esto permite al modelo interactuar  con herramientas o fuentes de información
 adicionales, lo que resulta especialmente útil en tareas donde el conocimiento no está completamente contenido en el propio modelo.
 
-En conjunto, estas propuestas reflejan una evolución hacie enfoques que superan el razonamiento lineal, incorporando exploración, evaluación y, en algunos casos, interacción con el entorno. Esta línea de investigación resulta
+En conjunto, estas propuestas reflejan una evolución hacia enfoques que superan el razonamiento lineal, incorporando exploración, evaluación y, en algunos casos, interacción con el entorno. Esta línea de investigación resulta
 especialmente relevante en el desarrollo de sistemas capaces de abordar problemas complejos de forma más robusta.
 
 
@@ -420,12 +420,12 @@ de considerar distintas alternativas puede mejorar significativamente la calidad
 \section{\emph{Beam Search} en Detalle}
 
 Entre los distintos métodos de búsqueda utilizados en la generación de secuencias, el algoritmo de \emph{Beam Search} ocupa un lugar destacado debido a su capacidad para equilibrar la exploración de múltiples alternativas con un coste
-computacional controlado. A diferencia de estrategias como \emph{greddy search} (búsqueda voraz), que siguen una única trayectoria, o los métodos de muestreo, que introducen aleatoriedad, \emph{Beam Search} mantiene de forma simultánea un
+computacional controlado. A diferencia de estrategias como \emph{greedy search} (búsqueda voraz), que siguen una única trayectoria, o los métodos de muestreo, que introducen aleatoriedad, \emph{Beam Search} mantiene de forma simultánea un
 conjunto limitado de hipótesis candidatas durante el proceso de generación.
 
 El funcionamiento del algoritmo se basa en la idea de conservar, en cada paso, las $k$ secuencias parciales más prometedoras según una función de puntuación. Este parámetro, conocido como \emph{beam width}, determina el número de
 trayectorias que se mantienen activas en cada iteración. A partir de estas secuencias, el modelo genera posibles continuaciones, que son evaluadas y ordenadas para seleccionar nuevamente las $k$ mejores. Este proceso se repite de forma
-iterativa hasta alcanzar una condición de finalización, como la generación de una secuencia completa o un numero máximo de pasos \cite{jurafsky2009speech}.
+iterativa hasta alcanzar una condición de finalización, como la generación de una secuencia completa o un número máximo de pasos \cite{jurafsky2009speech}.
 
 Desde un punto de vista conceptual, \emph{Beam Search} puede interpretarse como una exploración controlada del espacio de soluciones. En lugar de comprometerse con una única trayectoria desde el inicio, el algoritmo permite reconsiderar
 decisiones a medida que se genera la secuencia, manteniendo abiertas varias alternativas en paralelo. Esto reduce la probabilidad de descartar prematuramente opciones que podrían resultar óptimas en etapas posteriores (como sucede en la
@@ -482,19 +482,19 @@ No obstante, la adaptación de \emph{Beam Search} al razonamiento con \emph{LLMs
 crítica. Mientras que en tareas de generación de texto esta puntuación suele basarse en la probabilidad acumulada de la secuencia, en problemas de razonamiento es necesario considerar también la calidad de los pasos intermedios. Esto implica
 la necesidad de definir criterios más complejos que permitan evaluar no solo el resultado final, sino también el proceso seguido hasta alcanzarlo.
 
-Además, el uso de \emph{Beam Search} en este contexto requiere integrar mecanismos que permitan generar pasos de razonamiento coherentes y relevantes en cada iteración. Esto puede lograrse mediante el uso de técnicas de \emph{propmting}
+Además, el uso de \emph{Beam Search} en este contexto requiere integrar mecanismos que permitan generar pasos de razonamiento coherentes y relevantes en cada iteración. Esto puede lograrse mediante el uso de técnicas de \emph{prompting}
 adecuadas, que orienten al modelo hacia la producción de pasos intermedios bien estructurados, o mediante la incorporación de componentes adicionales encargados de guiar el proceso de generación.
 
 Por último, cabe destacar que la aplicación de \emph{Beam Search} al razonamiento introduce un equilibrio delicado entre exploración y coste computacional. A medida que se incrementa el número de trayectorias consideradas, mejora la capacidad
-del sistema para encontrar soluciones de mayor calidad, pero también aumenta el número de evaluaciones necesarios. Por tanto, resulta necesario ajustar cuidadosamente los parámetros del algoritmo para lograr un compromiso adecuado entre
+del sistema para encontrar soluciones de mayor calidad, pero también aumenta el número de evaluaciones necesarias. Por tanto, resulta necesario ajustar cuidadosamente los parámetros del algoritmo para lograr un compromiso adecuado entre
 eficacia y rendimiento.
 
 En conjunto, la integración de \emph{Beam Search} en el proceso de razonamiento con modelos de lenguaje representa un paso hacia enfoques más estructurados y controlados, en los que la generación de soluciones no depende de una única trayectoria,
-sino de la exploración y selección de múltiples alternativas. Esta idea constituye la base sobre la que se desarrrollan sistemas más avanzados capaces de combinar generación, evaluación y toma de decisiones dentro de un mismo marco de trabajo.
+sino de la exploración y selección de múltiples alternativas. Esta idea constituye la base sobre la que se desarrollan sistemas más avanzados capaces de combinar generación, evaluación y toma de decisiones dentro de un mismo marco de trabajo.
 
 
 %────────────────────── Evaluación del razonamiento en LLMs ──────────────────────────
-\section{Evaluación del Razonamiento en LLMs}
+\section{Evaluación del Razonamiento en \emph{LLMs}}
 
 Uno de los aspectos más complejos en el uso de modelos para tareas de razonamiento es la evaluación de la calidad de las soluciones generadas. A diferencia de otros problemas de procesamiento del lenguaje natural, donde es posible comparar
 directamente la salida del modelo con una respuesta de referencia, en tareas de razonamiento resulta necesario considerar no solo el resultado final, sino también el proceso seguido para alcanzarlo.
@@ -1335,7 +1335,7 @@ Esta información resulta útil tanto para el análisis experimental como para o
 Durante el diseño del sistema se contempló la posibilidad de utilizar un enfoque de tipo \emph{LLM-as-a-judge}, en el que un modelo actuase como evaluador de las estrofas generadas. Sin embargo, finalmente se optó por una evaluación formal objetiva.
 
 Esta decisión se debe a que los requisitos principales del problema son verificables mediante reglas concretas. Delegar la evaluación en el propio modelo podría introducir inconsistencias,
-ya que un LLM puede equivocarse al contar sílabas, aceptar rimas incorrectas o valorar de forma diferente salidas similares. En cambio, una función programada aplica siempre los mismos criterios, lo que mejora la reproducibilidad de los experimentos.
+ya que un \emph{LLM} puede equivocarse al contar sílabas, aceptar rimas incorrectas o valorar de forma diferente salidas similares. En cambio, una función programada aplica siempre los mismos criterios, lo que mejora la reproducibilidad de los experimentos.
 
 No obstante, esta elección también delimita el alcance de la evaluación. La puntuación obtenida mide el cumplimiento formal de la estrofa, pero no representa una valoración literaria completa.
 Una estrofa puede obtener una puntuación alta por cumplir la métrica y la rima, aunque su calidad poética sea limitada. Esta cuestión se considera una posible línea de mejora futura.
@@ -1525,6 +1525,9 @@ con el objetivo de mantener el coste computacional dentro de unos límites razon
 
 La Tabla~\ref{tab:configuracionAgente} resume los principales parámetros utilizados durante la ejecución del sistema.
 
+Estos parámetros permiten acotar la ejecución del agente. El valor de $k$ limita el número de trayectorias activas, mientras que el número máximo de iteraciones establece la profundidad del proceso de búsqueda.
+Por su parte, la activación de las fases de reparación permite estudiar el comportamiento de la versión refinada del sistema frente a una aproximación inicial más simple.
+
 \begin{table}[h]
     \centering
     \begin{tabular}{|l|l|}
@@ -1555,9 +1558,6 @@ La Tabla~\ref{tab:configuracionAgente} resume los principales parámetros utiliz
     \caption{Configuración principal del agente durante la fase experimental. Fuente: elaboración propia}
     \label{tab:configuracionAgente}
 \end{table}
-
-Estos parámetros permiten acotar la ejecución del agente. El valor de $k$ limita el número de trayectorias activas, mientras que el número máximo de iteraciones establece la profundidad del proceso de búsqueda.
-Por su parte, la activación de las fases de reparación permite estudiar el comportamiento de la versión refinada del sistema frente a una aproximación inicial más simple.
 
 
 \subsection{Justificación Experimental}
@@ -2227,6 +2227,10 @@ incluso combinada con evaluación y selección, no garantiza el cumplimiento cor
 La comparación entre los dos ciclos experimentales confirma la utilidad de introducir mecanismos explícitos de reparación. La versión inicial del agente permitía explorar varias candidatas y seleccionar las mejores,
 pero tendía a conservar únicamente la opción menos incorrecta cuando ninguna estrofa cumplía adecuadamente las restricciones. En cambio, la versión refinada incorpora reparaciones locales orientadas a corregir errores
 concretos de métrica y rima, lo que permite mejorar de forma notable la puntuación formal de las salidas generadas.
+
+En este contexto, \emph{Beam Search} ha sido un elemento central del sistema, ya que ha permitido formular la generación poética como un problema de búsqueda entre múltiples alternativas.
+En lugar de depender de una única respuesta del modelo, el agente mantiene varias candidatas, compara su calidad formal y conserva únicamente aquellas con mayor potencial.
+Esto ha facilitado analizar la evolución de las soluciones a lo largo de las iteraciones y ha proporcionado una base clara sobre la que incorporar posteriormente los mecanismos de reparación.
 
 Una de las conclusiones más relevantes es que el sistema desarrollado va más allá de una aplicación directa de \emph{Beam Search}. En este trabajo, las candidatas no solo se generan y se ordenan según una puntuación,
 sino que también se analizan para obtener información diagnóstica sobre sus errores. Esta información se utiliza posteriormente para guiar nuevas instrucciones de reparación, dando lugar a un proceso de búsqueda más controlado
