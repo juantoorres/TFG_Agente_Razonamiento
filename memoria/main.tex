@@ -298,7 +298,7 @@ verificable \cite{bommasani2021opportunities}.
 Esta limitación se hace especialmenente evidente en tareas que implican múltiples pasos intermedios, como la resolución de problemas matemáticos, la planificación o el análisis lógico. En este tipo de situaciones, los modelos pueden
 producir respuestas que, aunque aparentemente coherentes, contienen errores en los pasos intermedios o en la conclusión final.
 
-En la figura~\ref{fig:dosRespuestas} se ilustra este problema mediante un ejemplo sencillo: ante una misma pregunta matemática, un modelo puede ofrecer una respuesta directa incorrecta, mientras que un enfoque basado en razonamiento
+En la Figura~\ref{fig:dosRespuestas} se ilustra este problema mediante un ejemplo sencillo: ante una misma pregunta matemática, un modelo puede ofrecer una respuesta directa incorrecta, mientras que un enfoque basado en razonamiento
 paso a paso permite descomponer el problema en operaciones intermedias que conducen a la solución correcta. Este contraste pone de manifiesto que la generación de pasos explícitos no solo mejora la interpretabilidad del proceso,
 sino que también incrementa la fiabilidad del resultado final.
 
@@ -379,7 +379,7 @@ siguientes \emph{tokens} en función del contexto previo, para que sea el métod
 El enfoque más sencillo es la estrategia \emph{greedy}, que consiste en seleccionar en cada paso el \emph{token} con mayor probabilidad. Este método es eficiente y produce resultados coherentes en muchos casos, pero presenta una limitación
 importante: al tomar decisiones de forma local, puede descartar opciones que, aunque inicialmente menos probables, podrían conducir a mejores resultados a largo plazo \cite{jurafsky2009speech}.
 
-Como se muestra en la figura~\ref{fig:GreedySearch}, este comportamiento implica que en cada paso únicamente se sigue la alternativa más probable, ignorando otras posibles continuaciones que quedan descartadas desde etapas tempranas del proceso.
+Como se muestra en la Figura~\ref{fig:GreedySearch}, este comportamiento implica que en cada paso únicamente se sigue la alternativa más probable, ignorando otras posibles continuaciones que quedan descartadas desde etapas tempranas del proceso.
 Esta característica explica por qué el método puede converger rápidamente a soluciones subóptimas.
 
 \begin{figure}[h]
@@ -402,7 +402,7 @@ Estas estrategias permiten generar salidas más variadas, aunque pueden introduc
 Otro enfoque consiste en mantener varias posibles secuencias en paralelo durante el proceso de generación. En lugar de construir una única solución paso a paso, se exploran múltiples alternativas de forma simultánea, evaluando su calidad
 en cada iteración. Este tipo de métodos permite equilibrar la exploración y la explotación, reduciendo así el riesgo de quedar atrapado en decisiones subóptimas tomadas en etapas tempranas.
 
-Tal y como se ilustra en la figura~\ref{fig:HipotesisEnParalelo}, este tipo de estrategias permite ramificar el proceso de generación desde un mismo estado inicial, dando lugar a diferentes trayectorias que pueden evolucionar de forma independiente.
+Tal y como se ilustra en la Figura~\ref{fig:HipotesisEnParalelo}, este tipo de estrategias permite ramificar el proceso de generación desde un mismo estado inicial, dando lugar a diferentes trayectorias que pueden evolucionar de forma independiente.
 Este enfoque resulta especialmente útil para evitar decisiones prematuras y favorecer la exploración del espacio de soluciones.
 
 \begin{figure}[h]
@@ -432,7 +432,7 @@ Desde un punto de vista conceptual, \emph{Beam Search} puede interpretarse como 
 decisiones a medida que se genera la secuencia, manteniendo abiertas varias alternativas en paralelo. Esto reduce la probabilidad de descartar prematuramente opciones que podrían resultar óptimas en etapas posteriores (como sucede en la
 búsqueda voraz).
 
-La figura~\ref{fig:BeamSearchImagen2} ilustra este proceso mediante un árbol de generación en el que, a partir de un estado inicial, se exploran múltiples continuaciones posibles. En cada iteración, únicamente se conservan las $k$ trayectorias
+La Figura~\ref{fig:BeamSearchImagen2} ilustra este proceso mediante un árbol de generación en el que, a partir de un estado inicial, se exploran múltiples continuaciones posibles. En cada iteración, únicamente se conservan las $k$ trayectorias
 mejor valoradas, mientras que el resto son descartadas, lo que permite limitar el crecimiento exponencial del número de secuencias. Este mecanismo de expansión y poda sucesiva constituye el núcleo del algoritmo y explica su capacidad para
 combinar exploración y eficiencia.
 
@@ -466,7 +466,7 @@ La combinación de \emph{Beam Search} con enfoques como \emph{Chain-of-Thought} 
 el modelo puede generar múltiples alternativas en cada etapa, dando lugar a diferentes hipótesis que desarrollan en paralelo. Este enfoque permite superar una de las principales limitaciones del razonamiento lineal, al incorporar la posibilidad
 de reconsiderar decisiones y explorar distintos caminos hacia la solución.
 
-Como se muestra en la figura~\ref{fig:BeamSearchYCoT}, esta diferencia puede entenderse como el paso de un proceso de generación basado en una única trayectoria (\emph{Chain-of-Thought}) a otro en el que se mantienen múltiples trayectorias de
+Como se muestra en la Figura~\ref{fig:BeamSearchYCoT}, esta diferencia puede entenderse como el paso de un proceso de generación basado en una única trayectoria (\emph{Chain-of-Thought}) a otro en el que se mantienen múltiples trayectorias de
 razonamiento de forma simultánea (\emph{Beam Search} + \emph{CoT}). %Esta ampliación del espacio de búsqueda permite aumentar la probabilidad de encontrar soluciones correctas, especialmente en problemas que requieren varios pasos intermedios.
 
 \begin{figure}[h]
@@ -551,7 +551,7 @@ número de evaluaciones, dificultando así su aplicación en entornos donde los 
 Por último, muchos de los enfoques existentes carecen de un marco unificado que integre de manera coherente la generación de soluciones, su evaluación y el control del flujo de razonamiento. En lugar de ello, estos componentes suelen abordarse
 de forma aislada, lo que reduce la capacidad del sistema para gestionar el proceso de forma estructurada.
 
-Estas limitaciones se resumen de forma esquemática en la figura~\ref{fig:LimitacionesMetodosRazonamiento2}, donde se comparan algunos de los principales enfoques y sus restricciones más relevantes. Esta visión global permite identificar de manera
+Estas limitaciones se resumen de forma esquemática en la Figura~\ref{fig:LimitacionesMetodosRazonamiento2}, donde se comparan algunos de los principales enfoques y sus restricciones más relevantes. Esta visión global permite identificar de manera
 clara los aspectos que aún no están resueltos, especialmente en lo relativo a la evaluación intermedia de las trayectorias y al control eficiente del proceso de búsqueda.
 
 \begin{figure}[h]
@@ -615,7 +615,7 @@ A diferencia de un flujo secuencial, un grafo permite mayor flexibilidad, al rep
 tomar decisiones en función del estado actual o repetir determinadas operaciones hasta alcanzar un resultado adecuado. Este tipo de estructura es clave en sistemas que requieren
 un comportamiento dinámico, como es el caso de agentes con capacidad de razonamiento iterativo.
 
-Esta diferencia se ilustra en la figura~\ref{fig:ComparaciónEnfoques}, donde se comparan ambos paradigmas: mientras que el enfoque tradicional sigue un flujo lineal de ejecución,
+Esta diferencia se ilustra en la Figura~\ref{fig:ComparaciónEnfoques}, donde se comparan ambos paradigmas: mientras que el enfoque tradicional sigue un flujo lineal de ejecución,
 el modelo basado en grafos permite representar múltiples caminos, iteraciones y dependencias entre los distintos componentes del sistema, lo que facilita la construcción de
 procesos más complejos y adaptativos.
 
@@ -747,7 +747,7 @@ El estado puede contener distintos tipos de información, dependiendo del diseñ
 intermedios generados durante la ejecución, así como métricas o puntuaciones asociadas a diferentes alternativas. Esta flexibilidad permite adaptar el estado a las necesidades específicas de
 cada aplicación.
 
-Tal y como se representa en la figura~\ref{fig:EstadoMemoria}, estos elementos pueden integrarse dentro de una misma estructura de datos que actúa como memoria compartida del sistema.
+Tal y como se representa en la Figura~\ref{fig:EstadoMemoria}, estos elementos pueden integrarse dentro de una misma estructura de datos que actúa como memoria compartida del sistema.
 Esta representación permite visualizar cómo el estado no solo almacena información pasada, sino que también incorpora resultados actuales y métricas que influyen directamente en la toma de decisiones.
 
 \begin{figure}[h]
@@ -807,7 +807,7 @@ caso contrario, el sistema transita hacia un nodo encargado de ejecutar la acci�
 Una vez se realizada la acción, el flujo no concluye, sino que vuelve al nodo inicial de razonamiento. De este modo, el agente puede reconsiderar la situación a la luz de los nuevos datos obtenidos, generando
 un proceso iterativo en el que se alternan fases de análisis y acción hasta alcanzar una solución adecuada.
 
-Este comportamiento cíclico se representa de forma esquemática en la figura~\ref{fig:CicloRazonamientoAcción}, donde se observa la interacción bidireccional entre los nodos de razonamiento y acción, así como la
+Este comportamiento cíclico se representa de forma esquemática en la Figura~\ref{fig:CicloRazonamientoAcción}, donde se observa la interacción bidireccional entre los nodos de razonamiento y acción, así como la
 posibilidad de repetir la ejecución de acciones cuando sea necesario. Esta estructura refleja el carácter dinámico del agente y su capacidad para adaptarse progresivamente a la información disponible.
 
 
@@ -1058,7 +1058,7 @@ El código fuente desarrollado para este trabajo se encuentra disponible en un r
 
 \subsection{Arquitectura General del Grafo}
 
-La figura~\ref{fig:procesoRazonamiento} muestra la estructura general del grafo implementado. El flujo se organiza como un ciclo compuesto por tres fases principales: generación, evaluación y selección.
+La Figura~\ref{fig:procesoRazonamiento} muestra la estructura general del grafo implementado. El flujo se organiza como un ciclo compuesto por tres fases principales: generación, evaluación y selección.
 
 \begin{figure}[h]
     \centering
