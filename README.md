@@ -1,163 +1,99 @@
-# 🧠 Agente de Razonamiento con Beam Search y LLMs
+# 🧠 Agente de razonamiento para generación de estrofas ABBA
 
-Este proyecto implementa un prototipo de agente basado en modelos de lenguaje (LLMs) capaz de **generar sonetos en español** mediante un proceso iterativo de exploración y evaluación.
+Este proyecto desarrolla un agente capaz de generar una **estrofa poética de cuatro versos endecasílabos con rima consonante ABBA** usando un modelo de lenguaje local y un proceso de búsqueda iterativa.
 
-El sistema utiliza un enfoque de **Beam Search** para generar múltiples versiones de un soneto y seleccionar las más prometedoras en función de criterios de calidad.
+La idea central es combinar la creatividad de un LLM con un mecanismo de control formal: el sistema no acepta simplemente la primera respuesta del modelo, sino que genera varias alternativas, las evalúa y conserva las más prometedoras mediante **Beam Search**.
 
-El sistema combina:
-- Generación de sonetos mediante un LLM
-- Evaluación automática (en desarrollo) basada en métricas formales
-- Poda de candidatos mediante Beam Search
+## 🎯 Objetivo del proyecto
 
----
+El objetivo es estudiar cómo un agente puede guiar a un modelo de lenguaje en una tarea de generación textual con restricciones estrictas:
 
-## 🚀 Características principales
+- cuatro versos;
+- once sílabas métricas por verso;
+- rima consonante ABBA;
+- coherencia con el tema indicado en el prompt.
 
-- Generación iterativa de sonetos mediante LLMs
-- Uso de Beam Search para explorar múltiples versiones del poema
-- Sistema de feedback para mejorar iterativamente las soluciones
-- Arquitectura basada en grafos con LangGraph
-- Ejecución completamente local mediante Ollama
+El proyecto se sitúa en la intersección entre generación automática de texto, evaluación formal de poesía y algoritmos de búsqueda.
 
----
+## 🔎 Idea general
 
-## 🔧 Requisitos
+El sistema trabaja de forma iterativa:
 
-- Python 3.10 o superior
-- Ollama instalado y en ejecución
+1. Genera varias estrofas candidatas con un modelo local.
+2. Evalúa cada estrofa según criterios formales.
+3. Selecciona las mejores mediante Beam Search.
+4. Usa el feedback formal para intentar mejorar las siguientes versiones.
 
----
+Además del Beam Search, el agente incorpora mecanismos de refinamiento local para ayudar al modelo cuando falla alguna restricción métrica o de rima. Estos refinamientos actúan sobre versos concretos, manteniendo el problema lo más acotado posible.
 
-## 📦 Instalación de dependencias
+## ✨ Características principales
 
-Instalar las librerías necesarias:
+- 🤖 Generación local mediante Ollama.
+- 🌿 Búsqueda iterativa con Beam Search.
+- 📏 Evaluación automática de métrica y rima.
+- 🧩 Refinamiento local de restricciones formales.
+- 🛡️ Conservación de buenos candidatos mediante elitismo.
+- 📊 Trazas y métricas para analizar cada ejecución.
 
-```bash
-pip install -r requirements.txt
-```
+## 🗂️ Archivos principales
 
-Se recomienda utilizar un entorno virtual para evitar conflictos entre dependencias.
-
----
-
-## 🤖 Configuración de Ollama
-
-Instalar Ollama desde:
-
-https://ollama.com
-
-Descargar el modelo utilizado:
-
-```bash
-ollama pull mistral:7b-instruct
-```
-
-Asegurarse de que el servidor está activo:
-
-```bash
-ollama serve
-```
-
----
-
-## ▶️ Ejecución
-
-Ejecutar el script principal:
-
-```bash
-python src/langgraph_beam_ollama.py
-```
-
----
-
-## 🧩 Descripción del funcionamiento
-
-El sistema sigue un ciclo iterativo compuesto por tres fases:
-
-**Expansión (Expand)**: Se generan múltiples versiones candidatas del soneto.
-**Evaluación (Score)**: Cada soneto es evaluado para estimar su calidad.
-**Poda (Prune)**: Se seleccionan los `k` mejores sonetos en función de su puntuación.
-
-Este proceso se repite durante un número fijo de pasos (`max_steps`), permitiendo mejorar progresivamente los resultados.
-
----
-
-## 📊 Evaluación de los sonetos
-
-La evaluación del soneto se abordará en dos fases:
-
-1. Métricas objetivas (en desarrollo)
-
-Se pretende evaluar automáticamente los siguientes aspectos:
-
-Extensión: el soneto debe tener exactamente 14 versos
-Métrica: cada verso debe tener aproximadamente 11 sílabas
-Rima: esquema ABBA ABBA CDC CDC
-
-Estas métricas se implementarán mediante funciones en Python que permitirán analizar formalmente cada soneto generado.
-
-2. Evaluación subjetiva (trabajo futuro)
-
-Como mejora futura, se incorporará un enfoque de LLM-as-a-judge, donde un modelo de lenguaje evaluará aspectos más subjetivos como:
-
-calidad estética
-coherencia poética
-riqueza léxica
-
-Esta evaluación podrá combinarse con las métricas objetivas para obtener una puntuación más completa.l
-
----
-
-## 🧪 Observaciones
-
-- El sistema permite analizar cómo evolucionan los sonetos a lo largo de las iteraciones
-- La generación de poesía con restricciones estrictas es un problema complejo para LLMs locales
-- El enfoque permite introducir feedback estructurado para mejorar los resultados
-
----
-
-## ⚙️ Dependencias principales
-
-- langgraph → orquestación del grafo de ejecución
-- langchain → integración con modelos de lenguaje
-- requests → comunicación con Ollama
-
----
-
-## 📁 Estructura del proyecto
+El núcleo actual del proyecto está en:
 
 ```text
-TFG_AGENTE_RAZONAMIENTO
-├── memoria
-├── runs
-├── src
-│   ├── langgraph_beam_ollama.py
-│   └── sonnet_metrics.py
-└── .gitignore
+src/
++-- langgraph_beam_stanza.py
++-- sonnet_metrics.py
 ```
 
----
+`langgraph_beam_stanza.py` contiene el agente principal: generación, Beam Search, evaluación de candidatos, refinamientos y guardado de resultados.
 
-## 📌 Notas
+`sonnet_metrics.py` contiene las funciones de evaluación formal: cómputo silábico aproximado, análisis de rima y puntuación de la estrofa.
 
-- El sistema está diseñado como prueba de concepto para agentes con razonamiento iterativo
-- Se centra en la generación controlada de texto bajo restricciones formales
-- Las métricas de evaluación se están desarrollando de forma incremental
+## 📁 Estructura del repositorio
 
----
+```text
+TFG_Agente_Razonamiento/
++-- src/
+|   +-- langgraph_beam_stanza.py
+|   +-- sonnet_metrics.py
++-- outputs/
++-- memoria/
++-- pasosImplementacionRimaDetallados/
++-- runs/
++-- requirements.txt
++-- INSTRUCCIONES_EJECUCION.md
++-- CONTEXTO.md
++-- README.md
+```
+
+## 📤 Resultados generados
+
+Cada ejecución guarda sus resultados en la carpeta `outputs/`.
+
+Los archivos más importantes son:
+
+- `final_stanza_*.txt`: resumen legible de la estrofa final y sus métricas.
+- `final_stanza_metrics_*.json`: información estructurada de la evaluación final.
+- `final_stanza_trace_*.json`: traza completa del proceso de Beam Search.
+
+Estos archivos permiten estudiar no solo la estrofa final, sino también cómo ha evolucionado el proceso de búsqueda.
+
+## 🚀 Ejecución del proyecto
+
+Las instrucciones completas de instalación, configuración de Ollama, selección de modelo, parámetros principales y ejecución están en:
+
+```text
+INSTRUCCIONES_EJECUCION.md
+```
+
+Ese documento es la guía práctica para reproducir las pruebas.
 
 ## 📚 Contexto académico
 
-Este proyecto forma parte de un Trabajo de Fin de Grado en Ingeniería Informática, centrado en:
+Este repositorio forma parte de un Trabajo de Fin de Grado en Ingeniería Informática.
 
-- Agentes con razonamiento deliberativo
-- Uso de Beam Search en LLMs
-- Evaluación automática de salidas generadas
-- Generación de texto bajo restricciones formales
+El foco principal del trabajo es analizar cómo un algoritmo de búsqueda como Beam Search puede servir para estructurar el comportamiento de un agente basado en LLMs, especialmente cuando la salida debe cumplir restricciones formales difíciles de satisfacer de una sola vez.
 
----
+## 👤 Autor
 
-## 👨‍💻 Autor
-
-Proyecto desarrollado por Juan Torres Gómez, estudiante de Ingeniería Informática de la Universidad de Málaga
-
+Proyecto desarrollado por **Juan Torres Gómez**, estudiante de Ingeniería Informática de la Universidad de Málaga.

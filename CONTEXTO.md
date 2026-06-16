@@ -1,118 +1,217 @@
 # Contexto del proyecto
 
-Este proyecto implementa un sistema de generacion automatica de una estrofa clasica en espanol usando un LLM local con Ollama, LangGraph y Beam Search.
+Este proyecto implementa un agente de generacion poetica centrado en una estrofa de 4 versos endecasilabos con rima consonante ABBA.
 
-El objetivo actual no es generar un soneto completo, sino una sola estrofa de 4 versos:
+La unidad de trabajo del sistema es siempre la estrofa completa:
 
 ```text
 - 4 versos.
-- Versos endecasilabos.
+- 11 silabas metricas por verso.
 - Rima consonante ABBA.
 ```
 
-La unidad de trabajo del sistema es siempre la estrofa completa, no el soneto.
+El sistema combina un LLM local servido con Ollama, un grafo de ejecucion con LangGraph y un algoritmo Beam Search para explorar varias soluciones candidatas antes de seleccionar la mejor.
 
 ## Archivos principales
 
-### `src/sonnet_metrics.py`
-
-Contiene la evaluacion formal objetiva.
-
-Aunque conserva funciones antiguas para sonetos completos, el flujo actual usa principalmente las funciones de estrofa:
-
-- `count_verse_syllables(...)`
-  - Cuenta silabas metricas aproximadas.
-  - Usa separacion silabica con `pyphen`, ajuste por palabra final y sinalefa basica.
-
-- `extract_verse_rhyme(...)`
-  - Extrae rima consonante desde la vocal tonica de la ultima palabra.
-
-- `evaluate_stanza_abba(...)`
-  - Evalua una estrofa de 4 versos.
-  - Comprueba numero de versos, endecasilabos y rima ABBA.
-  - Devuelve `score`, `score_20`, errores y feedback formal.
-
-- `diagnose_stanza_outer_rhyme(...)`
-  - Diagnostica la rima exterior A: verso 1 con verso 4.
-
-- `diagnose_stanza_inner_rhyme(...)`
-  - Diagnostica la rima interior B: verso 2 con verso 3.
-
-Limitaciones conocidas:
-
-- La metrica espanola se aproxima; no cubre todos los casos poeticos.
-- La sinalefa es basica.
-- La deteccion de vocal tonica en palabras sin tilde es heuristica.
-
 ### `src/langgraph_beam_stanza.py`
 
-Es el archivo principal del sistema actual.
+Es el archivo principal del sistema.
 
-Implementa:
+Contiene:
 
-- generacion de estrofas candidatas con Ollama;
-- Beam Search con LangGraph;
-- evaluacion formal con `evaluate_stanza_abba(...)`;
-- reparacion local de metrica;
-- diagnostico y reparacion de rima exterior A;
-- diagnostico y reparacion de rima interior B;
-- reparacion metrica posterior a la reparacion de rima B;
-- proteccion de mejores beams;
-- exportacion de resultados y trazas.
+- configuracion global del experimento;
+- llamada a Ollama;
+- construccion de prompts;
+- generacion de estrofas candidatas;
+- reparacion metrica local;
+- reparacion de rima exterior A;
+- reparacion de rima interior B;
+- reparacion metrica posterior a rima A y B;
+- elitismo y proteccion de restricciones;
+- nodos del grafo LangGraph;
+- guardado de resultados y trazas.
 
-## Flujo general
+### `src/sonnet_metrics.py`
 
-1. `main()` construye un grafo LangGraph con tres nodos:
-   - `expand`
-   - `score`
-   - `prune`
+Contiene la evaluacion formal.
 
-2. `expand_node(...)` genera estrofas candidatas:
-   - desde cero en el primer paso;
-   - como correcciones de una estrofa previa en pasos posteriores.
+Aunque conserva algunas funciones historicas, el flujo actual usa las funciones de estrofa ABBA:
 
-3. `score_node(...)` aplica el pipeline formal:
+- conteo de versos;
+- conteo silabico aproximado;
+- deteccion de rima consonante;
+- diagnostico de rima exterior A;
+- diagnostico de rima interior B;
+- puntuacion formal de la estrofa.
+
+## Flujo general del sistema
+
+1. `main()` construye el grafo LangGraph.
+2. El grafo empieza con un beam inicial sin estrofa.
+3. `expand_node(...)` genera estrofas candidatas con Ollama.
+4. `score_node(...)` evalua y, si las fases estan activadas, aplica reparaciones locales.
+5. `prune_node(...)` selecciona los mejores beams.
+6. `should_continue(...)` decide si continuar o terminar.
+7. `save_final_result(...)` guarda la estrofa final, las metricas y la traza.
+
+El ciclo principal es:
 
 ```text
-1. Reparacion metrica local.
-2. Diagnostico y reparacion de rima exterior A.
-3. Diagnostico y reparacion de rima interior B.
-4. Reparacion metrica posterior a B, solo si una variante ya corrigio la rima B pero fallo por metrica.
-5. Evaluacion final ABBA.
+EXPAND -> SCORE -> PRUNE -> EXPAND -> ...
 ```
 
-4. `prune_node(...)` selecciona los mejores beams.
+hasta alcanzar `max_steps`.
 
-5. El proceso se repite hasta `max_steps`.
+## `langgraph_beam_stanza.py`
 
-6. Al final se guardan:
-   - `final_stanza_*.txt`
-   - `final_stanza_metrics_*.json`
-   - `final_stanza_trace_*.json`
+### 1. Constantes globales
 
-## Reparacion metrica
+Definen el comportamiento del experimento:
 
-Controlada por:
+- `BASE_URL`: URL local de Ollama.
+- `GENERATION_MODEL`: modelo de Ollama usado.
+- `TEMPERATURE`, `RETRY_TEMPERATURE`, `NUM_PREDICT`: parametros de generacion.
+- `ALPHA`: peso historico para agregar puntuaciones.
+- `ENABLE_LOCAL_METER_REPAIR`: activa o desactiva la reparacion metrica inicial.
+- `ENABLE_OUTER_RHYME_REPAIR`: activa o desactiva la reparacion de rima exterior A.
+- `ENABLE_POST_A_RHYME_METER_REPAIR`: activa o desactiva la reparacion metrica posterior a rima A.
+- `ENABLE_INNER_RHYME_REPAIR`: activa o desactiva la reparacion de rima interior B.
+- `ENABLE_POST_B_RHYME_METER_REPAIR`: activa o desactiva la reparacion metrica posterior a rima B.
+- `ENABLE_BEAM_ELITISM`: permite conservar buenos beams aunque sus descendientes sean peores.
+- `ENABLE_PROMPT_CONSTRAINT_PROTECTION`: anade al prompt instrucciones para conservar restricciones ya satisfechas.
 
-```python
-ENABLE_LOCAL_METER_REPAIR = True
-```
+La reparacion de rima se apoya en prompts y diagnosticos formales, no en listas fijas de palabras finales.
 
-Funcion principal:
+### 2. Estado del grafo
 
-```python
-repair_stanza_meter_with_ollama(...)
-```
+`BeamSearchState` define la estructura del estado que viaja por LangGraph:
 
-La reparacion metrica:
+- `question`: prompt inicial o tarea poetica.
+- `beams`: beams vivos en cada iteracion.
+- `candidates`: estrofas candidatas generadas en el paso actual.
+- `trace`: historial estructurado del proceso.
+- `step`: paso actual.
+- `max_steps`: numero maximo de iteraciones.
+- `k`: numero de beams conservados tras la poda.
 
-- revisa versos que no tienen 11 silabas;
-- pide variantes del verso concreto al LLM;
-- acepta solo variantes que acerquen el verso a 11 silabas;
-- no intenta reparar rima;
-- suele mejorar mucho el porcentaje de versos endecasilabos.
+### 3. Utilidad general Ollama
 
-## Rima exterior A
+`chat_ollama(...)`
+
+- Construye la peticion HTTP a `/api/chat`.
+- Envia el modelo, los mensajes, la temperatura y `num_predict`.
+- Devuelve el contenido textual generado por Ollama.
+- Es la funcion comun usada por generacion principal y reparaciones.
+
+### 4. Limpieza y parseo JSON
+
+`clean_generated_verse(...)`
+
+- Limpia numeracion, guiones y comillas alrededor de un verso.
+
+`clean_generated_stanza(...)`
+
+- Aplica limpieza a los versos generados.
+- Elimina lineas vacias.
+- Conserva como maximo 4 versos.
+
+`_parse_stanza_payload(...)`
+
+- Interpreta un objeto JSON devuelto por el modelo.
+- Extrae una estrofa desde campos como `stanza` o `verses`.
+
+`parse_stanza_candidates_response(...)`
+
+- Parsea la respuesta JSON del LLM.
+- Extrae varias candidatas.
+- Normaliza sus versos.
+- Si la respuesta no cumple formato, lanza error para permitir reintento.
+
+### 5. Construccion del prompt
+
+`format_numbered_verses(...)`
+
+- Formatea una estrofa como lista numerada.
+- Se usa en prompts y salidas por consola.
+
+`summarize_feedback_for_prompt(...)`
+
+- Resume el feedback formal para incluirlo en prompts de correccion.
+
+`build_constraint_protection_prompt(...)`
+
+- Detecta restricciones ya satisfechas.
+- Si una rima o metrica ya esta bien, genera instrucciones para conservar esos versos.
+- Ayuda a no degradar buenos beams en iteraciones posteriores.
+
+`_build_stanza_generation_messages(...)`
+
+- Construye los mensajes de sistema y usuario para Ollama.
+- En el primer paso pide una estrofa desde cero.
+- En pasos posteriores pide corregir una estrofa previa usando feedback formal.
+- Exige salida JSON estructurada.
+
+### 6. Generacion con Ollama
+
+`generate_stanza_candidates_with_ollama(...)`
+
+- Llama a `_build_stanza_generation_messages(...)`.
+- Envia el prompt a Ollama mediante `chat_ollama(...)`.
+- Parsea la respuesta con `parse_stanza_candidates_response(...)`.
+- Si falla el JSON, reintenta con temperatura mas baja.
+- Devuelve una lista de estrofas candidatas.
+
+### 7. Reparacion local de metrica
+
+`syllable_distance_to_target(...)`
+
+- Calcula la distancia absoluta entre las silabas de un verso y el objetivo de 11.
+
+`parse_meter_repair_variants_response(...)`
+
+- Parsea variantes de reparacion metrica generadas por el LLM.
+
+`_build_meter_repair_messages(...)`
+
+- Construye el prompt para reescribir un unico verso que no tiene 11 silabas.
+- Pide no modificar el resto de la estrofa.
+
+`generate_meter_repair_variants_with_ollama(...)`
+
+- Solicita variantes metricas para un verso concreto.
+
+`_build_meter_repair_messages_preserving_final_word(...)`
+
+- Construye un prompt de reparacion metrica que obliga a conservar una palabra final concreta.
+- Se usa tras reparar rima, para no perder la palabra que consigue rimar.
+
+`generate_meter_repair_variants_preserving_final_word_with_ollama(...)`
+
+- Genera variantes metricas que deben terminar exactamente en una palabra final dada.
+
+`build_meter_repair_report(...)`
+
+- Crea la estructura del informe de reparacion metrica inicial.
+
+`build_post_rhyme_meter_repair_report(...)`
+
+- Crea la estructura del informe de reparacion metrica posterior a rima.
+
+`repair_verse_meter_preserving_final_word_with_ollama(...)`
+
+- Repara metricamente un unico verso.
+- Obliga a conservar la palabra final.
+- Acepta solo variantes que mantengan esa palabra y no empeoren la distancia metrica.
+
+`repair_stanza_meter_with_ollama(...)`
+
+- Recorre los versos de la estrofa.
+- Detecta versos que no tienen 11 silabas.
+- Pide variantes al LLM para esos versos.
+- Sustituye un verso solo si mejora su distancia a 11 silabas.
+
+### 8. Reparacion de rima exterior A
 
 La rima exterior A corresponde a:
 
@@ -121,25 +220,42 @@ verso 1 = ancla
 verso 4 = verso reparable
 ```
 
-Funciones principales:
+`parse_rhyme_repair_variants_response(...)`
 
-- `diagnose_stanza_outer_rhyme(...)`
-- `repair_stanza_outer_rhyme_with_ollama(...)`
-- `_build_outer_rhyme_repair_messages(...)`
+- Parsea respuestas JSON con variantes de un verso.
 
-Estrategia:
+`parse_outer_rhyme_repair_variants_response(...)`
 
-- Si la rima A ya es correcta, no se repara.
-- Si falla, se reescribe solo el verso 4.
-- El verso 1 no se modifica.
-- Se usan palabras finales candidatas mediante `RHYME_HINT_EXAMPLES`.
-- Se evita repetir exactamente la palabra final del verso 1 cuando hay alternativas.
-- Se acepta una variante solo si:
-  - corrige la rima A;
-  - no empeora la distancia metrica del verso 4;
-  - respeta la palabra final candidata cuando existe lista forzable.
+- Alias especializado para variantes de rima exterior A.
 
-## Rima interior B
+`build_rhyme_target_hint(...)`
+
+- Explica al LLM que la rima objetivo es una terminacion de rima, no una palabra obligatoria.
+- Pide usar una palabra real completa que comparta esa rima.
+
+`_build_outer_rhyme_repair_messages(...)`
+
+- Construye el prompt para reescribir solo el verso 4.
+- Mantiene el verso 1 como ancla.
+- Pide que el verso 4 rime consonantemente con el verso 1.
+- Evita pedir palabras hardcodeadas.
+
+`generate_outer_rhyme_repair_variants_with_ollama(...)`
+
+- Solicita al LLM variantes del verso 4.
+
+`build_outer_rhyme_repair_report(...)`
+
+- Crea la estructura del informe de reparacion de rima A.
+
+`repair_stanza_outer_rhyme_with_ollama(...)`
+
+- Si la rima A ya es correcta, no hace nada.
+- Si falla, genera variantes del verso 4.
+- Acepta una variante si corrige rima A y no empeora la metrica.
+- Si una variante corrige la rima pero falla metricamente, puede activar reparacion metrica posterior a A conservando la palabra final.
+
+### 9. Reparacion de rima interior B
 
 La rima interior B corresponde a:
 
@@ -148,184 +264,372 @@ verso 2 = ancla
 verso 3 = verso reparable
 ```
 
-Funciones principales:
+`_build_inner_rhyme_repair_messages(...)`
 
-- `diagnose_stanza_inner_rhyme(...)`
-- `repair_stanza_inner_rhyme_with_ollama(...)`
-- `_build_inner_rhyme_repair_messages(...)`
-- `_build_inner_rhyme_repair_messages_for_final_word(...)`
-- `generate_conditioned_inner_rhyme_repair_variants_with_ollama(...)`
+- Construye el prompt para reescribir solo el verso 3.
+- Mantiene el verso 2 como ancla.
+- Pide que el verso 3 rime consonantemente con el verso 2.
 
-Estrategia actual:
+`generate_inner_rhyme_repair_variants_with_ollama(...)`
 
-- Si la rima B ya es correcta, no se repara.
-- Si falla, se reescribe solo el verso 3.
-- El verso 2 no se modifica.
-- Si hay palabras finales candidatas, la generacion puede condicionarse por candidata concreta.
-- Ejemplo: generar variantes terminadas exactamente en `llorar`, luego en `pasar`, etc.
-- Si no hay candidatas forzables, se usa el metodo anterior basado en una lista general.
-- Se acepta una variante solo si:
-  - corrige la rima B;
-  - no empeora la distancia metrica del verso 3;
-  - termina en palabra candidata cuando hay lista forzable.
+- Solicita al LLM variantes del verso 3.
 
-Ademas, si una variante corrige la rima B y termina en palabra candidata, pero falla por metrica, puede activarse una reparacion metrica posterior. Esta segunda reparacion intenta ajustar solo el verso 3 conservando exactamente la palabra final que habia conseguido la rima.
+`build_inner_rhyme_repair_report(...)`
 
-La reparacion B y su post-reparacion metrica siguen siendo la parte mas reciente y estan en evaluacion experimental.
+- Crea la estructura del informe de reparacion de rima B.
 
-## Reparacion metrica posterior a B
+`repair_stanza_inner_rhyme_with_ollama(...)`
 
-Controlada por:
+- Si la rima B ya es correcta, no hace nada.
+- Si falla, genera variantes del verso 3.
+- Acepta una variante si corrige rima B y no empeora la metrica.
+- Si una variante corrige la rima pero falla metricamente, puede activar reparacion metrica posterior a B conservando la palabra final.
 
-```python
-ENABLE_POST_B_RHYME_METER_REPAIR = True
-```
+### 10. Resumenes y trazas
 
-Funciones principales:
+`_get_nested_metric(...)`
 
-- `_build_meter_repair_messages_preserving_final_word(...)`
-- `generate_meter_repair_variants_preserving_final_word_with_ollama(...)`
-- `repair_verse_meter_preserving_final_word_with_ollama(...)`
+- Obtiene valores internos de diccionarios de metricas.
 
-Estrategia:
+`summarize_metrics(...)`
 
-- Solo se intenta dentro de la reparacion de rima B.
-- Solo se activa si una variante del verso 3:
-  - corrige la rima con el verso 2;
-  - termina en una palabra final candidata valida;
-  - falla por metrica.
-- Reescribe solo el verso 3.
-- No modifica los versos 1, 2 ni 4.
-- Debe conservar exactamente la palabra final del verso 3.
-- La variante final solo se acepta si:
-  - mantiene la rima B;
-  - conserva la palabra final;
-  - no empeora la distancia metrica frente al verso 3 original.
+- Resume numero de versos, endecasilabos, rima y score.
 
-La finalidad es no perder una buena palabra final rimada solo porque la primera version del verso no encaja metricamente.
+`summarize_meter_repair_report(...)`
 
-## Palabras candidatas de rima
+- Resume si la reparacion metrica se intento, mejoro algo y cambio la estrofa.
 
-El diccionario:
+`summarize_outer_rhyme_repair_report(...)`
 
-```python
-RHYME_HINT_EXAMPLES
-```
+- Resume la reparacion de rima A.
 
-contiene ejemplos de palabras finales para rimas frecuentes.
+`summarize_inner_rhyme_repair_report(...)`
 
-Lo usan tanto A como B para reducir la libertad del modelo.
+- Resume la reparacion de rima B.
 
-Ejemplos:
+`summarize_outer_rhyme_diagnosis(...)`
 
-```python
-"eva": ["lleva", "nueva", "eleva", "conlleva", "nieva"]
-"ar": ["llorar", "pasar", "mirar", "soñar", "callar", "recordar"]
-"ombra": ["sombra", "alfombra", "asombra", "nombra"]
-"ado": ["helado", "olvidado", "callado", "pasado", "soñado", "amado"]
-```
+- Resume si la rima exterior AXYA es correcta.
 
-Si no hay candidatas utiles, el LLM suele fallar mas al reparar rima.
+`summarize_inner_rhyme_diagnosis(...)`
 
-## Protecciones del Beam Search
+- Resume si la rima interior B es correcta.
 
-Se anadio elitismo para no perder buenas estrofas ya encontradas.
+`build_trace_entry(...)`
 
-Constantes:
+- Construye entradas JSON compactas para la traza.
+- Incluye estrofa, scores, metricas, diagnosticos y reportes.
 
-```python
-ENABLE_BEAM_ELITISM = True
-ELITE_BEAMS_TO_KEEP = 1
-ENABLE_PROMPT_CONSTRAINT_PROTECTION = True
-```
+`get_main_feedback_line(...)`
 
-Funciones relacionadas:
+- Extrae la primera linea relevante del feedback formal.
 
-- `is_preservable_beam(...)`
-- `mark_beam_as_elite_candidate(...)`
-- `deduplicate_beams_by_stanza(...)`
-- `build_constraint_protection_prompt(...)`
+`is_preservable_beam(...)`
 
-Efecto:
+- Decide si un beam merece preservarse por elitismo.
 
-- Un beam bueno puede sobrevivir aunque sus descendientes sean peores.
-- Si una rima ya esta bien, el prompt de correccion pide conservar esos versos.
-- Si todos o algunos versos ya son endecasilabos, el prompt pide conservarlos.
+`mark_beam_as_elite_candidate(...)`
 
-## Medicion de tiempo
+- Marca una copia del beam como preservada por elitismo.
 
-El sistema mide el tiempo total de ejecucion alrededor de:
+`deduplicate_beams_by_stanza(...)`
 
-```python
-graph.invoke(initial_state)
-```
+- Elimina beams duplicados con la misma estrofa.
 
-Funcion:
+### 11. Nodos de LangGraph
 
-```python
-format_execution_time(...)
-```
+`expand_node(...)`
 
-El tiempo se muestra solo en `final_stanza_*.txt`.
+- Genera nuevas candidatas desde cada beam actual.
+- En el primer paso genera desde cero.
+- En pasos posteriores corrige estrofas previas.
 
-No se guarda en:
+`score_node(...)`
 
-- `final_stanza_metrics_*.json`
-- `final_stanza_trace_*.json`
+- Aplica el pipeline formal a cada candidata:
+  - reparacion metrica inicial, si esta activada;
+  - diagnostico y reparacion de rima A, si esta activada;
+  - diagnostico y reparacion de rima B, si esta activada;
+  - evaluacion final con `evaluate_stanza_abba(...)`.
+- Calcula score del paso y score agregado.
 
-## Parametros principales
+`prune_node(...)`
 
-Modelo:
+- Construye el conjunto de seleccion.
+- Puede anadir beams preservados por elitismo.
+- Ordena candidatos por score.
+- Conserva los `k` mejores.
 
-```python
-GENERATION_MODEL = "mistral:7b-instruct"
-```
+### 12. Agregacion de puntuaciones
 
-Parametros habituales:
+`aggregate_scores(...)`
 
-```python
-TEMPERATURE = 0.3
-NUM_PREDICT = 600
-ALPHA = 1.0
-k = 2
-max_steps = 3
-```
+- Agrega el historial de scores de un beam.
+- Usa `ALPHA` para ponderar el rendimiento historico.
 
-Reparacion metrica:
+### 13. Decision de continuacion
 
-```python
-METER_REPAIR_VARIANTS_PER_VERSE = 5
-METER_REPAIR_TEMPERATURE = 0.4
-METER_REPAIR_NUM_PREDICT = 200
-```
+`should_continue(...)`
 
-Reparacion rima A:
+- Termina si se alcanza `max_steps`.
+- Termina si no quedan beams.
+- En caso contrario vuelve a `expand`.
 
-```python
-OUTER_RHYME_REPAIR_VARIANTS = 5
-OUTER_RHYME_REPAIR_TEMPERATURE = 0.3
-OUTER_RHYME_REPAIR_NUM_PREDICT = 200
-```
+### 14. Guardado de resultados
 
-Reparacion rima B:
+`format_execution_time(...)`
 
-```python
-INNER_RHYME_REPAIR_VARIANTS = 5
-INNER_RHYME_REPAIR_TEMPERATURE = 0.3
-INNER_RHYME_REPAIR_NUM_PREDICT = 200
-INNER_RHYME_REPAIR_CONDITIONED_BY_CANDIDATE = True
-INNER_RHYME_REPAIR_VARIANTS_PER_CANDIDATE = 2
-INNER_RHYME_REPAIR_MAX_CANDIDATE_WORDS = 4
-```
+- Convierte segundos a un texto legible.
 
-Reparacion metrica posterior a B:
+`save_final_result(...)`
 
-```python
-ENABLE_POST_B_RHYME_METER_REPAIR = True
-POST_B_RHYME_METER_REPAIR_VARIANTS = 5
-POST_B_RHYME_METER_REPAIR_TEMPERATURE = 0.4
-POST_B_RHYME_METER_REPAIR_NUM_PREDICT = 200
-```
+- Crea la carpeta `outputs/` si no existe.
+- Guarda:
+  - `final_stanza_*.txt`;
+  - `final_stanza_metrics_*.json`;
+  - `final_stanza_trace_*.json`.
+- El tiempo total de ejecucion se muestra solo en el TXT.
+
+### 15. Main
+
+`main()`
+
+- Construye el grafo LangGraph.
+- Define el prompt inicial.
+- Inicializa el estado con un beam vacio.
+- Lanza `graph.invoke(initial_state)`.
+- Mide el tiempo total.
+- Imprime el resultado final por consola.
+- Guarda los archivos de salida.
+
+## `sonnet_metrics.py`
+
+### Normalizacion y versos
+
+`normalize_text(...)`
+
+- Normaliza espacios.
+
+`normalize_verses_input(...)`
+
+- Acepta texto o lista de versos.
+- Devuelve una lista limpia de versos no vacios.
+
+`evaluate_verse_count(...)`
+
+- Funcion historica no central en el flujo actual.
+- No es central en el flujo actual.
+
+### Limpieza de texto
+
+`remove_punctuation(...)`
+
+- Elimina signos de puntuacion.
+
+`clean_verse(...)`
+
+- Normaliza un verso para analisis.
+
+`split_words(...)`
+
+- Divide un verso en palabras limpias.
+
+`get_last_word(...)`
+
+- Devuelve la ultima palabra de un verso.
+
+`get_last_words(...)`
+
+- Devuelve las ultimas palabras de una lista de versos.
+
+### Acento y silabas
+
+`has_written_accent(...)`
+
+- Detecta si una palabra contiene tilde escrita.
+
+`get_stressed_vowel_index(...)`
+
+- Estima la vocal tonica de una palabra.
+
+`split_word_syllables(...)`
+
+- Divide una palabra en silabas usando `pyphen`.
+
+`count_word_syllables(...)`
+
+- Cuenta silabas de una palabra.
+
+`_get_stressed_syllable_index(...)`
+
+- Ubica la silaba tonica dentro de una palabra.
+
+`get_word_stress_type(...)`
+
+- Clasifica la palabra final como aguda, llana, esdrujula o desconocida.
+
+`get_final_word_syllable_adjustment(...)`
+
+- Aplica el ajuste metrico por palabra final:
+  - aguda: +1;
+  - llana: 0;
+  - esdrujula: -1.
+
+`count_raw_verse_syllables(...)`
+
+- Cuenta silabas sin sinalefa.
+
+`count_verse_syllables_without_sinalefa(...)`
+
+- Cuenta silabas de verso sin aplicar sinalefas.
+
+`analyze_verse_syllables_basic(...)`
+
+- Devuelve analisis silabico basico sin sinalefa.
+
+### Sinalefa
+
+`is_vowel_sound_start(...)`
+
+- Detecta si una palabra empieza por sonido vocalico.
+
+`is_vowel_sound_end(...)`
+
+- Detecta si una palabra termina por sonido vocalico.
+
+`get_sinalefa_pairs(...)`
+
+- Encuentra pares de palabras consecutivas que pueden formar sinalefa.
+
+`count_sinalefas(...)`
+
+- Cuenta sinalefas detectadas.
+
+`count_verse_syllables(...)`
+
+- Funcion principal para contar silabas metricas de un verso.
+- Combina conteo base, sinalefa y ajuste por palabra final.
+
+`analyze_verse_syllables(...)`
+
+- Devuelve analisis detallado del conteo silabico.
+
+### Rima
+
+`strip_accents(...)`
+
+- Elimina tildes para comparar rimas.
+
+`_get_syllable_start_positions(...)`
+
+- Calcula posiciones iniciales de silabas dentro de una palabra.
+
+`_find_stressed_vowel_offset_in_syllable(...)`
+
+- Busca vocal tonica dentro de una silaba.
+
+`get_last_stressed_vowel_position(...)`
+
+- Localiza la ultima vocal tonica de una palabra.
+
+`extract_consonant_rhyme(...)`
+
+- Extrae la rima consonante desde la vocal tonica hasta el final.
+
+`extract_verse_rhyme(...)`
+
+- Extrae la rima consonante de la ultima palabra de un verso.
+
+`extract_rhymes(...)`
+
+- Extrae rimas de una lista de versos.
+
+`_scheme_letter(...)`
+
+- Genera letras A, B, C... para esquemas de rima.
+
+`build_rhyme_scheme(...)`
+
+- Construye un esquema de rima a partir de rimas detectadas.
+
+`describe_rhyme_errors(...)`
+
+- Genera mensajes de error cuando la rima no coincide con el esquema esperado.
+
+`evaluate_rhyme_scheme(...)`
+
+- Funcion historica no central en el flujo actual.
+- No es la evaluacion principal actual.
+
+### Evaluacion de silabas
+
+`describe_syllable_errors(...)`
+
+- Genera mensajes para versos que no tienen 11 silabas.
+
+`evaluate_syllable_count(...)`
+
+- Funcion generica de evaluacion silabica.
+
+`_clamp_score(...)`
+
+- Acota una puntuacion al rango valido.
+
+### Funciones heredadas no usadas por el flujo principal
+
+`build_sonnet_feedback(...)`
+
+- Construye feedback para el evaluador historico basado en 14 versos.
+
+`evaluate_sonnet(...)`
+
+- Evalua una estructura poetica de 14 versos.
+- Se conserva por compatibilidad historica, pero no es el flujo principal actual.
+
+### Evaluacion actual de estrofa ABBA
+
+`evaluate_stanza_verse_count(...)`
+
+- Comprueba que la estrofa tenga exactamente 4 versos.
+
+`describe_stanza_syllable_errors(...)`
+
+- Genera mensajes especificos para errores metricos de una estrofa.
+
+`evaluate_stanza_syllable_count(...)`
+
+- Evalua si los 4 versos son endecasilabos.
+
+`evaluate_stanza_rhyme_scheme(...)`
+
+- Evalua si la estrofa cumple rima ABBA.
+
+`diagnose_stanza_outer_rhyme(...)`
+
+- Diagnostica la pareja exterior A:
+  - verso 1;
+  - verso 4.
+
+`diagnose_stanza_inner_rhyme(...)`
+
+- Diagnostica la pareja interior B:
+  - verso 2;
+  - verso 3.
+
+`build_stanza_feedback(...)`
+
+- Construye feedback formal legible para la estrofa.
+
+`evaluate_stanza_abba(...)`
+
+- Funcion principal de evaluacion actual.
+- Integra:
+  - numero de versos;
+  - metrica;
+  - rima ABBA;
+  - score normalizado;
+  - score sobre 20;
+  - feedback formal.
 
 ## Salidas generadas
 
@@ -349,46 +653,28 @@ Cada ejecucion crea archivos con timestamp en `outputs/`:
   - beams generados y seleccionados;
   - reportes intermedios.
 
+## Limitaciones conocidas
+
+- El conteo metrico es aproximado.
+- La sinalefa se modela de forma basica.
+- La deteccion de vocal tonica en palabras sin tilde es heuristica.
+- El LLM puede incumplir formato JSON o restricciones poeticas.
+- La rima B suele ser mas dificil que la rima A.
+- Aumentar reparaciones y variantes mejora la busqueda, pero incrementa el tiempo de ejecucion.
+
 ## Estado actual
 
-Funciona razonablemente bien:
+El sistema actual permite:
 
-- generacion de estrofas ABBA;
-- evaluacion formal objetiva;
-- reparacion metrica;
-- diagnostico de rima A y B;
-- reparacion de rima A;
-- preservacion de beams buenos;
-- medicion de tiempo;
-- trazas para analisis experimental.
-- reparacion metrica posterior a B cuando una variante ya corrige rima.
+- generar estrofas completas de 4 versos;
+- evaluar formalmente metrica y rima ABBA;
+- ejecutar Beam Search con LangGraph;
+- activar o desactivar reparaciones para comparar configuraciones;
+- preservar buenos beams mediante elitismo;
+- guardar resultados finales y trazas detalladas.
 
-En evaluacion:
+El codigo ya no contiene:
 
-- reparacion de rima interior B;
-- efecto real de la reparacion metrica posterior a B.
-
-Problemas observados:
-
-- La rima B mejora en algunos casos, pero no siempre.
-- A veces el LLM no respeta la palabra final candidata.
-- A veces corrige la rima pero empeora la metrica.
-- La reparacion metrica posterior a B puede aumentar el coste temporal porque anade llamadas a Ollama.
-
-## Posibles siguientes pasos
-
-1. Ejecutar varias pruebas con la reparacion B condicionada por palabra candidata y la post-reparacion metrica B.
-2. Analizar en los JSON:
-   - `inner_rhyme_repair_report.changed`;
-   - `conditioned_by_candidate`;
-   - `conditioned_generation_reports`;
-   - `post_b_meter_repair_attempts`;
-   - `post_b_meter_repair_successes`;
-   - motivos de rechazo por variante.
-3. Comparar experimentalmente:
-   - sin reparaciones;
-   - solo metrica;
-   - metrica + rima A;
-   - metrica + rima A + rima B.
-   - metrica + rima A + rima B + post-metrica B.
-4. Documentar tiempos y resultados para la memoria del TFG.
+- generacion de estructuras de 14 versos como objetivo principal;
+- listas fijas de palabras finales para forzar rimas;
+- reparacion B condicionada por palabras predefinidas.

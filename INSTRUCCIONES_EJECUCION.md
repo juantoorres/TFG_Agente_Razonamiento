@@ -234,7 +234,6 @@ post_a_meter_repair_attempts
 post_a_meter_repair_successes
 post_b_meter_repair_attempts
 post_b_meter_repair_successes
-conditioned_generation_reports
 variants
 rejection_reason
 ```
@@ -348,9 +347,6 @@ ENABLE_INNER_RHYME_REPAIR = True
 INNER_RHYME_REPAIR_VARIANTS = 5
 INNER_RHYME_REPAIR_TEMPERATURE = 0.3
 INNER_RHYME_REPAIR_NUM_PREDICT = 200
-INNER_RHYME_REPAIR_CONDITIONED_BY_CANDIDATE = True
-INNER_RHYME_REPAIR_VARIANTS_PER_CANDIDATE = 2
-INNER_RHYME_REPAIR_MAX_CANDIDATE_WORDS = 4
 ```
 
 La rima B corresponde a:
@@ -360,8 +356,6 @@ verso 2 con verso 3
 ```
 
 Si falla, se reescribe solo el verso 3.
-
-Si `INNER_RHYME_REPAIR_CONDITIONED_BY_CANDIDATE` esta activo, el sistema puede pedir variantes terminadas en palabras candidatas concretas.
 
 ### Reparación métrica posterior a rima B
 
@@ -390,27 +384,7 @@ Efecto:
 - pide al modelo que preserve rimas ya correctas;
 - pide conservar versos que ya son endecasilabos.
 
-## 9. Palabras candidatas de rima
-
-El sistema incluye un diccionario interno:
-
-```python
-RHYME_HINT_EXAMPLES
-```
-
-Sirve para sugerir palabras finales reales que comparten una rima.
-
-Ejemplo:
-
-```python
-"ar": ["llorar", "pasar", "mirar", "soñar", "callar", "recordar"]
-```
-
-Si el sistema detecta que la rima objetivo es `ar`, puede pedir al modelo variantes que terminen exactamente en alguna de esas palabras.
-
-Este diccionario no es el nucleo del Beam Search. Es una heuristica auxiliar para reducir el espacio de busqueda en la reparacion de rima.
-
-## 10. Comprobación rápida
+## 9. Comprobacion rapida
 
 Para comprobar que el codigo compila:
 
@@ -436,7 +410,7 @@ y deberian generarse archivos nuevos en:
 outputs/
 ```
 
-## 11. Errores frecuentes
+## 10. Errores frecuentes
 
 ### Ollama no está arrancado
 
@@ -494,7 +468,7 @@ o bajar el numero de variantes de reparacion.
 
 Es esperable. El sistema usa Beam Search y reparaciones locales, pero el LLM puede seguir fallando. Por eso se guardan trazas y metricas para analizar que restricciones se cumplieron y cuales no.
 
-## 12. Configuracion mínima recomendada para pruebas, Sergio
+## 11. Configuracion minima recomendada para pruebas, Sergio
 
 Para hacer pruebas sin tocar casi nada:
 
