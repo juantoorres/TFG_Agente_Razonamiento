@@ -2152,6 +2152,30 @@ La Figura~\ref{fig:comparativaModelosAdicionales2} compara la puntuación formal
 La comparación refuerza la existencia de un compromiso entre calidad formal y coste computacional. \texttt{gpt-oss:120b} permite alcanzar el mejor resultado formal observado, pero sus tiempos de ejecución son superiores a los de la configuración principal.
 Por otro lado, \texttt{magistral:24b} obtiene una puntuación alta con un tiempo menor, aunque mantiene un error puntual en la rima interior.
 
+Además de los valores cuantitativos, resulta útil mostrar las estrofas finales obtenidas en estas ejecuciones adicionales.
+Estos ejemplos permiten observar directamente el resultado generado por cada modelo y complementan la evaluación formal recogida en la Tabla~\ref{tab:ejecucionesModelosAdicionales2}.
+
+\begin{lstlisting}[caption={Estrofa obtenida con el modelo gpt-oss:120b en la primera ejecución adicional}, label={lst:gptoss120bEjecucion1}]
+1. Ojos verdes son espejo de mi sueño
+2. En su brillo vibra ya dulce canto
+3. Y su sombra cubre mi dulce manto
+4. Al alba su luz vuelve mi fiel dueño
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Estrofa obtenida con el modelo gpt-oss:120b en la segunda ejecución adicional}, label={lst:gptoss120bEjecucion2}]
+1. Tus ojos verdes, luz que al cielo me guía
+2. Surge en sus ojos la llama y luz
+3. Y su reflejo cruza el pecho, cruz
+4. Guardo su luz bajo velo del día
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Estrofa obtenida con el modelo magistral:latest en la ejecución adicional}, label={lst:magistralEjecucion}]
+1. La memoria es un río que fluye y va
+2. y arrastra las sombras del ayer en su huella
+3. como el viento que borra su huella sin fin
+4. y en su paso solo el olvido sea
+\end{lstlisting}
+
 En conjunto, estas pruebas muestran que la arquitectura propuesta puede trasladarse a modelos de distinta escala.
 No obstante, al tratarse de un número reducido de ejecuciones, los resultados deben interpretarse como una ampliación experimental del análisis principal, no como una comparativa exhaustiva entre modelos.
 

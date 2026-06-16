@@ -39,40 +39,40 @@ EPSILON = 1e-6
 
 # Fase experimental opcional: intenta reparar solo la metrica de versos que no
 # tienen 11 silabas. No toca la rima ni bloquea versos correctos.
-ENABLE_LOCAL_METER_REPAIR = True
+ENABLE_LOCAL_METER_REPAIR = False
 METER_REPAIR_VARIANTS_PER_VERSE = 5
 METER_REPAIR_TEMPERATURE = 0.4
 METER_REPAIR_NUM_PREDICT = 200
 
 # Fase experimental opcional: si la rima exterior AXYA falla, intenta
 # reescribir solo el verso 4 para que rime con el verso 1.
-ENABLE_OUTER_RHYME_REPAIR = True
+ENABLE_OUTER_RHYME_REPAIR = False
 OUTER_RHYME_REPAIR_VARIANTS = 5
 OUTER_RHYME_REPAIR_TEMPERATURE = 0.3
 OUTER_RHYME_REPAIR_NUM_PREDICT = 200
 
 # Segunda oportunidad metrica tras una variante que ya corrige la rima A.
-ENABLE_POST_A_RHYME_METER_REPAIR = True
+ENABLE_POST_A_RHYME_METER_REPAIR = False
 POST_A_RHYME_METER_REPAIR_VARIANTS = 5
 POST_A_RHYME_METER_REPAIR_TEMPERATURE = 0.4
 POST_A_RHYME_METER_REPAIR_NUM_PREDICT = 200
 
 # Fase experimental opcional: si la rima interior B falla, intenta
 # reescribir solo el verso 3 para que rime con el verso 2.
-ENABLE_INNER_RHYME_REPAIR = True
+ENABLE_INNER_RHYME_REPAIR = False
 INNER_RHYME_REPAIR_VARIANTS = 5
 INNER_RHYME_REPAIR_TEMPERATURE = 0.3
 INNER_RHYME_REPAIR_NUM_PREDICT = 200
 
 # Segunda oportunidad metrica tras una variante que ya corrige la rima B.
-ENABLE_POST_B_RHYME_METER_REPAIR = True
+ENABLE_POST_B_RHYME_METER_REPAIR = False
 POST_B_RHYME_METER_REPAIR_VARIANTS = 5
 POST_B_RHYME_METER_REPAIR_TEMPERATURE = 0.4
 POST_B_RHYME_METER_REPAIR_NUM_PREDICT = 200
 
-ENABLE_BEAM_ELITISM = True
+ENABLE_BEAM_ELITISM = False
 ELITE_BEAMS_TO_KEEP = 1
-ENABLE_PROMPT_CONSTRAINT_PROTECTION = True
+ENABLE_PROMPT_CONSTRAINT_PROTECTION = False
 
 
 # =========================
